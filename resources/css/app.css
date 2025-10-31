@@ -1,0 +1,192 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+:root {
+    --primary-gold: #D4A017;
+    --beige-light: #F9F6F1;
+    --white: #FFFFFF;
+    --gray-light: #E5E5E5;
+    --gray-medium: #666666;
+    --green-soft: #A7B59A;
+    --bs-primary: #D4A017 !important;
+    --bs-primary-rgb: 212, 160, 23 !important;
+}
+
+body {
+    background-color: var(--beige-light);
+    font-family: 'Lato', sans-serif;
+    color: var(--gray-medium);
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    min-height: 40vh;
+    color: var(--gray-medium);
+}
+
+.hero-section h1, .hero-section p {
+    color: var(--gray-medium);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--primary-gold) !important;
+    font-family: 'Playfair Display', serif;
+}
+
+.nav-link {
+    color: var(--primary-gold) !important;
+}
+
+.home-page .navbar-brand img {
+    height: 100px !important;
+    width: 291px !important;
+}
+
+
+
+.card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: var(--primary-gold) !important;
+    border-color: var(--primary-gold) !important;
+    border-radius: 10px;
+    font-weight: 600;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #B89415;
+    border-color: #B89415;
+}
+
+.btn-outline-primary {
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    border-radius: 10px;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-gold);
+    border-color: var(--primary-gold);
+}
+
+.btn-outline-primary {
+    border-color: #333 !important;
+    color: #333 !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: #333 !important;
+    border-color: #333 !important;
+    color: white !important;
+}
+
+.text-primary {
+    color: var(--primary-gold) !important;
+}
+
+.bg-primary {
+    background-color: var(--primary-gold) !important;
+}
+
+.bg-light {
+    background-color: var(--white) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gray-medium);
+}
+
+.card {
+    background-color: var(--white);
+    border: none;
+    border-radius: 15px;
+}
+
+.footer {
+    background-color: var(--gray-medium);
+}
+
+.badge {
+    background-color: var(--primary-gold) !important;
+}
+
+/* Custom Styles for 360imprimir theme */
+
+.category-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.product-card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+}
+
+.testimonial-card {
+    border: none;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+}
+
+.price-tag {
+    font-size: 1.5rem !important;
+    text-align: center;
+    display: block;
+}
+
+.auth-page .navbar-brand img {
+    height: 100px !important;
+    width: 291px !important;
+}
+
+.cart-page .navbar-brand img {
+    height: 100px !important;
+    width: 291px !important;
+}
+
+.product-page .main-logo {
+    width: 291px !important;
+    height: 100px !important;
+}

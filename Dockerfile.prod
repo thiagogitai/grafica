@@ -1,0 +1,76 @@
+##########################
+# Stage 1: Frontend build
+##########################
+FROM node:18-alpine AS frontend
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY resources ./resources
+COPY vite.config.js ./
+COPY public ./public
+# Vite build outputs to public/build by default
+RUN npm run build
+
+##########################
+# Stage 2: Composer deps
+##########################
+FROM composer:2 AS vendor
+WORKDIR /app
+COPY composer.json composer.lock ./
+RUN composer install \
+    --no-dev \
+    --prefer-dist \
+    --no-interaction \
+    --no-progress \
+    --optimize-autoloader
+
+##########################
+# Stage 3: PHP + Apache
+##########################
+FROM php:8.2-apache
+
+# System deps
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    libzip-dev \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libicu-dev \
+    libsqlite3-dev \
+ && rm -rf /var/lib/apt/lists/*
+
+# PHP extensions
+RUN docker-php-ext-configure intl \
+ && docker-php-ext-install -j"$(nproc)" \
+    pdo \
+    pdo_mysql \
+    pdo_sqlite \
+    zip \
+    gd \
+    intl \
+    bcmath
+
+# Apache config
+RUN a2enmod rewrite \
+ && sed -ri -e 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
+ && sed -ri -e 's!Directory /var/www/!Directory /var/www/html/public!g' /etc/apache2/apache2.conf || true
+
+WORKDIR /var/www/html
+
+# Copy application source
+COPY . .
+
+# Copy composer vendor from builder
+COPY --from=vendor /app/vendor ./vendor
+
+# Copy built assets from frontend
+COPY --from=frontend /app/public/build ./public/build
+
+# Entrypoint (no composer install here)
+COPY docker/entrypoint.prod.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["apache2-foreground"]
+

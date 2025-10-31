@@ -1,0 +1,38 @@
+{
+  "title_override": "Impressão de Livro Personalizado",
+  "base_price": null,
+  "redirect_to_upload": true,
+  "options": [
+    {
+      "name": "capa_tipo",
+      "label": "Tipo de Capa",
+      "type": "select",
+      "choices": [
+        { "value": "brochura", "label": "Brochura", "add": 0 },
+        { "value": "capa_dura", "label": "Capa Dura", "add": 15 }
+      ]
+    },
+    {
+      "name": "paginas",
+      "label": "Número de Páginas",
+      "type": "select",
+      "choices": [
+        { "value": "50", "label": "50 páginas", "add": 0 },
+        { "value": "100", "label": "100 páginas", "add": 10 },
+        { "value": "200", "label": "200 páginas", "add": 20 },
+        { "value": "300", "label": "300 páginas", "add": 30 }
+      ]
+    },
+    {
+      "name": "papel_tipo",
+      "label": "Tipo de Papel",
+      "type": "select",
+      "choices": [
+        { "value": "offset_75", "label": "Offset 75g", "add": 0 },
+        { "value": "offset_90", "label": "Offset 90g", "add": 5 },
+        { "value": "couche_120", "label": "Couchê 120g", "add": 10 }
+      ]
+    }
+  ]
+}
+
