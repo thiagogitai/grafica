@@ -4,6 +4,7 @@ services:
   app:
     build: .
     container_name: grafic_app
+    restart: unless-stopped
     ports:
       - "8097:80"
     environment:
@@ -26,6 +27,7 @@ services:
   node:
     image: node:18-alpine
     container_name: grafic_node
+    restart: unless-stopped
     working_dir: /app
     volumes:
       - ./:/app
@@ -34,6 +36,7 @@ services:
   db:
     image: mysql:8.0
     container_name: grafic_db
+    restart: unless-stopped
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_DATABASE: grafic
