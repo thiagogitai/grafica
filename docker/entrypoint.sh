@@ -18,10 +18,19 @@ fi
 
 php artisan key:generate --force || true
 
-echo "[entrypoint] Executando migrations"
-php artisan migrate --force || true
+echo "[entrypoint] Executando migrations (com retry)"
+retries=10
+until php artisan migrate --force; do
+  retries=$((retries-1))
+  if [ $retries -le 0 ]; then
+    echo "[entrypoint] Migrations falharam mesmo após tentativas; seguindo em frente." >&2
+    break
+  fi
+  echo "[entrypoint] Banco indisponível. Tentando novamente em 5s... ($retries restantes)"
+  sleep 5
+done
 
-echo "[entrypoint] Executando seeders"
+echo "[entrypoint] Executando seeders (ignorar falhas)"
 php artisan db:seed --force || true
 
 echo "[entrypoint] Linkando storage"
@@ -31,4 +40,3 @@ chown -R www-data:www-data storage bootstrap/cache || true
 
 echo "[entrypoint] Iniciando Apache"
 exec "$@"
-
