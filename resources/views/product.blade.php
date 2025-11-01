@@ -45,9 +45,8 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tipo de Capa</label>
                         <select class="form-select form-select-lg rounded-pill" name="capa_tipo" required>
-                            <option value="">Selecione o tipo de capa</option>
-                            <option value="brochura">Brochura (R$ 0,00)</option>
-                            <option value="capa_dura">Capa Dura (+ R$ 15,00)</option>
+                            <option value="brochura" {{ old('capa_tipo','brochura')==='brochura' ? 'selected' : '' }}>Brochura (R$ 0,00)</option>
+                            <option value="capa_dura" {{ old('capa_tipo')==='capa_dura' ? 'selected' : '' }}>Capa Dura (+ R$ 15,00)</option>
                         </select>
                     </div>
 
@@ -55,11 +54,10 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold">Número de Páginas</label>
                         <select class="form-select form-select-lg rounded-pill" name="paginas" required>
-                            <option value="">Selecione o número de páginas</option>
-                            <option value="50">50 páginas (R$ 0,00)</option>
-                            <option value="100">100 páginas (+ R$ 10,00)</option>
-                            <option value="200">200 páginas (+ R$ 20,00)</option>
-                            <option value="300">300 páginas (+ R$ 30,00)</option>
+                            <option value="50" {{ old('paginas','50')==='50' ? 'selected' : '' }}>50 páginas (R$ 0,00)</option>
+                            <option value="100" {{ old('paginas')==='100' ? 'selected' : '' }}>100 páginas (+ R$ 10,00)</option>
+                            <option value="200" {{ old('paginas')==='200' ? 'selected' : '' }}>200 páginas (+ R$ 20,00)</option>
+                            <option value="300" {{ old('paginas')==='300' ? 'selected' : '' }}>300 páginas (+ R$ 30,00)</option>
                         </select>
                     </div>
 
@@ -67,10 +65,9 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold">Tipo de Papel</label>
                         <select class="form-select form-select-lg rounded-pill" name="papel_tipo" required>
-                            <option value="">Selecione o tipo de papel</option>
-                            <option value="offset_75">Offset 75g (R$ 0,00)</option>
-                            <option value="offset_90">Offset 90g (+ R$ 5,00)</option>
-                            <option value="couche_120">Couchê 120g (+ R$ 10,00)</option>
+                            <option value="offset_75" {{ old('papel_tipo','offset_75')==='offset_75' ? 'selected' : '' }}>Offset 75g (R$ 0,00)</option>
+                            <option value="offset_90" {{ old('papel_tipo')==='offset_90' ? 'selected' : '' }}>Offset 90g (+ R$ 5,00)</option>
+                            <option value="couche_120" {{ old('papel_tipo')==='couche_120' ? 'selected' : '' }}>Couchê 120g (+ R$ 10,00)</option>
                         </select>
                     </div>
 
@@ -188,13 +185,8 @@ document.querySelectorAll('select').forEach(select => {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Seleciona a primeira opção válida (não vazia) em cada select
+    // Garante atualização de preço com valores iniciais
     document.querySelectorAll('form#customization-form select').forEach(function(sel){
-        if (!sel.value) {
-            for (let i = 0; i < sel.options.length; i++) {
-                if (sel.options[i].value) { sel.selectedIndex = i; break; }
-            }
-        }
         sel.dispatchEvent(new Event('change', { bubbles: true }));
     });
     updateTotalPrice();
