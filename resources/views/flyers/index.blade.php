@@ -3,7 +3,7 @@
 @section('content')
 <div class="container my-5">
     <h1 class="mb-4">Flyers e Panfletos</h1>
-    <form action="{{ route('cart.add.flyer') }}" method="POST" id="flyer-form">
+    <form action="{{ route('cart.add.flyer', [], false) }}" method="POST" id="flyer-form">
         @csrf
         <input type="hidden" name="details" id="final-details" value="">
 
@@ -111,4 +111,3 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endsection
-
