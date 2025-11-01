@@ -186,6 +186,19 @@ function updateTotalPrice() {
 document.querySelectorAll('select').forEach(select => {
     select.addEventListener('change', updateTotalPrice);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Seleciona a primeira opção válida (não vazia) em cada select
+    document.querySelectorAll('form#customization-form select').forEach(function(sel){
+        if (!sel.value) {
+            for (let i = 0; i < sel.options.length; i++) {
+                if (sel.options[i].value) { sel.selectedIndex = i; break; }
+            }
+        }
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    updateTotalPrice();
+});
 </script>
 @endpush
 @endsection

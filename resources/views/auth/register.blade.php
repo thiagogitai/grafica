@@ -10,7 +10,7 @@
                 <div class="card-header">Cadastrar</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register', [], false) }}">
                         @csrf
 
                         <div class="row mb-3">
