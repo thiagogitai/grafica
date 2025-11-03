@@ -60,16 +60,6 @@ class HomeController extends Controller
         $requestOnlyCombined = $requestOnlyGlobal || $requestOnlyProduct;
 
         switch ($product->templateType()) {
-            case Product::TEMPLATE_FLYER:
-                $prices = json_decode(file_get_contents(base_path('precos_flyer.json')), true);
-                return view('flyers.show', [
-                    'product' => $product,
-                    'prices' => $prices,
-                    'requestOnlyGlobal' => $requestOnlyGlobal,
-                    'requestOnlyProduct' => $requestOnlyProduct,
-                    'requestOnly' => $requestOnlyCombined,
-                ]);
-
             case 'config':
                 $slug = $product->templateSlug();
                 if (!$slug || $product->template === Product::TEMPLATE_CONFIG_AUTO) {

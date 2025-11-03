@@ -182,6 +182,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const basePrice = {{ isset($config['base_price']) && is_numeric($config['base_price']) ? (float)$config['base_price'] : 0 }};
+    const configSlug = '{{ $configSlug }}';
 
     // Elementos de UI
     const totalPriceEl = document.getElementById('total-price');
@@ -211,30 +212,99 @@ document.addEventListener('DOMContentLoaded', function () {
         const opts = getOptions();
         const quantity = Math.max(1, parseInt(opts.quantity ?? '1', 10) || 1);
 
-        let additionalPrice = 0;
-        document.querySelectorAll('#calculator select[data-option-field]').forEach(select => {
-            const selected = select.options[select.selectedIndex];
-            const add = parseFloat(selected?.getAttribute('data-add') || '0');
-            if (!isNaN(add)) {
-                additionalPrice += add;
-            }
-        });
+        // Verificar se é flyer para usar cálculo especial
+        if (configSlug === 'impressao-de-flyer') {
+            // Carregar preços do flyer dinamicamente
+            fetch('/precos_flyer.json')
+                .then(response => response.json())
+                .then(prices => {
+                    let basePrice = 0;
+                    if (opts.quantity && opts.size && opts.paper && opts.color) {
+                        try {
+                            basePrice = prices[opts.quantity][opts.size][opts.paper][opts.color];
+                        } catch (e) {
+                            basePrice = 0;
+                        }
+                    }
 
-        const totalPrice = (basePrice + additionalPrice) * quantity;
-        const unitPrice = totalPrice / Math.max(quantity, 1);
+                    // Custos adicionais
+                    const finishingCost = parseFloat(opts.finishing || '0') || 0;
+                    const fileFormatCost = parseFloat(opts.file_format || '0') || 0;
+                    const fileCheckCost = parseFloat(opts.file_check || '0') || 0;
 
-        totalPriceEl.textContent = formatCurrency(totalPrice);
-        unitPriceEl.textContent = formatCurrency(unitPrice);
-        finalPriceInput.value = totalPrice;
+                    const totalPrice = (basePrice + finishingCost + fileFormatCost + fileCheckCost) * quantity;
+                    const unitPrice = totalPrice / Math.max(quantity, 1);
 
-        if (totalPrice > 0) {
-            finalDetailsInput.value = JSON.stringify(opts);
+                    totalPriceEl.textContent = formatCurrency(totalPrice);
+                    unitPriceEl.textContent = formatCurrency(unitPrice);
+                    finalPriceInput.value = totalPrice;
+
+                    if (totalPrice > 0) {
+                        finalDetailsInput.value = JSON.stringify(opts);
+                    } else {
+                        finalDetailsInput.value = '';
+                    }
+
+                    if (priceContainer) {
+                        priceContainer.classList.toggle('d-none', totalPrice <= 0);
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao carregar preços:', error);
+                    // Fallback para cálculo padrão
+                    let additionalPrice = 0;
+                    document.querySelectorAll('#calculator select[data-option-field]').forEach(select => {
+                        const selected = select.options[select.selectedIndex];
+                        const add = parseFloat(selected?.getAttribute('data-add') || '0');
+                        if (!isNaN(add)) {
+                            additionalPrice += add;
+                        }
+                    });
+
+                    const totalPrice = (basePrice + additionalPrice) * quantity;
+                    const unitPrice = totalPrice / Math.max(quantity, 1);
+
+                    totalPriceEl.textContent = formatCurrency(totalPrice);
+                    unitPriceEl.textContent = formatCurrency(unitPrice);
+                    finalPriceInput.value = totalPrice;
+
+                    if (totalPrice > 0) {
+                        finalDetailsInput.value = JSON.stringify(opts);
+                    } else {
+                        finalDetailsInput.value = '';
+                    }
+
+                    if (priceContainer) {
+                        priceContainer.classList.toggle('d-none', totalPrice <= 0);
+                    }
+                });
         } else {
-            finalDetailsInput.value = '';
-        }
+            // Cálculo padrão para outros produtos
+            let additionalPrice = 0;
+            document.querySelectorAll('#calculator select[data-option-field]').forEach(select => {
+                const selected = select.options[select.selectedIndex];
+                const add = parseFloat(selected?.getAttribute('data-add') || '0');
+                if (!isNaN(add)) {
+                    additionalPrice += add;
+                }
+            });
 
-        if (priceContainer) {
-            priceContainer.classList.toggle('d-none', totalPrice <= 0);
+            const totalPrice = (basePrice + additionalPrice) * quantity;
+            const unitPrice = totalPrice / Math.max(quantity, 1);
+
+            totalPriceEl.textContent = formatCurrency(totalPrice);
+            unitPriceEl.textContent = formatCurrency(unitPrice);
+            finalPriceInput.value = totalPrice;
+
+            if (totalPrice > 0) {
+                finalDetailsInput.value = JSON.stringify(opts);
+            } else {
+                finalDetailsInput.value = '';
+            }
+
+            if (priceContainer) {
+                priceContainer.classList.toggle('d-none', totalPrice <= 0);
+            }
         }
     }
 

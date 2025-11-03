@@ -291,9 +291,18 @@ class CartController extends Controller
             'file_check' => $chosenText['file_check'] ?? null,
         ];
 
-        $flyerId = 'flyer_' . md5(implode('|', [$qtyKey, $sizeKey, $paperKey, $colorKey, $details['finishing'] ?? '', $details['file_format'] ?? '', $details['file_check'] ?? '']));
+        $flyerId = 'flyer_' . md5(implode('|', [
+            $qtyKey,
+            $sizeKey,
+            $paperKey,
+            $colorKey,
+            $details['finishing'] ?? '',
+            $details['file_format'] ?? '',
+            $details['file_check'] ?? '',
+        ]));
 
         $cart[$flyerId] = [
+            'product_id' => $flyerProduct?->id,
             'name' => 'Flyer Personalizado',
             'price' => $flyerPrice,
             'quantity' => 1, // 1 lote
@@ -301,9 +310,19 @@ class CartController extends Controller
             'image' => null,
             'type' => 'flyer',
             'includes_markup' => true,
+            'artwork' => $cart[$flyerId]['artwork'] ?? [],
         ];
 
         session()->put('cart', $cart);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Flyer adicionado ao carrinho!',
+                'cart_item_id' => $flyerId,
+                'redirect_url' => route('cart.index'),
+            ]);
+        }
 
         return redirect()->route('cart.index')->with('success', 'Flyer adicionado ao carrinho!');
     }
