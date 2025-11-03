@@ -69,8 +69,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::get('/debug-product/{product}', function (App\Models\Product $product) {
     return response()->json($product);
 });
