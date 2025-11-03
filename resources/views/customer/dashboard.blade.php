@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Minha Conta - Grafica Todah Serviços Fotográficos')
+@section('title', 'Minha Conta - Gráfica Todah Serviços Gráficos')
 
 @section('body-class', 'customer-dashboard')
 

@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Admin - Grafica Todah Serviços Fotográficos')
+@section('title', 'Admin - Gráfica Todah Serviços Gráficos')
 @section('body-class', 'admin-page bg-light')
 
 @push('styles')

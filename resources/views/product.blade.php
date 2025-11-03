@@ -228,7 +228,7 @@
 
 @section('body-class', 'product-page')
 
-@section('title', $product->name . ' - Grafica Todah Serviços Fotográficos')
+@section('title', $product->name . ' - Gráfica Todah Serviços Gráficos')
 
 @section('content')
 <div class="container my-5">

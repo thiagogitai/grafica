@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Gerenciar Produtos - Grafica Todah Serviços Fotográficos')
+@section('title', 'Gerenciar Produtos - Gráfica Todah Serviços Gráficos')
 @section('admin-breadcrumb')
     <span><i class="fas fa-angle-right"></i> Produtos</span>
 @endsection

@@ -2,7 +2,7 @@
 
 @section('body-class', 'product-page')
 
-@section('title', ($config['title_override'] ?? $product->name) . ' - Grafica Todah Serviços Fotográficos')
+@section('title', ($config['title_override'] ?? $product->name) . ' - Gráfica Todah Serviços Gráficos')
 
 @php
     $requestOnlyGlobal = $requestOnlyGlobal ?? ($requestOnlyMode ?? false);

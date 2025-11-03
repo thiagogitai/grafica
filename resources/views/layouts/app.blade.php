@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Grafica Todah Serviços Fotográficos')</title>
+    <title>@yield('title', 'Gráfica Todah Serviços Gráficos')</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     @include('partials.vite-assets')
     @stack('styles')
@@ -192,7 +192,7 @@
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col-md-6">
-                    <h5 class="text-uppercase fw-bold mb-3">Grafica Todah Serviços Fotográficos</h5>
+                    <h5 class="text-uppercase fw-bold mb-3">Gráfica Todah Serviços Gráficos</h5>
                     <p class="mb-3 small">{{ $globalFooterText ?: 'Atualize este texto nas configurações para reforçar a mensagem da sua marca.' }}</p>
                     @if(!empty($globalWhatsappLink))
                         <a class="btn btn-outline-light btn-sm" href="{{ $globalWhatsappLink }}" target="_blank">
@@ -214,7 +214,7 @@
                             @endforeach
                         </div>
                     @endif
-                    <p class="mb-0 small mt-3">&copy; 2025 Grafica Todah Serviços Fotográficos. Todos os direitos reservados.</p>
+                    <p class="mb-0 small mt-3">&copy; 2025 Gráfica Todah Serviços Gráficos. Todos os direitos reservados.</p>
                 </div>
             </div>
         </div>

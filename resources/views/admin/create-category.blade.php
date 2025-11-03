@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Nova Categoria - Grafica Todah Serviços Fotográficos')
+@section('title', 'Nova Categoria - Gráfica Todah Serviços Gráficos')
 @section('admin-breadcrumb')
     <span><i class="fas fa-angle-right"></i> Categorias</span>
     <span><i class="fas fa-angle-right"></i> Nova</span>

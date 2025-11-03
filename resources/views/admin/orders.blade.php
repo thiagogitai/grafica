@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Pedidos - Grafica Todah Serviços Fotográficos')
+@section('title', 'Pedidos - Gráfica Todah Serviços Gráficos')
 @section('admin-breadcrumb')
     <span><i class="fas fa-angle-right"></i> Pedidos</span>
 @endsection
