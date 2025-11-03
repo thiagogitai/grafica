@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Setting;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Services\EvolutionWhatsapp;
+use App\Services\Pricing;
 
 class CheckoutController extends Controller
 {
@@ -17,6 +19,10 @@ class CheckoutController extends Controller
      */
     public function index()
     {
+        if ($response = $this->ensurePurchasingEnabled()) {
+            return $response;
+        }
+
         $cart = session()->get('cart', []);
         $total = 0;
         foreach ($cart as $item) {
@@ -31,6 +37,10 @@ class CheckoutController extends Controller
      */
     public function productCheckout(Product $product)
     {
+        if ($response = $this->ensurePurchasingEnabled()) {
+            return $response;
+        }
+
         $cart = [
             $product->id => [
                 "name" => $product->name,
@@ -49,6 +59,10 @@ class CheckoutController extends Controller
      */
     public function process(Request $request)
     {
+        if ($response = $this->ensurePurchasingEnabled()) {
+            return $response;
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -64,13 +78,30 @@ class CheckoutController extends Controller
 
         // Calcula total a partir do preço salvo no carrinho, aplicando percentual de acréscimo
         $total = 0;
-        $price_percentage = (float) Setting::get('price_percentage', 0);
+        $productIds = collect($cart)
+            ->pluck('product_id')
+            ->filter()
+            ->unique()
+            ->values();
+
+        $products = $productIds->isEmpty()
+            ? collect()
+            : Product::whereIn('id', $productIds)->get()->keyBy('id');
+
+        $globalMarkup = Pricing::globalPercentage();
         $orderItems = [];
         foreach ($cart as $cartKey => $item) {
             $unitPrice = (float) ($item['price'] ?? 0);
             $includesMarkup = (bool)($item['includes_markup'] ?? false);
-            if ($price_percentage > 0 && !$includesMarkup) {
-                $unitPrice = $unitPrice * (1 + ($price_percentage / 100));
+            if (!$includesMarkup) {
+                $productMarkup = 1 + ($globalMarkup / 100);
+
+                if (!empty($item['product_id']) && $products->has($item['product_id'])) {
+                    $product = $products->get($item['product_id']);
+                    $productMarkup = Pricing::multiplierFor($product);
+                }
+
+                $unitPrice *= $productMarkup;
             }
             $lineTotal = $unitPrice * (int) ($item['quantity'] ?? 1);
             $total += $lineTotal;
@@ -151,5 +182,14 @@ class CheckoutController extends Controller
     public function pending()
     {
         return view('checkout.pending');
+    }
+
+    protected function ensurePurchasingEnabled(): RedirectResponse|null
+    {
+        if (Setting::boolean('request_only', false)) {
+            return redirect()->route('home')->with('info', 'As compras estão temporariamente desativadas. Solicite um orçamento com nossa equipe.');
+        }
+
+        return null;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class FlyerController extends Controller
@@ -11,6 +12,11 @@ class FlyerController extends Controller
         $pricesPath = base_path('precos_flyer.json');
         $pricesData = json_decode(file_get_contents($pricesPath), true);
 
-        return view('flyers.index', ['prices' => $pricesData]);
+        $requestOnlyGlobal = Setting::boolean('request_only', false);
+
+        return view('flyers.index', [
+            'prices' => $pricesData,
+            'requestOnlyGlobal' => $requestOnlyGlobal,
+        ]);
     }
 }

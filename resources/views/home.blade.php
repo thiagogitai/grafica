@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Gráfica Todah - Gráfica Online')
+@section('title', 'Grafica Todah Serviços Fotográficos')
 
 @section('body-class', 'home-page')
 
 @section('content')
+
+@php
+    $requestOnlyGlobal = $requestOnlyGlobal ?? ($settings['request_only'] ?? false);
+@endphp
 
 <!-- Hero Section -->
 <section class="hero-section text-center bg-light d-flex align-items-center justify-content-center">
@@ -57,7 +61,7 @@
                     <div class="card h-100 product-card">
                         @php
                             $productImage = '';
-                            if (preg_match('/impressão em papel a4/i', $product->name)) {
+                            if ($product->templateType() === \App\Models\Product::TEMPLATE_FLYER || preg_match('/impressão em papel a4/i', $product->name)) {
                                 $productImage = 'folder.png';
                             } elseif (preg_match('/cartão/i', $product->name)) {
                                 $productImage = 'cartao.png';
@@ -66,6 +70,9 @@
                             } elseif (preg_match('/banner/i', $product->name)) {
                                 $productImage = 'banner.png';
                             }
+                            $usesConfigTemplate = method_exists($product, 'usesConfigTemplate') ? $product->usesConfigTemplate() : false;
+                            $isFlyerTemplate = $product->templateType() === \App\Models\Product::TEMPLATE_FLYER;
+                            $shouldHidePrice = ($requestOnlyGlobal ?? false) || $product->request_only || $usesConfigTemplate || $isFlyerTemplate;
                         @endphp
                         @if($productImage)
                             <img src="{{ asset($productImage) }}" class="card-img-top" alt="{{ $product->name }}">
@@ -75,23 +82,36 @@
                             <img src="https://source.unsplash.com/300x200/?{{ urlencode($product->name) }}" class="card-img-top" alt="{{ $product->name }}">
                         @endif
                         <div class="card-body d-flex flex-column">
-                            @if(preg_match('/impressão em papel a4/i', $product->name))
+                            @if($product->templateType() === \App\Models\Product::TEMPLATE_FLYER || preg_match('/impressão em papel a4/i', $product->name))
                                 <h5 class="card-title fw-bold">impressão de flyer/panfleto</h5>
                                 <p class="card-text small text-muted">{{ Str::limit($product->description, 80) }}</p>
                                 <div class="mt-auto">
-                                    <span class="h5 text-primary fw-bold price-tag">A partir de...</span>
+                                    @if($shouldHidePrice)
+                                        <p class="text-muted small mb-2"> Solicite um orçamento e receba os valores personalizados.</p>
+                                    @else
+                                        <span class="h5 text-primary fw-bold price-tag">A partir de...</span>
+                                    @endif
                                     <div class="d-grid mt-2">
-                                        <a href="{{ route('product.show', $product) }}" class="btn btn-primary">Ver opções</a>
+                                        <a href="{{ route('product.show', $product) }}" class="btn btn-primary">
+                                            {{ $shouldHidePrice ? 'Ver detalhes' : 'Ver opções' }}
+                                        </a>
                                     </div>
                                 </div>
                             @else
                                 <h5 class="card-title fw-bold">{{ $product->name }}</h5>
                                 <p class="card-text small text-muted">{{ Str::limit($product->description, 80) }}</p>
                                 <div class="mt-auto">
-                                    <span class="h5 text-primary fw-bold price-tag">R$ {{ number_format($product->price, 2, ',', '.') }}</span>
-                                    <div class="d-grid mt-2">
-                                        <a href="{{ route('product.show', $product) }}" class="btn btn-primary">Ver produto</a>
-                                    </div>
+                                    @if($shouldHidePrice)
+                                        <p class="text-muted small mb-2">Solicite um orçamento personalizado com nossa equipe.</p>
+                                        <div class="d-grid">
+                                            <a href="{{ route('product.show', $product) }}" class="btn btn-outline-primary">Ver detalhes</a>
+                                        </div>
+                                    @else
+                                        <span class="h5 text-primary fw-bold price-tag">R$ {{ number_format($product->price, 2, ',', '.') }}</span>
+                                        <div class="d-grid mt-2">
+                                            <a href="{{ route('product.show', $product) }}" class="btn btn-primary">Ver produto</a>
+                                        </div>
+                                    @endif
                                 </div>
                             @endif
                         </div>
@@ -177,11 +197,19 @@
         @php $testimonials = $settings['testimonials'] ?? []; @endphp
         <div class="row">
             @forelse($testimonials as $t)
+                @php
+                    $avatar = $t['image'] ?? null;
+                    if ($avatar) {
+                        $avatar = filter_var($avatar, FILTER_VALIDATE_URL) ? $avatar : asset('storage/' . ltrim($avatar, '/'));
+                    } else {
+                        $avatar = 'https://via.placeholder.com/50';
+                    }
+                @endphp
                 <div class="col-md-4">
                     <div class="card testimonial-card h-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
-                                <img src="{{ $t['image'] ?? 'https://via.placeholder.com/50' }}" class="rounded-circle me-3" alt="{{ $t['name'] ?? 'Cliente' }}" width="50" height="50">
+                                <img src="{{ $avatar }}" class="rounded-circle me-3" alt="{{ $t['name'] ?? 'Cliente' }}" width="50" height="50">
                                 <div>
                                     <h6 class="fw-bold mb-0">{{ $t['name'] ?? '' }}</h6>
                                     <div class="text-warning">

@@ -23,11 +23,13 @@ class UploadController extends Controller
     public function store(Request $request, Product $product)
     {
         $request->validate([
-            'file_front' => 'required|file|mimes:pdf,jpg,png,cdr,ai,psd|max:51200',
-            'file_back' => 'nullable|file|mimes:pdf,jpg,png,cdr,ai,psd|max:51200',
+            'file_front' => 'required|file|mimes:pdf|max:51200',
+            'file_back' => 'nullable|file|mimes:pdf|max:51200',
             'margin_confirmation' => 'required',
         ], [
             'file_front.required' => 'O arquivo da frente é obrigatório.',
+            'file_front.mimes' => 'Envie o arquivo da frente em formato PDF.',
+            'file_back.mimes' => 'O arquivo do verso deve estar em formato PDF.',
             'margin_confirmation.required' => 'Você deve confirmar que verificou as margens de segurança.',
         ]);
 
@@ -38,8 +40,7 @@ class UploadController extends Controller
         // Salva o arquivo da frente
         if ($request->hasFile('file_front')) {
             $file = $request->file('file_front');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = "{$cartItemId}_frente.{$extension}";
+            $fileName = "{$cartItemId}_frente.pdf";
             $path = $file->storeAs('public/uploads', $fileName);
             $artworkFiles['front'] = Str::after($path, 'public/');
         }
@@ -47,8 +48,7 @@ class UploadController extends Controller
         // Salva o arquivo do verso
         if (!empty($product->is_duplex) && $request->hasFile('file_back')) {
             $file = $request->file('file_back');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = "{$cartItemId}_verso.{$extension}";
+            $fileName = "{$cartItemId}_verso.pdf";
             $path = $file->storeAs('public/uploads', $fileName);
             $artworkFiles['back'] = Str::after($path, 'public/');
         }
@@ -72,4 +72,3 @@ class UploadController extends Controller
         return redirect()->route('cart.index')->with('success', 'Produto adicionado ao carrinho com sucesso!');
     }
 }
-

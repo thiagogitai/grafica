@@ -1,9 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $requestOnlyGlobal = $requestOnlyGlobal ?? ($requestOnlyMode ?? false);
+@endphp
 <div class="container my-5">
     <h1 class="mb-4">Flyers e Panfletos</h1>
-    <form action="{{ route('cart.add.flyer', [], false) }}" method="POST" id="flyer-form">
+    @if($requestOnlyGlobal)
+    <div class="alert alert-warning bg-white border-0 shadow-sm"><strong>Solicite um orçamento:</strong> entre em contato para receber preços personalizados de flyers e panfletos.</div>
+    @if(!empty($globalWhatsappLink))
+        <a href="{{ $globalWhatsappLink }}" class="btn btn-primary btn-lg" target="_blank">
+            <i class="fab fa-whatsapp me-2"></i> Falar com a equipe
+        </a>
+    @endif
+@else
+<form action="{{ route('cart.add.flyer', [], false) }}" method="POST" id="flyer-form">
         @csrf
         <input type="hidden" name="details" id="final-details" value="">
 
@@ -56,8 +67,10 @@
             <button type="submit" class="btn btn-primary">Adicionar ao Carrinho</button>
         </div>
     </form>
+@endif
 </div>
 
+@if(!$requestOnlyGlobal)
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const prices = @json($prices);
@@ -80,11 +93,27 @@ document.addEventListener('DOMContentLoaded', function () {
             opt.textContent = txt;
             select.appendChild(opt);
         });
-        select.disabled = items.length === 0;
+        if (items.length > 0) {
+            select.disabled = false;
+            select.selectedIndex = 0;
+        } else {
+            select.disabled = true;
+        }
     }
-    function updateSizes(){ fill($s, Object.keys(prices[$q.value]||{})); updatePapers(); }
-    function updatePapers(){ const map=(prices[$q.value]||{})[$s.value]||{}; fill($p, Object.keys(map)); updateColors(); }
-    function updateColors(){ const map=((prices[$q.value]||{})[$s.value]||{})[$p.value]||{}; fill($c, Object.keys(map)); updatePrice(); }
+    function updateSizes(){
+        fill($s, Object.keys(prices[$q.value] || {}));
+        updatePapers();
+    }
+    function updatePapers(){
+        const map = (prices[$q.value] || {})[$s.value] || {};
+        fill($p, Object.keys(map));
+        updateColors();
+    }
+    function updateColors(){
+        const map = ((prices[$q.value] || {})[$s.value] || {})[$p.value] || {};
+        fill($c, Object.keys(map));
+        updatePrice();
+    }
     function parseNum(x){ return Number(String(x).replace(/[^0-9.\-]/g,'')||0); }
     function updatePrice(){
         const base = (((prices[$q.value]||{})[$s.value]||{})[$p.value]||{})[$c.value];
@@ -110,4 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
     updateSizes();
 });
 </script>
+@endif
 @endsection
+
+
+

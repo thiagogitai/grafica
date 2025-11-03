@@ -24,21 +24,39 @@ class AdminController extends Controller
     public function products()
     {
         $products = Product::paginate(10);
-        return view('admin.products', compact('products'));
+        $templateLabels = Product::templateOptions();
+        return view('admin.products', compact('products', 'templateLabels'));
     }
 
     public function createProduct()
     {
-        return view('admin.create-product');
+        $templates = Product::templateOptions();
+        $disablePriceEditor = \App\Models\Setting::boolean('disable_price_editor', false);
+        return view('admin.create-product', compact('templates', 'disablePriceEditor'));
+    }
+
+    public function showProduct(Product $product)
+    {
+        return redirect()->route('admin.products.edit', $product);
     }
 
     public function storeProduct(Request $request)
     {
+        $templateKeys = implode(',', array_keys(Product::templateOptions()));
+        $disablePrice = \App\Models\Setting::boolean('disable_price_editor', false);
+        $templateValue = $request->input('template');
+        if ($templateValue && (str_starts_with($templateValue, Product::TEMPLATE_CONFIG_PREFIX) || $templateValue === Product::TEMPLATE_FLYER)) {
+            $disablePrice = true;
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'price' => ($disablePrice ? 'nullable|numeric|min:0' : 'required|numeric|min:0'),
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'template' => 'required|string|in:' . $templateKeys,
+            'request_only' => 'nullable|boolean',
+            'markup_percentage' => 'nullable|numeric|min:0|max:500',
         ]);
 
         $imagePath = null;
@@ -49,8 +67,11 @@ class AdminController extends Controller
         Product::create([
             'name' => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
+            'price' => $disablePrice ? ($request->input('price', 0) ?? 0) : $request->price,
             'image' => $imagePath,
+            'template' => $request->template,
+            'request_only' => $request->boolean('request_only'),
+            'markup_percentage' => $request->input('markup_percentage', 0),
         ]);
 
         return redirect()->route('admin.products')->with('success', 'Produto criado com sucesso!');
@@ -58,16 +79,30 @@ class AdminController extends Controller
 
     public function editProduct(Product $product)
     {
-        return view('admin.edit-product', compact('product'));
+        $templates = Product::templateOptions();
+        $disablePriceEditor = \App\Models\Setting::boolean('disable_price_editor', false)
+            || $product->usesConfigTemplate()
+            || $product->template === Product::TEMPLATE_FLYER;
+        return view('admin.edit-product', compact('product', 'templates', 'disablePriceEditor'));
     }
 
     public function updateProduct(Request $request, Product $product)
     {
+        $templateKeys = implode(',', array_keys(Product::templateOptions()));
+        $disablePrice = \App\Models\Setting::boolean('disable_price_editor', false);
+        $templateValue = $request->input('template', $product->template);
+        if ($templateValue && (str_starts_with($templateValue, Product::TEMPLATE_CONFIG_PREFIX) || $templateValue === Product::TEMPLATE_FLYER)) {
+            $disablePrice = true;
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'price' => ($disablePrice ? 'nullable|numeric|min:0' : 'required|numeric|min:0'),
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'template' => 'required|string|in:' . $templateKeys,
+            'request_only' => 'nullable|boolean',
+            'markup_percentage' => 'nullable|numeric|min:0|max:500',
         ]);
 
         $imagePath = $product->image;
@@ -82,8 +117,11 @@ class AdminController extends Controller
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
-            'price' => $request->price,
+            'price' => $disablePrice ? $product->price : $request->price,
             'image' => $imagePath,
+            'template' => $request->template,
+            'request_only' => $request->boolean('request_only'),
+            'markup_percentage' => $request->input('markup_percentage', 0),
         ]);
 
         return redirect()->route('admin.products')->with('success', 'Produto atualizado com sucesso!');
@@ -114,15 +152,32 @@ class AdminController extends Controller
 
     public function settings()
     {
+        $socialLinks = json_decode(\App\Models\Setting::get('social_links', '[]'), true);
+        if (!is_array($socialLinks)) {
+            $socialLinks = [];
+        }
+
+        $testimonials = json_decode(\App\Models\Setting::get('testimonials', '[]'), true);
+        if (!is_array($testimonials)) {
+            $testimonials = [];
+        }
+
         $settings = [
             'hero_title' => \App\Models\Setting::get('hero_title'),
             'hero_subtitle' => \App\Models\Setting::get('hero_subtitle'),
             'whatsapp_number' => \App\Models\Setting::get('whatsapp_number'),
-            'price_percentage' => \App\Models\Setting::get('price_percentage'),
+            'request_only' => \App\Models\Setting::boolean('request_only', false),
+            'disable_price_editor' => \App\Models\Setting::boolean('disable_price_editor', false),
+            'mercadopago_public_key' => \App\Models\Setting::get('mercadopago_public_key'),
+            'mercadopago_access_token' => \App\Models\Setting::get('mercadopago_access_token'),
+            'loggi_api_token' => \App\Models\Setting::get('loggi_api_token'),
+            'loggi_account_id' => \App\Models\Setting::get('loggi_account_id'),
+            'footer_text' => \App\Models\Setting::get('footer_text', ''),
+            'social_links' => $socialLinks,
             'about_title' => \App\Models\Setting::get('about_title'),
             'about_description' => \App\Models\Setting::get('about_description'),
             'features' => \App\Models\Setting::get('features'),
-            'testimonials' => \App\Models\Setting::get('testimonials'),
+            'testimonials' => $testimonials,
         ];
         return view('admin.settings', compact('settings'));
     }
@@ -133,11 +188,24 @@ class AdminController extends Controller
             'hero_title' => 'required|string|max:255',
             'hero_subtitle' => 'required|string|max:500',
             'whatsapp_number' => 'nullable|string|max:20',
-            'price_percentage' => 'nullable|numeric|min:0|max:100',
+            'request_only' => 'nullable|boolean',
+            'disable_price_editor' => 'nullable|boolean',
+            'mercadopago_public_key' => 'nullable|string|max:255',
+            'mercadopago_access_token' => 'nullable|string|max:255',
+            'loggi_api_token' => 'nullable|string|max:255',
+            'loggi_account_id' => 'nullable|string|max:255',
+            'footer_text' => 'nullable|string|max:500',
+            'social_links' => 'nullable|array',
+            'social_links.*' => 'nullable|string|max:255',
             'about_title' => 'required|string|max:255',
             'about_description' => 'nullable|string',
             'features' => 'nullable|string',
-            'testimonials' => 'nullable|string',
+            'testimonials' => 'nullable|array',
+            'testimonials.*.name' => 'nullable|string|max:150',
+            'testimonials.*.role' => 'nullable|string|max:150',
+            'testimonials.*.text' => 'nullable|string|max:1000',
+            'testimonials.*.existing_image' => 'nullable|string|max:255',
+            'testimonials.*.image_file' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         // Validação de JSON para features/testimonials
@@ -148,27 +216,97 @@ class AdminController extends Controller
                 return back()->withErrors(['features' => 'JSON inválido em Recursos.'])->withInput();
             }
         }
-        $testimonialsArr = [];
-        if ($request->filled('testimonials')) {
-            $testimonialsArr = json_decode($request->testimonials, true);
-            if (!is_array($testimonialsArr)) {
-                return back()->withErrors(['testimonials' => 'JSON inválido em Depoimentos.'])->withInput();
-            }
-        }
-
         \App\Models\Setting::set('hero_title', $request->hero_title);
         \App\Models\Setting::set('hero_subtitle', $request->hero_subtitle);
         if ($request->has('whatsapp_number')) {
             \App\Models\Setting::set('whatsapp_number', $request->whatsapp_number);
         }
-        if ($request->has('price_percentage')) {
-            \App\Models\Setting::set('price_percentage', $request->price_percentage);
+        if ($request->has('mercadopago_public_key')) {
+            \App\Models\Setting::set('mercadopago_public_key', $request->mercadopago_public_key);
         }
+        if ($request->has('mercadopago_access_token')) {
+            \App\Models\Setting::set('mercadopago_access_token', $request->mercadopago_access_token);
+        }
+        if ($request->has('loggi_api_token')) {
+            \App\Models\Setting::set('loggi_api_token', $request->loggi_api_token);
+        }
+        if ($request->has('loggi_account_id')) {
+            \App\Models\Setting::set('loggi_account_id', $request->loggi_account_id);
+        }
+        \App\Models\Setting::set('disable_price_editor', $request->boolean('disable_price_editor'));
+        if ($request->has('footer_text')) {
+            \App\Models\Setting::set('footer_text', $request->footer_text ?? '');
+        }
+        $socialLinksInput = collect($request->input('social_links', []))
+            ->filter(fn($value) => filled($value))
+            ->toArray();
+        \App\Models\Setting::set('social_links', json_encode($socialLinksInput, JSON_UNESCAPED_UNICODE));
+        \App\Models\Setting::set('request_only', $request->boolean('request_only'));
         \App\Models\Setting::set('about_title', $request->about_title);
         \App\Models\Setting::set('about_description', $request->about_description ?? '');
         \App\Models\Setting::set('features', json_encode($featuresArr, JSON_UNESCAPED_UNICODE));
-        \App\Models\Setting::set('testimonials', json_encode($testimonialsArr, JSON_UNESCAPED_UNICODE));
+        $testimonialsInput = collect($request->input('testimonials', []))
+            ->map(function ($testimonial, $index) use ($request) {
+                $imagePath = trim($testimonial['existing_image'] ?? '');
+                if ($request->hasFile("testimonials.$index.image_file")) {
+                    $file = $request->file("testimonials.$index.image_file");
+                    if ($file && $file->isValid()) {
+                        if ($imagePath && \Storage::disk('public')->exists($imagePath)) {
+                            \Storage::disk('public')->delete($imagePath);
+                        }
+                        $imagePath = $file->store('testimonials', 'public');
+                    }
+                }
+                return [
+                    'name' => trim($testimonial['name'] ?? ''),
+                    'role' => trim($testimonial['role'] ?? ''),
+                    'text' => trim($testimonial['text'] ?? ''),
+                    'image' => $imagePath ?: null,
+                ];
+            })
+            ->filter(fn($testimonial) => $testimonial['name'] || $testimonial['text'] || $testimonial['image'])
+            ->values()
+            ->all();
+        \App\Models\Setting::set('testimonials', json_encode($testimonialsInput, JSON_UNESCAPED_UNICODE));
 
         return redirect()->back()->with('success', 'Configurações atualizadas com sucesso!');
+    }
+
+    public function pricing()
+    {
+        $products = Product::orderBy('name')->get();
+        $globalMarkup = \App\Models\Setting::get('price_percentage', 0);
+
+        return view('admin.pricing', [
+            'products' => $products,
+            'globalMarkup' => $globalMarkup,
+        ]);
+    }
+
+    public function updatePricing(Request $request)
+    {
+        $request->validate([
+            'global_markup' => 'nullable|numeric|min:0|max:500',
+            'product_markups' => 'nullable|array',
+            'product_markups.*' => 'nullable|numeric|min:0|max:500',
+        ]);
+
+        if ($request->filled('global_markup')) {
+            \App\Models\Setting::set('price_percentage', $request->input('global_markup', 0));
+        }
+
+        $productMarkups = $request->input('product_markups', []);
+        if (!empty($productMarkups)) {
+            foreach ($productMarkups as $productId => $markup) {
+                $product = Product::find($productId);
+                if (!$product) {
+                    continue;
+                }
+                $product->markup_percentage = (float) $markup;
+                $product->save();
+            }
+        }
+
+        return redirect()->route('admin.pricing')->with('success', 'Faturamento atualizado com sucesso!');
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use App\Models\Setting;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,22 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
+
+        $requestOnly = Setting::boolean('request_only', false);
+        $whatsappNumber = Setting::get('whatsapp_number');
+        $whatsappLink = $whatsappNumber ? 'https://wa.me/' . preg_replace('/\D+/', '', (string) $whatsappNumber) : null;
+        $socialLinks = json_decode(Setting::get('social_links', '[]'), true);
+        if (!is_array($socialLinks)) {
+            $socialLinks = [];
+        }
+        $footerText = Setting::get('footer_text', '');
+        $disablePriceEditor = Setting::boolean('disable_price_editor', false);
+
+        View::share('requestOnlyMode', $requestOnly);
+        View::share('globalWhatsappNumber', $whatsappNumber);
+        View::share('globalWhatsappLink', $whatsappLink);
+        View::share('globalSocialLinks', $socialLinks);
+        View::share('globalFooterText', $footerText);
+        View::share('disablePriceEditor', $disablePriceEditor);
     }
 }

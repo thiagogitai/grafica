@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\Setting;
 use App\Services\ProductConfig;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
     public function index()
     {
+        if ($response = $this->ensurePurchasingEnabled()) {
+            return $response;
+        }
+
         $cart = session()->get('cart', []);
         $total = 0;
         foreach ($cart as $item) {
@@ -20,6 +26,10 @@ class CartController extends Controller
 
     public function add(Request $request, Product $product)
     {
+        if ($response = $this->ensurePurchasingEnabled($product)) {
+            return $response;
+        }
+
         $cart = session()->get('cart', []);
 
         // Get selected options
@@ -27,7 +37,14 @@ class CartController extends Controller
         $quantity = $request->input('quantity', 1);
 
         // Calcula preço: se houver config JSON do produto, usa as regras do JSON (preço final + extras)
-        $config = ProductConfig::loadForProduct($product);
+        $configSlug = null;
+        if ($product->usesConfigTemplate() || $product->template === Product::TEMPLATE_CONFIG_AUTO) {
+            $configSlug = $product->templateSlug();
+            if (!$configSlug || $product->template === Product::TEMPLATE_CONFIG_AUTO) {
+                $configSlug = ProductConfig::slugForProduct($product);
+            }
+        }
+        $config = ProductConfig::loadForProduct($product, $configSlug);
         if ($config) {
             // Converter valores selecionados para labels conforme o catálogo (para exibição fiel)
             $labeledOptions = $options;
@@ -108,6 +125,11 @@ class CartController extends Controller
 
     public function addFlyer(Request $request)
     {
+        $flyerProduct = Product::where('template', Product::TEMPLATE_FLYER)->first();
+        if ($response = $this->ensurePurchasingEnabled($flyerProduct)) {
+            return $response;
+        }
+
         $cart = session()->get('cart', []);
 
         // Coleta das escolhas: prioriza JSON "details" (com textos), senão usa options[...]
@@ -216,4 +238,23 @@ class CartController extends Controller
 
         return redirect()->route('cart.index')->with('success', 'Flyer adicionado ao carrinho!');
     }
+
+    /**
+     * Impede operações de compra caso o modo orçamento esteja ativo.
+     */
+    protected function ensurePurchasingEnabled(?Product $product = null): RedirectResponse|null
+    {
+        if (Setting::boolean('request_only', false)) {
+            return redirect()->route('home')->with('info', 'As compras estão temporariamente desativadas. Solicite um orçamento com nossa equipe.');
+        }
+
+        if ($product && $product->request_only) {
+            return redirect()
+                ->route('product.show', $product)
+                ->with('info', 'Este produto está disponível apenas mediante orçamento. Solicite uma proposta com nossa equipe.');
+        }
+
+        return null;
+    }
 }
+

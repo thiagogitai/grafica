@@ -26,9 +26,13 @@ class ProductConfig
         return base_path('resources/data/products/' . $slug . '.json');
     }
 
-    public static function loadForProduct(Product $product): ?array
+    public static function loadForProduct(Product $product, ?string $slugOverride = null): ?array
     {
-        $slug = static::slugForProduct($product);
+        $slug = $slugOverride ? Str::slug($slugOverride) : static::slugForProduct($product);
+        if (!$slug) {
+            return null;
+        }
+
         // 1) Tenta buscar de catálogo remoto
         $remote = RemoteCatalog::fetchNormalized($slug);
         if (is_array($remote)) {

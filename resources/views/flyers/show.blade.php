@@ -1,7 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $requestOnlyGlobal = $requestOnlyGlobal ?? ($requestOnlyMode ?? false);
+    $requestOnlyProduct = $requestOnlyProduct ?? ($product->request_only ?? false);
+    $requestOnlyCombined = $requestOnly ?? ($requestOnlyGlobal || $requestOnlyProduct);
+@endphp
 <div class="container my-5">
+    @if(!$requestOnlyCombined)
     <form action="{{ route('cart.add.flyer') }}" method="POST" id="flyer-form" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -99,6 +105,16 @@
             </div>
         </div>
     </form>
+    @else
+        <div class="alert alert-warning bg-white border-0 shadow-sm mb-4">
+            <strong>Orçamento sob medida:</strong> compartilhe os detalhes do seu flyer e retornaremos com uma proposta personalizada.
+        </div>
+        @if(!empty($globalWhatsappLink))
+            <a href="{{ $globalWhatsappLink }}" class="btn btn-primary btn-lg" target="_blank">
+                <i class="fab fa-whatsapp me-2"></i> Solicitar orçamento agora
+            </a>
+        @endif
+    @endif
 </div>
 
 <!-- Modal de Gabaritos -->
@@ -153,6 +169,7 @@
 
 @endsection
 
+@if(!$requestOnlyCombined)
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -178,14 +195,36 @@ document.addEventListener('DOMContentLoaded', function () {
         return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
-    function populateSelect(select, options, prompt = 'Selecione...') {
+    function populateSelect(select, options) {
         const currentValue = select.value;
-        select.innerHTML = `<option value="">${prompt}</option>`;
-        options.forEach(option => {
-            const isSelected = option === currentValue ? ' selected' : '';
-            select.innerHTML += `<option value="${option}"${isSelected}>${option.trim()}</option>`;
+        select.innerHTML = '';
+
+        const normalizedOptions = (options || []).map(option => {
+            if (typeof option === 'string') {
+                return { value: option, label: option.trim() || option };
+            }
+            if (option && typeof option === 'object') {
+                const value = option.value ?? '';
+                const label = option.label ?? value;
+                return { value, label };
+            }
+            return { value: '', label: '' };
+        }).filter(entry => entry.value !== '');
+
+        if (normalizedOptions.length === 0) {
+            select.value = '';
+            return '';
+        }
+
+        const selectedEntry = normalizedOptions.find(entry => entry.value === currentValue) ?? normalizedOptions[0];
+
+        normalizedOptions.forEach(({ value, label }) => {
+            const isSelected = value === selectedEntry.value ? ' selected' : '';
+            select.innerHTML += `<option value="${value}"${isSelected}>${label}</option>`;
         });
-        select.value = currentValue;
+
+        select.value = selectedEntry.value;
+        return selectedEntry.value;
     }
 
     function getOptions() {
@@ -242,37 +281,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateDependentSelects() {
-        const quantity = quantitySelect.value;
-        const size = sizeSelect.value;
-        const paper = paperSelect.value;
+        const quantity = populateSelect(quantitySelect, Object.keys(prices || {}));
+        quantitySelect.disabled = !quantity;
 
         if (quantity) {
             const sizes = Object.keys(prices[quantity] || {});
-            populateSelect(sizeSelect, sizes, 'Selecione o formato');
-            sizeSelect.disabled = false;
-        } else {
-            sizeSelect.disabled = true; paperSelect.disabled = true; colorSelect.disabled = true;
-            sizeSelect.innerHTML = '<option value="">Selecione a quantidade</option>';
-        }
+            const selectedSize = populateSelect(sizeSelect, sizes);
+            sizeSelect.disabled = sizes.length === 0;
 
-        if (quantity && size) {
-            const papers = Object.keys(prices[quantity]?.[size] || {});
-            populateSelect(paperSelect, papers, 'Selecione o papel');
-            paperSelect.disabled = false;
-        } else {
-            paperSelect.disabled = true; colorSelect.disabled = true;
-            paperSelect.innerHTML = '<option value="">Selecione o formato</option>';
-        }
+            if (selectedSize) {
+                const papers = Object.keys(prices[quantity]?.[selectedSize] || {});
+                const selectedPaper = populateSelect(paperSelect, papers);
+                paperSelect.disabled = papers.length === 0;
 
-        if (quantity && size && paper) {
-            const colors = Object.keys(prices[quantity]?.[size]?.[paper] || {});
-            populateSelect(colorSelect, colors, 'Selecione as cores');
-            colorSelect.disabled = false;
+                if (selectedPaper) {
+                    const colors = Object.keys(prices[quantity]?.[selectedSize]?.[selectedPaper] || {});
+                    const selectedColor = populateSelect(colorSelect, colors);
+                    colorSelect.disabled = colors.length === 0;
+                    if (!selectedColor) {
+                        colorSelect.value = '';
+                    }
+                } else {
+                    colorSelect.disabled = true;
+                    colorSelect.innerHTML = '';
+                    colorSelect.value = '';
+                }
+            } else {
+                paperSelect.disabled = true;
+                paperSelect.innerHTML = '';
+                paperSelect.value = '';
+                colorSelect.disabled = true;
+                colorSelect.innerHTML = '';
+                colorSelect.value = '';
+            }
         } else {
+            sizeSelect.disabled = true;
+            sizeSelect.innerHTML = '';
+            sizeSelect.value = '';
+            paperSelect.disabled = true;
+            paperSelect.innerHTML = '';
+            paperSelect.value = '';
             colorSelect.disabled = true;
-            colorSelect.innerHTML = '<option value="">Selecione o papel</option>';
+            colorSelect.innerHTML = '';
+            colorSelect.value = '';
         }
-        
+
         calculatePrice(); // Recalcula o preço sempre que um select dependente muda
     }
 
@@ -285,8 +338,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Popula o select inicial de quantidade e inicia a cadeia de eventos
-    populateSelect(quantitySelect, Object.keys(prices), 'Selecione a quantidade');
+    populateSelect(quantitySelect, Object.keys(prices));
     updateDependentSelects();
 });
 </script>
 @endpush
+@endif
+

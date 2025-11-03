@@ -22,4 +22,9 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function feedback()
+    {
+        return $this->hasOne(OrderFeedback::class);
+    }
 }

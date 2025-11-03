@@ -5,6 +5,8 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FlyerController;
+use App\Http\Controllers\CustomerDashboardController;
+use App\Http\Controllers\OrderFeedbackController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +34,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::get('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
     Route::get('/checkout/pending', [CheckoutController::class, 'pending'])->name('checkout.pending');
+
+    Route::get('/cliente', [CustomerDashboardController::class, 'index'])->name('customer.dashboard');
+    Route::put('/cliente/perfil', [CustomerDashboardController::class, 'updateProfile'])->name('customer.profile.update');
+    Route::get('/cliente/pedidos/{order}', [CustomerDashboardController::class, 'showOrder'])->name('customer.orders.show');
+    Route::get('/cliente/pedidos/{order}/avaliacao', [OrderFeedbackController::class, 'create'])->name('customer.feedback.create');
+    Route::post('/cliente/pedidos/{order}/avaliacao', [OrderFeedbackController::class, 'store'])->name('customer.feedback.store');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -41,6 +49,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/products', [AdminController::class, 'products'])->name('products');
     Route::get('/products/create', [AdminController::class, 'createProduct'])->name('products.create');
     Route::post('/products', [AdminController::class, 'storeProduct'])->name('products.store');
+    Route::get('/products/{product}', [AdminController::class, 'showProduct'])->name('products.show');
     Route::get('/products/{product}/edit', [AdminController::class, 'editProduct'])->name('products.edit');
     Route::put('/products/{product}', [AdminController::class, 'updateProduct'])->name('products.update');
     Route::delete('/products/{product}', [AdminController::class, 'destroyProduct'])->name('products.destroy');
@@ -52,6 +61,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/categories/{category}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('categories.destroy');
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
     Route::post('/settings', [AdminController::class, 'updateSettings'])->name('settings.update');
+    Route::get('/pricing', [AdminController::class, 'pricing'])->name('pricing');
+    Route::post('/pricing', [AdminController::class, 'updatePricing'])->name('pricing.update');
 });
 
 // require __DIR__.'/auth.php'; // Commented out as auth.php doesn't exist
@@ -59,3 +70,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/debug-product/{product}', function (App\Models\Product $product) {
+    return response()->json($product);
+});
+

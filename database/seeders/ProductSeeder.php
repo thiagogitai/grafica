@@ -14,6 +14,7 @@ class ProductSeeder extends Seeder
             'description' => 'Livros personalizados com capa dura ou brochura. Impressão em offset de alta qualidade, encadernação profissional.',
             'price' => 45.00,
             'image' => null,
+            'template' => Product::templateOptionKey('impressao-de-livro'),
         ]);
 
         Product::create([
@@ -21,6 +22,7 @@ class ProductSeeder extends Seeder
             'description' => 'Impressão colorida de alta qualidade em papel A4. Ideal para documentos, flyers e materiais promocionais.',
             'price' => 0.50,
             'image' => null,
+            'template' => Product::TEMPLATE_FLYER,
         ]);
 
         Product::create([
@@ -28,6 +30,7 @@ class ProductSeeder extends Seeder
             'description' => 'Banner personalizado em vinil resistente. Perfeito para eventos, lojas e anúncios.',
             'price' => 25.00,
             'image' => null,
+            'template' => Product::TEMPLATE_STANDARD,
         ]);
 
         Product::create([
@@ -35,6 +38,7 @@ class ProductSeeder extends Seeder
             'description' => 'Cartões de visita profissionais. Papel couchê 300g, impressão frente e verso.',
             'price' => 15.00,
             'image' => null,
+            'template' => Product::TEMPLATE_STANDARD,
         ]);
 
         Product::create([
@@ -42,6 +46,7 @@ class ProductSeeder extends Seeder
             'description' => 'Flyers promocionais em papel offset. Ideal para campanhas de marketing.',
             'price' => 0.20,
             'image' => null,
+            'template' => Product::TEMPLATE_FLYER,
         ]);
 
         Product::create([
@@ -49,6 +54,7 @@ class ProductSeeder extends Seeder
             'description' => 'Envelopes personalizados com logotipo. Disponíveis em diversos tamanhos.',
             'price' => 0.30,
             'image' => null,
+            'template' => Product::TEMPLATE_STANDARD,
         ]);
     }
 }

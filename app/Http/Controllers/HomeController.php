@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Services\ProductConfig;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -28,6 +28,7 @@ class HomeController extends Controller
     {
         $products = Product::all();
         $categories = \App\Models\Category::all();
+        $requestOnlyGlobal = Setting::boolean('request_only', false);
         $settings = [
             'hero_title' => Setting::get('hero_title', 'A sua gráfica online'),
             'hero_subtitle' => Setting::get('hero_subtitle', 'Tudo o que precisa para o seu negócio. Rápido. Simples. A um preço justo.'),
@@ -37,7 +38,13 @@ class HomeController extends Controller
             'features' => json_decode(Setting::get('features', '[]'), true) ?: [],
             'testimonials' => json_decode(Setting::get('testimonials', '[]'), true) ?: [],
         ];
-        return view('home', compact('products', 'categories', 'settings'));
+
+        return view('home', [
+            'products' => $products,
+            'categories' => $categories,
+            'settings' => $settings,
+            'requestOnlyGlobal' => $requestOnlyGlobal,
+        ]);
     }
 
     /**
@@ -48,16 +55,45 @@ class HomeController extends Controller
      */
     public function show(Product $product)
     {
-        if (preg_match('/flyer|panfleto|impressão em papel a4/i', $product->name)) {
-            $prices = json_decode(file_get_contents(base_path('precos_flyer.json')), true);
-            return view('flyers.show', ['product' => $product, 'prices' => $prices]);
+        $requestOnlyGlobal = Setting::boolean('request_only', false);
+        $requestOnlyProduct = $product->request_only;
+        $requestOnlyCombined = $requestOnlyGlobal || $requestOnlyProduct;
+
+        switch ($product->templateType()) {
+            case Product::TEMPLATE_FLYER:
+                $prices = json_decode(file_get_contents(base_path('precos_flyer.json')), true);
+                return view('flyers.show', [
+                    'product' => $product,
+                    'prices' => $prices,
+                    'requestOnlyGlobal' => $requestOnlyGlobal,
+                    'requestOnlyProduct' => $requestOnlyProduct,
+                    'requestOnly' => $requestOnlyCombined,
+                ]);
+
+            case 'config':
+                $slug = $product->templateSlug();
+                if (!$slug || $product->template === Product::TEMPLATE_CONFIG_AUTO) {
+                    $slug = ProductConfig::slugForProduct($product);
+                }
+                $config = ProductConfig::loadForProduct($product, $slug);
+                if ($config) {
+                    return view('product-json', [
+                        'product' => $product,
+                        'config' => $config,
+                        'configSlug' => $slug,
+                        'requestOnlyGlobal' => $requestOnlyGlobal,
+                        'requestOnlyProduct' => $requestOnlyProduct,
+                        'requestOnly' => $requestOnlyCombined,
+                    ]);
+                }
+                break;
         }
 
-        $config = ProductConfig::loadForProduct($product);
-        if ($config) {
-            return view('product-json', compact('product', 'config'));
-        }
-
-        return view('product', compact('product'));
+        return view('product', [
+            'product' => $product,
+            'requestOnlyGlobal' => $requestOnlyGlobal,
+            'requestOnlyProduct' => $requestOnlyProduct,
+            'requestOnly' => $requestOnlyCombined,
+        ]);
     }
 }
