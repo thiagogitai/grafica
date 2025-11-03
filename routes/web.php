@@ -22,6 +22,11 @@ Route::post('/produto/{product}/upload', [UploadController::class, 'store'])->na
 Route::get('/flyers', [FlyerController::class, 'index'])->name('flyers.index');
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::get('/cart/add/flyer', function () {
+    return redirect()
+        ->route('flyers.index')
+        ->with('info', 'Use o formulário para personalizar seus flyers antes de adicioná-los ao carrinho.');
+})->name('cart.add.flyer.redirect');
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/add/flyer', [CartController::class, 'addFlyer'])->name('cart.add.flyer');
 Route::delete('/cart/remove/{cartItemId}', [CartController::class, 'remove'])->name('cart.remove');
