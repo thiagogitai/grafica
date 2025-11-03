@@ -29,6 +29,7 @@ Route::get('/cart/add/flyer', function () {
 })->name('cart.add.flyer.redirect');
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/add/flyer', [CartController::class, 'addFlyer'])->name('cart.add.flyer');
+Route::post('/cart/{cartItemId}/artwork', [CartController::class, 'attachArtwork'])->name('cart.attach.artwork');
 Route::delete('/cart/remove/{cartItemId}', [CartController::class, 'remove'])->name('cart.remove');
 
 Route::get('/checkout/{product}', [App\Http\Controllers\CheckoutController::class, 'productCheckout'])->name('checkout.product');

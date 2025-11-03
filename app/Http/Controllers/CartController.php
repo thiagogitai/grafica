@@ -7,6 +7,7 @@ use App\Models\Setting;
 use App\Services\ProductConfig;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
@@ -105,14 +106,82 @@ class CartController extends Controller
             'image' => $product->image,
             'quantity' => $quantity,
             'options' => $options,
-            // Para produtos dirigidos por JSON do site, consideramos preço final (sem markup global)
+            // Para produtos dirigidos por JSON do site, consideramos preco final (sem markup global)
             'includes_markup' => (bool) $config,
             'type' => $config ? 'json_product' : null,
         ];
 
         session()->put('cart', $cart);
 
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Produto adicionado ao carrinho!',
+                'cart_item_id' => $cartItemId,
+                'redirect_url' => route('cart.index'),
+            ]);
+        }
+
         return redirect()->route('cart.index')->with('success', 'Produto adicionado ao carrinho!');
+    }
+
+    public function attachArtwork(Request $request, string $cartItemId)
+    {
+        $cart = session()->get('cart', []);
+
+        if (!isset($cart[$cartItemId])) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                'message' => 'Item do carrinho nao encontrado.',
+                ], 404);
+            }
+            return redirect()->route('cart.index')->with('error', 'Item do carrinho nao encontrado.');
+        }
+
+        $productId = $cart[$cartItemId]['product_id'] ?? null;
+        $product = $productId ? Product::find($productId) : null;
+
+        $request->validate([
+            'file_front' => 'required|file|mimes:pdf|max:51200',
+            'file_back' => 'nullable|file|mimes:pdf|max:51200',
+            'margin_confirmation' => 'required',
+        ], [
+            'file_front.required' => 'O arquivo da frente e obrigatorio.',
+            'file_front.mimes' => 'Envie o arquivo da frente em formato PDF.',
+            'file_back.mimes' => 'O arquivo do verso deve estar em formato PDF.',
+            'margin_confirmation.required' => 'Voce deve confirmar que verificou as margens de seguranca.',
+        ]);
+
+        $artworkFiles = $cart[$cartItemId]['artwork'] ?? [];
+        $fileBase = $cartItemId . '_' . Str::random(6);
+
+        if ($request->hasFile('file_front')) {
+            $file = $request->file('file_front');
+            $fileName = "{$fileBase}_frente.pdf";
+            $path = $file->storeAs('public/uploads', $fileName);
+            $artworkFiles['front'] = Str::after($path, 'public/');
+        }
+
+        if ($product && !empty($product->is_duplex) && $request->hasFile('file_back')) {
+            $file = $request->file('file_back');
+            $fileName = "{$fileBase}_verso.pdf";
+            $path = $file->storeAs('public/uploads', $fileName);
+            $artworkFiles['back'] = Str::after($path, 'public/');
+        }
+
+        $cart[$cartItemId]['artwork'] = $artworkFiles;
+        session()->put('cart', $cart);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Arte enviada com sucesso!',
+                'redirect_url' => route('cart.index'),
+            ]);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'Arte enviada com sucesso!');
     }
 
     public function remove($cartItemId)

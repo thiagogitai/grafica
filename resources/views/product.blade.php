@@ -233,7 +233,8 @@
 @section('content')
 <div class="container my-5">
     @if(!$requestOnlyCombined)
-    <form method="GET" action="{{ route('upload.create', $product) }}" id="customization-form">
+    <form method="POST" action="{{ route('cart.add', $product) }}" id="customization-form">
+        @csrf
 
         <div class="row">
             <!-- Coluna da Esquerda: Imagem -->
@@ -356,9 +357,10 @@
                         <p class="text-muted small">valor de cada unidade: <span id="unit-price">{{ $usesDynamicPricing ? '' : $staticPrice }}</span></p>
                     </div>
                     <div class="d-grid gap-3">
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-file-upload me-2"></i>Avançar para Envio da Arte
+                        <button type="submit" class="btn btn-primary btn-lg" data-action="add-to-cart">
+                            <i class="fas fa-shopping-cart me-2"></i>Adicionar ao Carrinho
                         </button>
+                        <div class="alert alert-danger d-none" id="cart-add-error"></div>
                     </div>
                     <div class="mt-4 text-center">
                         <p class="text-success small"><i class="fas fa-truck me-2"></i>Entrega em até 7 dias</p>
@@ -379,6 +381,56 @@
         @endif
     @endif
 </div>
+
+@if(!$requestOnlyCombined)
+<div class="modal fade" id="artworkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Enviar arte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <form id="artwork-upload-form"
+                  method="POST"
+                  enctype="multipart/form-data"
+                  data-upload-url="{{ route('cart.attach.artwork', ['cartItemId' => 'PLACEHOLDER']) }}">
+                @csrf
+                <div class="modal-body">
+                    <p class="text-muted small">Envie os arquivos da sua arte agora ou feche esta janela para enviar depois pelo carrinho.</p>
+                    <div class="mb-3">
+                        <label for="file_front_modal" class="form-label fw-bold">Arquivo (frente)</label>
+                        <input type="file" class="form-control" id="file_front_modal" name="file_front" accept="application/pdf" required>
+                        <small class="text-muted">Formato aceito: PDF. Tamanho maximo: 50 MB.</small>
+                    </div>
+                    @if(!empty($product->is_duplex))
+                    <div class="mb-3">
+                        <label for="file_back_modal" class="form-label fw-bold">Arquivo (verso)</label>
+                        <input type="file" class="form-control" id="file_back_modal" name="file_back" accept="application/pdf">
+                    </div>
+                    @endif
+                    <div class="alert alert-warning small">
+                        Confira margens e sangrias antes de enviar para evitar cortes na impressao.
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="margin_confirmation_modal" name="margin_confirmation" value="1" required>
+                        <label class="form-check-label" for="margin_confirmation_modal">
+                            Confirmo que revisei as margens de seguranca da minha arte.
+                        </label>
+                    </div>
+                    <div class="alert alert-danger d-none" id="artwork-error"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Enviar depois</button>
+                    <button type="submit" class="btn btn-primary" data-action="upload-artwork">
+                        <span class="default-label"><i class="fas fa-upload me-2"></i>Enviar arte</span>
+                        <span class="loading-label d-none">Enviando...</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
 
 @if(!$requestOnlyCombined)
 @push('scripts')
@@ -531,6 +583,170 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         updateDefaultPrice();
+    }
+
+    const customizationForm = document.getElementById('customization-form');
+    const cartErrorAlert = document.getElementById('cart-add-error');
+    const uploadModalEl = document.getElementById('artworkModal');
+    const uploadForm = document.getElementById('artwork-upload-form');
+    const uploadErrorAlert = document.getElementById('artwork-error');
+    const uploadUrlTemplate = uploadForm ? uploadForm.getAttribute('data-upload-url') : '';
+    const modalInstance = (uploadModalEl && uploadForm && window.bootstrap && window.bootstrap.Modal)
+        ? new window.bootstrap.Modal(uploadModalEl)
+        : null;
+    let currentCartItemId = null;
+
+    function toggleButtonLoading(button, isLoading) {
+        if (!button) return;
+        button.disabled = !!isLoading;
+        button.classList.toggle('disabled', !!isLoading);
+        const loadingLabel = button.querySelector('.loading-label');
+        const defaultLabel = button.querySelector('.default-label');
+        if (loadingLabel && defaultLabel) {
+            loadingLabel.classList.toggle('d-none', !isLoading);
+            defaultLabel.classList.toggle('d-none', !!isLoading);
+        }
+    }
+
+    function showCartError(message) {
+        if (!cartErrorAlert) return;
+        cartErrorAlert.textContent = message;
+        cartErrorAlert.classList.remove('d-none');
+    }
+
+    function clearCartError() {
+        if (!cartErrorAlert) return;
+        cartErrorAlert.textContent = '';
+        cartErrorAlert.classList.add('d-none');
+    }
+
+    function showUploadError(message) {
+        if (!uploadErrorAlert) return;
+        uploadErrorAlert.textContent = message;
+        uploadErrorAlert.classList.remove('d-none');
+    }
+
+    function clearUploadError() {
+        if (!uploadErrorAlert) return;
+        uploadErrorAlert.textContent = '';
+        uploadErrorAlert.classList.add('d-none');
+    }
+
+    function extractFirstError(errors) {
+        if (!errors || typeof errors !== 'object') {
+            return null;
+        }
+        for (const key in errors) {
+            if (Object.prototype.hasOwnProperty.call(errors, key)) {
+                const value = errors[key];
+                if (Array.isArray(value) && value.length > 0) {
+                    return value[0];
+                }
+                if (typeof value === 'string' && value.trim() !== '') {
+                    return value;
+                }
+            }
+        }
+        return null;
+    }
+
+    function buildUploadUrl(cartItemId) {
+        if (!uploadUrlTemplate) return '';
+        return uploadUrlTemplate.replace('PLACEHOLDER', encodeURIComponent(cartItemId));
+    }
+
+    function resetUploadForm() {
+        if (!uploadForm) return;
+        uploadForm.reset();
+        clearUploadError();
+        const uploadButton = uploadForm.querySelector('[data-action="upload-artwork"]');
+        toggleButtonLoading(uploadButton, false);
+    }
+
+    if (customizationForm && modalInstance && uploadForm && window.fetch) {
+        const addButton = customizationForm.querySelector('[data-action="add-to-cart"]');
+
+        customizationForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            clearCartError();
+            toggleButtonLoading(addButton, true);
+
+            try {
+                const formData = new FormData(customizationForm);
+                const response = await fetch(customizationForm.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData,
+                });
+                const contentType = response.headers.get('content-type') || '';
+                const isJson = contentType.includes('json');
+                const payload = isJson ? await response.json() : null;
+
+                if (!response.ok || !payload?.success) {
+                    const message = payload?.message
+                        || extractFirstError(payload?.errors)
+                        || 'Nao foi possivel adicionar ao carrinho.';
+                    showCartError(message);
+                    return;
+                }
+
+                currentCartItemId = payload.cart_item_id || null;
+                if (!currentCartItemId) {
+                    showCartError('Item adicionado, mas nao foi possivel iniciar o envio da arte. Verifique o carrinho.');
+                    return;
+                }
+
+                resetUploadForm();
+                uploadForm.action = buildUploadUrl(currentCartItemId);
+                modalInstance.show();
+            } catch (error) {
+                showCartError('Ocorreu um erro ao adicionar ao carrinho. Tente novamente.');
+            } finally {
+                toggleButtonLoading(addButton, false);
+            }
+        });
+
+        uploadForm.addEventListener('submit', async function (event) {
+            if (!currentCartItemId) {
+                return;
+            }
+            event.preventDefault();
+            clearUploadError();
+            const uploadButton = uploadForm.querySelector('[data-action="upload-artwork"]');
+            toggleButtonLoading(uploadButton, true);
+
+            try {
+                const formData = new FormData(uploadForm);
+                const response = await fetch(uploadForm.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData,
+                });
+                const contentType = response.headers.get('content-type') || '';
+                const isJson = contentType.includes('json');
+                const payload = isJson ? await response.json() : null;
+
+                if (!response.ok || !payload?.success) {
+                    const message = payload?.message
+                        || extractFirstError(payload?.errors)
+                        || 'Nao foi possivel enviar a arte.';
+                    showUploadError(message);
+                    toggleButtonLoading(uploadButton, false);
+                    return;
+                }
+
+                const redirectUrl = payload.redirect_url || '{{ route('cart.index') }}';
+                window.location.href = redirectUrl;
+            } catch (error) {
+                showUploadError('Ocorreu um erro ao enviar a arte. Tente novamente.');
+                toggleButtonLoading(uploadForm.querySelector('[data-action="upload-artwork"]'), false);
+            }
+        });
+
+        uploadModalEl.addEventListener('hidden.bs.modal', function () {
+            resetUploadForm();
+            currentCartItemId = null;
+        });
     }
 });
 </script>
