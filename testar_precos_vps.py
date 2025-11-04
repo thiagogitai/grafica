@@ -127,44 +127,122 @@ def obter_preco_site_matriz(url, opcoes_escolhidas):
         except:
             pass
         
-        # Aplicar opções
+        # Aplicar opções usando o MESMO mapeamento do script Python
         selects = driver.find_elements(By.TAG_NAME, 'select')
         
-        for idx, select in enumerate(selects):
-            try:
-                select_elem = Select(select)
-                label = None
-                
-                # Tentar encontrar label
-                try:
-                    parent = select.find_element(By.XPATH, './..')
-                    labels = parent.find_elements(By.TAG_NAME, 'label')
-                    if labels:
-                        label = labels[0].text.strip()
-                except:
-                    pass
-                
-                # Procurar match nas opções escolhidas
-                for nome_campo, valor_escolhido in opcoes_escolhidas.items():
-                    if label and (nome_campo.lower() in label.lower() or any(palavra in label.lower() for palavra in nome_campo.lower().split('_'))):
-                        # Tentar encontrar a opção
-                        for opt in select_elem.options:
-                            opt_text = opt.text.strip()
-                            if valor_escolhido.lower() in opt_text.lower() or opt_text.lower() in valor_escolhido.lower():
+        # Mapeamento EXATO igual ao scrape_revista.py
+        if 'impressao-de-revista' in url or 'revista' in url:
+            mapeamento = {
+                'formato': 0,
+                'papel_capa': 1,
+                'cores_capa': 2,
+                'orelha_capa': 3,
+                'acabamento_capa': 4,
+                'papel_miolo': 5,
+                'cores_miolo': 6,
+                'miolo_sangrado': 7,
+                'quantidade_paginas_miolo': 8,
+                'acabamento_miolo': 9,
+                'acabamento_livro': 10,
+                'guardas_livro': 11,
+                'extras': 12,
+                'frete': 13,
+                'verificacao_arquivo': 14,
+                'prazo_entrega': 15,
+            }
+        elif 'impressao-de-tabloide' in url or 'tabloide' in url:
+            mapeamento = {
+                'formato': 0,
+                'papel_miolo': 1,
+                'cores_miolo': 2,
+                'quantidade_paginas_miolo': 3,
+                'acabamento_miolo': 4,
+                'acabamento_livro': 5,
+                'extras': 6,
+                'frete': 7,
+                'verificacao_arquivo': 8,
+                'prazo_entrega': 9,
+            }
+        else:
+            # Fallback: usar método antigo por labels
+            mapeamento = None
+        
+        if mapeamento:
+            # Usar mapeamento fixo (igual ao script Python)
+            campos_ordenados = []
+            max_idx = max(mapeamento.values()) if mapeamento else 0
+            for idx in range(max_idx + 1):
+                for campo, valor in opcoes_escolhidas.items():
+                    if campo == 'quantity':
+                        continue
+                    if mapeamento.get(campo) == idx:
+                        campos_ordenados.append((campo, valor))
+                        break
+            
+            # Processar campos na ordem correta
+            for campo, valor in campos_ordenados:
+                idx = mapeamento.get(campo)
+                if idx is not None and idx < len(selects):
+                    select = selects[idx]
+                    valor_str = str(valor).strip()
+                    
+                    for opt in select.find_elements(By.TAG_NAME, 'option'):
+                        v = opt.get_attribute('value')
+                        t = opt.text.strip()
+                        v_str = str(v).strip() if v else ''
+                        t_str = str(t).strip() if t else ''
+                        
+                        if (v_str == valor_str or t_str == valor_str or 
+                            valor_str in v_str or valor_str in t_str or
+                            v_str in valor_str or t_str in valor_str):
+                            try:
+                                Select(select).select_by_value(v)
+                                time.sleep(0.4)
+                                break
+                            except:
                                 try:
-                                    select_elem.select_by_visible_text(opt_text)
-                                    time.sleep(0.5)
+                                    Select(select).select_by_visible_text(t)
+                                    time.sleep(0.4)
                                     break
                                 except:
+                                    pass
+        else:
+            # Fallback: método antigo por labels
+            for idx, select in enumerate(selects):
+                try:
+                    select_elem = Select(select)
+                    label = None
+                    
+                    # Tentar encontrar label
+                    try:
+                        parent = select.find_element(By.XPATH, './..')
+                        labels = parent.find_elements(By.TAG_NAME, 'label')
+                        if labels:
+                            label = labels[0].text.strip()
+                    except:
+                        pass
+                    
+                    # Procurar match nas opções escolhidas
+                    for nome_campo, valor_escolhido in opcoes_escolhidas.items():
+                        if label and (nome_campo.lower() in label.lower() or any(palavra in label.lower() for palavra in nome_campo.lower().split('_'))):
+                            # Tentar encontrar a opção
+                            for opt in select_elem.options:
+                                opt_text = opt.text.strip()
+                                if valor_escolhido.lower() in opt_text.lower() or opt_text.lower() in valor_escolhido.lower():
                                     try:
-                                        select_elem.select_by_value(opt.value)
+                                        select_elem.select_by_visible_text(opt_text)
                                         time.sleep(0.5)
                                         break
                                     except:
-                                        pass
-                        break
-            except Exception as e:
-                pass
+                                        try:
+                                            select_elem.select_by_value(opt.value)
+                                            time.sleep(0.5)
+                                            break
+                                        except:
+                                            pass
+                            break
+                except Exception as e:
+                    pass
         
         # Aplicar quantidade - campo é input id="Q1" (não type="number")
         try:
