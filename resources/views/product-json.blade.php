@@ -460,9 +460,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const optionFields = document.querySelectorAll('#calculator [data-option-field]');
     optionFields.forEach(field => {
-        field.addEventListener('change', calculatePrice);
+        field.addEventListener('change', function() {
+            // Resetar validação quando uma opção mudar
+            precoValidado = false;
+            precoValidadoValue = 0;
+            if (submitBtn && precisaValidacao) {
+                submitBtn.disabled = true;
+                submitText.textContent = 'Clique em "VER PREÇO" primeiro';
+            }
+            if (validationStatus && precisaValidacao) {
+                validationStatus.classList.remove('alert-success', 'alert-danger');
+                validationStatus.classList.add('alert-info');
+                validationStatus.innerHTML = '<small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>';
+            }
+            calculatePrice();
+        });
         if (field.tagName === 'INPUT') {
-            field.addEventListener('input', calculatePrice);
+            field.addEventListener('input', function() {
+                // Resetar validação quando uma opção mudar
+                precoValidado = false;
+                precoValidadoValue = 0;
+                if (submitBtn && precisaValidacao) {
+                    submitBtn.disabled = true;
+                    submitText.textContent = 'Clique em "VER PREÇO" primeiro';
+                }
+                calculatePrice();
+            });
         }
     });
 
@@ -470,14 +493,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnVerPreco = document.getElementById('btn-ver-preco');
     if (btnVerPreco && precisaValidacao) {
         btnVerPreco.addEventListener('click', function() {
-            const opts = {};
-            optionFields.forEach(field => {
-                const fieldName = field.getAttribute('data-option-field');
-                if (fieldName) {
-                    opts[fieldName] = field.value || field.textContent || '';
-                }
-            });
-            const quantity = parseInt(opts.quantity || document.querySelector('[data-option-field="quantity"]')?.value || 50);
+            // Sempre pegar as opções atuais dos campos (não usar cache)
+            const opts = getOptions();
+            const quantity = Math.max(1, parseInt(opts.quantity || '50', 10) || 50);
+            
+            console.log('Opções capturadas para validação:', opts);
+            console.log('Quantidade capturada:', quantity);
+            
             validatePriceAndEnableButton(opts, quantity);
         });
     }
