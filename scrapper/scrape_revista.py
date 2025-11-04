@@ -124,7 +124,14 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         
         return None
         
-    except:
+    except Exception as e:
+        # Capturar erro para debug
+        import traceback
+        error_msg = str(e)
+        traceback_str = traceback.format_exc()
+        # Logar erro no stderr para aparecer no log do Laravel
+        print(f"ERRO_NO_SCRAPER: {error_msg}", file=sys.stderr)
+        print(f"TRACEBACK: {traceback_str}", file=sys.stderr)
         return None
     finally:
         if driver:
@@ -149,11 +156,22 @@ def main():
         if preco is not None:
             resultado = {'success': True, 'price': preco}
         else:
-            resultado = {'success': False, 'error': 'Preço não encontrado'}
+            resultado = {
+                'success': False, 
+                'error': 'Preço não encontrado',
+                'opcoes_recebidas': opcoes,
+                'quantidade': quantidade
+            }
         
         print(json.dumps(resultado))
     except Exception as e:
-        resultado = {'success': False, 'error': str(e)}
+        import traceback
+        traceback_str = traceback.format_exc()
+        resultado = {
+            'success': False, 
+            'error': str(e),
+            'traceback': traceback_str
+        }
         print(json.dumps(resultado))
         sys.exit(1)
 

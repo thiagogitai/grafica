@@ -73,11 +73,16 @@ class ProductPriceController extends Controller
         if ($preco === null) {
             try {
                 // Fazer scraping
+                \Log::info("Iniciando validação de preço para produto: {$productSlug}");
+                \Log::info("Quantidade: {$quantidade}");
+                \Log::info("Opções recebidas: " . json_encode($opcoes));
                 $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
+                \Log::info("Preço retornado: " . ($preco !== null ? $preco : 'null'));
 
                 if ($preco !== null && $preco > 0) {
                     // Armazenar no cache por 5 minutos
                     Cache::put($cacheKey, $preco, now()->addMinutes(5));
+                    \Log::info("Preço validado com sucesso: R$ {$preco} para produto {$productSlug}");
                 } else {
                     \Log::error("Validação de preço falhou para produto: {$productSlug}");
                     \Log::error("Opções: " . json_encode($opcoes));
@@ -92,11 +97,13 @@ class ProductPriceController extends Controller
             } catch (\Exception $e) {
                 \Log::error("Exceção ao validar preço: " . $e->getMessage());
                 \Log::error("Trace: " . $e->getTraceAsString());
+                \Log::error("Arquivo: " . $e->getFile() . " Linha: " . $e->getLine());
                 
                 return response()->json([
                     'success' => false,
                     'error' => 'Erro interno ao validar preço. Tente novamente.',
-                    'validated' => false
+                    'validated' => false,
+                    'debug' => config('app.debug') ? $e->getMessage() : null
                 ], 500);
             }
         }
@@ -139,24 +146,29 @@ class ProductPriceController extends Controller
                 $command = ['python', $scriptPath, $dados];
             }
         } else {
-            // Linux/Unix: usar python3 ou python
+            // Linux/Unix: usar python3 (que está no PATH)
             $command = ['python3', $scriptPath, $dados];
-            // Se python3 não funcionar, tentar python
-            if (!file_exists('/usr/bin/python3') && !file_exists('/usr/local/bin/python3')) {
-                $command[0] = 'python';
-            }
         }
         
         try {
+            \Log::info("Executando comando: " . implode(' ', $command));
             $process = new Process($command, base_path());
             $process->setTimeout(120); // 2 minutos para scraping
+            $process->setEnv([
+                'PATH' => '/usr/local/bin:/usr/bin:/bin:' . getenv('PATH'),
+                'DISPLAY' => ':99'
+            ]);
             $process->run();
 
             if (!$process->isSuccessful()) {
                 $errorOutput = $process->getErrorOutput();
                 $output = $process->getOutput();
-                \Log::error("Erro ao executar script Python ({$scriptName}): {$errorOutput}");
-                \Log::error("Output: {$output}");
+                $exitCode = $process->getExitCode();
+                \Log::error("Erro ao executar script Python ({$scriptName})");
+                \Log::error("Exit code: {$exitCode}");
+                \Log::error("Error output: {$errorOutput}");
+                \Log::error("Standard output: {$output}");
+                \Log::error("Comando executado: " . implode(' ', $command));
                 return null;
             }
 
@@ -164,14 +176,18 @@ class ProductPriceController extends Controller
             
             if (empty($output)) {
                 \Log::error("Script Python retornou vazio: {$scriptName}");
+                \Log::error("Error output foi: " . $process->getErrorOutput());
                 return null;
             }
 
+            \Log::info("Output do script Python: " . substr($output, 0, 500));
+            
             $result = json_decode($output, true);
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 \Log::error("Erro ao decodificar JSON do scraper ({$scriptName}): " . json_last_error_msg());
-                \Log::error("Output do script: {$output}");
+                \Log::error("Output completo do script: {$output}");
+                \Log::error("Tamanho do output: " . strlen($output));
                 return null;
             }
 

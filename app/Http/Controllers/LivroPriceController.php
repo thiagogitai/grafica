@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Process\Process;
 
 class LivroPriceController extends Controller
 {
@@ -81,12 +82,24 @@ class LivroPriceController extends Controller
         ]);
         
         // Executar script Python usando Process para melhor controle
+        // Detectar comando correto baseado no sistema operacional
+        if (PHP_OS_FAMILY === 'Windows') {
+            // Windows: tentar usar wrapper batch se disponível (Python 3.13)
+            if (file_exists(base_path('scrapper/scrape_tempo_real_wrapper.bat'))) {
+                $wrapperPath = base_path('scrapper/scrape_tempo_real_wrapper.bat');
+                $command = ['cmd', '/c', $wrapperPath, $dados];
+            } else {
+                $command = ['python', $scriptPath, $dados];
+            }
+        } else {
+            // Linux/Unix: usar python3 (que está no PATH)
+            // Tentar python3 primeiro, se falhar o Process vai mostrar o erro
+            $command = ['python3', $scriptPath, $dados];
+        }
+        
         try {
-            $process = \Symfony\Component\Process\Process::fromShellCommandline(
-                'python ' . escapeshellarg($scriptPath) . ' ' . escapeshellarg($dados),
-                base_path()
-            );
-            $process->setTimeout(60);
+            $process = new Process($command, base_path());
+            $process->setTimeout(120); // 2 minutos para scraping
             $process->run();
             
             if (!$process->isSuccessful()) {

@@ -53,3 +53,10 @@ sudo tail -n 50 /etc/httpd/logs/error_log
 ls -la /www/wwwroot/grafica/storage/logs/
 ```
 
+## 🔧 Troubleshooting Erro 500
+
+Se você está tendo erro 500, consulte o guia completo:
+- **TROUBLESHOOTING_ERRO_500_VPS.md** - Checklist completo de verificação
+
+**Correção aplicada:** O código agora detecta automaticamente Windows/Linux e usa `python3` no VPS.
+
