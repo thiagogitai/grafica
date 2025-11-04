@@ -160,28 +160,51 @@ class ProductPriceController extends Controller
         }
         
         try {
-            \Log::info("Executando comando: " . implode(' ', $command));
-            $process = new Process($command, base_path());
-            $process->setTimeout(120); // 2 minutos para scraping
-            $process->setEnv([
-                'PATH' => '/usr/local/bin:/usr/bin:/bin:' . getenv('PATH'),
-                'DISPLAY' => ':99'
-            ]);
-            $process->run();
+            $commandStr = implode(' ', array_map('escapeshellarg', $command));
+            \Log::error("DEBUG: Executando comando: {$commandStr}");
+            
+            // Verificar se proc_open está disponível
+            if (!function_exists('proc_open')) {
+                \Log::error("DEBUG: proc_open não disponível, usando exec()");
+                // Usar exec() como fallback
+                $output = '';
+                $returnVar = 0;
+                $fullCommand = "cd " . escapeshellarg(base_path()) . " && {$commandStr} 2>&1";
+                exec($fullCommand, $outputLines, $returnVar);
+                $output = implode("\n", $outputLines);
+                
+                if ($returnVar !== 0) {
+                    \Log::error("Erro ao executar script Python ({$scriptName}) via exec()");
+                    \Log::error("Exit code: {$returnVar}");
+                    \Log::error("Output: {$output}");
+                    return null;
+                }
+            } else {
+                // Usar Process normalmente
+                $process = new Process($command, base_path());
+                $process->setTimeout(120); // 2 minutos para scraping
+                $process->setEnv([
+                    'PATH' => '/usr/local/bin:/usr/bin:/bin:' . getenv('PATH'),
+                    'DISPLAY' => ':99'
+                ]);
+                $process->run();
 
-            if (!$process->isSuccessful()) {
-                $errorOutput = $process->getErrorOutput();
-                $output = $process->getOutput();
-                $exitCode = $process->getExitCode();
-                \Log::error("Erro ao executar script Python ({$scriptName})");
-                \Log::error("Exit code: {$exitCode}");
-                \Log::error("Error output: {$errorOutput}");
-                \Log::error("Standard output: {$output}");
-                \Log::error("Comando executado: " . implode(' ', $command));
-                return null;
+                if (!$process->isSuccessful()) {
+                    $errorOutput = $process->getErrorOutput();
+                    $output = $process->getOutput();
+                    $exitCode = $process->getExitCode();
+                    \Log::error("Erro ao executar script Python ({$scriptName})");
+                    \Log::error("Exit code: {$exitCode}");
+                    \Log::error("Error output: {$errorOutput}");
+                    \Log::error("Standard output: {$output}");
+                    \Log::error("Comando executado: " . implode(' ', $command));
+                    return null;
+                }
+
+                $output = trim($process->getOutput());
             }
-
-            $output = trim($process->getOutput());
+            
+            $output = trim($output);
             
             if (empty($output)) {
                 \Log::error("Script Python retornou vazio: {$scriptName}");
