@@ -96,6 +96,14 @@
         {
           "value": "Dobrado",
           "label": "Dobrado"
+        },
+        {
+          "value": "Grampeado - 2 grampos",
+          "label": "Grampeado - 2 grampos"
+        },
+        {
+          "value": "Sem Grampos",
+          "label": "Sem Grampos"
         }
       ]
     },
