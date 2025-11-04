@@ -210,16 +210,20 @@ def obter_preco_script_python(slug, opcoes):
         
         # Determinar qual script usar
         script_path = None
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        
         if slug == 'impressao-de-revista':
-            script_path = 'scrapper/scrape_revista.py'
+            script_path = os.path.join(base_dir, 'scrapper', 'scrape_revista.py')
         elif slug == 'impressao-de-tabloide':
-            script_path = 'scrapper/scrape_tabloide.py'
+            script_path = os.path.join(base_dir, 'scrapper', 'scrape_tabloide.py')
         else:
             # Tentar usar genérico
-            script_path = 'scrapper/scrape_tempo_real.py'
+            script_path = os.path.join(base_dir, 'scrapper', 'scrape_tempo_real.py')
         
         if not script_path or not os.path.exists(script_path):
             print(f"   Script não encontrado: {script_path}", file=sys.stderr)
+            print(f"   Diretório atual: {os.getcwd()}", file=sys.stderr)
+            print(f"   Base dir: {base_dir}", file=sys.stderr)
             return None
         
         # Preparar dados para o script
@@ -229,12 +233,13 @@ def obter_preco_script_python(slug, opcoes):
         })
         
         # Executar script via subprocess para capturar stdout corretamente
+        # script_path já está em caminho absoluto
         resultado_subprocess = subprocess.run(
             ['python3', script_path, dados_json],
             capture_output=True,
             text=True,
             timeout=120,
-            cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            cwd=base_dir  # Executar no diretório base do projeto
         )
         
         # Capturar stdout e stderr
