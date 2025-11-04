@@ -231,8 +231,14 @@ class ProductPriceController extends Controller
                 $isSuccessful = $process->isSuccessful();
                 
                 \Log::error("DEBUG: Process executado - Success: " . ($isSuccessful ? 'true' : 'false') . ", Exit code: {$exitCode}");
-                \Log::error("DEBUG: stderr (primeiros 2000 chars): " . substr($errorOutput, 0, 2000));
-                \Log::error("DEBUG: stdout (primeiros 2000 chars): " . substr($output, 0, 2000));
+                $stderrLen = strlen($errorOutput);
+                $stdoutLen = strlen($output);
+                \Log::error("DEBUG: stderr tamanho: {$stderrLen}, stdout tamanho: {$stdoutLen}");
+                \Log::error("DEBUG: stderr completo (primeiros 5000 chars): " . substr($errorOutput, 0, 5000));
+                if ($stderrLen > 5000) {
+                    \Log::error("DEBUG: stderr (últimos 1000 chars): " . substr($errorOutput, -1000));
+                }
+                \Log::error("DEBUG: stdout completo (primeiros 5000 chars): " . substr($output, 0, 5000));
                 
                 if (!$isSuccessful) {
                     \Log::error("Erro ao executar script Python ({$scriptName})");

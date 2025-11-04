@@ -45,8 +45,14 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     
     try:
         print("DEBUG: Iniciando ChromeDriver...", file=sys.stderr)
-        driver = webdriver.Chrome(options=options)
-        print("DEBUG: ChromeDriver iniciado com sucesso", file=sys.stderr)
+        try:
+            driver = webdriver.Chrome(options=options)
+            print("DEBUG: ChromeDriver iniciado com sucesso", file=sys.stderr)
+        except Exception as e:
+            print(f"DEBUG: ERRO ao iniciar ChromeDriver: {type(e).__name__}: {str(e)}", file=sys.stderr)
+            import traceback
+            print(f"DEBUG: Traceback: {traceback.format_exc()}", file=sys.stderr)
+            raise
         driver.set_page_load_timeout(6)
         
         print(f"DEBUG: Acessando URL: {url}", file=sys.stderr)
