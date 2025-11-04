@@ -214,6 +214,7 @@ class ProductPriceController extends Controller
                 }
             } else {
                 // Usar Process normalmente
+                \Log::error("DEBUG: Usando Process (proc_open disponível)");
                 $process = new Process($command, base_path());
                 $process->setTimeout(120); // 2 minutos para scraping
                 $process->setEnv([
@@ -223,19 +224,26 @@ class ProductPriceController extends Controller
                 ]);
                 $process->run();
 
-                if (!$process->isSuccessful()) {
-                    $errorOutput = $process->getErrorOutput();
-                    $output = $process->getOutput();
-                    $exitCode = $process->getExitCode();
+                // Sempre logar output, mesmo se bem-sucedido
+                $errorOutput = $process->getErrorOutput();
+                $output = $process->getOutput();
+                $exitCode = $process->getExitCode();
+                $isSuccessful = $process->isSuccessful();
+                
+                \Log::error("DEBUG: Process executado - Success: " . ($isSuccessful ? 'true' : 'false') . ", Exit code: {$exitCode}");
+                \Log::error("DEBUG: stderr (primeiros 2000 chars): " . substr($errorOutput, 0, 2000));
+                \Log::error("DEBUG: stdout (primeiros 2000 chars): " . substr($output, 0, 2000));
+                
+                if (!$isSuccessful) {
                     \Log::error("Erro ao executar script Python ({$scriptName})");
                     \Log::error("Exit code: {$exitCode}");
-                    \Log::error("Error output: {$errorOutput}");
-                    \Log::error("Standard output: {$output}");
+                    \Log::error("Error output completo: {$errorOutput}");
+                    \Log::error("Standard output completo: {$output}");
                     \Log::error("Comando executado: " . implode(' ', $command));
                     return null;
                 }
 
-                $output = trim($process->getOutput());
+                $output = trim($output);
             }
             
             $output = trim($output);
