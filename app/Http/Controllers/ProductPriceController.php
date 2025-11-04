@@ -167,7 +167,8 @@ class ProductPriceController extends Controller
             if (!function_exists('proc_open')) {
                 \Log::error("DEBUG: proc_open não disponível, tentando alternativas");
                 // Garantir que PATH inclui /usr/local/bin onde está o chromedriver
-                $fullCommand = "cd " . escapeshellarg(base_path()) . " && PATH=/usr/local/bin:/usr/bin:/bin:\$PATH {$commandStr} 2>&1";
+                // Usar export PATH para garantir que seja aplicado
+                $fullCommand = "cd " . escapeshellarg(base_path()) . " && export PATH=/usr/local/bin:/usr/bin:/bin:\$PATH && {$commandStr} 2>&1";
                 \Log::error("DEBUG: Comando completo: {$fullCommand}");
                 
                 // Tentar shell_exec primeiro
