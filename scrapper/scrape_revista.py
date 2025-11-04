@@ -212,36 +212,47 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 valor_str = str(valor).strip()
                 opcao_encontrada = False
                 
+                print(f"DEBUG: Processando campo '{campo}' = '{valor_str}' no select idx {idx}", file=sys.stderr)
+                total_opcoes = len(select.find_elements(By.TAG_NAME, 'option'))
+                print(f"DEBUG: Select {idx} tem {total_opcoes} opções", file=sys.stderr)
+                
+                opcoes_encontradas = []
                 for opt in select.find_elements(By.TAG_NAME, 'option'):
                     v = opt.get_attribute('value')
                     t = opt.text.strip()
                     v_str = str(v).strip() if v else ''
                     t_str = str(t).strip() if t else ''
+                    opcoes_encontradas.append((v_str, t_str))
                     
                     if (v_str == valor_str or t_str == valor_str or 
                         valor_str in v_str or valor_str in t_str or
                         v_str in valor_str or t_str in valor_str):
+                        print(f"DEBUG: ✅ Match encontrado! value='{v_str}', text='{t_str}'", file=sys.stderr)
                         try:
                             Select(select).select_by_value(v)
+                            # Verificar valor selecionado
+                            valor_selecionado = Select(select).first_selected_option
+                            print(f"DEBUG: Valor selecionado: value='{valor_selecionado.get_attribute('value')}', text='{valor_selecionado.text}'", file=sys.stderr)
                             opcao_encontrada = True
-                            time.sleep(0.4)
-                            # Verificar se preço já foi calculado
-                            for _ in range(20):
-                                time.sleep(0.15)
-                                try:
-                                    preco_element = driver.find_element(By.ID, "calc-total")
-                                    preco_texto = preco_element.text
-                                    preco_valor = extrair_valor_preco(preco_texto)
-                                    if preco_valor and preco_valor > 0:
-                                        return preco_valor
-                                except:
-                                    pass
+                            time.sleep(0.5)  # Aguardar cálculo após cada seleção
                             break
                         except Exception as e:
                             print(f"DEBUG: ERRO ao selecionar {campo}: {e}", file=sys.stderr)
+                            # Tentar por texto
+                            try:
+                                Select(select).select_by_visible_text(t)
+                                print(f"DEBUG: Selecionado por texto: '{t}'", file=sys.stderr)
+                                opcao_encontrada = True
+                                time.sleep(0.5)
+                                break
+                            except Exception as e2:
+                                print(f"DEBUG: ERRO ao selecionar por texto: {e2}", file=sys.stderr)
                 
                 if not opcao_encontrada:
-                    print(f"DEBUG: AVISO - Opção não encontrada para {campo} = {valor}", file=sys.stderr)
+                    print(f"DEBUG: ❌ Opção não encontrada para {campo} = '{valor_str}'", file=sys.stderr)
+                    print(f"DEBUG: Primeiras 5 opções disponíveis:", file=sys.stderr)
+                    for i, (v, t) in enumerate(opcoes_encontradas[:5]):
+                        print(f"DEBUG:   [{i}] value='{v}', text='{t}'", file=sys.stderr)
         
         # Reaplicar quantidade após processar todos os campos (para garantir que o preço está correto)
         print(f"DEBUG: Reaplicando quantidade após processar campos...", file=sys.stderr)
@@ -277,18 +288,38 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             print(f"DEBUG: Erro ao reaplicar quantidade: {e}", file=sys.stderr)
             pass
         
+        # Verificar valores finais dos selects antes de buscar preço
+        print(f"DEBUG: Verificando valores finais selecionados:", file=sys.stderr)
+        for idx, select in enumerate(selects):
+            try:
+                valor_selecionado = Select(select).first_selected_option
+                valor_value = valor_selecionado.get_attribute('value')
+                valor_text = valor_selecionado.text.strip()
+                print(f"DEBUG: Select {idx}: value='{valor_value}', text='{valor_text}'", file=sys.stderr)
+            except:
+                print(f"DEBUG: Select {idx}: Nenhum valor selecionado", file=sys.stderr)
+        
+        # Verificar quantidade final
+        try:
+            qtd_final = driver.find_element(By.ID, "Q1")
+            valor_qtd_final = qtd_final.get_attribute('value')
+            print(f"DEBUG: Quantidade final Q1: {valor_qtd_final}", file=sys.stderr)
+        except:
+            print(f"DEBUG: Não foi possível verificar quantidade final", file=sys.stderr)
+        
         # Aguardar cálculo final
         print(f"DEBUG: Aguardando cálculo final do preço...", file=sys.stderr)
-        time.sleep(1.0)
-        for tentativa in range(30):
-            time.sleep(0.1)
+        time.sleep(2.0)  # Mais tempo para garantir cálculo
+        for tentativa in range(50):  # Mais tentativas
+            time.sleep(0.2)
             try:
                 preco_element = driver.find_element(By.ID, "calc-total")
                 preco_texto = preco_element.text
                 preco_valor = extrair_valor_preco(preco_texto)
-                print(f"DEBUG: Tentativa {tentativa+1}: Preço texto = '{preco_texto}', Preço valor = {preco_valor}", file=sys.stderr)
+                if tentativa % 5 == 0:  # Log a cada 5 tentativas
+                    print(f"DEBUG: Tentativa {tentativa+1}: Preço texto = '{preco_texto}', Preço valor = {preco_valor}", file=sys.stderr)
                 if preco_valor and preco_valor > 0:
-                    print(f"DEBUG: ✅ Preço encontrado: R$ {preco_valor:.2f}", file=sys.stderr)
+                    print(f"DEBUG: ✅ Preço encontrado na tentativa {tentativa+1}: R$ {preco_valor:.2f} (texto: '{preco_texto}')", file=sys.stderr)
                     return preco_valor
             except Exception as e:
                 if tentativa == 0:
