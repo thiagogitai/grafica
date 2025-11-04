@@ -72,103 +72,6 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         except:
             pass
         
-        # IMPORTANTE: Aplicar quantidade PRIMEIRO (label "1- Quantidade:")
-        # Sequência exata: 1- Quantidade, 2- Formato, 3- Papel CAPA, etc.
-        # O campo de quantidade é um input type="text" com id="Q1" e name="Q1"
-        print(f"DEBUG: [SEQUÊNCIA 1] Aplicando quantidade: {quantidade}", file=sys.stderr)
-        try:
-            # Tentar primeiro pelo ID específico
-            qtd_input = driver.find_element(By.ID, "Q1")
-            valor_antes = qtd_input.get_attribute('value')
-            print(f"DEBUG: Campo Q1 encontrado! Valor antes: {valor_antes}", file=sys.stderr)
-            
-            # Primeiro limpar o campo completamente
-            qtd_input.clear()
-            time.sleep(0.2)
-            
-            # Agora digitar o valor
-            qtd_input.send_keys(str(quantidade))
-            time.sleep(0.3)
-            
-            # Clicar fora (blur) para confirmar - isso é essencial!
-            driver.execute_script("""
-                var input = arguments[0];
-                // Garantir que o valor está correto
-                input.value = arguments[1];
-                // Clicar fora (blur) para confirmar
-                input.blur();
-                // Disparar eventos
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-                input.dispatchEvent(new Event('change', { bubbles: true }));
-                input.dispatchEvent(new Event('blur', { bubbles: true }));
-                // Também tentar trigger do jQuery se existir
-                if (window.jQuery) {
-                    jQuery(input).val(arguments[1]).trigger('input').trigger('change').trigger('blur');
-                }
-                return input.value;
-            """, qtd_input, str(quantidade))
-            
-            valor_aplicado = qtd_input.get_attribute('value')
-            
-            print(f"DEBUG: Valor aplicado via JavaScript: {valor_aplicado}", file=sys.stderr)
-            time.sleep(1.5)  # Aguardar mais tempo para validações e cálculos
-            
-            # Verificar valor final
-            valor_final = qtd_input.get_attribute('value')
-            print(f"DEBUG: Valor final após 1.5s: {valor_final}", file=sys.stderr)
-            
-            # Se o valor ainda não está correto, tentar novamente
-            if valor_final != str(quantidade):
-                print(f"DEBUG: Valor não corresponde! Tentando novamente com limpeza completa...", file=sys.stderr)
-                # Limpar completamente e tentar novamente
-                qtd_input.clear()
-                time.sleep(0.2)
-                qtd_input.send_keys(str(quantidade))
-                time.sleep(0.3)
-                # Clicar fora (blur) para confirmar
-                driver.execute_script("""
-                    var input = arguments[0];
-                    input.value = arguments[1];
-                    input.blur();
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    input.dispatchEvent(new Event('change', { bubbles: true }));
-                    input.dispatchEvent(new Event('blur', { bubbles: true }));
-                    if (window.jQuery) {
-                        jQuery(input).val(arguments[1]).trigger('input').trigger('change').trigger('blur');
-                    }
-                """, qtd_input, str(quantidade))
-                time.sleep(1.5)
-                valor_final = qtd_input.get_attribute('value')
-                print(f"DEBUG: Valor final após segunda tentativa: {valor_final}", file=sys.stderr)
-        except Exception as e:
-            print(f"DEBUG: ERRO ao aplicar quantidade (tentativa 1): {e}", file=sys.stderr)
-            # Fallback: tentar pelo name ou type
-            try:
-                qtd_input = driver.find_element(By.XPATH, "//input[@name='Q1']")
-                qtd_input.clear()
-                qtd_input.send_keys(str(quantidade))
-                driver.execute_script("""
-                    var input = arguments[0];
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    input.dispatchEvent(new Event('change', { bubbles: true }));
-                """, qtd_input)
-                time.sleep(1.0)
-            except:
-                # Último fallback: tentar input type="number" (caso exista em outros produtos)
-                try:
-                    qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
-                    qtd_input.clear()
-                    qtd_input.send_keys(str(quantidade))
-                    driver.execute_script("""
-                        var input = arguments[0];
-                        input.dispatchEvent(new Event('input', { bubbles: true }));
-                        input.dispatchEvent(new Event('change', { bubbles: true }));
-                    """, qtd_input)
-                    time.sleep(1.0)
-                except Exception as e:
-                    print(f"DEBUG: ERRO ao aplicar quantidade: {e}", file=sys.stderr)
-                    pass
-        
         selects = driver.find_elements(By.TAG_NAME, 'select')
         print(f"DEBUG: Encontrados {len(selects)} selects na página", file=sys.stderr)
         
@@ -194,120 +97,94 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             'prazo_entrega': 15,  # 17- Prazo de Entrega:
         }
         
-        # Ordenar campos para processar na sequência EXATA dos selects (0, 1, 2, 3...)
-        # Não importa a ordem das opções recebidas - sempre processar na ordem dos selects
+        # Preparar dados para aplicar tudo de uma vez via JavaScript
+        print(f"DEBUG: Preparando para aplicar todas as opções de uma vez via JavaScript", file=sys.stderr)
+        
+        # Ordenar campos na sequência EXATA (0, 1, 2, 3...)
         campos_ordenados = []
         max_idx = max(mapeamento.values()) if mapeamento else 0
-        print(f"DEBUG: Total de campos recebidos: {len(opcoes)}", file=sys.stderr)
-        print(f"DEBUG: Campos recebidos: {list(opcoes.keys())}", file=sys.stderr)
-        
-        # Processar na ordem EXATA dos índices (0, 1, 2, 3...)
         for idx in range(max_idx + 1):
-            # Encontrar qual campo corresponde a este índice
-            campo_encontrado = None
-            valor_encontrado = None
             for campo, valor in opcoes.items():
                 if campo == 'quantity':
                     continue
                 if mapeamento.get(campo) == idx:
-                    campo_encontrado = campo
-                    valor_encontrado = valor
+                    campos_ordenados.append((idx, campo, valor))
                     break
+        
+        print(f"DEBUG: Total de campos a aplicar: {len(campos_ordenados)}", file=sys.stderr)
+        
+        # Aplicar TUDO de uma vez via JavaScript (como se a pessoa selecionasse tudo e desse OK)
+        resultado_js = driver.execute_script("""
+            // Aplicar quantidade primeiro
+            var qtdInput = document.getElementById('Q1');
+            if (qtdInput) {
+                qtdInput.value = arguments[0];
+                qtdInput.dispatchEvent(new Event('input', { bubbles: true }));
+                qtdInput.dispatchEvent(new Event('change', { bubbles: true }));
+                qtdInput.blur();
+                if (window.jQuery) {
+                    jQuery(qtdInput).val(arguments[0]).trigger('input').trigger('change').trigger('blur');
+                }
+            }
             
-            if campo_encontrado:
-                campos_ordenados.append((campo_encontrado, valor_encontrado))
-            else:
-                # Se não encontrou campo para este índice, logar
-                print(f"DEBUG: ⚠️ Nenhum campo mapeado para select idx {idx}", file=sys.stderr)
-        
-        print(f"DEBUG: Campos ordenados para processar: {len(campos_ordenados)}", file=sys.stderr)
-        for i, (campo, valor) in enumerate(campos_ordenados):
-            # i+2 porque label 1 é quantidade, então começa no 2
-            print(f"DEBUG:   [SEQUÊNCIA {i+2}] {campo} = {valor} (select idx: {mapeamento.get(campo)})", file=sys.stderr)
-        
-        # Processar campos na ordem EXATA dos selects (sequência 2, 3, 4, 5...)
-        for campo, valor in campos_ordenados:
-            idx = mapeamento.get(campo)
-            if idx is not None and idx < len(selects):
-                select = selects[idx]
-                valor_str = str(valor).strip()
-                opcao_encontrada = False
+            // Aplicar todos os selects na ordem
+            var selects = document.querySelectorAll('select');
+            var mapeamento = arguments[1]; // Array de [idx, valor] para cada select
+            var valores_aplicados = [];
+            
+            for (var i = 0; i < mapeamento.length; i++) {
+                var idx = mapeamento[i][0];
+                var valor_desejado = mapeamento[i][1];
                 
-                print(f"DEBUG: Processando campo '{campo}' = '{valor_str}' no select idx {idx}", file=sys.stderr)
-                total_opcoes = len(select.find_elements(By.TAG_NAME, 'option'))
-                print(f"DEBUG: Select {idx} tem {total_opcoes} opções", file=sys.stderr)
-                
-                opcoes_encontradas = []
-                for opt in select.find_elements(By.TAG_NAME, 'option'):
-                    v = opt.get_attribute('value')
-                    t = opt.text.strip()
-                    v_str = str(v).strip() if v else ''
-                    t_str = str(t).strip() if t else ''
-                    opcoes_encontradas.append((v_str, t_str))
+                if (idx < selects.length) {
+                    var select = selects[idx];
+                    var opcoes = select.querySelectorAll('option');
+                    var encontrado = false;
                     
-                    if (v_str == valor_str or t_str == valor_str or 
-                        valor_str in v_str or valor_str in t_str or
-                        v_str in valor_str or t_str in valor_str):
-                        print(f"DEBUG: ✅ Match encontrado! value='{v_str}', text='{t_str}'", file=sys.stderr)
-                        try:
-                            Select(select).select_by_value(v)
-                            # Verificar valor selecionado
-                            valor_selecionado = Select(select).first_selected_option
-                            print(f"DEBUG: Valor selecionado: value='{valor_selecionado.get_attribute('value')}', text='{valor_selecionado.text}'", file=sys.stderr)
-                            opcao_encontrada = True
-                            time.sleep(0.5)  # Aguardar cálculo após cada seleção
-                            break
-                        except Exception as e:
-                            print(f"DEBUG: ERRO ao selecionar {campo}: {e}", file=sys.stderr)
-                            # Tentar por texto
-                            try:
-                                Select(select).select_by_visible_text(t)
-                                print(f"DEBUG: Selecionado por texto: '{t}'", file=sys.stderr)
-                                opcao_encontrada = True
-                                time.sleep(0.5)
-                                break
-                            except Exception as e2:
-                                print(f"DEBUG: ERRO ao selecionar por texto: {e2}", file=sys.stderr)
-                
-                if not opcao_encontrada:
-                    print(f"DEBUG: ❌ Opção não encontrada para {campo} = '{valor_str}'", file=sys.stderr)
-                    print(f"DEBUG: Primeiras 5 opções disponíveis:", file=sys.stderr)
-                    for i, (v, t) in enumerate(opcoes_encontradas[:5]):
-                        print(f"DEBUG:   [{i}] value='{v}', text='{t}'", file=sys.stderr)
-        
-        # Reaplicar quantidade após processar todos os campos (para garantir que o preço está correto)
-        print(f"DEBUG: Reaplicando quantidade após processar campos...", file=sys.stderr)
-        try:
-            # Tentar pelo ID específico primeiro
-            qtd_input = driver.find_element(By.ID, "Q1")
-            valor_atual = qtd_input.get_attribute('value')
-            print(f"DEBUG: Valor atual do Q1: {valor_atual}, esperado: {quantidade}", file=sys.stderr)
-            if valor_atual != str(quantidade):
-                print(f"DEBUG: Valor diferente! Reaplicando quantidade com limpeza e blur...", file=sys.stderr)
-                # Limpar completamente
-                qtd_input.clear()
-                time.sleep(0.2)
-                # Digitar novamente
-                qtd_input.send_keys(str(quantidade))
-                time.sleep(0.3)
-                # Clicar fora (blur) para confirmar
-                driver.execute_script("""
-                    var input = arguments[0];
-                    input.value = arguments[1];
-                    input.blur();
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    input.dispatchEvent(new Event('change', { bubbles: true }));
-                    input.dispatchEvent(new Event('blur', { bubbles: true }));
-                    if (window.jQuery) {
-                        jQuery(input).val(arguments[1]).trigger('input').trigger('change').trigger('blur');
+                    for (var j = 0; j < opcoes.length; j++) {
+                        var opt = opcoes[j];
+                        var opt_value = (opt.value || '').trim();
+                        var opt_text = (opt.text || '').trim();
+                        var valor_str = String(valor_desejado).trim();
+                        
+                        if (opt_value === valor_str || opt_text === valor_str ||
+                            opt_value.indexOf(valor_str) >= 0 || opt_text.indexOf(valor_str) >= 0 ||
+                            valor_str.indexOf(opt_value) >= 0 || valor_str.indexOf(opt_text) >= 0) {
+                            select.value = opt_value;
+                            select.dispatchEvent(new Event('change', { bubbles: true }));
+                            if (window.jQuery) {
+                                jQuery(select).val(opt_value).trigger('change');
+                            }
+                            valores_aplicados.push([idx, opt_value, opt_text]);
+                            encontrado = true;
+                            break;
+                        }
                     }
-                """, qtd_input, str(quantidade))
-                time.sleep(1.5)
-                valor_final = qtd_input.get_attribute('value')
-                print(f"DEBUG: Valor final após reaplicar: {valor_final}", file=sys.stderr)
-        except Exception as e:
-            print(f"DEBUG: Erro ao reaplicar quantidade: {e}", file=sys.stderr)
-            pass
+                    
+                    if (!encontrado) {
+                        valores_aplicados.push([idx, null, 'NÃO ENCONTRADO']);
+                    }
+                }
+            }
+            
+            // Aguardar um pouco para cálculos
+            return {
+                quantidade_aplicada: qtdInput ? qtdInput.value : null,
+                valores_aplicados: valores_aplicados
+            };
+        """, str(quantidade), [[idx, str(valor)] for idx, campo, valor in campos_ordenados])
+        
+        print(f"DEBUG: Resultado JavaScript:", file=sys.stderr)
+        print(f"DEBUG:   Quantidade aplicada: {resultado_js.get('quantidade_aplicada', 'N/A')}", file=sys.stderr)
+        print(f"DEBUG:   Valores aplicados nos selects:", file=sys.stderr)
+        for idx, value, text in resultado_js.get('valores_aplicados', []):
+            if value is None:
+                print(f"DEBUG:     Select {idx}: ❌ NÃO ENCONTRADO", file=sys.stderr)
+            else:
+                print(f"DEBUG:     Select {idx}: value='{value}', text='{text}'", file=sys.stderr)
+        
+        # Aguardar cálculo após aplicar tudo
+        time.sleep(2.0)
         
         # Verificar valores finais dos selects antes de buscar preço
         print(f"DEBUG: Verificando valores finais selecionados:", file=sys.stderr)
