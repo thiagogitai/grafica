@@ -243,6 +243,26 @@
         {
           "value": "Couche Fosco 210gr ",
           "label": "Couche Fosco 210gr"
+        },
+        {
+          "value": "Offset 70gr",
+          "label": "Offset 70gr"
+        },
+        {
+          "value": "Offset 75gr",
+          "label": "Offset 75gr"
+        },
+        {
+          "value": "Offset 90gr",
+          "label": "Offset 90gr"
+        },
+        {
+          "value": "Offset 120gr",
+          "label": "Offset 120gr"
+        },
+        {
+          "value": "Não tem Miolo 2",
+          "label": "Não tem Miolo 2"
         }
       ]
     },

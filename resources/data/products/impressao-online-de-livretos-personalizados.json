@@ -55,6 +55,58 @@
         {
           "value": "160x230mm",
           "label": "160x230mm"
+        },
+        {
+          "value": "170x240mm",
+          "label": "170x240mm"
+        },
+        {
+          "value": "170x230mm",
+          "label": "170x230mm"
+        },
+        {
+          "value": "190mmx230mm",
+          "label": "190mmx230mm"
+        },
+        {
+          "value": "205x205mm",
+          "label": "205x205mm"
+        },
+        {
+          "value": "205x275mm",
+          "label": "205x275mm"
+        },
+        {
+          "value": "210x280mm",
+          "label": "210x280mm"
+        },
+        {
+          "value": "210x297mm (A4)",
+          "label": "210x297mm (A4)"
+        },
+        {
+          "value": "230x230mm",
+          "label": "230x230mm"
+        },
+        {
+          "value": "230x300mm",
+          "label": "230x300mm"
+        },
+        {
+          "value": "250x300mm",
+          "label": "250x300mm"
+        },
+        {
+          "value": "260x260mm",
+          "label": "260x260mm"
+        },
+        {
+          "value": "280x300mm",
+          "label": "280x300mm"
+        },
+        {
+          "value": "300x280mm",
+          "label": "300x280mm"
         }
       ]
     },
@@ -188,6 +240,10 @@
         {
           "value": "COM Orelha de 13cm",
           "label": "COM Orelha de 13cm"
+        },
+        {
+          "value": "COM Orelha de 14cm",
+          "label": "COM Orelha de 14cm"
         }
       ]
     },
@@ -262,6 +318,14 @@
         {
           "value": "Couche Fosco 115gr",
           "label": "Couche Fosco 115gr"
+        },
+        {
+          "value": "Couche Fosco 150gr",
+          "label": "Couche Fosco 150gr"
+        },
+        {
+          "value": "Couche Fosco 170gr",
+          "label": "Couche Fosco 170gr"
         }
       ]
     },
