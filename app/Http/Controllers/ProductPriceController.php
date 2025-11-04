@@ -165,22 +165,38 @@ class ProductPriceController extends Controller
             
             // Verificar se proc_open está disponível
             if (!function_exists('proc_open')) {
-                \Log::error("DEBUG: proc_open não disponível, usando exec()");
-                // Usar exec() como fallback
-                $output = '';
-                $returnVar = 0;
+                \Log::error("DEBUG: proc_open não disponível, tentando alternativas");
                 $fullCommand = "cd " . escapeshellarg(base_path()) . " && {$commandStr} 2>&1";
                 \Log::error("DEBUG: Comando completo: {$fullCommand}");
-                \exec($fullCommand, $outputLines, $returnVar);
-                \Log::error("DEBUG: exec() retornou, exit code: {$returnVar}");
-                \Log::error("DEBUG: Linhas de output: " . count($outputLines));
-                $output = implode("\n", $outputLines);
-                \Log::error("DEBUG: Output completo (primeiros 500 chars): " . substr($output, 0, 500));
                 
-                if ($returnVar !== 0) {
-                    \Log::error("Erro ao executar script Python ({$scriptName}) via exec()");
-                    \Log::error("Exit code: {$returnVar}");
-                    \Log::error("Output: {$output}");
+                // Tentar shell_exec primeiro
+                if (function_exists('shell_exec')) {
+                    \Log::error("DEBUG: Usando shell_exec()");
+                    $output = \shell_exec($fullCommand);
+                    $output = trim($output ?? '');
+                    \Log::error("DEBUG: shell_exec() retornou, tamanho: " . strlen($output));
+                    \Log::error("DEBUG: Output (primeiros 500 chars): " . substr($output, 0, 500));
+                    
+                    if (empty($output)) {
+                        \Log::error("Erro: shell_exec() retornou vazio");
+                        return null;
+                    }
+                } elseif (function_exists('exec')) {
+                    \Log::error("DEBUG: Usando exec()");
+                    $output = '';
+                    $returnVar = 0;
+                    \exec($fullCommand, $outputLines, $returnVar);
+                    $output = implode("\n", $outputLines);
+                    \Log::error("DEBUG: exec() retornou, exit code: {$returnVar}");
+                    
+                    if ($returnVar !== 0) {
+                        \Log::error("Erro ao executar script Python ({$scriptName}) via exec()");
+                        \Log::error("Exit code: {$returnVar}");
+                        \Log::error("Output: {$output}");
+                        return null;
+                    }
+                } else {
+                    \Log::error("Erro: Nenhuma função de execução disponível (proc_open, shell_exec, exec)");
                     return null;
                 }
             } else {
