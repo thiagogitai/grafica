@@ -345,13 +345,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Verificar se precisa validação (incluindo livro)
         if (precisaValidacao || configSlug === 'impressao-de-livro') {
-            // Mostrar loading
-            if (totalPriceEl) totalPriceEl.textContent = 'Calculando...';
-            if (unitPriceEl) unitPriceEl.textContent = 'Calculando...';
+            // Não validar automaticamente - aguardar botão VER PREÇO
+            if (totalPriceEl) totalPriceEl.textContent = 'R$ 0,00';
+            if (unitPriceEl) unitPriceEl.textContent = 'R$ 0,00';
             if (priceContainer) priceContainer.classList.remove('d-none');
-            
-            // Validar preço
-            validatePriceAndEnableButton(opts, quantity);
+            if (submitBtn) submitBtn.disabled = true;
+            if (submitText) submitText.textContent = 'Clique em "VER PREÇO" primeiro';
+            if (validationStatus) {
+                validationStatus.classList.remove('d-none');
+                validationStatus.classList.remove('alert-danger', 'alert-success');
+                validationStatus.classList.add('alert-info');
+                validationStatus.innerHTML = '<small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>';
+            }
             return;
         }
 
