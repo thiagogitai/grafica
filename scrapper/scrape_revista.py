@@ -35,10 +35,21 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-gpu')
     options.add_argument('--disable-extensions')
+    options.add_argument('--disable-software-rasterizer')
+    options.add_argument('--disable-background-timer-throttling')
+    options.add_argument('--disable-backgrounding-occluded-windows')
+    options.add_argument('--disable-renderer-backgrounding')
+    options.add_argument('--disable-infobars')
+    options.add_argument('--disable-notifications')
     options.add_argument('--window-size=1920,1080')
+    options.add_argument('--disable-setuid-sandbox')
+    options.add_argument('--disable-crash-reporter')
+    options.add_argument('--disable-logging')
+    options.add_argument('--log-level=3')
     
     prefs = {"profile.managed_default_content_settings.images": 2}
     options.add_experimental_option("prefs", prefs)
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
     options.set_capability('pageLoadStrategy', 'eager')
     
     driver = None
