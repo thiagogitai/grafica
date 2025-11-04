@@ -1,16 +1,16 @@
 """
-Script para fazer scraping em tempo real do preço de TABLOIDE
+Script para fazer scraping em tempo real do preço de IMPRESSAO-DE-TABLOIDE
+Criado automaticamente baseado na estrutura do site matriz
 """
 import sys
 import json
 import time
 import re
-import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait, Select
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 def extrair_valor_preco(texto):
     """Extrai valor numérico do preço"""
@@ -25,7 +25,7 @@ def extrair_valor_preco(texto):
 
 def scrape_preco_tempo_real(opcoes, quantidade):
     """
-    Faz scraping do preço de TABLOIDE no site da Eskenazi em tempo real.
+    Faz scraping do preço de IMPRESSAO-DE-TABLOIDE no site da Eskenazi em tempo real.
     """
     url = "https://www.lojagraficaeskenazi.com.br/product/impressao-de-tabloide"
     
@@ -34,21 +34,26 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-gpu')
-    options.add_argument('--disable-extensions')
     options.add_argument('--window-size=1920,1080')
     
-    prefs = {"profile.managed_default_content_settings.images": 2}
-    options.add_experimental_option("prefs", prefs)
-    options.set_capability('pageLoadStrategy', 'eager')
+    import tempfile
+    import os
     
+    selenium_cache_dir = os.path.join(tempfile.gettempdir(), 'selenium_cache_' + str(os.getpid()))
+    os.makedirs(selenium_cache_dir, exist_ok=True)
+    os.environ['SELENIUM_CACHE_DIR'] = selenium_cache_dir
+    
+    chrome_user_data_dir = os.path.join(tempfile.gettempdir(), 'chrome_user_data_' + str(os.getpid()))
+    os.makedirs(chrome_user_data_dir, exist_ok=True)
+    options.add_argument(f'--user-data-dir={chrome_user_data_dir}')
+    
+    service = Service()
     driver = None
     
     try:
-        driver = webdriver.Chrome(options=options)
-        driver.set_page_load_timeout(6)
-        
+        driver = webdriver.Chrome(service=service, options=options)
         driver.get(url)
-        time.sleep(random.uniform(1.0, 2.0))
+        time.sleep(3)
         
         # Aceitar cookies
         try:
@@ -58,49 +63,59 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 );
                 if (btn) btn.click();
             """)
+            time.sleep(1)
         except:
             pass
         
-        selects = driver.find_elements(By.TAG_NAME, 'select')
-        if not selects:
-            return None
+        # Tabloide pode não ter input de quantidade - verificar se existe
+        try:
+            qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+            qtd_input.clear()
+            qtd_input.send_keys(str(quantidade))
+            time.sleep(0.5)
+        except:
+            # Tabloide não tem input de quantidade - quantidade vem no select
+            pass
         
-        # Tabloide NÃO tem select de quantidade
-        # Mapeamento na ordem dos selects no site (0-9)
-        mapeamento_tabloide = {
-            'formato': 0,
-            'formato_miolo_paginas': 0,  # Alias
-            'papel_miolo': 1,
-            'cores_miolo': 2,
-            'quantidade_paginas_miolo': 3,
-            'acabamento_miolo': 4,
-            'acabamento_livro': 5,
-            'extras': 6,
-            'frete': 7,
-            'verificacao_arquivo': 8,
-            'prazo_entrega': 9,
+        selects = driver.find_elements(By.TAG_NAME, 'select')
+        
+        # Mapeamento EXATO baseado no site matriz (extraído automaticamente)
+        # Ordem dos selects na página: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+        mapeamento = {
+            'formato': 0,  # 2- Formato do Miolo (Páginas):
+            'papel_miolo': 1,  # 3- Papel MIOLO:
+            'cores_miolo': 2,  # 4- Cores MIOLO:
+            'quantidade_paginas_miolo': 3,  # 5- Quantidade Paginas MIOLO:
+            'acabamento_miolo': 4,  # 6- Acabamento MIOLO:
+            'acabamento_livro': 5,  # 7- Acabamento Final:
+            'extras': 6,  # 8- Extras:
+            'frete': 7,  # 9- Frete:
+            'verificacao_arquivo': 8,  # 10- Verificação do Arquivo:
+            'prazo_entrega': 9,  # 11- Prazo de Entrega:
         }
         
-        # Ordenar campos para processar na sequência correta (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+        # Ordenar campos para processar na sequência correta
         campos_ordenados = []
-        for idx in range(10):  # 0 a 9
+        max_idx = max(mapeamento.values()) if mapeamento else 0
+        for idx in range(max_idx + 1):
             for campo, valor in opcoes.items():
                 if campo == 'quantity':
                     continue
-                if mapeamento_tabloide.get(campo) == idx:
+                if mapeamento.get(campo) == idx:
                     campos_ordenados.append((campo, valor))
                     break
         
         # Processar campos na ordem correta
         for campo, valor in campos_ordenados:
-            idx = mapeamento_tabloide.get(campo)
+            idx = mapeamento.get(campo)
             if idx is not None and idx < len(selects):
                 select = selects[idx]
+                valor_str = str(valor).strip()
                 opcao_encontrada = False
+                
                 for opt in select.find_elements(By.TAG_NAME, 'option'):
                     v = opt.get_attribute('value')
                     t = opt.text.strip()
-                    valor_str = str(valor).strip()
                     v_str = str(v).strip() if v else ''
                     t_str = str(t).strip() if t else ''
                     
@@ -129,8 +144,9 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 if not opcao_encontrada:
                     print(f"DEBUG: AVISO - Opção não encontrada para {campo} = {valor}", file=sys.stderr)
         
+        # Aguardar cálculo final
         time.sleep(0.6)
-        for _ in range(30):
+        for tentativa in range(30):
             time.sleep(0.1)
             try:
                 preco_element = driver.find_element(By.ID, "calc-total")
@@ -143,7 +159,10 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         
         return None
         
-    except:
+    except Exception as e:
+        import traceback
+        print(f"ERRO_NO_SCRAPER: {str(e)}", file=sys.stderr)
+        print(f"TRACEBACK: {traceback.format_exc()}", file=sys.stderr)
         return None
     finally:
         if driver:
@@ -178,4 +197,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
