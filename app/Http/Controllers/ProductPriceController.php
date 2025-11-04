@@ -219,9 +219,15 @@ class ProductPriceController extends Controller
                 $process->setTimeout(120); // 2 minutos para scraping
                 
                 // Variáveis de ambiente essenciais para Chrome em ambiente headless
+                // IMPORTANTE: HOME deve ser um diretório com permissão de escrita para o usuário do PHP
+                $tmpHome = '/tmp/home_' . getmypid();
+                if (!is_dir($tmpHome)) {
+                    @mkdir($tmpHome, 0777, true);
+                }
+                
                 $env = [
                     'PATH' => '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:' . (getenv('PATH') ?: ''),
-                    'HOME' => getenv('HOME') ?: '/tmp',
+                    'HOME' => $tmpHome, // Usar diretório temporário com permissão de escrita
                     'USER' => getenv('USER') ?: 'www-data',
                     'SHELL' => '/bin/bash',
                     'LANG' => 'C.UTF-8',

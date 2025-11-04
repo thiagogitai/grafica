@@ -49,12 +49,24 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     options.add_argument('--disable-logging')
     options.add_argument('--log-level=3')
     
-    # Configurar diretório temporário para o Chrome (acessível ao usuário do PHP)
+    # Configurar diretórios temporários para o Chrome e Selenium (acessíveis ao usuário do PHP)
     import tempfile
     import os
+    
+    # Configurar diretório de cache do Selenium para evitar problemas de permissão
+    selenium_cache_dir = os.path.join(tempfile.gettempdir(), 'selenium_cache_' + str(os.getpid()))
+    os.makedirs(selenium_cache_dir, exist_ok=True)
+    os.environ['SELENIUM_CACHE_DIR'] = selenium_cache_dir
+    
+    # Configurar diretório de dados do usuário do Chrome
     chrome_user_data_dir = os.path.join(tempfile.gettempdir(), 'chrome_user_data_' + str(os.getpid()))
     os.makedirs(chrome_user_data_dir, exist_ok=True)
     options.add_argument(f'--user-data-dir={chrome_user_data_dir}')
+    
+    # Configurar HOME temporário se necessário
+    if not os.access(os.path.expanduser('~/.cache'), os.W_OK):
+        os.environ['HOME'] = tempfile.gettempdir()
+        print(f"DEBUG: HOME temporário configurado: {tempfile.gettempdir()}", file=sys.stderr)
     
     prefs = {"profile.managed_default_content_settings.images": 2}
     options.add_experimental_option("prefs", prefs)
