@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
                 // Habilitar botão
                 if (submitBtn) submitBtn.disabled = false;
-                if (submitText) submitText.textContent = 'Avançar para Envio da Arte';
+                if (submitText) submitText.textContent = 'Adicionar ao Carrinho';
                 if (validationStatus) {
                     validationStatus.classList.remove('alert-info');
                     validationStatus.classList.add('alert-success');
