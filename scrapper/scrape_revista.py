@@ -175,20 +175,18 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         print(f"DEBUG: Campos recebidos: {list(opcoes.keys())}", file=sys.stderr)
         print(f"DEBUG: Total de selects na página: {len(selects)}", file=sys.stderr)
         
-        # Ordenar campos para processar na ordem correta (formato primeiro, depois os outros)
+        # Ordenar campos para processar na sequência correta do site (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
         campos_ordenados = []
-        outros_campos = []
-        
-        for campo, valor in opcoes.items():
-            if campo == 'quantity':
-                continue
-            if campo in ['formato', 'formato_miolo_paginas']:
-                campos_ordenados.insert(0, (campo, valor))  # Formato primeiro
-            else:
-                outros_campos.append((campo, valor))
+        for idx in range(16):  # 0 a 15 (16 selects no total)
+            for campo, valor in opcoes.items():
+                if campo == 'quantity':
+                    continue
+                if mapeamento_revista.get(campo) == idx:
+                    campos_ordenados.append((campo, valor))
+                    break
         
         # Processar todos os campos na ordem correta
-        todos_campos = campos_ordenados + outros_campos
+        todos_campos = campos_ordenados
         
         for campo, valor in todos_campos:
             idx = mapeamento_revista.get(campo)
