@@ -19,7 +19,12 @@ def extrair_valor_preco(texto):
     valor = re.sub(r'[R$\s.]', '', texto)
     valor = valor.replace(',', '.')
     try:
-        return float(valor)
+        preco = float(valor)
+        # Validar se o preço é razoável (entre R$ 1 e R$ 1.000.000)
+        if preco < 1 or preco > 1000000:
+            print(f"DEBUG: ⚠️ Preço fora do range razoável: R$ {preco:.2f} (texto: '{texto}')", file=sys.stderr)
+            return None
+        return preco
     except:
         return None
 
@@ -326,21 +331,51 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         # Aguardar cálculo final
         print(f"DEBUG: Aguardando cálculo final do preço...", file=sys.stderr)
         time.sleep(2.0)  # Mais tempo para garantir cálculo
+        
+        # Verificar se há algum elemento de preço antes de começar
+        try:
+            preco_test = driver.find_element(By.ID, "calc-total")
+            print(f"DEBUG: Elemento calc-total existe: '{preco_test.text}'", file=sys.stderr)
+        except:
+            print(f"DEBUG: ⚠️ Elemento calc-total não encontrado!", file=sys.stderr)
+        
+        preco_valido = None
         for tentativa in range(50):  # Mais tentativas
             time.sleep(0.2)
             try:
                 preco_element = driver.find_element(By.ID, "calc-total")
-                preco_texto = preco_element.text
+                preco_texto = preco_element.text.strip()
                 preco_valor = extrair_valor_preco(preco_texto)
+                
                 if tentativa % 5 == 0:  # Log a cada 5 tentativas
                     print(f"DEBUG: Tentativa {tentativa+1}: Preço texto = '{preco_texto}', Preço valor = {preco_valor}", file=sys.stderr)
-                if preco_valor and preco_valor > 0:
-                    print(f"DEBUG: ✅ Preço encontrado na tentativa {tentativa+1}: R$ {preco_valor:.2f} (texto: '{preco_texto}')", file=sys.stderr)
-                    return preco_valor
+                
+                # Validar preço: deve ser entre R$ 1 e R$ 1.000.000
+                if preco_valor and 1 <= preco_valor <= 1000000:
+                    # Se já tinha um preço válido, verificar se é estável
+                    if preco_valido and abs(preco_valor - preco_valido) < 0.01:
+                        print(f"DEBUG: ✅ Preço estável encontrado na tentativa {tentativa+1}: R$ {preco_valor:.2f} (texto: '{preco_texto}')", file=sys.stderr)
+                        return preco_valor
+                    elif preco_valido is None:
+                        preco_valido = preco_valor
+                        print(f"DEBUG: ✅ Primeiro preço válido encontrado na tentativa {tentativa+1}: R$ {preco_valor:.2f} (texto: '{preco_texto}')", file=sys.stderr)
+                    # Aguardar mais um pouco para confirmar estabilidade
+                    time.sleep(0.5)
+                    preco_valor2 = extrair_valor_preco(preco_element.text.strip())
+                    if preco_valor2 and abs(preco_valor - preco_valor2) < 0.01:
+                        print(f"DEBUG: ✅ Preço confirmado estável: R$ {preco_valor:.2f}", file=sys.stderr)
+                        return preco_valor
+                elif preco_valor:
+                    print(f"DEBUG: ⚠️ Preço fora do range: R$ {preco_valor:.2f} (texto: '{preco_texto}')", file=sys.stderr)
             except Exception as e:
                 if tentativa == 0:
                     print(f"DEBUG: Erro ao buscar preço (tentativa {tentativa+1}): {e}", file=sys.stderr)
                 pass
+        
+        # Se encontrou um preço válido mas não confirmou estabilidade, retornar mesmo assim
+        if preco_valido:
+            print(f"DEBUG: ⚠️ Retornando preço sem confirmação de estabilidade: R$ {preco_valido:.2f}", file=sys.stderr)
+            return preco_valido
         
         print(f"DEBUG: ❌ Preço não encontrado após 30 tentativas", file=sys.stderr)
         return None
