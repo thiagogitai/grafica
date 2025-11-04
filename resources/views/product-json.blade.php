@@ -149,15 +149,17 @@
                         <p class="text-muted small">valor de cada unidade: <span id="unit-price"></span></p>
                     </div>
                     <div class="d-grid gap-3">
+                        @if(in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro']))
                         <button type="button" class="btn btn-outline-primary btn-lg" id="btn-ver-preco">
                             <i class="fas fa-calculator me-2"></i>
                             <span>VER PREÇO</span>
                         </button>
-                        <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" disabled>
+                        @endif
+                        <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" @if(in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro'])) disabled @endif>
                             <i class="fas fa-shopping-cart me-2"></i>
-                            <span id="submit-text">Adicionar ao Carrinho</span>
+                            <span id="submit-text">@if(in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro']))Clique em "VER PREÇO" primeiro@else Adicionar ao Carrinho @endif</span>
                         </button>
-                        <div class="alert alert-info" id="price-validation-status">
+                        <div class="alert alert-info @if(!in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro'])) d-none @endif" id="price-validation-status">
                             <small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>
                         </div>
                     </div>
