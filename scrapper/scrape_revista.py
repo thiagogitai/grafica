@@ -44,11 +44,15 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     driver = None
     
     try:
+        print("DEBUG: Iniciando ChromeDriver...", file=sys.stderr)
         driver = webdriver.Chrome(options=options)
+        print("DEBUG: ChromeDriver iniciado com sucesso", file=sys.stderr)
         driver.set_page_load_timeout(6)
         
+        print(f"DEBUG: Acessando URL: {url}", file=sys.stderr)
         driver.get(url)
         time.sleep(random.uniform(1.0, 2.0))
+        print("DEBUG: Página carregada", file=sys.stderr)
         
         # Aceitar cookies
         try:
@@ -62,7 +66,9 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             pass
         
         selects = driver.find_elements(By.TAG_NAME, 'select')
+        print(f"DEBUG: Encontrados {len(selects)} selects na página", file=sys.stderr)
         if not selects:
+            print("DEBUG: Nenhum select encontrado na página", file=sys.stderr)
             return None
         
         # Revista NÃO tem select de quantidade (igual ao livreto)
@@ -86,18 +92,24 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             'prazo_entrega': 15,
         }
         
+        campos_processados = 0
         for campo, valor in opcoes.items():
             if campo == 'quantity':
                 continue
             
             idx = mapeamento_revista.get(campo)
             if idx is not None and idx < len(selects):
+                print(f"DEBUG: Processando campo {campo} = {valor} (select index {idx})", file=sys.stderr)
                 select = selects[idx]
+                opcoes_encontradas = 0
                 for opt in select.find_elements(By.TAG_NAME, 'option'):
                     v = opt.get_attribute('value')
                     t = opt.text.strip()
                     if v == str(valor) or t == str(valor) or str(valor) in v or str(valor) in t:
+                        print(f"DEBUG: Opção encontrada para {campo}: {v} / {t}", file=sys.stderr)
                         Select(select).select_by_value(v)
+                        opcoes_encontradas += 1
+                        campos_processados += 1
                         time.sleep(0.3)
                         for _ in range(27):
                             time.sleep(0.1)
@@ -111,18 +123,23 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                                 pass
                         break
         
+        print(f"DEBUG: Processados {campos_processados} campos. Aguardando cálculo final...", file=sys.stderr)
         time.sleep(0.6)
-        for _ in range(30):
+        for tentativa in range(30):
             time.sleep(0.1)
             try:
                 preco_element = driver.find_element(By.ID, "calc-total")
                 preco_texto = preco_element.text
                 preco_valor = extrair_valor_preco(preco_texto)
                 if preco_valor and preco_valor > 0:
+                    print(f"DEBUG: Preço encontrado: {preco_valor} (texto: {preco_texto})", file=sys.stderr)
                     return preco_valor
-            except:
+            except Exception as e:
+                if tentativa == 29:  # Última tentativa
+                    print(f"DEBUG: Elemento calc-total não encontrado após 3 segundos. Erro: {e}", file=sys.stderr)
                 pass
         
+        print("DEBUG: Preço não encontrado após todas as tentativas", file=sys.stderr)
         return None
         
     except Exception as e:
