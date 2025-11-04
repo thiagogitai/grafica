@@ -47,6 +47,13 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     options.add_argument('--disable-logging')
     options.add_argument('--log-level=3')
     
+    # Configurar diretório temporário para o Chrome (acessível ao usuário do PHP)
+    import tempfile
+    import os
+    chrome_user_data_dir = os.path.join(tempfile.gettempdir(), 'chrome_user_data_' + str(os.getpid()))
+    os.makedirs(chrome_user_data_dir, exist_ok=True)
+    options.add_argument(f'--user-data-dir={chrome_user_data_dir}')
+    
     prefs = {"profile.managed_default_content_settings.images": 2}
     options.add_experimental_option("prefs", prefs)
     options.add_experimental_option('excludeSwitches', ['enable-logging'])

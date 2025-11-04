@@ -217,11 +217,31 @@ class ProductPriceController extends Controller
                 \Log::error("DEBUG: Usando Process (proc_open disponível)");
                 $process = new Process($command, base_path());
                 $process->setTimeout(120); // 2 minutos para scraping
-                $process->setEnv([
-                    'PATH' => '/usr/local/bin:/usr/bin:/bin:' . (getenv('PATH') ?: ''),
+                
+                // Variáveis de ambiente essenciais para Chrome em ambiente headless
+                $env = [
+                    'PATH' => '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:' . (getenv('PATH') ?: ''),
+                    'HOME' => getenv('HOME') ?: '/tmp',
+                    'USER' => getenv('USER') ?: 'www-data',
+                    'SHELL' => '/bin/bash',
+                    'LANG' => 'C.UTF-8',
+                    'LC_ALL' => 'C.UTF-8',
+                    // Chrome precisa dessas variáveis mesmo em headless
                     'DISPLAY' => ':99',
-                    'HOME' => getenv('HOME') ?: '/tmp'
-                ]);
+                    'XAUTHORITY' => '/tmp/.Xauthority',
+                    // Evitar problemas de permissão do Chrome
+                    'CHROME_DEVEL_SANDBOX' => '/usr/lib/chromium-browser/chrome-sandbox',
+                ];
+                
+                // Adicionar variáveis do sistema se existirem
+                foreach (['LD_LIBRARY_PATH', 'TMPDIR', 'TMP', 'TEMP'] as $key) {
+                    if (getenv($key)) {
+                        $env[$key] = getenv($key);
+                    }
+                }
+                
+                $process->setEnv($env);
+                \Log::error("DEBUG: Variáveis de ambiente configuradas: " . json_encode(array_keys($env)));
                 $process->run();
 
                 // Sempre logar output, mesmo se bem-sucedido
