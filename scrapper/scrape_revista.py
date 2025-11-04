@@ -67,9 +67,10 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         except:
             pass
         
-        # Aplicar quantidade ANTES de processar selects
+        # IMPORTANTE: Aplicar quantidade PRIMEIRO (label "1- Quantidade:")
+        # Sequência exata: 1- Quantidade, 2- Formato, 3- Papel CAPA, etc.
         # O campo de quantidade é um input type="text" com id="Q1" e name="Q1"
-        print(f"DEBUG: Tentando aplicar quantidade: {quantidade}", file=sys.stderr)
+        print(f"DEBUG: [SEQUÊNCIA 1] Aplicando quantidade: {quantidade}", file=sys.stderr)
         try:
             # Tentar primeiro pelo ID específico
             qtd_input = driver.find_element(By.ID, "Q1")
@@ -216,9 +217,10 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         
         print(f"DEBUG: Campos ordenados para processar: {len(campos_ordenados)}", file=sys.stderr)
         for i, (campo, valor) in enumerate(campos_ordenados):
-            print(f"DEBUG:   [{i}] {campo} = {valor} (select idx: {mapeamento.get(campo)})", file=sys.stderr)
+            # i+2 porque label 1 é quantidade, então começa no 2
+            print(f"DEBUG:   [SEQUÊNCIA {i+2}] {campo} = {valor} (select idx: {mapeamento.get(campo)})", file=sys.stderr)
         
-        # Processar campos na ordem correta
+        # Processar campos na ordem EXATA dos selects (sequência 2, 3, 4, 5...)
         for campo, valor in campos_ordenados:
             idx = mapeamento.get(campo)
             if idx is not None and idx < len(selects):
