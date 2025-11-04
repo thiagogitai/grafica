@@ -170,8 +170,12 @@ class ProductPriceController extends Controller
                 $output = '';
                 $returnVar = 0;
                 $fullCommand = "cd " . escapeshellarg(base_path()) . " && {$commandStr} 2>&1";
+                \Log::error("DEBUG: Comando completo: {$fullCommand}");
                 \exec($fullCommand, $outputLines, $returnVar);
+                \Log::error("DEBUG: exec() retornou, exit code: {$returnVar}");
+                \Log::error("DEBUG: Linhas de output: " . count($outputLines));
                 $output = implode("\n", $outputLines);
+                \Log::error("DEBUG: Output completo (primeiros 500 chars): " . substr($output, 0, 500));
                 
                 if ($returnVar !== 0) {
                     \Log::error("Erro ao executar script Python ({$scriptName}) via exec()");
