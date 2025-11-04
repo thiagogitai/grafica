@@ -68,8 +68,10 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             pass
         
         # Aplicar quantidade ANTES de processar selects
+        # O campo de quantidade é um input type="text" com id="Q1" e name="Q1"
         try:
-            qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+            # Tentar primeiro pelo ID específico
+            qtd_input = driver.find_element(By.ID, "Q1")
             qtd_input.clear()
             qtd_input.send_keys(str(quantidade))
             # Disparar eventos para garantir que o JavaScript detecte a mudança
@@ -79,9 +81,33 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 input.dispatchEvent(new Event('change', { bubbles: true }));
             """, qtd_input)
             time.sleep(1.0)  # Aguardar mais tempo para o cálculo
-        except Exception as e:
-            print(f"DEBUG: ERRO ao aplicar quantidade: {e}", file=sys.stderr)
-            pass
+        except:
+            # Fallback: tentar pelo name ou type
+            try:
+                qtd_input = driver.find_element(By.XPATH, "//input[@name='Q1']")
+                qtd_input.clear()
+                qtd_input.send_keys(str(quantidade))
+                driver.execute_script("""
+                    var input = arguments[0];
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                """, qtd_input)
+                time.sleep(1.0)
+            except:
+                # Último fallback: tentar input type="number" (caso exista em outros produtos)
+                try:
+                    qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+                    qtd_input.clear()
+                    qtd_input.send_keys(str(quantidade))
+                    driver.execute_script("""
+                        var input = arguments[0];
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    """, qtd_input)
+                    time.sleep(1.0)
+                except Exception as e:
+                    print(f"DEBUG: ERRO ao aplicar quantidade: {e}", file=sys.stderr)
+                    pass
         
         selects = driver.find_elements(By.TAG_NAME, 'select')
         
@@ -158,7 +184,8 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         
         # Reaplicar quantidade após processar todos os campos (para garantir que o preço está correto)
         try:
-            qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+            # Tentar pelo ID específico primeiro
+            qtd_input = driver.find_element(By.ID, "Q1")
             valor_atual = qtd_input.get_attribute('value')
             if valor_atual != str(quantidade):
                 qtd_input.clear()
@@ -170,7 +197,21 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 """, qtd_input)
                 time.sleep(1.0)
         except:
-            pass
+            # Fallback
+            try:
+                qtd_input = driver.find_element(By.XPATH, "//input[@name='Q1']")
+                valor_atual = qtd_input.get_attribute('value')
+                if valor_atual != str(quantidade):
+                    qtd_input.clear()
+                    qtd_input.send_keys(str(quantidade))
+                    driver.execute_script("""
+                        var input = arguments[0];
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    """, qtd_input)
+                    time.sleep(1.0)
+            except:
+                pass
         
         # Aguardar cálculo final
         time.sleep(1.0)
