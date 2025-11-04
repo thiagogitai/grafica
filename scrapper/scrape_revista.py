@@ -75,19 +75,49 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             qtd_input = driver.find_element(By.ID, "Q1")
             valor_antes = qtd_input.get_attribute('value')
             print(f"DEBUG: Campo Q1 encontrado! Valor antes: {valor_antes}", file=sys.stderr)
-            qtd_input.clear()
-            qtd_input.send_keys(str(quantidade))
-            valor_depois = qtd_input.get_attribute('value')
-            print(f"DEBUG: Valor depois de enviar: {valor_depois}", file=sys.stderr)
-            # Disparar eventos para garantir que o JavaScript detecte a mudança
-            driver.execute_script("""
+            
+            # Usar JavaScript diretamente para definir o valor e disparar eventos
+            # Isso garante que o valor não seja alterado por validações
+            valor_aplicado = driver.execute_script("""
                 var input = arguments[0];
+                var qtd = arguments[1];
+                // Definir valor diretamente via JavaScript
+                input.value = qtd;
+                // Disparar todos os eventos necessários
                 input.dispatchEvent(new Event('input', { bubbles: true }));
                 input.dispatchEvent(new Event('change', { bubbles: true }));
-            """, qtd_input)
-            time.sleep(1.0)  # Aguardar mais tempo para o cálculo
+                input.dispatchEvent(new Event('blur', { bubbles: true }));
+                // Também tentar trigger do jQuery se existir
+                if (window.jQuery) {
+                    jQuery(input).val(qtd).trigger('input').trigger('change');
+                }
+                return input.value;
+            """, qtd_input, str(quantidade))
+            
+            print(f"DEBUG: Valor aplicado via JavaScript: {valor_aplicado}", file=sys.stderr)
+            time.sleep(1.5)  # Aguardar mais tempo para validações e cálculos
+            
+            # Verificar valor final
             valor_final = qtd_input.get_attribute('value')
-            print(f"DEBUG: Valor final após eventos: {valor_final}", file=sys.stderr)
+            print(f"DEBUG: Valor final após 1.5s: {valor_final}", file=sys.stderr)
+            
+            # Se o valor ainda não está correto, tentar novamente
+            if valor_final != str(quantidade):
+                print(f"DEBUG: Valor não corresponde! Tentando novamente...", file=sys.stderr)
+                # Forçar valor novamente
+                driver.execute_script("""
+                    var input = arguments[0];
+                    var qtd = arguments[1];
+                    input.value = qtd;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                    if (window.jQuery) {
+                        jQuery(input).val(qtd).trigger('input').trigger('change');
+                    }
+                """, qtd_input, str(quantidade))
+                time.sleep(1.5)
+                valor_final = qtd_input.get_attribute('value')
+                print(f"DEBUG: Valor final após segunda tentativa: {valor_final}", file=sys.stderr)
         except Exception as e:
             print(f"DEBUG: ERRO ao aplicar quantidade (tentativa 1): {e}", file=sys.stderr)
             # Fallback: tentar pelo name ou type
@@ -198,35 +228,32 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                     print(f"DEBUG: AVISO - Opção não encontrada para {campo} = {valor}", file=sys.stderr)
         
         # Reaplicar quantidade após processar todos os campos (para garantir que o preço está correto)
+        print(f"DEBUG: Reaplicando quantidade após processar campos...", file=sys.stderr)
         try:
             # Tentar pelo ID específico primeiro
             qtd_input = driver.find_element(By.ID, "Q1")
             valor_atual = qtd_input.get_attribute('value')
+            print(f"DEBUG: Valor atual do Q1: {valor_atual}, esperado: {quantidade}", file=sys.stderr)
             if valor_atual != str(quantidade):
-                qtd_input.clear()
-                qtd_input.send_keys(str(quantidade))
+                print(f"DEBUG: Valor diferente! Reaplicando quantidade via JavaScript...", file=sys.stderr)
+                # Usar JavaScript diretamente
                 driver.execute_script("""
                     var input = arguments[0];
+                    var qtd = arguments[1];
+                    input.value = qtd;
                     input.dispatchEvent(new Event('input', { bubbles: true }));
                     input.dispatchEvent(new Event('change', { bubbles: true }));
-                """, qtd_input)
-                time.sleep(1.0)
-        except:
-            # Fallback
-            try:
-                qtd_input = driver.find_element(By.XPATH, "//input[@name='Q1']")
-                valor_atual = qtd_input.get_attribute('value')
-                if valor_atual != str(quantidade):
-                    qtd_input.clear()
-                    qtd_input.send_keys(str(quantidade))
-                    driver.execute_script("""
-                        var input = arguments[0];
-                        input.dispatchEvent(new Event('input', { bubbles: true }));
-                        input.dispatchEvent(new Event('change', { bubbles: true }));
-                    """, qtd_input)
-                    time.sleep(1.0)
-            except:
-                pass
+                    input.dispatchEvent(new Event('blur', { bubbles: true }));
+                    if (window.jQuery) {
+                        jQuery(input).val(qtd).trigger('input').trigger('change');
+                    }
+                """, qtd_input, str(quantidade))
+                time.sleep(1.5)
+                valor_final = qtd_input.get_attribute('value')
+                print(f"DEBUG: Valor final após reaplicar: {valor_final}", file=sys.stderr)
+        except Exception as e:
+            print(f"DEBUG: Erro ao reaplicar quantidade: {e}", file=sys.stderr)
+            pass
         
         # Aguardar cálculo final
         print(f"DEBUG: Aguardando cálculo final do preço...", file=sys.stderr)
