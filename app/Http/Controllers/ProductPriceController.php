@@ -28,6 +28,8 @@ class ProductPriceController extends Controller
      */
     public function validatePrice(Request $request)
     {
+        \Log::error("DEBUG: validatePrice chamado");
+        
         // Aceitar tanto JSON quanto form data
         if ($request->isJson()) {
             $opcoes = $request->json()->all();
@@ -35,8 +37,12 @@ class ProductPriceController extends Controller
             $opcoes = $request->all();
         }
         
+        \Log::error("DEBUG: Opções recebidas: " . json_encode($opcoes));
+        
         $quantidade = (int) ($opcoes['quantity'] ?? 1);
         $productSlug = $opcoes['product_slug'] ?? $request->input('product_slug');
+        
+        \Log::error("DEBUG: productSlug = {$productSlug}, quantidade = {$quantidade}");
         
         // Remover product_slug das opções
         unset($opcoes['product_slug']);
