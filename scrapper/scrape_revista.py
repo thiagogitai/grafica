@@ -69,11 +69,16 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         
         # Aplicar quantidade ANTES de processar selects
         # O campo de quantidade é um input type="text" com id="Q1" e name="Q1"
+        print(f"DEBUG: Tentando aplicar quantidade: {quantidade}", file=sys.stderr)
         try:
             # Tentar primeiro pelo ID específico
             qtd_input = driver.find_element(By.ID, "Q1")
+            valor_antes = qtd_input.get_attribute('value')
+            print(f"DEBUG: Campo Q1 encontrado! Valor antes: {valor_antes}", file=sys.stderr)
             qtd_input.clear()
             qtd_input.send_keys(str(quantidade))
+            valor_depois = qtd_input.get_attribute('value')
+            print(f"DEBUG: Valor depois de enviar: {valor_depois}", file=sys.stderr)
             # Disparar eventos para garantir que o JavaScript detecte a mudança
             driver.execute_script("""
                 var input = arguments[0];
@@ -81,7 +86,10 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 input.dispatchEvent(new Event('change', { bubbles: true }));
             """, qtd_input)
             time.sleep(1.0)  # Aguardar mais tempo para o cálculo
-        except:
+            valor_final = qtd_input.get_attribute('value')
+            print(f"DEBUG: Valor final após eventos: {valor_final}", file=sys.stderr)
+        except Exception as e:
+            print(f"DEBUG: ERRO ao aplicar quantidade (tentativa 1): {e}", file=sys.stderr)
             # Fallback: tentar pelo name ou type
             try:
                 qtd_input = driver.find_element(By.XPATH, "//input[@name='Q1']")
@@ -110,6 +118,7 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                     pass
         
         selects = driver.find_elements(By.TAG_NAME, 'select')
+        print(f"DEBUG: Encontrados {len(selects)} selects na página", file=sys.stderr)
         
         # Mapeamento EXATO baseado no site matriz (extraído automaticamente)
         # Ordem dos selects na página: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
@@ -135,6 +144,8 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         # Ordenar campos para processar na sequência correta
         campos_ordenados = []
         max_idx = max(mapeamento.values()) if mapeamento else 0
+        print(f"DEBUG: Total de campos recebidos: {len(opcoes)}", file=sys.stderr)
+        print(f"DEBUG: Campos recebidos: {list(opcoes.keys())}", file=sys.stderr)
         for idx in range(max_idx + 1):
             for campo, valor in opcoes.items():
                 if campo == 'quantity':
@@ -142,6 +153,10 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 if mapeamento.get(campo) == idx:
                     campos_ordenados.append((campo, valor))
                     break
+        
+        print(f"DEBUG: Campos ordenados para processar: {len(campos_ordenados)}", file=sys.stderr)
+        for i, (campo, valor) in enumerate(campos_ordenados):
+            print(f"DEBUG:   [{i}] {campo} = {valor} (select idx: {mapeamento.get(campo)})", file=sys.stderr)
         
         # Processar campos na ordem correta
         for campo, valor in campos_ordenados:
@@ -214,6 +229,7 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 pass
         
         # Aguardar cálculo final
+        print(f"DEBUG: Aguardando cálculo final do preço...", file=sys.stderr)
         time.sleep(1.0)
         for tentativa in range(30):
             time.sleep(0.1)
@@ -221,11 +237,16 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 preco_element = driver.find_element(By.ID, "calc-total")
                 preco_texto = preco_element.text
                 preco_valor = extrair_valor_preco(preco_texto)
+                print(f"DEBUG: Tentativa {tentativa+1}: Preço texto = '{preco_texto}', Preço valor = {preco_valor}", file=sys.stderr)
                 if preco_valor and preco_valor > 0:
+                    print(f"DEBUG: ✅ Preço encontrado: R$ {preco_valor:.2f}", file=sys.stderr)
                     return preco_valor
-            except:
+            except Exception as e:
+                if tentativa == 0:
+                    print(f"DEBUG: Erro ao buscar preço (tentativa {tentativa+1}): {e}", file=sys.stderr)
                 pass
         
+        print(f"DEBUG: ❌ Preço não encontrado após 30 tentativas", file=sys.stderr)
         return None
         
     except Exception as e:

@@ -209,6 +209,14 @@ def obter_preco_script_python(slug, opcoes):
     try:
         quantidade = opcoes.get('quantity', 50)
         
+        print(f"\n   🔍 DEBUG: Iniciando obtenção de preço via script Python")
+        print(f"      Slug: {slug}")
+        print(f"      Quantidade: {quantidade}")
+        print(f"      Total de opções: {len(opcoes)}")
+        print(f"      Opções enviadas:")
+        for campo, valor in sorted(opcoes.items()):
+            print(f"         - {campo}: {valor}")
+        
         # Detectar comando Python correto
         if platform.system() == 'Windows':
             python_cmd = 'python'  # Windows geralmente usa 'python'
@@ -239,6 +247,10 @@ def obter_preco_script_python(slug, opcoes):
             'quantidade': quantidade
         })
         
+        print(f"\n   🔍 DEBUG: Comando a ser executado:")
+        print(f"      {python_cmd} {script_path}")
+        print(f"      JSON enviado: {dados_json[:200]}...")
+        
         # Executar script via subprocess para capturar stdout corretamente
         # script_path já está em caminho absoluto
         resultado_subprocess = subprocess.run(
@@ -248,6 +260,11 @@ def obter_preco_script_python(slug, opcoes):
             timeout=120,
             cwd=base_dir  # Executar no diretório base do projeto
         )
+        
+        print(f"\n   🔍 DEBUG: Resultado do subprocess:")
+        print(f"      Return code: {resultado_subprocess.returncode}")
+        print(f"      Stdout length: {len(resultado_subprocess.stdout) if resultado_subprocess.stdout else 0}")
+        print(f"      Stderr length: {len(resultado_subprocess.stderr) if resultado_subprocess.stderr else 0}")
         
         # Capturar stdout e stderr
         stdout = resultado_subprocess.stdout
