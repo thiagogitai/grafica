@@ -1,0 +1,200 @@
+{
+  "url": "https://www.lojagraficaeskenazi.com.br/product/impressao-de-tabloide",
+  "mapeamento": {
+    "0": {
+      "label": "2- Formato do Miolo (Páginas):",
+      "name": "Options[0].Value",
+      "id": "Options[0].Value",
+      "opcoes": [
+        {
+          "value": "205x275mm",
+          "text": "205x275mm"
+        },
+        {
+          "value": "210x280mm",
+          "text": "210x280mm"
+        },
+        {
+          "value": "210x297mm (A4) ",
+          "text": "210x297mm (A4)"
+        },
+        {
+          "value": "265x300mm",
+          "text": "265x300mm"
+        },
+        {
+          "value": "265x350mm",
+          "text": "265x350mm"
+        },
+        {
+          "value": "265x410mm",
+          "text": "265x410mm"
+        },
+        {
+          "value": "235x270mm",
+          "text": "235x270mm"
+        }
+      ]
+    },
+    "1": {
+      "label": "3- Papel MIOLO:",
+      "name": "Options[1].Value",
+      "id": "Options[1].Value",
+      "opcoes": [
+        {
+          "value": "Offset 75gr",
+          "text": "Offset 75gr"
+        },
+        {
+          "value": "Offset 90gr",
+          "text": "Offset 90gr"
+        },
+        {
+          "value": "Couche brilho 90gr",
+          "text": "Couche brilho 90gr"
+        }
+      ]
+    },
+    "2": {
+      "label": "4- Cores MIOLO:",
+      "name": "Options[2].Value",
+      "id": "Options[2].Value",
+      "opcoes": [
+        {
+          "value": "4 cores frente e verso",
+          "text": "4 cores frente e verso"
+        },
+        {
+          "value": "1 cor frente e verso PRETO",
+          "text": "1 cor frente e verso PRETO"
+        }
+      ]
+    },
+    "3": {
+      "label": "5- Quantidade Paginas MIOLO:",
+      "name": "Options[3].Value",
+      "id": "Options[3].Value",
+      "opcoes": [
+        {
+          "value": "Miolo 4 páginas",
+          "text": "Miolo 4 páginas"
+        },
+        {
+          "value": "Miolo 8 páginas",
+          "text": "Miolo 8 páginas"
+        },
+        {
+          "value": "Miolo 12 páginas",
+          "text": "Miolo 12 páginas"
+        },
+        {
+          "value": "Miolo 16 páginas",
+          "text": "Miolo 16 páginas"
+        },
+        {
+          "value": "Miolo 20 páginas",
+          "text": "Miolo 20 páginas"
+        },
+        {
+          "value": "Miolo 24 páginas",
+          "text": "Miolo 24 páginas"
+        },
+        {
+          "value": "Miolo 28 páginas",
+          "text": "Miolo 28 páginas"
+        },
+        {
+          "value": "Miolo 32 páginas",
+          "text": "Miolo 32 páginas"
+        },
+        {
+          "value": "Miolo 36 páginas",
+          "text": "Miolo 36 páginas"
+        },
+        {
+          "value": "Miolo 40 páginas",
+          "text": "Miolo 40 páginas"
+        }
+      ]
+    },
+    "4": {
+      "label": "6- Acabamento MIOLO:",
+      "name": "Options[4].Value",
+      "id": "Options[4].Value",
+      "opcoes": [
+        {
+          "value": "Dobrado",
+          "text": "Dobrado"
+        }
+      ]
+    },
+    "5": {
+      "label": "7- Acabamento Final:",
+      "name": "Options[5].Value",
+      "id": "Options[5].Value",
+      "opcoes": [
+        {
+          "value": "Grampeado - 2 grampos",
+          "text": "Grampeado - 2 grampos"
+        },
+        {
+          "value": "Sem Grampos",
+          "text": "Sem Grampos"
+        }
+      ]
+    },
+    "6": {
+      "label": "8- Extras:",
+      "name": "Options[6].Value",
+      "id": "Options[6].Value",
+      "opcoes": [
+        {
+          "value": "Nenhum",
+          "text": "Nenhum"
+        }
+      ]
+    },
+    "7": {
+      "label": "9- Frete:",
+      "name": "Options[7].Value",
+      "id": "Options[7].Value",
+      "opcoes": [
+        {
+          "value": "Incluso",
+          "text": "Incluso"
+        },
+        {
+          "value": "Cliente Retira",
+          "text": "Cliente Retira"
+        }
+      ]
+    },
+    "8": {
+      "label": "10- Verificação do Arquivo:",
+      "name": "Options[8].Value",
+      "id": "Options[8].Value",
+      "opcoes": [
+        {
+          "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+          "text": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+        },
+        {
+          "value": "Digital On-Line - via Web-Approval ou PDF",
+          "text": "Digital On-Line - via Web-Approval ou PDF"
+        }
+      ]
+    },
+    "9": {
+      "label": "11- Prazo de Entrega:",
+      "name": "Options[9].Value",
+      "id": "Options[9].Value",
+      "opcoes": [
+        {
+          "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
+          "text": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
+        }
+      ]
+    }
+  },
+  "total_selects": 10
+}

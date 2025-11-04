@@ -1,0 +1,122 @@
+{
+  "funcoes_encontradas": [
+    {
+      "codigo": "function calc_digitos_posicoes( digitos, posicoes = 10, soma_digitos = 0 ) {\r\n \r\n    // Garante que o valor é uma string\r\n    digitos = digitos.toString();\r\n \r\n    // Faz a soma dos dígitos com a posição\r\n    // Ex. para 10 posições:\r\n    //   0    2    5    4    6    2    8    8   4\r\n    // x10   x9   x8   x7   x6   x5   x4   x3  x2\r\n    //   0 + 18 + 40 + 28 + 36 + 10 + 32 + 24 + 8 = 196\r\n    for ( var i = 0; i < digitos.length; i++  ) {\r\n        // Preenche a soma com o dígito vezes a posição\r\n        soma_digitos = soma_digitos + ( digitos[i] * posicoes );\r\n \r\n        // Subtrai 1 da posição\r\n        posicoes--;\r\n \r\n        // Parte específica para CNPJ\r\n        // Ex.: 5-4-3-2-9-8-7-6-5-4-3-2\r\n        if ( posicoes < 2 ) {\r\n            // Retorno a posição para 9\r\n            posicoes = 9;\r\n        }\r\n    }\r\n \r\n    // Captura o resto da divisão entre soma_digitos dividido por 11\r\n    // Ex.: 196 % 11 = 9\r\n    soma_digitos = soma_digitos % 11;\r\n \r\n    // Verifica se soma_digitos é ",
+      "nome": "calc_digitos_posicoes"
+    },
+    {
+      "codigo": "function ResetCalculatorDropdownSelection(pricingParams) {\r\n    if (pricingParams && pricingParams.Options) {\r\n        $(pricingParams.Options).each(function (index) {\r\n            if(pricingParams.Options[index])\r\n            {\r\n                $(\"#Options\\\\[\" + index + \"\\\\]\\\\.Value\").val(pricingParams.Options[index].Value);\r\n            }\r\n        });\r\n  }\r\n}",
+      "nome": "ResetCalculatorDropdownSelection"
+    },
+    {
+      "codigo": "function(sender, args) {\n          if(args.Requirements && args.Requirements.Files){\n              //required files is a valid array, then obey the array contents\n\n              //if no files are required, hide the whole upload area\n              if(args.Requirements.Files.length) {\n                  $('.fileUploadArea').show();\n              }else{\n                  $('.fileUploadArea').hide();\n              }\n\n              //and only display the expected upload fields\n              $.each($('.product-file-input'), function(i, e) {\n                  if(args.Requirements.Files.indexOf($(e).data('misid')) < 0) {\n                      hideFileUploadSelect(e);\n                  } else {\n                      showFileUploadSelect(e);\n                  }\n              });\n          } else {\n              //required files is NULL then show all upload fiels\n              $('.fileUploadArea').show();\n\n              $.each($('.product-file-input'), function(i, e) {\n                  if(!$(e).i",
+      "nome": "calcFinish"
+    }
+  ],
+  "scripts_externos": [
+    "https://googleads.g.doubleclick.net/pagead/viewthroughconversion/963446369/?random=1762212822245&cv=9&fst=1762212822245&num=1&guid=ON&resp=GooglemKTybQhCsO&eid=376635471%2C375603260%2C466465926%2C512247838%2C658953495&u_h=768&u_w=1366&ig=1&frm=0&url=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&tiba=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&hn=www.googleadservices.com&rfmt=3&fmt=4"
+  ],
+  "mudancas_preco": [
+    {
+      "campo": "Options[0].Value",
+      "opcao1": "105x148mm (A6)",
+      "preco1": "R$500,25",
+      "opcao2": "118x175mm",
+      "preco2": "R$517,75"
+    },
+    {
+      "campo": "Options[1].Value",
+      "opcao1": "Cartão Triplex 250gr ",
+      "preco1": "R$517,75",
+      "opcao2": "Couche Brilho 150gr ",
+      "preco2": "R$1.449.787,75"
+    },
+    {
+      "campo": "Options[2].Value",
+      "opcao1": "4 cores Frente",
+      "preco1": "R$1.449.787,75",
+      "opcao2": "4 cores FxV",
+      "preco2": "R$1.449.803,25"
+    },
+    {
+      "campo": "Options[3].Value",
+      "opcao1": "SEM ORELHA",
+      "preco1": "R$1.449.803,25",
+      "opcao2": "COM Orelha de 8cm",
+      "preco2": "R$1.449.917,25"
+    },
+    {
+      "campo": "Options[4].Value",
+      "opcao1": "Laminação FOSCA FRENTE (Acima de 240g)",
+      "preco1": "R$1.449.917,25",
+      "opcao2": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)",
+      "preco2": "R$1.450.940,25"
+    }
+  ],
+  "requisicoes": [
+    {
+      "url": "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+      "method": "GET",
+      "postData": ""
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Fira+Sans:400,500,700,900",
+      "method": "GET",
+      "postData": ""
+    },
+    {
+      "url": "https://www.lojagraficaeskenazi.com.br/files/subscribers/c6a9938c-c430-473f-930d-d2d03c709191/webfiles/loja2017/imagesHome/footer/RapidSSL.png",
+      "method": "GET",
+      "postData": ""
+    },
+    {
+      "url": "https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js",
+      "status": 200
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800",
+      "method": "GET",
+      "postData": ""
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Fira+Sans:400,500,700,900",
+      "status": 200
+    },
+    {
+      "url": "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800",
+      "status": 200
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-4GJEXGG8Q9&gtm=45je5av1v878918011za200zd878918011&_p=1762212822074&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=2118470922.1762212822&ul=pt-br&sr=1366x768&uaa=x86&uab=64&uafvl=Chromium%3B142.0.7444.59%7CGoogle%2520Chrome%3B142.0.7444.59%7CNot_A%2520Brand%3B99.0.0.0&uamb=0&uam=&uap=Windows&uapv=10.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=101509157~103116026~103200004~103233427~104527907~104528500~104684208~104684211~104948813~115480710~115583767~115616985~115938465~115938469~116217636~116217638&sid=1762212822&sct=1&seg=0&dl=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&dt=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&en=page_view&_fv=1&_ss=1&_ee=1&tfd=4031",
+      "method": "POST",
+      "postData": ""
+    },
+    {
+      "url": "https://www.facebook.com/tr/?id=244065276007675&ev=PageView&dl=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&rl=&if=false&ts=1762212822748&sw=1366&sh=768&v=2.9.240&r=stable&ec=0&o=4126&fbp=fb.2.1762212822736.47905050470156630&ler=empty&cdl=API_unavailable&pmd[title]=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&pmd[keywords]=Livro%2C%20Impress%C3%A3o%20de%20Livro%2C%20Livro%20Personalizado&pmd[description]=Impress%C3%A3o%20de%20Livro%20pelo%20Menor%20Pre%C3%A7o%20%C3%A9%20aqui.%20Tradi%C3%A7%C3%A3o%20de%2050%20anos%20oferecendo%20a%20melhor%20Qualidade%20(ISO%209001).%20Frete%20Gr%C3%A1tis.%20Confira%20e%20compre%20seu%20Livro%20agora.&pmd[contents]=%5B%7B%22name%22%3A%22Impress%C3%A3o%20de%20Livro%20-%20Imune%22%2C%22description%22%3A%22ESPECIFICA%C3%87%C3%95ES%20SUGERIDAS%20PARA%20IMPRESS%C3%83O%20DE%C2%A0LIVRO%3F%5CnPapel%3A%20Cart%C3%A3o%20Triplex%20250g%5CnFormato%3A%20150mm%20x%20230mm%5CnPapel%20Miolo%3A%20ffset%2075g%5CnCores%3A%20Capa%20e%20Miolo%20-%204%20Cores%20frente%20e%20verso%5CnAcabamento%3A%20Capa%20c%2F%20Lamina%C3%A7%C3%A3o%20Bopp%20Fosca%5CnMAIS%20INFORMA%C3%87%C3%95ES%20SOBRE%20GR%C3%81FICA%20DE%20LIVROS.%5CnO%20que%20%C3%A9%20um%20Livro%3F%5Cn%5CnO%20Livro%20%C3%A9%20um%20tipo%20de%20impresso%20muito%20popular%20no%20mercado%20editorial%20e%20atende%20a%20diversos%20segmentos%20e%20%C3%A1reas%20de%20atua%C3%A7%C3%A3o.%20Com%20o%20fortalecimento%20dos%20nichos%20de%20mercado%2C%20%C3%A9%20muito%20comum%20vermos%20diversos%20livros%20para%20os%20mais%20diferentes%20p%C3%BAblicos%2C%20%22%7D%5D&it=1762212822349&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&rqm=GET",
+      "method": "GET",
+      "postData": ""
+    },
+    {
+      "url": "https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=244065276007675&ev=PageView&dl=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&rl=&if=false&ts=1762212822748&sw=1366&sh=768&v=2.9.240&r=stable&ec=0&o=4126&fbp=fb.2.1762212822736.47905050470156630&ler=empty&cdl=API_unavailable&pmd[title]=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&pmd[keywords]=Livro%2C%20Impress%C3%A3o%20de%20Livro%2C%20Livro%20Personalizado&pmd[description]=Impress%C3%A3o%20de%20Livro%20pelo%20Menor%20Pre%C3%A7o%20%C3%A9%20aqui.%20Tradi%C3%A7%C3%A3o%20de%2050%20anos%20oferecendo%20a%20melhor%20Qualidade%20(ISO%209001).%20Frete%20Gr%C3%A1tis.%20Confira%20e%20compre%20seu%20Livro%20agora.&pmd[contents]=%5B%7B%22name%22%3A%22Impress%C3%A3o%20de%20Livro%20-%20Imune%22%2C%22description%22%3A%22ESPECIFICA%C3%87%C3%95ES%20SUGERIDAS%20PARA%20IMPRESS%C3%83O%20DE%C2%A0LIVRO%3F%5CnPapel%3A%20Cart%C3%A3o%20Triplex%20250g%5CnFormato%3A%20150mm%20x%20230mm%5CnPapel%20Miolo%3A%20ffset%2075g%5CnCores%3A%20Capa%20e%20Miolo%20-%204%20Cores%20frente%20e%20verso%5CnAcabamento%3A%20Capa%20c%2F%20Lamina%C3%A7%C3%A3o%20Bopp%20Fosca%5CnMAIS%20INFORMA%C3%87%C3%95ES%20SOBRE%20GR%C3%81FICA%20DE%20LIVROS.%5CnO%20que%20%C3%A9%20um%20Livro%3F%5Cn%5CnO%20Livro%20%C3%A9%20um%20tipo%20de%20impresso%20muito%20popular%20no%20mercado%20editorial%20e%20atende%20a%20diversos%20segmentos%20e%20%C3%A1reas%20de%20atua%C3%A7%C3%A3o.%20Com%20o%20fortalecimento%20dos%20nichos%20de%20mercado%2C%20%C3%A9%20muito%20comum%20vermos%20diversos%20livros%20para%20os%20mais%20diferentes%20p%C3%BAblicos%2C%20%22%7D%5D&it=1762212822349&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&rqm=FGET",
+      "method": "GET",
+      "postData": ""
+    },
+    {
+      "url": "https://www.facebook.com/tr/?id=244065276007675&ev=PageView&dl=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&rl=&if=false&ts=1762212822748&sw=1366&sh=768&v=2.9.240&r=stable&ec=0&o=4126&fbp=fb.2.1762212822736.47905050470156630&ler=empty&cdl=API_unavailable&pmd[title]=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&pmd[keywords]=Livro%2C%20Impress%C3%A3o%20de%20Livro%2C%20Livro%20Personalizado&pmd[description]=Impress%C3%A3o%20de%20Livro%20pelo%20Menor%20Pre%C3%A7o%20%C3%A9%20aqui.%20Tradi%C3%A7%C3%A3o%20de%2050%20anos%20oferecendo%20a%20melhor%20Qualidade%20(ISO%209001).%20Frete%20Gr%C3%A1tis.%20Confira%20e%20compre%20seu%20Livro%20agora.&pmd[contents]=%5B%7B%22name%22%3A%22Impress%C3%A3o%20de%20Livro%20-%20Imune%22%2C%22description%22%3A%22ESPECIFICA%C3%87%C3%95ES%20SUGERIDAS%20PARA%20IMPRESS%C3%83O%20DE%C2%A0LIVRO%3F%5CnPapel%3A%20Cart%C3%A3o%20Triplex%20250g%5CnFormato%3A%20150mm%20x%20230mm%5CnPapel%20Miolo%3A%20ffset%2075g%5CnCores%3A%20Capa%20e%20Miolo%20-%204%20Cores%20frente%20e%20verso%5CnAcabamento%3A%20Capa%20c%2F%20Lamina%C3%A7%C3%A3o%20Bopp%20Fosca%5CnMAIS%20INFORMA%C3%87%C3%95ES%20SOBRE%20GR%C3%81FICA%20DE%20LIVROS.%5CnO%20que%20%C3%A9%20um%20Livro%3F%5Cn%5CnO%20Livro%20%C3%A9%20um%20tipo%20de%20impresso%20muito%20popular%20no%20mercado%20editorial%20e%20atende%20a%20diversos%20segmentos%20e%20%C3%A1reas%20de%20atua%C3%A7%C3%A3o.%20Com%20o%20fortalecimento%20dos%20nichos%20de%20mercado%2C%20%C3%A9%20muito%20comum%20vermos%20diversos%20livros%20para%20os%20mais%20diferentes%20p%C3%BAblicos%2C%20%22%7D%5D&it=1762212822349&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&rqm=GET",
+      "status": 200
+    },
+    {
+      "url": "https://www.facebook.com/privacy_sandbox/pixel/register/trigger/?id=244065276007675&ev=PageView&dl=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&rl=&if=false&ts=1762212822748&sw=1366&sh=768&v=2.9.240&r=stable&ec=0&o=4126&fbp=fb.2.1762212822736.47905050470156630&ler=empty&cdl=API_unavailable&pmd[title]=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&pmd[keywords]=Livro%2C%20Impress%C3%A3o%20de%20Livro%2C%20Livro%20Personalizado&pmd[description]=Impress%C3%A3o%20de%20Livro%20pelo%20Menor%20Pre%C3%A7o%20%C3%A9%20aqui.%20Tradi%C3%A7%C3%A3o%20de%2050%20anos%20oferecendo%20a%20melhor%20Qualidade%20(ISO%209001).%20Frete%20Gr%C3%A1tis.%20Confira%20e%20compre%20seu%20Livro%20agora.&pmd[contents]=%5B%7B%22name%22%3A%22Impress%C3%A3o%20de%20Livro%20-%20Imune%22%2C%22description%22%3A%22ESPECIFICA%C3%87%C3%95ES%20SUGERIDAS%20PARA%20IMPRESS%C3%83O%20DE%C2%A0LIVRO%3F%5CnPapel%3A%20Cart%C3%A3o%20Triplex%20250g%5CnFormato%3A%20150mm%20x%20230mm%5CnPapel%20Miolo%3A%20ffset%2075g%5CnCores%3A%20Capa%20e%20Miolo%20-%204%20Cores%20frente%20e%20verso%5CnAcabamento%3A%20Capa%20c%2F%20Lamina%C3%A7%C3%A3o%20Bopp%20Fosca%5CnMAIS%20INFORMA%C3%87%C3%95ES%20SOBRE%20GR%C3%81FICA%20DE%20LIVROS.%5CnO%20que%20%C3%A9%20um%20Livro%3F%5Cn%5CnO%20Livro%20%C3%A9%20um%20tipo%20de%20impresso%20muito%20popular%20no%20mercado%20editorial%20e%20atende%20a%20diversos%20segmentos%20e%20%C3%A1reas%20de%20atua%C3%A7%C3%A3o.%20Com%20o%20fortalecimento%20dos%20nichos%20de%20mercado%2C%20%C3%A9%20muito%20comum%20vermos%20diversos%20livros%20para%20os%20mais%20diferentes%20p%C3%BAblicos%2C%20%22%7D%5D&it=1762212822349&coo=false&expv2[0]=pl0&expv2[1]=el3&expv2[2]=bc1&rqm=FGET",
+      "status": 200
+    },
+    {
+      "url": "https://www.lojagraficaeskenazi.com.br/files/subscribers/c6a9938c-c430-473f-930d-d2d03c709191/webfiles/loja2017/imagesHome/footer/RapidSSL.png",
+      "status": 200
+    },
+    {
+      "url": "https://analytics.google.com/g/collect?v=2&tid=G-4GJEXGG8Q9&gtm=45je5av1v878918011za200zd878918011&_p=1762212822074&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=2118470922.1762212822&ul=pt-br&sr=1366x768&uaa=x86&uab=64&uafvl=Chromium%3B142.0.7444.59%7CGoogle%2520Chrome%3B142.0.7444.59%7CNot_A%2520Brand%3B99.0.0.0&uamb=0&uam=&uap=Windows&uapv=10.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=101509157~103116026~103200004~103233427~104527907~104528500~104684208~104684211~104948813~115480710~115583767~115616985~115938465~115938469~116217636~116217638&sid=1762212822&sct=1&seg=0&dl=https%3A%2F%2Fwww.lojagraficaeskenazi.com.br%2Fproduct%2Fimpressao-de-livro&dt=Livro%20%7C%20Impress%C3%A3o%20de%20Livro%20%7C%20Loja%20Grafica%20Eskenazi&en=page_view&_fv=1&_ss=1&_ee=1&tfd=4031",
+      "status": 204
+    }
+  ],
+  "timestamp": "2025-11-03 19:34:12"
+}

@@ -4,7 +4,7 @@
     "options": [
         {
             "name": "quantity",
-            "label": "Quantidade",
+            "label": "1- Quantidade",
             "type": "select",
             "default": "100",
             "choices": [

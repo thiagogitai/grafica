@@ -1,0 +1,175 @@
+{
+  "quantidade_inicial": 50,
+  "preco_inicial": {
+    "texto": "R$704,50",
+    "valor": 704.5
+  },
+  "testes_quantidade": [
+    {
+      "quantidade": 50,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 14.09
+    },
+    {
+      "quantidade": 100,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 7.045
+    },
+    {
+      "quantidade": 150,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 4.696666666666666
+    },
+    {
+      "quantidade": 200,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 3.5225
+    },
+    {
+      "quantidade": 250,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 2.818
+    },
+    {
+      "quantidade": 500,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 1.409
+    },
+    {
+      "quantidade": 1000,
+      "preco_texto": "R$704,50",
+      "preco_valor": 704.5,
+      "preco_unitario": 0.7045
+    }
+  ],
+  "testes_campos": [
+    {
+      "campo": "Options[0].Value",
+      "opcao1": "105x148mm (A6)",
+      "preco1": 500.25,
+      "opcao2": "118x175mm",
+      "preco2": 517.75,
+      "diferenca": 17.5
+    },
+    {
+      "campo": "Options[1].Value",
+      "opcao1": "Cartão Triplex 250gr ",
+      "preco1": 517.75,
+      "opcao2": "Couche Brilho 150gr ",
+      "preco2": 1449787.75,
+      "diferenca": 1449270.0
+    },
+    {
+      "campo": "Options[2].Value",
+      "opcao1": "4 cores Frente",
+      "preco1": 1449787.75,
+      "opcao2": "4 cores FxV",
+      "preco2": 1449803.25,
+      "diferenca": 15.5
+    },
+    {
+      "campo": "Options[3].Value",
+      "opcao1": "SEM ORELHA",
+      "preco1": 1449803.25,
+      "opcao2": "COM Orelha de 8cm",
+      "preco2": 1449917.25,
+      "diferenca": 114.0
+    },
+    {
+      "campo": "Options[4].Value",
+      "opcao1": "Laminação FOSCA FRENTE (Acima de 240g)",
+      "preco1": 1449917.25,
+      "opcao2": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)",
+      "preco2": 1450940.25,
+      "diferenca": 1023.0
+    },
+    {
+      "campo": "Options[5].Value",
+      "opcao1": "Offset 75gr",
+      "preco1": 1450940.25,
+      "opcao2": "Pólen Natural 80g",
+      "preco2": 1450940.5,
+      "diferenca": 0.25
+    },
+    {
+      "campo": "Options[6].Value",
+      "opcao1": "4 cores frente e verso",
+      "preco1": 1450940.5,
+      "opcao2": "1 cor frente e verso PRETO",
+      "preco2": 1450921.25,
+      "diferenca": -19.25
+    },
+    {
+      "campo": "Options[8].Value",
+      "opcao1": "Miolo 8 páginas",
+      "preco1": 1450921.25,
+      "opcao2": "Miolo 12 páginas",
+      "preco2": 1450925.75,
+      "diferenca": 4.5
+    },
+    {
+      "campo": "Options[10].Value",
+      "opcao1": "Colado PUR",
+      "preco1": 1450925.75,
+      "opcao2": "Costurado",
+      "preco2": 1453414.0,
+      "diferenca": 2488.25
+    },
+    {
+      "campo": "Options[11].Value",
+      "opcao1": "SEM GUARDAS",
+      "preco1": 1453414.0,
+      "opcao2": "offset 180g - sem impressão",
+      "preco2": 1453471.75,
+      "diferenca": 57.75
+    },
+    {
+      "campo": "Options[12].Value",
+      "opcao1": "Nenhum",
+      "preco1": 1453471.75,
+      "opcao2": "Shrink Individual",
+      "preco2": 1453484.25,
+      "diferenca": 12.5
+    },
+    {
+      "campo": "Options[13].Value",
+      "opcao1": "Incluso",
+      "preco1": 1453484.25,
+      "opcao2": "Cliente Retira",
+      "preco2": 1453323.75,
+      "diferenca": -160.5
+    },
+    {
+      "campo": "Options[14].Value",
+      "opcao1": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+      "preco1": 1453323.75,
+      "opcao2": "Digital On-Line - via Web-Approval ou PDF",
+      "preco2": 1453512.0,
+      "diferenca": 188.25
+    }
+  ],
+  "codigo_javascript": {
+    "funcoes": [
+      {
+        "codigo": "function calc_digitos_posicoes( digitos, posicoes = 10, soma_digitos = 0 ) {\r\n \r\n    // Garante que o valor é uma string\r\n    digitos = digitos.toString();\r\n \r\n    // Faz a soma dos dígitos com a posição\r\n    // Ex. para 10 posições:\r\n    //   0    2    5    4    6    2    8    8   4\r\n    // x10   x9   x8   x7   x6   x5   x4   x3  x2\r\n    //   0 + 18 + 40 + 28 + 36 + 10 + 32 + 24 + 8 = 196\r\n    for ( var i = 0; i < digitos.length; i++  ) {\r\n        // Preenche a soma com o dígito vezes a posição\r\n        soma_digitos = soma_digitos + ( digitos[i] * posicoes );\r\n \r\n        // Subtrai 1 da posição\r\n        posicoes--;\r\n \r\n        // Parte específica para CNPJ\r\n        // Ex.: 5-4-3-2-9-8-7-6-5-4-3-2\r\n        if ( posicoes < 2 ) {\r\n            // Retorno a posição para 9\r\n            posicoes = 9;\r\n        }\r\n    }\r\n \r\n    // Captura o resto da divisão entre soma_digitos dividido por 11\r\n    // Ex.: 196 % 11 = 9\r\n    soma_digitos = soma_digitos % 11;\r\n \r\n    // Verifica se soma_digitos é menor que 2\r\n    if ( soma_digitos < 2 ) {\r\n        // soma_digitos agora será zero\r\n        soma_digitos = 0;\r\n    } else {\r\n        // Se for maior que 2, o resultado é 11 menos soma_digitos\r\n        // Ex.: 11 - 9 = 2\r\n        // Nosso dígito procurado é 2\r\n        soma_digitos = 11 - soma_digitos;\r\n    }\r\n \r\n    // Concatena mais um dígito aos primeiro nove dígitos\r\n    // Ex.: 025462884 + 2 = 0254628842\r\n    var cpf = digitos + soma_digitos;\r\n \r\n    // Retorna\r\n    return cpf;\r\n    \r\n}",
+        "nome": "calc_digitos_posicoes"
+      },
+      {
+        "codigo": "function ResetCalculatorDropdownSelection(pricingParams) {\r\n    if (pricingParams && pricingParams.Options) {\r\n        $(pricingParams.Options).each(function (index) {\r\n            if(pricingParams.Options[index])\r\n            {\r\n                $(\"#Options\\\\[\" + index + \"\\\\]\\\\.Value\").val(pricingParams.Options[index].Value);\r\n            }\r\n        });\r\n  }\r\n}",
+        "nome": "ResetCalculatorDropdownSelection"
+      },
+      {
+        "codigo": "function(sender, args) {\n          if(args.Requirements && args.Requirements.Files){\n              //required files is a valid array, then obey the array contents\n\n              //if no files are required, hide the whole upload area\n              if(args.Requirements.Files.length) {\n                  $('.fileUploadArea').show();\n              }else{\n                  $('.fileUploadArea').hide();\n              }\n\n              //and only display the expected upload fields\n              $.each($('.product-file-input'), function(i, e) {\n                  if(args.Requirements.Files.indexOf($(e).data('misid')) < 0) {\n                      hideFileUploadSelect(e);\n                  } else {\n                      showFileUploadSelect(e);\n                  }\n              });\n          } else {\n              //required files is NULL then show all upload fiels\n              $('.fileUploadArea').show();\n\n              $.each($('.product-file-input'), function(i, e) {\n                  if(!$(e).is(':visible')) {\n                      showFileUploadSelect(e);\n                  }\n              });\n          }\n      }",
+        "nome": "calcFinish"
+      }
+    ],
+    "listeners": []
+  },
+  "timestamp": "2025-11-03 19:41:08"
+}

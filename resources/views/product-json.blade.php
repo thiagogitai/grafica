@@ -153,9 +153,13 @@
                             <label for="file-upload" class="form-label small">Faça upload da sua arte:</label>
                             <input id="file-upload" name="artwork" type="file" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="fas fa-file-upload me-2"></i>Avançar para Envio da Arte
+                        <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" disabled>
+                            <i class="fas fa-file-upload me-2"></i>
+                            <span id="submit-text">Validando preço...</span>
                         </button>
+                        <div class="alert alert-info d-none" id="price-validation-status">
+                            <small><i class="fas fa-spinner fa-spin me-2"></i>Validando preço final...</small>
+                        </div>
                     </div>
                     <div class="mt-4 text-center">
                         <p class="text-success small"><i class="fas fa-truck me-2"></i>Frete grátis para todo Brasil!</p>
@@ -208,9 +212,148 @@ document.addEventListener('DOMContentLoaded', function () {
         return options;
     }
 
+    // Lista de produtos que precisam validação dupla
+    const produtosComValidacao = [
+        'impressao-de-livro',
+        'impressao-de-panfleto',
+        'impressao-de-apostila',
+        'impressao-online-de-livretos-personalizados',
+        'impressao-de-revista',
+        'impressao-de-tabloide',
+        'impressao-de-jornal-de-bairro',
+        'impressao-de-guia-de-bairro'
+    ];
+
+    const precisaValidacao = produtosComValidacao.includes(configSlug);
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    const validationStatus = document.getElementById('price-validation-status');
+    let precoValidado = false;
+    let precoValidadoValue = 0;
+
+    function validatePriceAndEnableButton(opts, quantity) {
+        if (!precisaValidacao) {
+            // Produtos sem validação: habilitar botão imediatamente
+            if (submitBtn) submitBtn.disabled = false;
+            if (submitText) submitText.textContent = 'Avançar para Envio da Arte';
+            return;
+        }
+
+        // Garantir quantidade mínima de 50
+        if (quantity < 50) {
+            quantity = 50;
+            opts.quantity = 50;
+            const qtyField = document.querySelector('[data-option-field="quantity"]');
+            if (qtyField) qtyField.value = 50;
+        }
+
+        // Desabilitar botão e mostrar status
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitText) submitText.textContent = 'Validando preço...';
+        if (validationStatus) {
+            validationStatus.classList.remove('d-none');
+            validationStatus.classList.remove('alert-danger', 'alert-success');
+            validationStatus.classList.add('alert-info');
+            validationStatus.innerHTML = '<small><i class="fas fa-spinner fa-spin me-2"></i>Validando preço final no checkout...</small>';
+        }
+
+        // Fazer validação dupla
+        fetch('/api/product/validate-price', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+            },
+            body: JSON.stringify({
+                ...opts,
+                product_slug: configSlug
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Resposta da validação:', data);
+            
+            if (data.success && data.validated && data.price > 0) {
+                precoValidado = true;
+                precoValidadoValue = data.price;
+                
+                // Atualizar preço exibido
+                if (totalPriceEl) totalPriceEl.textContent = formatCurrency(data.price);
+                if (unitPriceEl) unitPriceEl.textContent = formatCurrency(data.price / Math.max(quantity, 1));
+                if (finalPriceInput) finalPriceInput.value = data.price;
+                if (finalDetailsInput) finalDetailsInput.value = JSON.stringify(opts);
+                
+                // Garantir que o container de preço está visível
+                if (priceContainer) {
+                    priceContainer.classList.remove('d-none');
+                }
+                
+                // Habilitar botão
+                if (submitBtn) submitBtn.disabled = false;
+                if (submitText) submitText.textContent = 'Avançar para Envio da Arte';
+                if (validationStatus) {
+                    validationStatus.classList.remove('alert-info');
+                    validationStatus.classList.add('alert-success');
+                    validationStatus.innerHTML = '<small><i class="fas fa-check-circle me-2"></i>Preço validado: ' + formatCurrency(data.price) + '</small>';
+                }
+            } else {
+                precoValidado = false;
+                
+                // Mostrar mensagem de erro mas manter o container visível
+                if (priceContainer) {
+                    priceContainer.classList.remove('d-none');
+                }
+                
+                if (totalPriceEl) totalPriceEl.textContent = 'Erro ao calcular';
+                if (unitPriceEl) unitPriceEl.textContent = 'R$ 0,00';
+                
+                if (submitBtn) submitBtn.disabled = true;
+                if (submitText) submitText.textContent = 'Erro na validação';
+                if (validationStatus) {
+                    validationStatus.classList.remove('alert-info');
+                    validationStatus.classList.add('alert-danger');
+                    const errorMsg = data.error || 'Erro ao validar preço. Tente novamente.';
+                    validationStatus.innerHTML = '<small><i class="fas fa-exclamation-circle me-2"></i>' + errorMsg + '</small>';
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Erro na validação:', error);
+            precoValidado = false;
+            
+            // Manter container visível mesmo em caso de erro
+            if (priceContainer) {
+                priceContainer.classList.remove('d-none');
+            }
+            
+            if (totalPriceEl) totalPriceEl.textContent = 'Erro ao calcular';
+            if (unitPriceEl) unitPriceEl.textContent = 'R$ 0,00';
+            
+            if (submitBtn) submitBtn.disabled = true;
+            if (submitText) submitText.textContent = 'Erro na validação';
+            if (validationStatus) {
+                validationStatus.classList.remove('alert-info');
+                validationStatus.classList.add('alert-danger');
+                validationStatus.innerHTML = '<small><i class="fas fa-exclamation-circle me-2"></i>Erro ao validar preço. Verifique o console para mais detalhes.</small>';
+            }
+        });
+    }
+
     function calculatePrice() {
         const opts = getOptions();
         const quantity = Math.max(1, parseInt(opts.quantity ?? '1', 10) || 1);
+
+        // Verificar se precisa validação (incluindo livro)
+        if (precisaValidacao || configSlug === 'impressao-de-livro') {
+            // Mostrar loading
+            if (totalPriceEl) totalPriceEl.textContent = 'Calculando...';
+            if (unitPriceEl) unitPriceEl.textContent = 'Calculando...';
+            if (priceContainer) priceContainer.classList.remove('d-none');
+            
+            // Validar preço
+            validatePriceAndEnableButton(opts, quantity);
+            return;
+        }
 
         // Verificar se é flyer para usar cálculo especial
         if (configSlug === 'impressao-de-flyer') {

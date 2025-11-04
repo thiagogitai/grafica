@@ -1,0 +1,170 @@
+{
+  "title_override": null,
+  "base_price": null,
+  "redirect_to_upload": true,
+  "options": [
+    {
+      "name": "quantity",
+      "label": "1- Quantidade",
+      "type": "number",
+      "default": 50,
+      "min": 50,
+      "step": 1
+    },
+    {
+      "name": "formato",
+      "label": "2- Formato do Miolo (Páginas):",
+      "type": "select",
+      "choices": [
+        {
+          "value": "205x275mm",
+          "label": "205x275mm"
+        },
+        {
+          "value": "210x280mm",
+          "label": "210x280mm"
+        },
+        {
+          "value": "210x297mm (A4) ",
+          "label": "210x297mm (A4)"
+        },
+        {
+          "value": "265x300mm",
+          "label": "265x300mm"
+        },
+        {
+          "value": "265x350mm",
+          "label": "265x350mm"
+        },
+        {
+          "value": "265x410mm",
+          "label": "265x410mm"
+        },
+        {
+          "value": "235x270mm",
+          "label": "235x270mm"
+        }
+      ]
+    },
+    {
+      "name": "papel_miolo",
+      "label": "3- Papel MIOLO:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Offset 75gr",
+          "label": "Offset 75gr"
+        },
+        {
+          "value": "Offset 90gr",
+          "label": "Offset 90gr"
+        },
+        {
+          "value": "Couche brilho 90gr",
+          "label": "Couche brilho 90gr"
+        }
+      ]
+    },
+    {
+      "name": "cores_miolo",
+      "label": "4- Cores MIOLO:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "4 cores frente e verso",
+          "label": "4 cores frente e verso"
+        },
+        {
+          "value": "1 cor frente e verso PRETO",
+          "label": "1 cor frente e verso PRETO"
+        }
+      ]
+    },
+    {
+      "name": "quantity",
+      "label": "5- Quantidade Paginas MIOLO:",
+      "type": "number",
+      "default": 50,
+      "min": 50,
+      "step": 1
+    },
+    {
+      "name": "acabamento_miolo",
+      "label": "6- Acabamento MIOLO:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Dobrado",
+          "label": "Dobrado"
+        }
+      ]
+    },
+    {
+      "name": "acabamento_livro",
+      "label": "7- Acabamento Final:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Grampeado - 2 grampos",
+          "label": "Grampeado - 2 grampos"
+        },
+        {
+          "value": "Sem Grampos",
+          "label": "Sem Grampos"
+        }
+      ]
+    },
+    {
+      "name": "extras",
+      "label": "8- Extras:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Nenhum",
+          "label": "Nenhum"
+        }
+      ]
+    },
+    {
+      "name": "frete",
+      "label": "9- Frete:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Incluso",
+          "label": "Incluso"
+        },
+        {
+          "value": "Cliente Retira",
+          "label": "Cliente Retira"
+        }
+      ]
+    },
+    {
+      "name": "verificacao_arquivo",
+      "label": "10- Verificação do Arquivo:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+          "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+        },
+        {
+          "value": "Digital On-Line - via Web-Approval ou PDF",
+          "label": "Digital On-Line - via Web-Approval ou PDF"
+        }
+      ]
+    },
+    {
+      "name": "prazo_entrega",
+      "label": "11- Prazo de Entrega:",
+      "type": "select",
+      "choices": [
+        {
+          "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
+          "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
+        }
+      ]
+    }
+  ]
+}

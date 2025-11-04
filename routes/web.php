@@ -21,6 +21,21 @@ Route::post('/produto/{product}/upload', [UploadController::class, 'store'])->na
 
 Route::get('/flyers', [FlyerController::class, 'index'])->name('flyers.index');
 
+// Rota para servir o arquivo de preços do flyer
+Route::get('/precos_flyer.json', function () {
+    $pricesPath = base_path('precos_flyer.json');
+    if (!file_exists($pricesPath)) {
+        return response()->json(['error' => 'Arquivo de preços não encontrado'], 404);
+    }
+    return response()->file($pricesPath, ['Content-Type' => 'application/json']);
+})->name('flyer.prices');
+
+// Rota para calcular preço do livro em tempo real
+Route::post('/api/livro/price', [\App\Http\Controllers\LivroPriceController::class, 'calcularPreco']);
+
+// Rota genérica para validar preço de produtos (dupla validação)
+Route::post('/api/product/validate-price', [\App\Http\Controllers\ProductPriceController::class, 'validatePrice']);
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/cart/add/flyer', function () {
     return redirect()

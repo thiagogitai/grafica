@@ -59,13 +59,57 @@ class HomeController extends Controller
         $requestOnlyProduct = $product->request_only;
         $requestOnlyCombined = $requestOnlyGlobal || $requestOnlyProduct;
 
+        // Tratar template flyer - carregar config impressao-de-flyer
+        if ($product->template === Product::TEMPLATE_FLYER) {
+            $slug = 'impressao-de-flyer';
+            $config = ProductConfig::loadForProduct($product, $slug);
+            if ($config) {
+                return view('product-json', [
+                    'product' => $product,
+                    'config' => $config,
+                    'configSlug' => $slug,
+                    'requestOnlyGlobal' => $requestOnlyGlobal,
+                    'requestOnlyProduct' => $requestOnlyProduct,
+                    'requestOnly' => $requestOnlyCombined,
+                ]);
+            }
+        }
+
         switch ($product->templateType()) {
             case 'config':
+                // AUTO-DETECÇÃO: Se for config:auto, tentar múltiplas variações do slug
                 $slug = $product->templateSlug();
                 if (!$slug || $product->template === Product::TEMPLATE_CONFIG_AUTO) {
                     $slug = ProductConfig::slugForProduct($product);
                 }
+                
                 $config = ProductConfig::loadForProduct($product, $slug);
+                
+                // Se não encontrou, tentar variações comuns
+                if (!$config) {
+                    $baseSlug = $slug;
+                    $variations = [
+                        $baseSlug,
+                        str_replace('impressao-de-', '', $baseSlug),
+                        str_replace('impressao-online-de-', '', $baseSlug),
+                        str_replace('impressao-', '', $baseSlug),
+                        'impressao-' . $baseSlug,
+                        'impressao-de-' . $baseSlug,
+                    ];
+                    
+                    // Remover duplicatas mantendo ordem
+                    $variations = array_unique($variations);
+                    
+                    foreach ($variations as $variation) {
+                        if ($variation === $slug) continue; // Já tentou
+                        $config = ProductConfig::loadForProduct($product, $variation);
+                        if ($config) {
+                            $slug = $variation;
+                            break;
+                        }
+                    }
+                }
+                
                 if ($config) {
                     return view('product-json', [
                         'product' => $product,

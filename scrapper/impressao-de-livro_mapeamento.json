@@ -1,0 +1,518 @@
+{
+  "url": "https://www.lojagraficaeskenazi.com.br/product/impressao-de-livro",
+  "mapeamento": {
+    "0": {
+      "label": "2- Formato do Miolo (Páginas):",
+      "name": "Options[0].Value",
+      "id": "Options[0].Value",
+      "opcoes": [
+        {
+          "value": "105x148mm (A6)",
+          "text": "105x148mm (A6)"
+        },
+        {
+          "value": "118x175mm",
+          "text": "118x175mm"
+        },
+        {
+          "value": "115x183mm",
+          "text": "115x183mm"
+        },
+        {
+          "value": "137x210mm (formato otimizado offset)",
+          "text": "137x210mm (formato otimizado offset)"
+        },
+        {
+          "value": "138x210mm",
+          "text": "138x210mm"
+        },
+        {
+          "value": "140x210mm",
+          "text": "140x210mm"
+        },
+        {
+          "value": "148x210mm (A5) ",
+          "text": "148x210mm (A5)"
+        },
+        {
+          "value": "155x230mm (formato otimizado digital)",
+          "text": "155x230mm (formato otimizado digital)"
+        },
+        {
+          "value": "158x230mm",
+          "text": "158x230mm"
+        },
+        {
+          "value": "160x230mm",
+          "text": "160x230mm"
+        }
+      ]
+    },
+    "1": {
+      "label": "3- Papel CAPA:",
+      "name": "Options[1].Value",
+      "id": "Options[1].Value",
+      "opcoes": [
+        {
+          "value": "Cartão Triplex 250gr ",
+          "text": "Cartão Triplex 250gr"
+        },
+        {
+          "value": "Couche Brilho 150gr ",
+          "text": "Couche Brilho 150gr"
+        },
+        {
+          "value": "SEM CAPA",
+          "text": "SEM CAPA"
+        },
+        {
+          "value": "Cartão Triplex 300gr ",
+          "text": "Cartão Triplex 300gr"
+        },
+        {
+          "value": "Couche Fosco 150gr ",
+          "text": "Couche Fosco 150gr"
+        },
+        {
+          "value": "Couche Fosco 170gr ",
+          "text": "Couche Fosco 170gr"
+        },
+        {
+          "value": "Couche Fosco 210gr ",
+          "text": "Couche Fosco 210gr"
+        },
+        {
+          "value": "Couche Brilho 170gr ",
+          "text": "Couche Brilho 170gr"
+        },
+        {
+          "value": "Couche Brilho 210gr ",
+          "text": "Couche Brilho 210gr"
+        },
+        {
+          "value": "Couche Brilho 250g Importado",
+          "text": "Couche Brilho 250g Importado"
+        }
+      ]
+    },
+    "2": {
+      "label": "4- Cores CAPA:",
+      "name": "Options[2].Value",
+      "id": "Options[2].Value",
+      "opcoes": [
+        {
+          "value": "4 cores Frente",
+          "text": "4 cores Frente"
+        },
+        {
+          "value": "4 cores FxV",
+          "text": "4 cores FxV"
+        },
+        {
+          "value": "1 Cor Frente (Preto)",
+          "text": "1 Cor Frente (Preto)"
+        },
+        {
+          "value": "1 Cor FxV (Preto)",
+          "text": "1 Cor FxV (Preto)"
+        },
+        {
+          "value": "4 cores Frente x 1 cor Preto Verso",
+          "text": "4 cores Frente x 1 cor Preto Verso"
+        },
+        {
+          "value": "4 cores Frente x 1 cor Pantone Verso",
+          "text": "4 cores Frente x 1 cor Pantone Verso"
+        },
+        {
+          "value": "5 cores Frente x 1 cor Preto Verso",
+          "text": "5 cores Frente x 1 cor Preto Verso"
+        },
+        {
+          "value": "5 cores Frente x 1 cor Pantone Verso",
+          "text": "5 cores Frente x 1 cor Pantone Verso"
+        }
+      ]
+    },
+    "3": {
+      "label": "5 - Orelha da CAPA:",
+      "name": "Options[3].Value",
+      "id": "Options[3].Value",
+      "opcoes": [
+        {
+          "value": "SEM ORELHA",
+          "text": "SEM ORELHA"
+        },
+        {
+          "value": "COM Orelha de 8cm",
+          "text": "COM Orelha de 8cm"
+        },
+        {
+          "value": "COM Orelha de 7cm",
+          "text": "COM Orelha de 7cm"
+        },
+        {
+          "value": "COM Orelha de 6cm",
+          "text": "COM Orelha de 6cm"
+        },
+        {
+          "value": "COM Orelha de 5cm",
+          "text": "COM Orelha de 5cm"
+        },
+        {
+          "value": "COM Orelha de 9cm",
+          "text": "COM Orelha de 9cm"
+        },
+        {
+          "value": "COM Orelha de 10cm",
+          "text": "COM Orelha de 10cm"
+        },
+        {
+          "value": "COM Orelha de 11cm",
+          "text": "COM Orelha de 11cm"
+        },
+        {
+          "value": "COM Orelha de 12cm",
+          "text": "COM Orelha de 12cm"
+        },
+        {
+          "value": "COM Orelha de 13cm",
+          "text": "COM Orelha de 13cm"
+        }
+      ]
+    },
+    "4": {
+      "label": "6- Acabamento CAPA:",
+      "name": "Options[4].Value",
+      "id": "Options[4].Value",
+      "opcoes": [
+        {
+          "value": "Laminação FOSCA FRENTE (Acima de 240g)",
+          "text": "Laminação FOSCA FRENTE (Acima de 240g)"
+        },
+        {
+          "value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)",
+          "text": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+        },
+        {
+          "value": "Laminação BRILHO FRENTE (Acima de 240g)",
+          "text": "Laminação BRILHO FRENTE (Acima de 240g)"
+        },
+        {
+          "value": "Verniz UV TOTAL FRENTE (Acima de 240g)",
+          "text": "Verniz UV TOTAL FRENTE (Acima de 240g)"
+        },
+        {
+          "value": "Sem Acabamento",
+          "text": "Sem Acabamento"
+        }
+      ]
+    },
+    "5": {
+      "label": "7- Papel MIOLO:",
+      "name": "Options[5].Value",
+      "id": "Options[5].Value",
+      "opcoes": [
+        {
+          "value": "Offset 75gr",
+          "text": "Offset 75gr"
+        },
+        {
+          "value": "Pólen Natural 80g",
+          "text": "Pólen Natural 80g"
+        },
+        {
+          "value": "Pólen Bold 70g",
+          "text": "Pólen Bold 70g"
+        },
+        {
+          "value": "Pólen Bold 90g",
+          "text": "Pólen Bold 90g"
+        },
+        {
+          "value": "Offset 90gr",
+          "text": "Offset 90gr"
+        },
+        {
+          "value": "Impressão Offset - >500unidades",
+          "text": "Impressão Offset - >500unidades"
+        },
+        {
+          "value": "Pólen Natural 70g",
+          "text": "Pólen Natural 70g"
+        },
+        {
+          "value": "Offset 70gr",
+          "text": "Offset 70gr"
+        },
+        {
+          "value": "Offset 56gr",
+          "text": "Offset 56gr"
+        },
+        {
+          "value": "Offset 63gr",
+          "text": "Offset 63gr"
+        }
+      ]
+    },
+    "6": {
+      "label": "8- Cores MIOLO:",
+      "name": "Options[6].Value",
+      "id": "Options[6].Value",
+      "opcoes": [
+        {
+          "value": "4 cores frente e verso",
+          "text": "4 cores frente e verso"
+        },
+        {
+          "value": "1 cor frente e verso PRETO",
+          "text": "1 cor frente e verso PRETO"
+        }
+      ]
+    },
+    "7": {
+      "label": "9- MIOLO Sangrado?",
+      "name": "Options[7].Value",
+      "id": "Options[7].Value",
+      "opcoes": [
+        {
+          "value": "NÃO",
+          "text": "NÃO"
+        },
+        {
+          "value": "SIM",
+          "text": "SIM"
+        }
+      ]
+    },
+    "8": {
+      "label": "10- Quantidade Paginas MIOLO:",
+      "name": "Options[8].Value",
+      "id": "Options[8].Value",
+      "opcoes": [
+        {
+          "value": "Miolo 8 páginas",
+          "text": "Miolo 8 páginas"
+        },
+        {
+          "value": "Miolo 12 páginas",
+          "text": "Miolo 12 páginas"
+        },
+        {
+          "value": "Miolo 16 páginas",
+          "text": "Miolo 16 páginas"
+        },
+        {
+          "value": "Miolo 20 páginas",
+          "text": "Miolo 20 páginas"
+        },
+        {
+          "value": "Miolo 24 páginas",
+          "text": "Miolo 24 páginas"
+        },
+        {
+          "value": "Miolo 28 páginas",
+          "text": "Miolo 28 páginas"
+        },
+        {
+          "value": "Miolo 32 páginas",
+          "text": "Miolo 32 páginas"
+        },
+        {
+          "value": "Miolo 36 páginas",
+          "text": "Miolo 36 páginas"
+        },
+        {
+          "value": "Miolo 40 páginas",
+          "text": "Miolo 40 páginas"
+        },
+        {
+          "value": "Miolo 44 páginas",
+          "text": "Miolo 44 páginas"
+        }
+      ]
+    },
+    "9": {
+      "label": "11- Acabamento MIOLO:",
+      "name": "Options[9].Value",
+      "id": "Options[9].Value",
+      "opcoes": [
+        {
+          "value": "Dobrado",
+          "text": "Dobrado"
+        }
+      ]
+    },
+    "10": {
+      "label": "12- Acabamento LIVRO:",
+      "name": "Options[10].Value",
+      "id": "Options[10].Value",
+      "opcoes": [
+        {
+          "value": "Colado PUR",
+          "text": "Colado PUR"
+        },
+        {
+          "value": "Costurado",
+          "text": "Costurado"
+        },
+        {
+          "value": "Grampeado - 2 grampos",
+          "text": "Grampeado - 2 grampos"
+        },
+        {
+          "value": "Espiral Plastico",
+          "text": "Espiral Plastico"
+        },
+        {
+          "value": "Capa Dura Papelão 18 (1,8mm) + Cola PUR",
+          "text": "Capa Dura Papelão 18 (1,8mm) + Cola PUR"
+        },
+        {
+          "value": "Capa Dura Papelão 18  (1,8mm) + Costura - acima de 1.000un",
+          "text": "Capa Dura Papelão 18 (1,8mm) + Costura - acima de 1.000un"
+        },
+        {
+          "value": "Capa Dura Papelão 18 (1,8mm) + Espiral",
+          "text": "Capa Dura Papelão 18 (1,8mm) + Espiral"
+        },
+        {
+          "value": "Capa Dura Papelão 15 (2,2mm) + Cola PUR",
+          "text": "Capa Dura Papelão 15 (2,2mm) + Cola PUR"
+        },
+        {
+          "value": "Capa Dura Papelão 15 (2,2mm) + Costura - acima de 1.000 um.",
+          "text": "Capa Dura Papelão 15 (2,2mm) + Costura - acima de 1.000 um."
+        },
+        {
+          "value": "Capa Dura Papelão 15 (2,2mm) + Espiral",
+          "text": "Capa Dura Papelão 15 (2,2mm) + Espiral"
+        }
+      ]
+    },
+    "11": {
+      "label": "13- Guardas LIVRO:",
+      "name": "Options[11].Value",
+      "id": "Options[11].Value",
+      "opcoes": [
+        {
+          "value": "SEM GUARDAS",
+          "text": "SEM GUARDAS"
+        },
+        {
+          "value": "offset 180g - sem impressão",
+          "text": "offset 180g - sem impressão"
+        },
+        {
+          "value": "offset 180g - Com Impressão 4x4 Escala",
+          "text": "offset 180g - Com Impressão 4x4 Escala"
+        },
+        {
+          "value": "Vergê Madrepérola180g (Creme) - sem impressão",
+          "text": "Vergê Madrepérola180g (Creme) - sem impressão"
+        },
+        {
+          "value": "Vergê Madrepérola180g (Creme) - Com Impressão 4x4 Escala",
+          "text": "Vergê Madrepérola180g (Creme) - Com Impressão 4x4 Escala"
+        },
+        {
+          "value": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala",
+          "text": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala"
+        }
+      ]
+    },
+    "12": {
+      "label": "14- Extras:",
+      "name": "Options[12].Value",
+      "id": "Options[12].Value",
+      "opcoes": [
+        {
+          "value": "Nenhum",
+          "text": "Nenhum"
+        },
+        {
+          "value": "Shrink Individual",
+          "text": "Shrink Individual"
+        },
+        {
+          "value": "Shrink Coletivo c/ 5 peças",
+          "text": "Shrink Coletivo c/ 5 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 10 peças",
+          "text": "Shrink Coletivo c/ 10 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 20 peças",
+          "text": "Shrink Coletivo c/ 20 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 30 peças",
+          "text": "Shrink Coletivo c/ 30 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 50 peças",
+          "text": "Shrink Coletivo c/ 50 peças"
+        }
+      ]
+    },
+    "13": {
+      "label": "15- Frete:",
+      "name": "Options[13].Value",
+      "id": "Options[13].Value",
+      "opcoes": [
+        {
+          "value": "Incluso",
+          "text": "Incluso"
+        },
+        {
+          "value": "Cliente Retira",
+          "text": "Cliente Retira"
+        }
+      ]
+    },
+    "14": {
+      "label": "16- Verificação do Arquivo:",
+      "name": "Options[14].Value",
+      "id": "Options[14].Value",
+      "opcoes": [
+        {
+          "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+          "text": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+        },
+        {
+          "value": "Digital On-Line - via Web-Approval ou PDF",
+          "text": "Digital On-Line - via Web-Approval ou PDF"
+        },
+        {
+          "value": "Capa: Prova de Cor Digital | Miolo: Aprovação Virtual",
+          "text": "Capa: Prova de Cor Digital | Miolo: Aprovação Virtual"
+        },
+        {
+          "value": "Capa: Prova de Cor Digital | Miolo: Prova em Baixa (Plotter)",
+          "text": "Capa: Prova de Cor Digital | Miolo: Prova em Baixa (Plotter)"
+        },
+        {
+          "value": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen",
+          "text": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen"
+        },
+        {
+          "value": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)",
+          "text": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)"
+        }
+      ]
+    },
+    "15": {
+      "label": "17- Prazo de Entrega:",
+      "name": "Options[15].Value",
+      "id": "Options[15].Value",
+      "opcoes": [
+        {
+          "value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*",
+          "text": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+        }
+      ]
+    }
+  },
+  "total_selects": 16
+}

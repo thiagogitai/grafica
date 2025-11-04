@@ -7,8 +7,8 @@
       "name": "quantity",
       "label": "1- Quantidade",
       "type": "number",
-      "default": 25,
-      "min": 1,
+      "default": 50,
+      "min": 50,
       "step": 1
     },
     {
@@ -41,7 +41,7 @@
           "label": "140x210mm"
         },
         {
-          "value": "148x210mm (A5)",
+          "value": "148x210mm (A5) ",
           "label": "148x210mm (A5)"
         },
         {
@@ -81,7 +81,7 @@
           "label": "210x280mm"
         },
         {
-          "value": "210x297mm (A4)",
+          "value": "210x297mm (A4) ",
           "label": "210x297mm (A4)"
         },
         {
@@ -116,11 +116,11 @@
       "type": "select",
       "choices": [
         {
-          "value": "Cartão Triplex 250gr",
+          "value": "Cartão Triplex 250gr ",
           "label": "Cartão Triplex 250gr"
         },
         {
-          "value": "Couche Brilho 150gr",
+          "value": "Couche Brilho 150gr ",
           "label": "Couche Brilho 150gr"
         },
         {
@@ -128,27 +128,27 @@
           "label": "SEM CAPA"
         },
         {
-          "value": "Cartão Triplex 300gr",
+          "value": "Cartão Triplex 300gr ",
           "label": "Cartão Triplex 300gr"
         },
         {
-          "value": "Couche Fosco 150gr",
+          "value": "Couche Fosco 150gr ",
           "label": "Couche Fosco 150gr"
         },
         {
-          "value": "Couche Fosco 170gr",
+          "value": "Couche Fosco 170gr ",
           "label": "Couche Fosco 170gr"
         },
         {
-          "value": "Couche Fosco 210gr",
+          "value": "Couche Fosco 210gr ",
           "label": "Couche Fosco 210gr"
         },
         {
-          "value": "Couche Brilho 170gr",
+          "value": "Couche Brilho 170gr ",
           "label": "Couche Brilho 170gr"
         },
         {
-          "value": "Couche Brilho 210gr",
+          "value": "Couche Brilho 210gr ",
           "label": "Couche Brilho 210gr"
         },
         {
@@ -336,11 +336,11 @@
           "label": "Couche Fosco 115gr Importado (Digital - Abaixo de 300pçs)"
         },
         {
-          "value": "Couche Fosco 150gr",
+          "value": "Couche Fosco 150gr ",
           "label": "Couche Fosco 150gr"
         },
         {
-          "value": "Couche Fosco 170gr",
+          "value": "Couche Fosco 170gr ",
           "label": "Couche Fosco 170gr"
         },
         {
@@ -356,15 +356,15 @@
           "label": "Couche brilho 115gr Importado (Digital - Abaixo de 300pçs)"
         },
         {
-          "value": "Couche brilho 150gr",
+          "value": "Couche brilho 150gr ",
           "label": "Couche brilho 150gr"
         },
         {
-          "value": "Couche brilho 170gr",
+          "value": "Couche brilho 170gr ",
           "label": "Couche brilho 170gr"
         },
         {
-          "value": "Couche brilho 210gr",
+          "value": "Couche brilho 210gr ",
           "label": "Couche brilho 210gr"
         },
         {
@@ -1868,7 +1868,7 @@
         },
         {
           "value": "Capa Dura Papelão 18  (1,8mm) + Costura - acima de 1.000un",
-          "label": "Capa Dura Papelão 18  (1,8mm) + Costura - acima de 1.000un"
+          "label": "Capa Dura Papelão 18 (1,8mm) + Costura - acima de 1.000un"
         },
         {
           "value": "Capa Dura Papelão 18 (1,8mm) + Espiral",

@@ -1,0 +1,6 @@
+- [x] Edit scraper.py to change output filename from 'precos_grafica_selecao.json' to 'precos_grafica.json'
+- [x] Execute python scraper.py to scrape and populate pricing data
+- [x] Verify precos_grafica.json is created and populated with prices
+- [x] Integrate JSON into index.php by passing PHP-loaded priceMatrix to JavaScript
+- [x] Remove hardcoded priceMatrix from JavaScript in index.php
+- [x] Test that the calculator pulls prices from JSON when filters are selected

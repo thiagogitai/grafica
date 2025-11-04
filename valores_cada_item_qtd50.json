@@ -1,0 +1,3721 @@
+{
+  "quantidade_base": 50,
+  "preco_base": {
+    "texto": "R$1.558,00",
+    "valor": 1558.0
+  },
+  "campos": [
+    {
+      "indice": 1,
+      "nome": "Options[1].Value",
+      "id": "Options[1].Value",
+      "name": "Options[1].Value",
+      "opcoes": [
+        {
+          "valor": "Cartão Triplex 250gr ",
+          "texto": "Cartão Triplex 250gr",
+          "preco_total": 1558.0,
+          "preco_texto": "R$1.558,00",
+          "diferenca_total": 0.0,
+          "diferenca_unitaria": 0.0
+        },
+        {
+          "valor": "Couche Brilho 150gr ",
+          "texto": "Couche Brilho 150gr",
+          "preco_total": 1450776.0,
+          "preco_texto": "R$1.450.776,00",
+          "diferenca_total": 1449218.0,
+          "diferenca_unitaria": 28984.36
+        },
+        {
+          "valor": "SEM CAPA",
+          "texto": "SEM CAPA",
+          "preco_total": 1235.0,
+          "preco_texto": "R$1.235,00",
+          "diferenca_total": -323.0,
+          "diferenca_unitaria": -6.46
+        },
+        {
+          "valor": "Cartão Triplex 300gr ",
+          "texto": "Cartão Triplex 300gr",
+          "preco_total": 1579.0,
+          "preco_texto": "R$1.579,00",
+          "diferenca_total": 21.0,
+          "diferenca_unitaria": 0.42
+        },
+        {
+          "valor": "Couche Fosco 150gr ",
+          "texto": "Couche Fosco 150gr",
+          "preco_total": 1450776.0,
+          "preco_texto": "R$1.450.776,00",
+          "diferenca_total": 1449218.0,
+          "diferenca_unitaria": 28984.36
+        },
+        {
+          "valor": "Couche Fosco 170gr ",
+          "texto": "Couche Fosco 170gr",
+          "preco_total": 1450782.0,
+          "preco_texto": "R$1.450.782,00",
+          "diferenca_total": 1449224.0,
+          "diferenca_unitaria": 28984.48
+        },
+        {
+          "valor": "Couche Fosco 210gr ",
+          "texto": "Couche Fosco 210gr",
+          "preco_total": 1450798.0,
+          "preco_texto": "R$1.450.798,00",
+          "diferenca_total": 1449240.0,
+          "diferenca_unitaria": 28984.8
+        },
+        {
+          "valor": "Couche Brilho 170gr ",
+          "texto": "Couche Brilho 170gr",
+          "preco_total": 1450782.0,
+          "preco_texto": "R$1.450.782,00",
+          "diferenca_total": 1449224.0,
+          "diferenca_unitaria": 28984.48
+        },
+        {
+          "valor": "Couche Brilho 210gr ",
+          "texto": "Couche Brilho 210gr",
+          "preco_total": 1450798.0,
+          "preco_texto": "R$1.450.798,00",
+          "diferenca_total": 1449240.0,
+          "diferenca_unitaria": 28984.8
+        },
+        {
+          "valor": "Couche Brilho 250g Importado",
+          "texto": "Couche Brilho 250g Importado",
+          "preco_total": 1551.0,
+          "preco_texto": "R$1.551,00",
+          "diferenca_total": -7.0,
+          "diferenca_unitaria": -0.14
+        }
+      ]
+    },
+    {
+      "indice": 2,
+      "nome": "Options[2].Value",
+      "id": "Options[2].Value",
+      "name": "Options[2].Value",
+      "opcoes": [
+        {
+          "valor": "4 cores Frente",
+          "texto": "4 cores Frente",
+          "preco_total": 1551.0,
+          "preco_texto": "R$1.551,00",
+          "diferenca_total": -7.0,
+          "diferenca_unitaria": -0.14
+        },
+        {
+          "valor": "4 cores FxV",
+          "texto": "4 cores FxV",
+          "preco_total": 1709.0,
+          "preco_texto": "R$1.709,00",
+          "diferenca_total": 151.0,
+          "diferenca_unitaria": 3.02
+        },
+        {
+          "valor": "1 Cor Frente (Preto)",
+          "texto": "1 Cor Frente (Preto)",
+          "preco_total": 1472.0,
+          "preco_texto": "R$1.472,00",
+          "diferenca_total": -86.0,
+          "diferenca_unitaria": -1.72
+        },
+        {
+          "valor": "1 Cor FxV (Preto)",
+          "texto": "1 Cor FxV (Preto)",
+          "preco_total": 1551.0,
+          "preco_texto": "R$1.551,00",
+          "diferenca_total": -7.0,
+          "diferenca_unitaria": -0.14
+        },
+        {
+          "valor": "4 cores Frente x 1 cor Preto Verso",
+          "texto": "4 cores Frente x 1 cor Preto Verso",
+          "preco_total": 1630.0,
+          "preco_texto": "R$1.630,00",
+          "diferenca_total": 72.0,
+          "diferenca_unitaria": 1.44
+        },
+        {
+          "valor": "4 cores Frente x 1 cor Pantone Verso",
+          "texto": "4 cores Frente x 1 cor Pantone Verso",
+          "preco_total": 6164.0,
+          "preco_texto": "R$6.164,00",
+          "diferenca_total": 4606.0,
+          "diferenca_unitaria": 92.12
+        },
+        {
+          "valor": "5 cores Frente x 1 cor Preto Verso",
+          "texto": "5 cores Frente x 1 cor Preto Verso",
+          "preco_total": 6293.0,
+          "preco_texto": "R$6.293,00",
+          "diferenca_total": 4735.0,
+          "diferenca_unitaria": 94.7
+        },
+        {
+          "valor": "5 cores Frente x 1 cor Pantone Verso",
+          "texto": "5 cores Frente x 1 cor Pantone Verso",
+          "preco_total": 7298.0,
+          "preco_texto": "R$7.298,00",
+          "diferenca_total": 5740.0,
+          "diferenca_unitaria": 114.8
+        }
+      ]
+    },
+    {
+      "indice": 3,
+      "nome": "Options[3].Value",
+      "id": "Options[3].Value",
+      "name": "Options[3].Value",
+      "opcoes": [
+        {
+          "valor": "SEM ORELHA",
+          "texto": "SEM ORELHA",
+          "preco_total": 7298.0,
+          "preco_texto": "R$7.298,00",
+          "diferenca_total": 5740.0,
+          "diferenca_unitaria": 114.8
+        },
+        {
+          "valor": "COM Orelha de 8cm",
+          "texto": "COM Orelha de 8cm",
+          "preco_total": 7477.0,
+          "preco_texto": "R$7.477,00",
+          "diferenca_total": 5919.0,
+          "diferenca_unitaria": 118.38
+        },
+        {
+          "valor": "COM Orelha de 7cm",
+          "texto": "COM Orelha de 7cm",
+          "preco_total": 7476.0,
+          "preco_texto": "R$7.476,00",
+          "diferenca_total": 5918.0,
+          "diferenca_unitaria": 118.36
+        },
+        {
+          "valor": "COM Orelha de 6cm",
+          "texto": "COM Orelha de 6cm",
+          "preco_total": 7408.0,
+          "preco_texto": "R$7.408,00",
+          "diferenca_total": 5850.0,
+          "diferenca_unitaria": 117.0
+        },
+        {
+          "valor": "COM Orelha de 5cm",
+          "texto": "COM Orelha de 5cm",
+          "preco_total": 7408.0,
+          "preco_texto": "R$7.408,00",
+          "diferenca_total": 5850.0,
+          "diferenca_unitaria": 117.0
+        },
+        {
+          "valor": "COM Orelha de 9cm",
+          "texto": "COM Orelha de 9cm",
+          "preco_total": 7477.0,
+          "preco_texto": "R$7.477,00",
+          "diferenca_total": 5919.0,
+          "diferenca_unitaria": 118.38
+        },
+        {
+          "valor": "COM Orelha de 10cm",
+          "texto": "COM Orelha de 10cm",
+          "preco_total": 7477.0,
+          "preco_texto": "R$7.477,00",
+          "diferenca_total": 5919.0,
+          "diferenca_unitaria": 118.38
+        },
+        {
+          "valor": "COM Orelha de 11cm",
+          "texto": "COM Orelha de 11cm",
+          "preco_total": 7478.0,
+          "preco_texto": "R$7.478,00",
+          "diferenca_total": 5920.0,
+          "diferenca_unitaria": 118.4
+        },
+        {
+          "valor": "COM Orelha de 12cm",
+          "texto": "COM Orelha de 12cm",
+          "preco_total": 7478.0,
+          "preco_texto": "R$7.478,00",
+          "diferenca_total": 5920.0,
+          "diferenca_unitaria": 118.4
+        },
+        {
+          "valor": "COM Orelha de 13cm",
+          "texto": "COM Orelha de 13cm",
+          "preco_total": 7479.0,
+          "preco_texto": "R$7.479,00",
+          "diferenca_total": 5921.0,
+          "diferenca_unitaria": 118.42
+        },
+        {
+          "valor": "COM Orelha de 14cm",
+          "texto": "COM Orelha de 14cm",
+          "preco_total": 7479.0,
+          "preco_texto": "R$7.479,00",
+          "diferenca_total": 5921.0,
+          "diferenca_unitaria": 118.42
+        }
+      ]
+    },
+    {
+      "indice": 4,
+      "nome": "Options[4].Value",
+      "id": "Options[4].Value",
+      "name": "Options[4].Value",
+      "opcoes": [
+        {
+          "valor": "Laminação FOSCA FRENTE (Acima de 240g)",
+          "texto": "Laminação FOSCA FRENTE (Acima de 240g)",
+          "preco_total": 7479.0,
+          "preco_texto": "R$7.479,00",
+          "diferenca_total": 5921.0,
+          "diferenca_unitaria": 118.42
+        },
+        {
+          "valor": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)",
+          "texto": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)",
+          "preco_total": 8964.0,
+          "preco_texto": "R$8.964,00",
+          "diferenca_total": 7406.0,
+          "diferenca_unitaria": 148.12
+        },
+        {
+          "valor": "Laminação BRILHO FRENTE (Acima de 240g)",
+          "texto": "Laminação BRILHO FRENTE (Acima de 240g)",
+          "preco_total": 7479.0,
+          "preco_texto": "R$7.479,00",
+          "diferenca_total": 5921.0,
+          "diferenca_unitaria": 118.42
+        },
+        {
+          "valor": "Verniz UV TOTAL FRENTE (Acima de 240g)",
+          "texto": "Verniz UV TOTAL FRENTE (Acima de 240g)",
+          "preco_total": 7730.0,
+          "preco_texto": "R$7.730,00",
+          "diferenca_total": 6172.0,
+          "diferenca_unitaria": 123.44
+        },
+        {
+          "valor": "Sem Acabamento",
+          "texto": "Sem Acabamento",
+          "preco_total": 6840.0,
+          "preco_texto": "R$6.840,00",
+          "diferenca_total": 5282.0,
+          "diferenca_unitaria": 105.64
+        }
+      ]
+    },
+    {
+      "indice": 5,
+      "nome": "Options[5].Value",
+      "id": "Options[5].Value",
+      "name": "Options[5].Value",
+      "opcoes": [
+        {
+          "valor": "Offset 75gr",
+          "texto": "Offset 75gr",
+          "preco_total": 6840.0,
+          "preco_texto": "R$6.840,00",
+          "diferenca_total": 5282.0,
+          "diferenca_unitaria": 105.64
+        },
+        {
+          "valor": "Pólen Natural 80g",
+          "texto": "Pólen Natural 80g",
+          "preco_total": 6847.0,
+          "preco_texto": "R$6.847,00",
+          "diferenca_total": 5289.0,
+          "diferenca_unitaria": 105.78
+        },
+        {
+          "valor": "Pólen Bold 70g",
+          "texto": "Pólen Bold 70g",
+          "preco_total": 6841.0,
+          "preco_texto": "R$6.841,00",
+          "diferenca_total": 5283.0,
+          "diferenca_unitaria": 105.66
+        },
+        {
+          "valor": "Pólen Bold 90g",
+          "texto": "Pólen Bold 90g",
+          "preco_total": 6855.0,
+          "preco_texto": "R$6.855,00",
+          "diferenca_total": 5297.0,
+          "diferenca_unitaria": 105.94
+        },
+        {
+          "valor": "Offset 90gr",
+          "texto": "Offset 90gr",
+          "preco_total": 6850.0,
+          "preco_texto": "R$6.850,00",
+          "diferenca_total": 5292.0,
+          "diferenca_unitaria": 105.84
+        },
+        {
+          "valor": "Impressão Offset - >500unidades",
+          "texto": "Impressão Offset - >500unidades",
+          "preco_total": null,
+          "preco_texto": "#.##",
+          "diferenca_total": null,
+          "diferenca_unitaria": null
+        },
+        {
+          "valor": "Pólen Natural 70g",
+          "texto": "Pólen Natural 70g",
+          "preco_total": 6840.0,
+          "preco_texto": "R$6.840,00",
+          "diferenca_total": 5282.0,
+          "diferenca_unitaria": 105.64
+        },
+        {
+          "valor": "Offset 70gr",
+          "texto": "Offset 70gr",
+          "preco_total": 6837.0,
+          "preco_texto": "R$6.837,00",
+          "diferenca_total": 5279.0,
+          "diferenca_unitaria": 105.58
+        },
+        {
+          "valor": "Offset 56gr",
+          "texto": "Offset 56gr",
+          "preco_total": 6829.0,
+          "preco_texto": "R$6.829,00",
+          "diferenca_total": 5271.0,
+          "diferenca_unitaria": 105.42
+        },
+        {
+          "valor": "Offset 63gr",
+          "texto": "Offset 63gr",
+          "preco_total": 6832.0,
+          "preco_texto": "R$6.832,00",
+          "diferenca_total": 5274.0,
+          "diferenca_unitaria": 105.48
+        },
+        {
+          "valor": "Offset 120gr",
+          "texto": "Offset 120gr",
+          "preco_total": 6870.0,
+          "preco_texto": "R$6.870,00",
+          "diferenca_total": 5312.0,
+          "diferenca_unitaria": 106.24
+        },
+        {
+          "valor": "Couche Fosco 80gr (Offset - Acima de 300pçs)",
+          "texto": "Couche Fosco 80gr (Offset - Acima de 300pçs)",
+          "preco_total": 6843.0,
+          "preco_texto": "R$6.843,00",
+          "diferenca_total": 5285.0,
+          "diferenca_unitaria": 105.7
+        },
+        {
+          "valor": "Couche Fosco 90gr Importado (Digital - Abaixo de 300pçs)",
+          "texto": "Couche Fosco 90gr Importado (Digital - Abaixo de 300pçs)",
+          "preco_total": 6852.0,
+          "preco_texto": "R$6.852,00",
+          "diferenca_total": 5294.0,
+          "diferenca_unitaria": 105.88
+        },
+        {
+          "valor": "Couche Fosco 115gr Importado (Digital - Abaixo de 300pçs)",
+          "texto": "Couche Fosco 115gr Importado (Digital - Abaixo de 300pçs)",
+          "preco_total": 6866.0,
+          "preco_texto": "R$6.866,00",
+          "diferenca_total": 5308.0,
+          "diferenca_unitaria": 106.16
+        },
+        {
+          "valor": "Couche Fosco 150gr ",
+          "texto": "Couche Fosco 150gr",
+          "preco_total": 6889.0,
+          "preco_texto": "R$6.889,00",
+          "diferenca_total": 5331.0,
+          "diferenca_unitaria": 106.62
+        },
+        {
+          "valor": "Couche Fosco 170gr ",
+          "texto": "Couche Fosco 170gr",
+          "preco_total": 6903.0,
+          "preco_texto": "R$6.903,00",
+          "diferenca_total": 5345.0,
+          "diferenca_unitaria": 106.9
+        },
+        {
+          "valor": "Couche brilho 80gr (Offset - Acima de 300pçs)",
+          "texto": "Couche brilho 80gr (Offset - Acima de 300pçs)",
+          "preco_total": 6843.0,
+          "preco_texto": "R$6.843,00",
+          "diferenca_total": 5285.0,
+          "diferenca_unitaria": 105.7
+        },
+        {
+          "valor": "Couche brilho 90gr importado (Digital - Abaixo de 300pçs)",
+          "texto": "Couche brilho 90gr importado (Digital - Abaixo de 300pçs)",
+          "preco_total": 6852.0,
+          "preco_texto": "R$6.852,00",
+          "diferenca_total": 5294.0,
+          "diferenca_unitaria": 105.88
+        },
+        {
+          "valor": "Couche brilho 115gr Importado (Digital - Abaixo de 300pçs)",
+          "texto": "Couche brilho 115gr Importado (Digital - Abaixo de 300pçs)",
+          "preco_total": 6866.0,
+          "preco_texto": "R$6.866,00",
+          "diferenca_total": 5308.0,
+          "diferenca_unitaria": 106.16
+        },
+        {
+          "valor": "Couche brilho 150gr ",
+          "texto": "Couche brilho 150gr",
+          "preco_total": 6889.0,
+          "preco_texto": "R$6.889,00",
+          "diferenca_total": 5331.0,
+          "diferenca_unitaria": 106.62
+        },
+        {
+          "valor": "Couche brilho 170gr ",
+          "texto": "Couche brilho 170gr",
+          "preco_total": 6903.0,
+          "preco_texto": "R$6.903,00",
+          "diferenca_total": 5345.0,
+          "diferenca_unitaria": 106.9
+        },
+        {
+          "valor": "Couche brilho 210gr ",
+          "texto": "Couche brilho 210gr",
+          "preco_total": 6932.0,
+          "preco_texto": "R$6.932,00",
+          "diferenca_total": 5374.0,
+          "diferenca_unitaria": 107.48
+        },
+        {
+          "valor": "Couche Fosco 90gr (Offset - Acima de 300pçs)",
+          "texto": "Couche Fosco 90gr (Offset - Acima de 300pçs)",
+          "preco_total": 6852.0,
+          "preco_texto": "R$6.852,00",
+          "diferenca_total": 5294.0,
+          "diferenca_unitaria": 105.88
+        },
+        {
+          "valor": "Couche Fosco 115gr (Offset - Acima de 300pçs)",
+          "texto": "Couche Fosco 115gr (Offset - Acima de 300pçs)",
+          "preco_total": 6866.0,
+          "preco_texto": "R$6.866,00",
+          "diferenca_total": 5308.0,
+          "diferenca_unitaria": 106.16
+        },
+        {
+          "valor": "Couche Brilho 90gr (Offset - Acima de 300pçs)",
+          "texto": "Couche Brilho 90gr (Offset - Acima de 300pçs)",
+          "preco_total": 6852.0,
+          "preco_texto": "R$6.852,00",
+          "diferenca_total": 5294.0,
+          "diferenca_unitaria": 105.88
+        },
+        {
+          "valor": "Couche Brilho 115gr (Offset - Acima de 300pçs)",
+          "texto": "Couche Brilho 115gr (Offset - Acima de 300pçs)",
+          "preco_total": 6866.0,
+          "preco_texto": "R$6.866,00",
+          "diferenca_total": 5308.0,
+          "diferenca_unitaria": 106.16
+        }
+      ]
+    },
+    {
+      "indice": 6,
+      "nome": "Options[6].Value",
+      "id": "Options[6].Value",
+      "name": "Options[6].Value",
+      "opcoes": [
+        {
+          "valor": "4 cores frente e verso",
+          "texto": "4 cores frente e verso",
+          "preco_total": 6866.0,
+          "preco_texto": "R$6.866,00",
+          "diferenca_total": 5308.0,
+          "diferenca_unitaria": 106.16
+        },
+        {
+          "valor": "1 cor frente e verso PRETO",
+          "texto": "1 cor frente e verso PRETO",
+          "preco_total": 6559.0,
+          "preco_texto": "R$6.559,00",
+          "diferenca_total": 5001.0,
+          "diferenca_unitaria": 100.02
+        }
+      ]
+    },
+    {
+      "indice": 7,
+      "nome": "Options[7].Value",
+      "id": "Options[7].Value",
+      "name": "Options[7].Value",
+      "opcoes": [
+        {
+          "valor": "NÃO",
+          "texto": "NÃO",
+          "preco_total": 6559.0,
+          "preco_texto": "R$6.559,00",
+          "diferenca_total": 5001.0,
+          "diferenca_unitaria": 100.02
+        },
+        {
+          "valor": "SIM",
+          "texto": "SIM",
+          "preco_total": 6559.0,
+          "preco_texto": "R$6.559,00",
+          "diferenca_total": 5001.0,
+          "diferenca_unitaria": 100.02
+        }
+      ]
+    },
+    {
+      "indice": 8,
+      "nome": "Options[8].Value",
+      "id": "Options[8].Value",
+      "name": "Options[8].Value",
+      "opcoes": [
+        {
+          "valor": "Miolo 8 páginas",
+          "texto": "Miolo 8 páginas",
+          "preco_total": 6559.0,
+          "preco_texto": "R$6.559,00",
+          "diferenca_total": 5001.0,
+          "diferenca_unitaria": 100.02
+        },
+        {
+          "valor": "Miolo 12 páginas",
+          "texto": "Miolo 12 páginas",
+          "preco_total": 6751.0,
+          "preco_texto": "R$6.751,00",
+          "diferenca_total": 5193.0,
+          "diferenca_unitaria": 103.86
+        },
+        {
+          "valor": "Miolo 16 páginas",
+          "texto": "Miolo 16 páginas",
+          "preco_total": 6942.0,
+          "preco_texto": "R$6.942,00",
+          "diferenca_total": 5384.0,
+          "diferenca_unitaria": 107.68
+        },
+        {
+          "valor": "Miolo 20 páginas",
+          "texto": "Miolo 20 páginas",
+          "preco_total": 7134.0,
+          "preco_texto": "R$7.134,00",
+          "diferenca_total": 5576.0,
+          "diferenca_unitaria": 111.52
+        },
+        {
+          "valor": "Miolo 24 páginas",
+          "texto": "Miolo 24 páginas",
+          "preco_total": 7325.0,
+          "preco_texto": "R$7.325,00",
+          "diferenca_total": 5767.0,
+          "diferenca_unitaria": 115.34
+        },
+        {
+          "valor": "Miolo 28 páginas",
+          "texto": "Miolo 28 páginas",
+          "preco_total": 7518.0,
+          "preco_texto": "R$7.518,00",
+          "diferenca_total": 5960.0,
+          "diferenca_unitaria": 119.2
+        },
+        {
+          "valor": "Miolo 32 páginas",
+          "texto": "Miolo 32 páginas",
+          "preco_total": 7708.0,
+          "preco_texto": "R$7.708,00",
+          "diferenca_total": 6150.0,
+          "diferenca_unitaria": 123.0
+        },
+        {
+          "valor": "Miolo 36 páginas",
+          "texto": "Miolo 36 páginas",
+          "preco_total": 7901.0,
+          "preco_texto": "R$7.901,00",
+          "diferenca_total": 6343.0,
+          "diferenca_unitaria": 126.86
+        },
+        {
+          "valor": "Miolo 40 páginas",
+          "texto": "Miolo 40 páginas",
+          "preco_total": 8092.0,
+          "preco_texto": "R$8.092,00",
+          "diferenca_total": 6534.0,
+          "diferenca_unitaria": 130.68
+        },
+        {
+          "valor": "Miolo 44 páginas",
+          "texto": "Miolo 44 páginas",
+          "preco_total": 8284.0,
+          "preco_texto": "R$8.284,00",
+          "diferenca_total": 6726.0,
+          "diferenca_unitaria": 134.52
+        },
+        {
+          "valor": "Miolo 48 páginas",
+          "texto": "Miolo 48 páginas",
+          "preco_total": 8475.0,
+          "preco_texto": "R$8.475,00",
+          "diferenca_total": 6917.0,
+          "diferenca_unitaria": 138.34
+        },
+        {
+          "valor": "Miolo 52 páginas",
+          "texto": "Miolo 52 páginas",
+          "preco_total": 8667.0,
+          "preco_texto": "R$8.667,00",
+          "diferenca_total": 7109.0,
+          "diferenca_unitaria": 142.18
+        },
+        {
+          "valor": "Miolo 56 páginas",
+          "texto": "Miolo 56 páginas",
+          "preco_total": 8858.0,
+          "preco_texto": "R$8.858,00",
+          "diferenca_total": 7300.0,
+          "diferenca_unitaria": 146.0
+        },
+        {
+          "valor": "Miolo 60 páginas",
+          "texto": "Miolo 60 páginas",
+          "preco_total": 9051.0,
+          "preco_texto": "R$9.051,00",
+          "diferenca_total": 7493.0,
+          "diferenca_unitaria": 149.86
+        },
+        {
+          "valor": "Miolo 64 páginas",
+          "texto": "Miolo 64 páginas",
+          "preco_total": 9241.0,
+          "preco_texto": "R$9.241,00",
+          "diferenca_total": 7683.0,
+          "diferenca_unitaria": 153.66
+        },
+        {
+          "valor": "Miolo 68 páginas",
+          "texto": "Miolo 68 páginas",
+          "preco_total": 9434.0,
+          "preco_texto": "R$9.434,00",
+          "diferenca_total": 7876.0,
+          "diferenca_unitaria": 157.52
+        },
+        {
+          "valor": "Miolo 72 páginas",
+          "texto": "Miolo 72 páginas",
+          "preco_total": 9625.0,
+          "preco_texto": "R$9.625,00",
+          "diferenca_total": 8067.0,
+          "diferenca_unitaria": 161.34
+        },
+        {
+          "valor": "Miolo 76 páginas",
+          "texto": "Miolo 76 páginas",
+          "preco_total": 9817.0,
+          "preco_texto": "R$9.817,00",
+          "diferenca_total": 8259.0,
+          "diferenca_unitaria": 165.18
+        },
+        {
+          "valor": "Miolo 80 páginas",
+          "texto": "Miolo 80 páginas",
+          "preco_total": 10008.0,
+          "preco_texto": "R$10.008,00",
+          "diferenca_total": 8450.0,
+          "diferenca_unitaria": 169.0
+        },
+        {
+          "valor": "Miolo 84 páginas",
+          "texto": "Miolo 84 páginas",
+          "preco_total": 10201.0,
+          "preco_texto": "R$10.201,00",
+          "diferenca_total": 8643.0,
+          "diferenca_unitaria": 172.86
+        },
+        {
+          "valor": "Miolo 88 páginas",
+          "texto": "Miolo 88 páginas",
+          "preco_total": 10391.0,
+          "preco_texto": "R$10.391,00",
+          "diferenca_total": 8833.0,
+          "diferenca_unitaria": 176.66
+        },
+        {
+          "valor": "Miolo 92 páginas",
+          "texto": "Miolo 92 páginas",
+          "preco_total": 10584.0,
+          "preco_texto": "R$10.584,00",
+          "diferenca_total": 9026.0,
+          "diferenca_unitaria": 180.52
+        },
+        {
+          "valor": "Miolo 96 páginas",
+          "texto": "Miolo 96 páginas",
+          "preco_total": 10775.0,
+          "preco_texto": "R$10.775,00",
+          "diferenca_total": 9217.0,
+          "diferenca_unitaria": 184.34
+        },
+        {
+          "valor": "Miolo 100 páginas",
+          "texto": "Miolo 100 páginas",
+          "preco_total": 10967.0,
+          "preco_texto": "R$10.967,00",
+          "diferenca_total": 9409.0,
+          "diferenca_unitaria": 188.18
+        },
+        {
+          "valor": "Miolo 104 páginas",
+          "texto": "Miolo 104 páginas",
+          "preco_total": 11158.0,
+          "preco_texto": "R$11.158,00",
+          "diferenca_total": 9600.0,
+          "diferenca_unitaria": 192.0
+        },
+        {
+          "valor": "Miolo 108 páginas",
+          "texto": "Miolo 108 páginas",
+          "preco_total": 11350.0,
+          "preco_texto": "R$11.350,00",
+          "diferenca_total": 9792.0,
+          "diferenca_unitaria": 195.84
+        },
+        {
+          "valor": "Miolo 112 páginas",
+          "texto": "Miolo 112 páginas",
+          "preco_total": 11541.0,
+          "preco_texto": "R$11.541,00",
+          "diferenca_total": 9983.0,
+          "diferenca_unitaria": 199.66
+        },
+        {
+          "valor": "Miolo 116 páginas",
+          "texto": "Miolo 116 páginas",
+          "preco_total": 11734.0,
+          "preco_texto": "R$11.734,00",
+          "diferenca_total": 10176.0,
+          "diferenca_unitaria": 203.52
+        },
+        {
+          "valor": "Miolo 120 páginas",
+          "texto": "Miolo 120 páginas",
+          "preco_total": 11924.0,
+          "preco_texto": "R$11.924,00",
+          "diferenca_total": 10366.0,
+          "diferenca_unitaria": 207.32
+        },
+        {
+          "valor": "Miolo 124 páginas",
+          "texto": "Miolo 124 páginas",
+          "preco_total": 12117.0,
+          "preco_texto": "R$12.117,00",
+          "diferenca_total": 10559.0,
+          "diferenca_unitaria": 211.18
+        },
+        {
+          "valor": "Miolo 128 páginas",
+          "texto": "Miolo 128 páginas",
+          "preco_total": 12308.0,
+          "preco_texto": "R$12.308,00",
+          "diferenca_total": 10750.0,
+          "diferenca_unitaria": 215.0
+        },
+        {
+          "valor": "Miolo 132 páginas",
+          "texto": "Miolo 132 páginas",
+          "preco_total": 12500.0,
+          "preco_texto": "R$12.500,00",
+          "diferenca_total": 10942.0,
+          "diferenca_unitaria": 218.84
+        },
+        {
+          "valor": "Miolo 136 páginas",
+          "texto": "Miolo 136 páginas",
+          "preco_total": 12691.0,
+          "preco_texto": "R$12.691,00",
+          "diferenca_total": 11133.0,
+          "diferenca_unitaria": 222.66
+        },
+        {
+          "valor": "Miolo 140 páginas",
+          "texto": "Miolo 140 páginas",
+          "preco_total": 12883.0,
+          "preco_texto": "R$12.883,00",
+          "diferenca_total": 11325.0,
+          "diferenca_unitaria": 226.5
+        },
+        {
+          "valor": "Miolo 144 páginas",
+          "texto": "Miolo 144 páginas",
+          "preco_total": 13074.0,
+          "preco_texto": "R$13.074,00",
+          "diferenca_total": 11516.0,
+          "diferenca_unitaria": 230.32
+        },
+        {
+          "valor": "Miolo 148 páginas",
+          "texto": "Miolo 148 páginas",
+          "preco_total": 13267.0,
+          "preco_texto": "R$13.267,00",
+          "diferenca_total": 11709.0,
+          "diferenca_unitaria": 234.18
+        },
+        {
+          "valor": "Miolo 152 páginas",
+          "texto": "Miolo 152 páginas",
+          "preco_total": 13457.0,
+          "preco_texto": "R$13.457,00",
+          "diferenca_total": 11899.0,
+          "diferenca_unitaria": 237.98
+        },
+        {
+          "valor": "Miolo 156 páginas",
+          "texto": "Miolo 156 páginas",
+          "preco_total": 13650.0,
+          "preco_texto": "R$13.650,00",
+          "diferenca_total": 12092.0,
+          "diferenca_unitaria": 241.84
+        },
+        {
+          "valor": "Miolo 160 páginas",
+          "texto": "Miolo 160 páginas",
+          "preco_total": 13841.0,
+          "preco_texto": "R$13.841,00",
+          "diferenca_total": 12283.0,
+          "diferenca_unitaria": 245.66
+        },
+        {
+          "valor": "Miolo 164 páginas",
+          "texto": "Miolo 164 páginas",
+          "preco_total": 14033.0,
+          "preco_texto": "R$14.033,00",
+          "diferenca_total": 12475.0,
+          "diferenca_unitaria": 249.5
+        },
+        {
+          "valor": "Miolo 168 páginas",
+          "texto": "Miolo 168 páginas",
+          "preco_total": 14224.0,
+          "preco_texto": "R$14.224,00",
+          "diferenca_total": 12666.0,
+          "diferenca_unitaria": 253.32
+        },
+        {
+          "valor": "Miolo 172 páginas",
+          "texto": "Miolo 172 páginas",
+          "preco_total": 14416.0,
+          "preco_texto": "R$14.416,00",
+          "diferenca_total": 12858.0,
+          "diferenca_unitaria": 257.16
+        },
+        {
+          "valor": "Miolo 176 páginas",
+          "texto": "Miolo 176 páginas",
+          "preco_total": 14607.0,
+          "preco_texto": "R$14.607,00",
+          "diferenca_total": 13049.0,
+          "diferenca_unitaria": 260.98
+        },
+        {
+          "valor": "Miolo 180 páginas",
+          "texto": "Miolo 180 páginas",
+          "preco_total": 14800.0,
+          "preco_texto": "R$14.800,00",
+          "diferenca_total": 13242.0,
+          "diferenca_unitaria": 264.84
+        },
+        {
+          "valor": "Miolo 184 páginas",
+          "texto": "Miolo 184 páginas",
+          "preco_total": 14990.0,
+          "preco_texto": "R$14.990,00",
+          "diferenca_total": 13432.0,
+          "diferenca_unitaria": 268.64
+        },
+        {
+          "valor": "Miolo 188 páginas",
+          "texto": "Miolo 188 páginas",
+          "preco_total": 15183.0,
+          "preco_texto": "R$15.183,00",
+          "diferenca_total": 13625.0,
+          "diferenca_unitaria": 272.5
+        },
+        {
+          "valor": "Miolo 192 páginas",
+          "texto": "Miolo 192 páginas",
+          "preco_total": 15374.0,
+          "preco_texto": "R$15.374,00",
+          "diferenca_total": 13816.0,
+          "diferenca_unitaria": 276.32
+        },
+        {
+          "valor": "Miolo 196 páginas",
+          "texto": "Miolo 196 páginas",
+          "preco_total": 15566.0,
+          "preco_texto": "R$15.566,00",
+          "diferenca_total": 14008.0,
+          "diferenca_unitaria": 280.16
+        },
+        {
+          "valor": "Miolo 200 páginas",
+          "texto": "Miolo 200 páginas",
+          "preco_total": 15757.0,
+          "preco_texto": "R$15.757,00",
+          "diferenca_total": 14199.0,
+          "diferenca_unitaria": 283.98
+        },
+        {
+          "valor": "Miolo 204 páginas",
+          "texto": "Miolo 204 páginas",
+          "preco_total": 15949.0,
+          "preco_texto": "R$15.949,00",
+          "diferenca_total": 14391.0,
+          "diferenca_unitaria": 287.82
+        },
+        {
+          "valor": "Miolo 208 páginas",
+          "texto": "Miolo 208 páginas",
+          "preco_total": 16140.0,
+          "preco_texto": "R$16.140,00",
+          "diferenca_total": 14582.0,
+          "diferenca_unitaria": 291.64
+        },
+        {
+          "valor": "Miolo 212 páginas",
+          "texto": "Miolo 212 páginas",
+          "preco_total": 16333.0,
+          "preco_texto": "R$16.333,00",
+          "diferenca_total": 14775.0,
+          "diferenca_unitaria": 295.5
+        },
+        {
+          "valor": "Miolo 216 páginas",
+          "texto": "Miolo 216 páginas",
+          "preco_total": 16523.0,
+          "preco_texto": "R$16.523,00",
+          "diferenca_total": 14965.0,
+          "diferenca_unitaria": 299.3
+        },
+        {
+          "valor": "Miolo 220 páginas",
+          "texto": "Miolo 220 páginas",
+          "preco_total": 16716.0,
+          "preco_texto": "R$16.716,00",
+          "diferenca_total": 15158.0,
+          "diferenca_unitaria": 303.16
+        },
+        {
+          "valor": "Miolo 224 páginas",
+          "texto": "Miolo 224 páginas",
+          "preco_total": 16907.0,
+          "preco_texto": "R$16.907,00",
+          "diferenca_total": 15349.0,
+          "diferenca_unitaria": 306.98
+        },
+        {
+          "valor": "Miolo 228 páginas",
+          "texto": "Miolo 228 páginas",
+          "preco_total": 17099.0,
+          "preco_texto": "R$17.099,00",
+          "diferenca_total": 15541.0,
+          "diferenca_unitaria": 310.82
+        },
+        {
+          "valor": "Miolo 232 páginas",
+          "texto": "Miolo 232 páginas",
+          "preco_total": 17290.0,
+          "preco_texto": "R$17.290,00",
+          "diferenca_total": 15732.0,
+          "diferenca_unitaria": 314.64
+        },
+        {
+          "valor": "Miolo 236 páginas",
+          "texto": "Miolo 236 páginas",
+          "preco_total": 17482.0,
+          "preco_texto": "R$17.482,00",
+          "diferenca_total": 15924.0,
+          "diferenca_unitaria": 318.48
+        },
+        {
+          "valor": "Miolo 240 páginas",
+          "texto": "Miolo 240 páginas",
+          "preco_total": 17673.0,
+          "preco_texto": "R$17.673,00",
+          "diferenca_total": 16115.0,
+          "diferenca_unitaria": 322.3
+        },
+        {
+          "valor": "Miolo 244 páginas",
+          "texto": "Miolo 244 páginas",
+          "preco_total": 17866.0,
+          "preco_texto": "R$17.866,00",
+          "diferenca_total": 16308.0,
+          "diferenca_unitaria": 326.16
+        },
+        {
+          "valor": "Miolo 248 páginas",
+          "texto": "Miolo 248 páginas",
+          "preco_total": 18056.0,
+          "preco_texto": "R$18.056,00",
+          "diferenca_total": 16498.0,
+          "diferenca_unitaria": 329.96
+        },
+        {
+          "valor": "Miolo 252 páginas",
+          "texto": "Miolo 252 páginas",
+          "preco_total": 18249.0,
+          "preco_texto": "R$18.249,00",
+          "diferenca_total": 16691.0,
+          "diferenca_unitaria": 333.82
+        },
+        {
+          "valor": "Miolo 256 páginas",
+          "texto": "Miolo 256 páginas",
+          "preco_total": 18440.0,
+          "preco_texto": "R$18.440,00",
+          "diferenca_total": 16882.0,
+          "diferenca_unitaria": 337.64
+        },
+        {
+          "valor": "Miolo 260 páginas",
+          "texto": "Miolo 260 páginas",
+          "preco_total": 18632.0,
+          "preco_texto": "R$18.632,00",
+          "diferenca_total": 17074.0,
+          "diferenca_unitaria": 341.48
+        },
+        {
+          "valor": "Miolo 264 páginas",
+          "texto": "Miolo 264 páginas",
+          "preco_total": 18823.0,
+          "preco_texto": "R$18.823,00",
+          "diferenca_total": 17265.0,
+          "diferenca_unitaria": 345.3
+        },
+        {
+          "valor": "Miolo 268 páginas",
+          "texto": "Miolo 268 páginas",
+          "preco_total": 19015.0,
+          "preco_texto": "R$19.015,00",
+          "diferenca_total": 17457.0,
+          "diferenca_unitaria": 349.14
+        },
+        {
+          "valor": "Miolo 272 páginas",
+          "texto": "Miolo 272 páginas",
+          "preco_total": 19206.0,
+          "preco_texto": "R$19.206,00",
+          "diferenca_total": 17648.0,
+          "diferenca_unitaria": 352.96
+        },
+        {
+          "valor": "Miolo 276 páginas",
+          "texto": "Miolo 276 páginas",
+          "preco_total": 19399.0,
+          "preco_texto": "R$19.399,00",
+          "diferenca_total": 17841.0,
+          "diferenca_unitaria": 356.82
+        },
+        {
+          "valor": "Miolo 280 páginas",
+          "texto": "Miolo 280 páginas",
+          "preco_total": 19590.0,
+          "preco_texto": "R$19.590,00",
+          "diferenca_total": 18032.0,
+          "diferenca_unitaria": 360.64
+        },
+        {
+          "valor": "Miolo 284 páginas",
+          "texto": "Miolo 284 páginas",
+          "preco_total": 19782.0,
+          "preco_texto": "R$19.782,00",
+          "diferenca_total": 18224.0,
+          "diferenca_unitaria": 364.48
+        },
+        {
+          "valor": "Miolo 288 páginas",
+          "texto": "Miolo 288 páginas",
+          "preco_total": 19973.0,
+          "preco_texto": "R$19.973,00",
+          "diferenca_total": 18415.0,
+          "diferenca_unitaria": 368.3
+        },
+        {
+          "valor": "Miolo 292 páginas",
+          "texto": "Miolo 292 páginas",
+          "preco_total": 20165.0,
+          "preco_texto": "R$20.165,00",
+          "diferenca_total": 18607.0,
+          "diferenca_unitaria": 372.14
+        },
+        {
+          "valor": "Miolo 296 páginas",
+          "texto": "Miolo 296 páginas",
+          "preco_total": 20356.0,
+          "preco_texto": "R$20.356,00",
+          "diferenca_total": 18798.0,
+          "diferenca_unitaria": 375.96
+        },
+        {
+          "valor": "Miolo 300 páginas",
+          "texto": "Miolo 300 páginas",
+          "preco_total": 20549.0,
+          "preco_texto": "R$20.549,00",
+          "diferenca_total": 18991.0,
+          "diferenca_unitaria": 379.82
+        },
+        {
+          "valor": "Miolo 304 páginas",
+          "texto": "Miolo 304 páginas",
+          "preco_total": 20739.0,
+          "preco_texto": "R$20.739,00",
+          "diferenca_total": 19181.0,
+          "diferenca_unitaria": 383.62
+        },
+        {
+          "valor": "Miolo 308 páginas",
+          "texto": "Miolo 308 páginas",
+          "preco_total": 20932.0,
+          "preco_texto": "R$20.932,00",
+          "diferenca_total": 19374.0,
+          "diferenca_unitaria": 387.48
+        },
+        {
+          "valor": "Miolo 312 páginas",
+          "texto": "Miolo 312 páginas",
+          "preco_total": 21123.0,
+          "preco_texto": "R$21.123,00",
+          "diferenca_total": 19565.0,
+          "diferenca_unitaria": 391.3
+        },
+        {
+          "valor": "Miolo 316 páginas",
+          "texto": "Miolo 316 páginas",
+          "preco_total": 21315.0,
+          "preco_texto": "R$21.315,00",
+          "diferenca_total": 19757.0,
+          "diferenca_unitaria": 395.14
+        },
+        {
+          "valor": "Miolo 320 páginas",
+          "texto": "Miolo 320 páginas",
+          "preco_total": 21506.0,
+          "preco_texto": "R$21.506,00",
+          "diferenca_total": 19948.0,
+          "diferenca_unitaria": 398.96
+        },
+        {
+          "valor": "Miolo 324 páginas",
+          "texto": "Miolo 324 páginas",
+          "preco_total": 21698.0,
+          "preco_texto": "R$21.698,00",
+          "diferenca_total": 20140.0,
+          "diferenca_unitaria": 402.8
+        },
+        {
+          "valor": "Miolo 328 páginas",
+          "texto": "Miolo 328 páginas",
+          "preco_total": 21889.0,
+          "preco_texto": "R$21.889,00",
+          "diferenca_total": 20331.0,
+          "diferenca_unitaria": 406.62
+        },
+        {
+          "valor": "Miolo 332 páginas",
+          "texto": "Miolo 332 páginas",
+          "preco_total": 22082.0,
+          "preco_texto": "R$22.082,00",
+          "diferenca_total": 20524.0,
+          "diferenca_unitaria": 410.48
+        },
+        {
+          "valor": "Miolo 336 páginas",
+          "texto": "Miolo 336 páginas",
+          "preco_total": 22272.0,
+          "preco_texto": "R$22.272,00",
+          "diferenca_total": 20714.0,
+          "diferenca_unitaria": 414.28
+        },
+        {
+          "valor": "Miolo 340 páginas",
+          "texto": "Miolo 340 páginas",
+          "preco_total": 22465.0,
+          "preco_texto": "R$22.465,00",
+          "diferenca_total": 20907.0,
+          "diferenca_unitaria": 418.14
+        },
+        {
+          "valor": "Miolo 344 páginas",
+          "texto": "Miolo 344 páginas",
+          "preco_total": 22656.0,
+          "preco_texto": "R$22.656,00",
+          "diferenca_total": 21098.0,
+          "diferenca_unitaria": 421.96
+        },
+        {
+          "valor": "Miolo 348 páginas",
+          "texto": "Miolo 348 páginas",
+          "preco_total": 22848.0,
+          "preco_texto": "R$22.848,00",
+          "diferenca_total": 21290.0,
+          "diferenca_unitaria": 425.8
+        },
+        {
+          "valor": "Miolo 352 páginas",
+          "texto": "Miolo 352 páginas",
+          "preco_total": 23039.0,
+          "preco_texto": "R$23.039,00",
+          "diferenca_total": 21481.0,
+          "diferenca_unitaria": 429.62
+        },
+        {
+          "valor": "Miolo 356 páginas",
+          "texto": "Miolo 356 páginas",
+          "preco_total": 23231.0,
+          "preco_texto": "R$23.231,00",
+          "diferenca_total": 21673.0,
+          "diferenca_unitaria": 433.46
+        },
+        {
+          "valor": "Miolo 360 páginas",
+          "texto": "Miolo 360 páginas",
+          "preco_total": 23422.0,
+          "preco_texto": "R$23.422,00",
+          "diferenca_total": 21864.0,
+          "diferenca_unitaria": 437.28
+        },
+        {
+          "valor": "Miolo 364 páginas",
+          "texto": "Miolo 364 páginas",
+          "preco_total": 23615.0,
+          "preco_texto": "R$23.615,00",
+          "diferenca_total": 22057.0,
+          "diferenca_unitaria": 441.14
+        },
+        {
+          "valor": "Miolo 368 páginas",
+          "texto": "Miolo 368 páginas",
+          "preco_total": 23805.0,
+          "preco_texto": "R$23.805,00",
+          "diferenca_total": 22247.0,
+          "diferenca_unitaria": 444.94
+        },
+        {
+          "valor": "Miolo 372 páginas",
+          "texto": "Miolo 372 páginas",
+          "preco_total": 23998.0,
+          "preco_texto": "R$23.998,00",
+          "diferenca_total": 22440.0,
+          "diferenca_unitaria": 448.8
+        },
+        {
+          "valor": "Miolo 376 páginas",
+          "texto": "Miolo 376 páginas",
+          "preco_total": 24189.0,
+          "preco_texto": "R$24.189,00",
+          "diferenca_total": 22631.0,
+          "diferenca_unitaria": 452.62
+        },
+        {
+          "valor": "Miolo 380 páginas",
+          "texto": "Miolo 380 páginas",
+          "preco_total": 24381.0,
+          "preco_texto": "R$24.381,00",
+          "diferenca_total": 22823.0,
+          "diferenca_unitaria": 456.46
+        },
+        {
+          "valor": "Miolo 384 páginas",
+          "texto": "Miolo 384 páginas",
+          "preco_total": 24572.0,
+          "preco_texto": "R$24.572,00",
+          "diferenca_total": 23014.0,
+          "diferenca_unitaria": 460.28
+        },
+        {
+          "valor": "Miolo 388 páginas",
+          "texto": "Miolo 388 páginas",
+          "preco_total": 24764.0,
+          "preco_texto": "R$24.764,00",
+          "diferenca_total": 23206.0,
+          "diferenca_unitaria": 464.12
+        },
+        {
+          "valor": "Miolo 392 páginas",
+          "texto": "Miolo 392 páginas",
+          "preco_total": 24955.0,
+          "preco_texto": "R$24.955,00",
+          "diferenca_total": 23397.0,
+          "diferenca_unitaria": 467.94
+        },
+        {
+          "valor": "Miolo 396 páginas",
+          "texto": "Miolo 396 páginas",
+          "preco_total": 25148.0,
+          "preco_texto": "R$25.148,00",
+          "diferenca_total": 23590.0,
+          "diferenca_unitaria": 471.8
+        },
+        {
+          "valor": "Miolo 400 páginas",
+          "texto": "Miolo 400 páginas",
+          "preco_total": 25338.0,
+          "preco_texto": "R$25.338,00",
+          "diferenca_total": 23780.0,
+          "diferenca_unitaria": 475.6
+        },
+        {
+          "valor": "Miolo 404 páginas",
+          "texto": "Miolo 404 páginas",
+          "preco_total": 25531.0,
+          "preco_texto": "R$25.531,00",
+          "diferenca_total": 23973.0,
+          "diferenca_unitaria": 479.46
+        },
+        {
+          "valor": "Miolo 408 páginas",
+          "texto": "Miolo 408 páginas",
+          "preco_total": 25722.0,
+          "preco_texto": "R$25.722,00",
+          "diferenca_total": 24164.0,
+          "diferenca_unitaria": 483.28
+        },
+        {
+          "valor": "Miolo 412 páginas",
+          "texto": "Miolo 412 páginas",
+          "preco_total": 25914.0,
+          "preco_texto": "R$25.914,00",
+          "diferenca_total": 24356.0,
+          "diferenca_unitaria": 487.12
+        },
+        {
+          "valor": "Miolo 416 páginas",
+          "texto": "Miolo 416 páginas",
+          "preco_total": 26105.0,
+          "preco_texto": "R$26.105,00",
+          "diferenca_total": 24547.0,
+          "diferenca_unitaria": 490.94
+        },
+        {
+          "valor": "Miolo 420 páginas",
+          "texto": "Miolo 420 páginas",
+          "preco_total": 26298.0,
+          "preco_texto": "R$26.298,00",
+          "diferenca_total": 24740.0,
+          "diferenca_unitaria": 494.8
+        },
+        {
+          "valor": "Miolo 424 páginas",
+          "texto": "Miolo 424 páginas",
+          "preco_total": 26488.0,
+          "preco_texto": "R$26.488,00",
+          "diferenca_total": 24930.0,
+          "diferenca_unitaria": 498.6
+        },
+        {
+          "valor": "Miolo 428 páginas",
+          "texto": "Miolo 428 páginas",
+          "preco_total": 26681.0,
+          "preco_texto": "R$26.681,00",
+          "diferenca_total": 25123.0,
+          "diferenca_unitaria": 502.46
+        },
+        {
+          "valor": "Miolo 432 páginas",
+          "texto": "Miolo 432 páginas",
+          "preco_total": 26871.0,
+          "preco_texto": "R$26.871,00",
+          "diferenca_total": 25313.0,
+          "diferenca_unitaria": 506.26
+        },
+        {
+          "valor": "Miolo 436 páginas",
+          "texto": "Miolo 436 páginas",
+          "preco_total": 27064.0,
+          "preco_texto": "R$27.064,00",
+          "diferenca_total": 25506.0,
+          "diferenca_unitaria": 510.12
+        },
+        {
+          "valor": "Miolo 440 páginas",
+          "texto": "Miolo 440 páginas",
+          "preco_total": 27255.0,
+          "preco_texto": "R$27.255,00",
+          "diferenca_total": 25697.0,
+          "diferenca_unitaria": 513.94
+        },
+        {
+          "valor": "Miolo 444 páginas",
+          "texto": "Miolo 444 páginas",
+          "preco_total": 27447.0,
+          "preco_texto": "R$27.447,00",
+          "diferenca_total": 25889.0,
+          "diferenca_unitaria": 517.78
+        },
+        {
+          "valor": "Miolo 448 páginas",
+          "texto": "Miolo 448 páginas",
+          "preco_total": 27638.0,
+          "preco_texto": "R$27.638,00",
+          "diferenca_total": 26080.0,
+          "diferenca_unitaria": 521.6
+        },
+        {
+          "valor": "Miolo 452 páginas",
+          "texto": "Miolo 452 páginas",
+          "preco_total": 27831.0,
+          "preco_texto": "R$27.831,00",
+          "diferenca_total": 26273.0,
+          "diferenca_unitaria": 525.46
+        },
+        {
+          "valor": "Miolo 456 páginas",
+          "texto": "Miolo 456 páginas",
+          "preco_total": 28021.0,
+          "preco_texto": "R$28.021,00",
+          "diferenca_total": 26463.0,
+          "diferenca_unitaria": 529.26
+        },
+        {
+          "valor": "Miolo 460 páginas",
+          "texto": "Miolo 460 páginas",
+          "preco_total": 28214.0,
+          "preco_texto": "R$28.214,00",
+          "diferenca_total": 26656.0,
+          "diferenca_unitaria": 533.12
+        },
+        {
+          "valor": "Miolo 464 páginas",
+          "texto": "Miolo 464 páginas",
+          "preco_total": 28404.0,
+          "preco_texto": "R$28.404,00",
+          "diferenca_total": 26846.0,
+          "diferenca_unitaria": 536.92
+        },
+        {
+          "valor": "Miolo 468 páginas",
+          "texto": "Miolo 468 páginas",
+          "preco_total": 28597.0,
+          "preco_texto": "R$28.597,00",
+          "diferenca_total": 27039.0,
+          "diferenca_unitaria": 540.78
+        },
+        {
+          "valor": "Miolo 472 páginas",
+          "texto": "Miolo 472 páginas",
+          "preco_total": 28788.0,
+          "preco_texto": "R$28.788,00",
+          "diferenca_total": 27230.0,
+          "diferenca_unitaria": 544.6
+        },
+        {
+          "valor": "Miolo 476 páginas",
+          "texto": "Miolo 476 páginas",
+          "preco_total": 28980.0,
+          "preco_texto": "R$28.980,00",
+          "diferenca_total": 27422.0,
+          "diferenca_unitaria": 548.44
+        },
+        {
+          "valor": "Miolo 480 páginas",
+          "texto": "Miolo 480 páginas",
+          "preco_total": 29171.0,
+          "preco_texto": "R$29.171,00",
+          "diferenca_total": 27613.0,
+          "diferenca_unitaria": 552.26
+        },
+        {
+          "valor": "Miolo 484 páginas",
+          "texto": "Miolo 484 páginas",
+          "preco_total": 29364.0,
+          "preco_texto": "R$29.364,00",
+          "diferenca_total": 27806.0,
+          "diferenca_unitaria": 556.12
+        },
+        {
+          "valor": "Miolo 488 páginas",
+          "texto": "Miolo 488 páginas",
+          "preco_total": 29554.0,
+          "preco_texto": "R$29.554,00",
+          "diferenca_total": 27996.0,
+          "diferenca_unitaria": 559.92
+        },
+        {
+          "valor": "Miolo 492 páginas",
+          "texto": "Miolo 492 páginas",
+          "preco_total": 29747.0,
+          "preco_texto": "R$29.747,00",
+          "diferenca_total": 28189.0,
+          "diferenca_unitaria": 563.78
+        },
+        {
+          "valor": "Miolo 496 páginas",
+          "texto": "Miolo 496 páginas",
+          "preco_total": 29938.0,
+          "preco_texto": "R$29.938,00",
+          "diferenca_total": 28380.0,
+          "diferenca_unitaria": 567.6
+        },
+        {
+          "valor": "Miolo 500 páginas",
+          "texto": "Miolo 500 páginas",
+          "preco_total": 30130.0,
+          "preco_texto": "R$30.130,00",
+          "diferenca_total": 28572.0,
+          "diferenca_unitaria": 571.44
+        },
+        {
+          "valor": "Miolo 504 páginas",
+          "texto": "Miolo 504 páginas",
+          "preco_total": 30321.0,
+          "preco_texto": "R$30.321,00",
+          "diferenca_total": 28763.0,
+          "diferenca_unitaria": 575.26
+        },
+        {
+          "valor": "Miolo 508 páginas",
+          "texto": "Miolo 508 páginas",
+          "preco_total": 30513.0,
+          "preco_texto": "R$30.513,00",
+          "diferenca_total": 28955.0,
+          "diferenca_unitaria": 579.1
+        },
+        {
+          "valor": "Miolo 512 páginas",
+          "texto": "Miolo 512 páginas",
+          "preco_total": 30704.0,
+          "preco_texto": "R$30.704,00",
+          "diferenca_total": 29146.0,
+          "diferenca_unitaria": 582.92
+        },
+        {
+          "valor": "Miolo 516 páginas",
+          "texto": "Miolo 516 páginas",
+          "preco_total": 30897.0,
+          "preco_texto": "R$30.897,00",
+          "diferenca_total": 29339.0,
+          "diferenca_unitaria": 586.78
+        },
+        {
+          "valor": "Miolo 520 páginas",
+          "texto": "Miolo 520 páginas",
+          "preco_total": 31087.0,
+          "preco_texto": "R$31.087,00",
+          "diferenca_total": 29529.0,
+          "diferenca_unitaria": 590.58
+        },
+        {
+          "valor": "Miolo 524 páginas",
+          "texto": "Miolo 524 páginas",
+          "preco_total": 31280.0,
+          "preco_texto": "R$31.280,00",
+          "diferenca_total": 29722.0,
+          "diferenca_unitaria": 594.44
+        },
+        {
+          "valor": "Miolo 528 páginas",
+          "texto": "Miolo 528 páginas",
+          "preco_total": 31471.0,
+          "preco_texto": "R$31.471,00",
+          "diferenca_total": 29913.0,
+          "diferenca_unitaria": 598.26
+        },
+        {
+          "valor": "Miolo 532 páginas",
+          "texto": "Miolo 532 páginas",
+          "preco_total": 31663.0,
+          "preco_texto": "R$31.663,00",
+          "diferenca_total": 30105.0,
+          "diferenca_unitaria": 602.1
+        },
+        {
+          "valor": "Miolo 536 páginas",
+          "texto": "Miolo 536 páginas",
+          "preco_total": 31854.0,
+          "preco_texto": "R$31.854,00",
+          "diferenca_total": 30296.0,
+          "diferenca_unitaria": 605.92
+        },
+        {
+          "valor": "Miolo 540 páginas",
+          "texto": "Miolo 540 páginas",
+          "preco_total": 32046.0,
+          "preco_texto": "R$32.046,00",
+          "diferenca_total": 30488.0,
+          "diferenca_unitaria": 609.76
+        },
+        {
+          "valor": "Miolo 544 páginas",
+          "texto": "Miolo 544 páginas",
+          "preco_total": 32237.0,
+          "preco_texto": "R$32.237,00",
+          "diferenca_total": 30679.0,
+          "diferenca_unitaria": 613.58
+        },
+        {
+          "valor": "Miolo 548 páginas",
+          "texto": "Miolo 548 páginas",
+          "preco_total": 32430.0,
+          "preco_texto": "R$32.430,00",
+          "diferenca_total": 30872.0,
+          "diferenca_unitaria": 617.44
+        },
+        {
+          "valor": "Miolo 552 páginas",
+          "texto": "Miolo 552 páginas",
+          "preco_total": 32620.0,
+          "preco_texto": "R$32.620,00",
+          "diferenca_total": 31062.0,
+          "diferenca_unitaria": 621.24
+        },
+        {
+          "valor": "Miolo 556 páginas",
+          "texto": "Miolo 556 páginas",
+          "preco_total": 32813.0,
+          "preco_texto": "R$32.813,00",
+          "diferenca_total": 31255.0,
+          "diferenca_unitaria": 625.1
+        },
+        {
+          "valor": "Miolo 560 páginas",
+          "texto": "Miolo 560 páginas",
+          "preco_total": 33004.0,
+          "preco_texto": "R$33.004,00",
+          "diferenca_total": 31446.0,
+          "diferenca_unitaria": 628.92
+        },
+        {
+          "valor": "Miolo 564 páginas",
+          "texto": "Miolo 564 páginas",
+          "preco_total": 33196.0,
+          "preco_texto": "R$33.196,00",
+          "diferenca_total": 31638.0,
+          "diferenca_unitaria": 632.76
+        },
+        {
+          "valor": "Miolo 568 páginas",
+          "texto": "Miolo 568 páginas",
+          "preco_total": 33387.0,
+          "preco_texto": "R$33.387,00",
+          "diferenca_total": 31829.0,
+          "diferenca_unitaria": 636.58
+        },
+        {
+          "valor": "Miolo 572 páginas",
+          "texto": "Miolo 572 páginas",
+          "preco_total": 33579.0,
+          "preco_texto": "R$33.579,00",
+          "diferenca_total": 32021.0,
+          "diferenca_unitaria": 640.42
+        },
+        {
+          "valor": "Miolo 576 páginas",
+          "texto": "Miolo 576 páginas",
+          "preco_total": 33770.0,
+          "preco_texto": "R$33.770,00",
+          "diferenca_total": 32212.0,
+          "diferenca_unitaria": 644.24
+        },
+        {
+          "valor": "Miolo 580 páginas",
+          "texto": "Miolo 580 páginas",
+          "preco_total": 33963.0,
+          "preco_texto": "R$33.963,00",
+          "diferenca_total": 32405.0,
+          "diferenca_unitaria": 648.1
+        },
+        {
+          "valor": "Miolo 584 páginas",
+          "texto": "Miolo 584 páginas",
+          "preco_total": 34153.0,
+          "preco_texto": "R$34.153,00",
+          "diferenca_total": 32595.0,
+          "diferenca_unitaria": 651.9
+        },
+        {
+          "valor": "Miolo 588 páginas",
+          "texto": "Miolo 588 páginas",
+          "preco_total": 34346.0,
+          "preco_texto": "R$34.346,00",
+          "diferenca_total": 32788.0,
+          "diferenca_unitaria": 655.76
+        },
+        {
+          "valor": "Miolo 592 páginas",
+          "texto": "Miolo 592 páginas",
+          "preco_total": 34537.0,
+          "preco_texto": "R$34.537,00",
+          "diferenca_total": 32979.0,
+          "diferenca_unitaria": 659.58
+        },
+        {
+          "valor": "Miolo 596 páginas",
+          "texto": "Miolo 596 páginas",
+          "preco_total": 34729.0,
+          "preco_texto": "R$34.729,00",
+          "diferenca_total": 33171.0,
+          "diferenca_unitaria": 663.42
+        },
+        {
+          "valor": "Miolo 600 páginas",
+          "texto": "Miolo 600 páginas",
+          "preco_total": 34920.0,
+          "preco_texto": "R$34.920,00",
+          "diferenca_total": 33362.0,
+          "diferenca_unitaria": 667.24
+        },
+        {
+          "valor": "Miolo 604 páginas",
+          "texto": "Miolo 604 páginas",
+          "preco_total": 35112.0,
+          "preco_texto": "R$35.112,00",
+          "diferenca_total": 33554.0,
+          "diferenca_unitaria": 671.08
+        },
+        {
+          "valor": "Miolo 608 páginas",
+          "texto": "Miolo 608 páginas",
+          "preco_total": 35303.0,
+          "preco_texto": "R$35.303,00",
+          "diferenca_total": 33745.0,
+          "diferenca_unitaria": 674.9
+        },
+        {
+          "valor": "Miolo 612 páginas",
+          "texto": "Miolo 612 páginas",
+          "preco_total": 35496.0,
+          "preco_texto": "R$35.496,00",
+          "diferenca_total": 33938.0,
+          "diferenca_unitaria": 678.76
+        },
+        {
+          "valor": "Miolo 616 páginas",
+          "texto": "Miolo 616 páginas",
+          "preco_total": 35687.0,
+          "preco_texto": "R$35.687,00",
+          "diferenca_total": 34129.0,
+          "diferenca_unitaria": 682.58
+        },
+        {
+          "valor": "Miolo 620 páginas",
+          "texto": "Miolo 620 páginas",
+          "preco_total": 35879.0,
+          "preco_texto": "R$35.879,00",
+          "diferenca_total": 34321.0,
+          "diferenca_unitaria": 686.42
+        },
+        {
+          "valor": "Miolo 624 páginas",
+          "texto": "Miolo 624 páginas",
+          "preco_total": 36070.0,
+          "preco_texto": "R$36.070,00",
+          "diferenca_total": 34512.0,
+          "diferenca_unitaria": 690.24
+        },
+        {
+          "valor": "Miolo 628 páginas",
+          "texto": "Miolo 628 páginas",
+          "preco_total": 36262.0,
+          "preco_texto": "R$36.262,00",
+          "diferenca_total": 34704.0,
+          "diferenca_unitaria": 694.08
+        },
+        {
+          "valor": "Miolo 632 páginas",
+          "texto": "Miolo 632 páginas",
+          "preco_total": 36453.0,
+          "preco_texto": "R$36.453,00",
+          "diferenca_total": 34895.0,
+          "diferenca_unitaria": 697.9
+        },
+        {
+          "valor": "Miolo 636 páginas",
+          "texto": "Miolo 636 páginas",
+          "preco_total": 36646.0,
+          "preco_texto": "R$36.646,00",
+          "diferenca_total": 35088.0,
+          "diferenca_unitaria": 701.76
+        },
+        {
+          "valor": "Miolo 640 páginas",
+          "texto": "Miolo 640 páginas",
+          "preco_total": 36836.0,
+          "preco_texto": "R$36.836,00",
+          "diferenca_total": 35278.0,
+          "diferenca_unitaria": 705.56
+        },
+        {
+          "valor": "Miolo 644 páginas",
+          "texto": "Miolo 644 páginas",
+          "preco_total": 37029.0,
+          "preco_texto": "R$37.029,00",
+          "diferenca_total": 35471.0,
+          "diferenca_unitaria": 709.42
+        },
+        {
+          "valor": "Miolo 648 páginas",
+          "texto": "Miolo 648 páginas",
+          "preco_total": 37220.0,
+          "preco_texto": "R$37.220,00",
+          "diferenca_total": 35662.0,
+          "diferenca_unitaria": 713.24
+        },
+        {
+          "valor": "Miolo 652 páginas",
+          "texto": "Miolo 652 páginas",
+          "preco_total": 37412.0,
+          "preco_texto": "R$37.412,00",
+          "diferenca_total": 35854.0,
+          "diferenca_unitaria": 717.08
+        },
+        {
+          "valor": "Miolo 656 páginas",
+          "texto": "Miolo 656 páginas",
+          "preco_total": 37603.0,
+          "preco_texto": "R$37.603,00",
+          "diferenca_total": 36045.0,
+          "diferenca_unitaria": 720.9
+        },
+        {
+          "valor": "Miolo 660 páginas",
+          "texto": "Miolo 660 páginas",
+          "preco_total": 37795.0,
+          "preco_texto": "R$37.795,00",
+          "diferenca_total": 36237.0,
+          "diferenca_unitaria": 724.74
+        },
+        {
+          "valor": "Miolo 664 páginas",
+          "texto": "Miolo 664 páginas",
+          "preco_total": 37986.0,
+          "preco_texto": "R$37.986,00",
+          "diferenca_total": 36428.0,
+          "diferenca_unitaria": 728.56
+        },
+        {
+          "valor": "Miolo 668 páginas",
+          "texto": "Miolo 668 páginas",
+          "preco_total": 38179.0,
+          "preco_texto": "R$38.179,00",
+          "diferenca_total": 36621.0,
+          "diferenca_unitaria": 732.42
+        },
+        {
+          "valor": "Miolo 672 páginas",
+          "texto": "Miolo 672 páginas",
+          "preco_total": 38369.0,
+          "preco_texto": "R$38.369,00",
+          "diferenca_total": 36811.0,
+          "diferenca_unitaria": 736.22
+        },
+        {
+          "valor": "Miolo 676 páginas",
+          "texto": "Miolo 676 páginas",
+          "preco_total": 38562.0,
+          "preco_texto": "R$38.562,00",
+          "diferenca_total": 37004.0,
+          "diferenca_unitaria": 740.08
+        },
+        {
+          "valor": "Miolo 680 páginas",
+          "texto": "Miolo 680 páginas",
+          "preco_total": 38753.0,
+          "preco_texto": "R$38.753,00",
+          "diferenca_total": 37195.0,
+          "diferenca_unitaria": 743.9
+        },
+        {
+          "valor": "Miolo 684 páginas",
+          "texto": "Miolo 684 páginas",
+          "preco_total": 38945.0,
+          "preco_texto": "R$38.945,00",
+          "diferenca_total": 37387.0,
+          "diferenca_unitaria": 747.74
+        },
+        {
+          "valor": "Miolo 688 páginas",
+          "texto": "Miolo 688 páginas",
+          "preco_total": 39136.0,
+          "preco_texto": "R$39.136,00",
+          "diferenca_total": 37578.0,
+          "diferenca_unitaria": 751.56
+        },
+        {
+          "valor": "Miolo 692 páginas",
+          "texto": "Miolo 692 páginas",
+          "preco_total": 39328.0,
+          "preco_texto": "R$39.328,00",
+          "diferenca_total": 37770.0,
+          "diferenca_unitaria": 755.4
+        },
+        {
+          "valor": "Miolo 696 páginas",
+          "texto": "Miolo 696 páginas",
+          "preco_total": 39519.0,
+          "preco_texto": "R$39.519,00",
+          "diferenca_total": 37961.0,
+          "diferenca_unitaria": 759.22
+        },
+        {
+          "valor": "Miolo 700 páginas",
+          "texto": "Miolo 700 páginas",
+          "preco_total": 39712.0,
+          "preco_texto": "R$39.712,00",
+          "diferenca_total": 38154.0,
+          "diferenca_unitaria": 763.08
+        },
+        {
+          "valor": "Miolo 704 páginas",
+          "texto": "Miolo 704 páginas",
+          "preco_total": 39902.0,
+          "preco_texto": "R$39.902,00",
+          "diferenca_total": 38344.0,
+          "diferenca_unitaria": 766.88
+        },
+        {
+          "valor": "Miolo 708 páginas",
+          "texto": "Miolo 708 páginas",
+          "preco_total": 40095.0,
+          "preco_texto": "R$40.095,00",
+          "diferenca_total": 38537.0,
+          "diferenca_unitaria": 770.74
+        },
+        {
+          "valor": "Miolo 712 páginas",
+          "texto": "Miolo 712 páginas",
+          "preco_total": 40286.0,
+          "preco_texto": "R$40.286,00",
+          "diferenca_total": 38728.0,
+          "diferenca_unitaria": 774.56
+        },
+        {
+          "valor": "Miolo 716 páginas",
+          "texto": "Miolo 716 páginas",
+          "preco_total": 40478.0,
+          "preco_texto": "R$40.478,00",
+          "diferenca_total": 38920.0,
+          "diferenca_unitaria": 778.4
+        },
+        {
+          "valor": "Miolo 720 páginas",
+          "texto": "Miolo 720 páginas",
+          "preco_total": 40669.0,
+          "preco_texto": "R$40.669,00",
+          "diferenca_total": 39111.0,
+          "diferenca_unitaria": 782.22
+        },
+        {
+          "valor": "Miolo 724 páginas",
+          "texto": "Miolo 724 páginas",
+          "preco_total": 40861.0,
+          "preco_texto": "R$40.861,00",
+          "diferenca_total": 39303.0,
+          "diferenca_unitaria": 786.06
+        },
+        {
+          "valor": "Miolo 728 páginas",
+          "texto": "Miolo 728 páginas",
+          "preco_total": 41052.0,
+          "preco_texto": "R$41.052,00",
+          "diferenca_total": 39494.0,
+          "diferenca_unitaria": 789.88
+        },
+        {
+          "valor": "Miolo 732 páginas",
+          "texto": "Miolo 732 páginas",
+          "preco_total": 41245.0,
+          "preco_texto": "R$41.245,00",
+          "diferenca_total": 39687.0,
+          "diferenca_unitaria": 793.74
+        },
+        {
+          "valor": "Miolo 736 páginas",
+          "texto": "Miolo 736 páginas",
+          "preco_total": 41435.0,
+          "preco_texto": "R$41.435,00",
+          "diferenca_total": 39877.0,
+          "diferenca_unitaria": 797.54
+        },
+        {
+          "valor": "Miolo 740 páginas",
+          "texto": "Miolo 740 páginas",
+          "preco_total": 41628.0,
+          "preco_texto": "R$41.628,00",
+          "diferenca_total": 40070.0,
+          "diferenca_unitaria": 801.4
+        },
+        {
+          "valor": "Miolo 744 páginas",
+          "texto": "Miolo 744 páginas",
+          "preco_total": 41819.0,
+          "preco_texto": "R$41.819,00",
+          "diferenca_total": 40261.0,
+          "diferenca_unitaria": 805.22
+        },
+        {
+          "valor": "Miolo 748 páginas",
+          "texto": "Miolo 748 páginas",
+          "preco_total": 42011.0,
+          "preco_texto": "R$42.011,00",
+          "diferenca_total": 40453.0,
+          "diferenca_unitaria": 809.06
+        },
+        {
+          "valor": "Miolo 752 páginas",
+          "texto": "Miolo 752 páginas",
+          "preco_total": 42202.0,
+          "preco_texto": "R$42.202,00",
+          "diferenca_total": 40644.0,
+          "diferenca_unitaria": 812.88
+        },
+        {
+          "valor": "Miolo 756 páginas",
+          "texto": "Miolo 756 páginas",
+          "preco_total": 42394.0,
+          "preco_texto": "R$42.394,00",
+          "diferenca_total": 40836.0,
+          "diferenca_unitaria": 816.72
+        },
+        {
+          "valor": "Miolo 760 páginas",
+          "texto": "Miolo 760 páginas",
+          "preco_total": 42585.0,
+          "preco_texto": "R$42.585,00",
+          "diferenca_total": 41027.0,
+          "diferenca_unitaria": 820.54
+        },
+        {
+          "valor": "Miolo 764 páginas",
+          "texto": "Miolo 764 páginas",
+          "preco_total": 42778.0,
+          "preco_texto": "R$42.778,00",
+          "diferenca_total": 41220.0,
+          "diferenca_unitaria": 824.4
+        },
+        {
+          "valor": "Miolo 768 páginas",
+          "texto": "Miolo 768 páginas",
+          "preco_total": 42968.0,
+          "preco_texto": "R$42.968,00",
+          "diferenca_total": 41410.0,
+          "diferenca_unitaria": 828.2
+        },
+        {
+          "valor": "Miolo 772 páginas",
+          "texto": "Miolo 772 páginas",
+          "preco_total": 43161.0,
+          "preco_texto": "R$43.161,00",
+          "diferenca_total": 41603.0,
+          "diferenca_unitaria": 832.06
+        },
+        {
+          "valor": "Miolo 776 páginas",
+          "texto": "Miolo 776 páginas",
+          "preco_total": 43352.0,
+          "preco_texto": "R$43.352,00",
+          "diferenca_total": 41794.0,
+          "diferenca_unitaria": 835.88
+        },
+        {
+          "valor": "Miolo 780 páginas",
+          "texto": "Miolo 780 páginas",
+          "preco_total": 43544.0,
+          "preco_texto": "R$43.544,00",
+          "diferenca_total": 41986.0,
+          "diferenca_unitaria": 839.72
+        },
+        {
+          "valor": "Miolo 784 páginas",
+          "texto": "Miolo 784 páginas",
+          "preco_total": 43735.0,
+          "preco_texto": "R$43.735,00",
+          "diferenca_total": 42177.0,
+          "diferenca_unitaria": 843.54
+        },
+        {
+          "valor": "Miolo 788 páginas",
+          "texto": "Miolo 788 páginas",
+          "preco_total": 43927.0,
+          "preco_texto": "R$43.927,00",
+          "diferenca_total": 42369.0,
+          "diferenca_unitaria": 847.38
+        },
+        {
+          "valor": "Miolo 792 páginas",
+          "texto": "Miolo 792 páginas",
+          "preco_total": 44118.0,
+          "preco_texto": "R$44.118,00",
+          "diferenca_total": 42560.0,
+          "diferenca_unitaria": 851.2
+        },
+        {
+          "valor": "Miolo 796 páginas",
+          "texto": "Miolo 796 páginas",
+          "preco_total": 44311.0,
+          "preco_texto": "R$44.311,00",
+          "diferenca_total": 42753.0,
+          "diferenca_unitaria": 855.06
+        },
+        {
+          "valor": "Miolo 800 páginas",
+          "texto": "Miolo 800 páginas",
+          "preco_total": 44501.0,
+          "preco_texto": "R$44.501,00",
+          "diferenca_total": 42943.0,
+          "diferenca_unitaria": 858.86
+        },
+        {
+          "valor": "Miolo 804 páginas",
+          "texto": "Miolo 804 páginas",
+          "preco_total": 44694.0,
+          "preco_texto": "R$44.694,00",
+          "diferenca_total": 43136.0,
+          "diferenca_unitaria": 862.72
+        },
+        {
+          "valor": "Miolo 808 páginas",
+          "texto": "Miolo 808 páginas",
+          "preco_total": 44885.0,
+          "preco_texto": "R$44.885,00",
+          "diferenca_total": 43327.0,
+          "diferenca_unitaria": 866.54
+        },
+        {
+          "valor": "Miolo 812 páginas",
+          "texto": "Miolo 812 páginas",
+          "preco_total": 45077.0,
+          "preco_texto": "R$45.077,00",
+          "diferenca_total": 43519.0,
+          "diferenca_unitaria": 870.38
+        },
+        {
+          "valor": "Miolo 816 páginas",
+          "texto": "Miolo 816 páginas",
+          "preco_total": 45268.0,
+          "preco_texto": "R$45.268,00",
+          "diferenca_total": 43710.0,
+          "diferenca_unitaria": 874.2
+        },
+        {
+          "valor": "Miolo 820 páginas",
+          "texto": "Miolo 820 páginas",
+          "preco_total": 45461.0,
+          "preco_texto": "R$45.461,00",
+          "diferenca_total": 43903.0,
+          "diferenca_unitaria": 878.06
+        },
+        {
+          "valor": "Miolo 824 páginas",
+          "texto": "Miolo 824 páginas",
+          "preco_total": 45651.0,
+          "preco_texto": "R$45.651,00",
+          "diferenca_total": 44093.0,
+          "diferenca_unitaria": 881.86
+        },
+        {
+          "valor": "Miolo 828 páginas",
+          "texto": "Miolo 828 páginas",
+          "preco_total": 45844.0,
+          "preco_texto": "R$45.844,00",
+          "diferenca_total": 44286.0,
+          "diferenca_unitaria": 885.72
+        },
+        {
+          "valor": "Miolo 832 páginas",
+          "texto": "Miolo 832 páginas",
+          "preco_total": 46034.0,
+          "preco_texto": "R$46.034,00",
+          "diferenca_total": 44476.0,
+          "diferenca_unitaria": 889.52
+        },
+        {
+          "valor": "Miolo 836 páginas",
+          "texto": "Miolo 836 páginas",
+          "preco_total": 46227.0,
+          "preco_texto": "R$46.227,00",
+          "diferenca_total": 44669.0,
+          "diferenca_unitaria": 893.38
+        },
+        {
+          "valor": "Miolo 840 páginas",
+          "texto": "Miolo 840 páginas",
+          "preco_total": 46418.0,
+          "preco_texto": "R$46.418,00",
+          "diferenca_total": 44860.0,
+          "diferenca_unitaria": 897.2
+        },
+        {
+          "valor": "Miolo 844 páginas",
+          "texto": "Miolo 844 páginas",
+          "preco_total": 46610.0,
+          "preco_texto": "R$46.610,00",
+          "diferenca_total": 45052.0,
+          "diferenca_unitaria": 901.04
+        },
+        {
+          "valor": "Miolo 848 páginas",
+          "texto": "Miolo 848 páginas",
+          "preco_total": 46801.0,
+          "preco_texto": "R$46.801,00",
+          "diferenca_total": 45243.0,
+          "diferenca_unitaria": 904.86
+        },
+        {
+          "valor": "Miolo 852 páginas",
+          "texto": "Miolo 852 páginas",
+          "preco_total": 46994.0,
+          "preco_texto": "R$46.994,00",
+          "diferenca_total": 45436.0,
+          "diferenca_unitaria": 908.72
+        },
+        {
+          "valor": "Miolo 856 páginas",
+          "texto": "Miolo 856 páginas",
+          "preco_total": 47184.0,
+          "preco_texto": "R$47.184,00",
+          "diferenca_total": 45626.0,
+          "diferenca_unitaria": 912.52
+        },
+        {
+          "valor": "Miolo 860 páginas",
+          "texto": "Miolo 860 páginas",
+          "preco_total": 49247.0,
+          "preco_texto": "R$49.247,00",
+          "diferenca_total": 47689.0,
+          "diferenca_unitaria": 953.78
+        },
+        {
+          "valor": "Miolo 864 páginas",
+          "texto": "Miolo 864 páginas",
+          "preco_total": 49438.0,
+          "preco_texto": "R$49.438,00",
+          "diferenca_total": 47880.0,
+          "diferenca_unitaria": 957.6
+        },
+        {
+          "valor": "Miolo 868 páginas",
+          "texto": "Miolo 868 páginas",
+          "preco_total": 49630.0,
+          "preco_texto": "R$49.630,00",
+          "diferenca_total": 48072.0,
+          "diferenca_unitaria": 961.44
+        },
+        {
+          "valor": "Miolo 872 páginas",
+          "texto": "Miolo 872 páginas",
+          "preco_total": 49821.0,
+          "preco_texto": "R$49.821,00",
+          "diferenca_total": 48263.0,
+          "diferenca_unitaria": 965.26
+        },
+        {
+          "valor": "Miolo 876 páginas",
+          "texto": "Miolo 876 páginas",
+          "preco_total": 50014.0,
+          "preco_texto": "R$50.014,00",
+          "diferenca_total": 48456.0,
+          "diferenca_unitaria": 969.12
+        },
+        {
+          "valor": "Miolo 880 páginas",
+          "texto": "Miolo 880 páginas",
+          "preco_total": 50204.0,
+          "preco_texto": "R$50.204,00",
+          "diferenca_total": 48646.0,
+          "diferenca_unitaria": 972.92
+        },
+        {
+          "valor": "Miolo 884 páginas",
+          "texto": "Miolo 884 páginas",
+          "preco_total": 50397.0,
+          "preco_texto": "R$50.397,00",
+          "diferenca_total": 48839.0,
+          "diferenca_unitaria": 976.78
+        },
+        {
+          "valor": "Miolo 888 páginas",
+          "texto": "Miolo 888 páginas",
+          "preco_total": 50588.0,
+          "preco_texto": "R$50.588,00",
+          "diferenca_total": 49030.0,
+          "diferenca_unitaria": 980.6
+        },
+        {
+          "valor": "Miolo 892 páginas",
+          "texto": "Miolo 892 páginas",
+          "preco_total": 50780.0,
+          "preco_texto": "R$50.780,00",
+          "diferenca_total": 49222.0,
+          "diferenca_unitaria": 984.44
+        },
+        {
+          "valor": "Miolo 896 páginas",
+          "texto": "Miolo 896 páginas",
+          "preco_total": 50971.0,
+          "preco_texto": "R$50.971,00",
+          "diferenca_total": 49413.0,
+          "diferenca_unitaria": 988.26
+        },
+        {
+          "valor": "Miolo 900 páginas",
+          "texto": "Miolo 900 páginas",
+          "preco_total": 51163.0,
+          "preco_texto": "R$51.163,00",
+          "diferenca_total": 49605.0,
+          "diferenca_unitaria": 992.1
+        },
+        {
+          "valor": "Miolo 904 páginas",
+          "texto": "Miolo 904 páginas",
+          "preco_total": 51354.0,
+          "preco_texto": "R$51.354,00",
+          "diferenca_total": 49796.0,
+          "diferenca_unitaria": 995.92
+        },
+        {
+          "valor": "Miolo 908 páginas",
+          "texto": "Miolo 908 páginas",
+          "preco_total": 51547.0,
+          "preco_texto": "R$51.547,00",
+          "diferenca_total": 49989.0,
+          "diferenca_unitaria": 999.78
+        },
+        {
+          "valor": "Miolo 912 páginas",
+          "texto": "Miolo 912 páginas",
+          "preco_total": 51737.0,
+          "preco_texto": "R$51.737,00",
+          "diferenca_total": 50179.0,
+          "diferenca_unitaria": 1003.58
+        },
+        {
+          "valor": "Miolo 916 páginas",
+          "texto": "Miolo 916 páginas",
+          "preco_total": 51930.0,
+          "preco_texto": "R$51.930,00",
+          "diferenca_total": 50372.0,
+          "diferenca_unitaria": 1007.44
+        },
+        {
+          "valor": "Miolo 920 páginas",
+          "texto": "Miolo 920 páginas",
+          "preco_total": 52121.0,
+          "preco_texto": "R$52.121,00",
+          "diferenca_total": 50563.0,
+          "diferenca_unitaria": 1011.26
+        },
+        {
+          "valor": "Miolo 924 páginas",
+          "texto": "Miolo 924 páginas",
+          "preco_total": 52313.0,
+          "preco_texto": "R$52.313,00",
+          "diferenca_total": 50755.0,
+          "diferenca_unitaria": 1015.1
+        },
+        {
+          "valor": "Miolo 928 páginas",
+          "texto": "Miolo 928 páginas",
+          "preco_total": 52504.0,
+          "preco_texto": "R$52.504,00",
+          "diferenca_total": 50946.0,
+          "diferenca_unitaria": 1018.92
+        },
+        {
+          "valor": "Miolo 932 páginas",
+          "texto": "Miolo 932 páginas",
+          "preco_total": 52696.0,
+          "preco_texto": "R$52.696,00",
+          "diferenca_total": 51138.0,
+          "diferenca_unitaria": 1022.76
+        },
+        {
+          "valor": "Miolo 936 páginas",
+          "texto": "Miolo 936 páginas",
+          "preco_total": 52887.0,
+          "preco_texto": "R$52.887,00",
+          "diferenca_total": 51329.0,
+          "diferenca_unitaria": 1026.58
+        },
+        {
+          "valor": "Miolo 940 páginas",
+          "texto": "Miolo 940 páginas",
+          "preco_total": 53080.0,
+          "preco_texto": "R$53.080,00",
+          "diferenca_total": 51522.0,
+          "diferenca_unitaria": 1030.44
+        },
+        {
+          "valor": "Miolo 944 páginas",
+          "texto": "Miolo 944 páginas",
+          "preco_total": 53270.0,
+          "preco_texto": "R$53.270,00",
+          "diferenca_total": 51712.0,
+          "diferenca_unitaria": 1034.24
+        },
+        {
+          "valor": "Miolo 948 páginas",
+          "texto": "Miolo 948 páginas",
+          "preco_total": 53463.0,
+          "preco_texto": "R$53.463,00",
+          "diferenca_total": 51905.0,
+          "diferenca_unitaria": 1038.1
+        },
+        {
+          "valor": "Miolo 952 páginas",
+          "texto": "Miolo 952 páginas",
+          "preco_total": 53654.0,
+          "preco_texto": "R$53.654,00",
+          "diferenca_total": 52096.0,
+          "diferenca_unitaria": 1041.92
+        },
+        {
+          "valor": "Miolo 956 páginas",
+          "texto": "Miolo 956 páginas",
+          "preco_total": 53846.0,
+          "preco_texto": "R$53.846,00",
+          "diferenca_total": 52288.0,
+          "diferenca_unitaria": 1045.76
+        },
+        {
+          "valor": "Miolo 960 páginas",
+          "texto": "Miolo 960 páginas",
+          "preco_total": 54037.0,
+          "preco_texto": "R$54.037,00",
+          "diferenca_total": 52479.0,
+          "diferenca_unitaria": 1049.58
+        },
+        {
+          "valor": "Miolo 964 páginas",
+          "texto": "Miolo 964 páginas",
+          "preco_total": 54229.0,
+          "preco_texto": "R$54.229,00",
+          "diferenca_total": 52671.0,
+          "diferenca_unitaria": 1053.42
+        },
+        {
+          "valor": "Miolo 968 páginas",
+          "texto": "Miolo 968 páginas",
+          "preco_total": 54420.0,
+          "preco_texto": "R$54.420,00",
+          "diferenca_total": 52862.0,
+          "diferenca_unitaria": 1057.24
+        },
+        {
+          "valor": "Miolo 972 páginas",
+          "texto": "Miolo 972 páginas",
+          "preco_total": 54613.0,
+          "preco_texto": "R$54.613,00",
+          "diferenca_total": 53055.0,
+          "diferenca_unitaria": 1061.1
+        },
+        {
+          "valor": "Miolo 976 páginas",
+          "texto": "Miolo 976 páginas",
+          "preco_total": 54804.0,
+          "preco_texto": "R$54.804,00",
+          "diferenca_total": 53246.0,
+          "diferenca_unitaria": 1064.92
+        },
+        {
+          "valor": "Miolo 980 páginas",
+          "texto": "Miolo 980 páginas",
+          "preco_total": 54996.0,
+          "preco_texto": "R$54.996,00",
+          "diferenca_total": 53438.0,
+          "diferenca_unitaria": 1068.76
+        },
+        {
+          "valor": "Miolo 984 páginas",
+          "texto": "Miolo 984 páginas",
+          "preco_total": 55187.0,
+          "preco_texto": "R$55.187,00",
+          "diferenca_total": 53629.0,
+          "diferenca_unitaria": 1072.58
+        },
+        {
+          "valor": "Miolo 988 páginas",
+          "texto": "Miolo 988 páginas",
+          "preco_total": 55379.0,
+          "preco_texto": "R$55.379,00",
+          "diferenca_total": 53821.0,
+          "diferenca_unitaria": 1076.42
+        },
+        {
+          "valor": "Miolo 992 páginas",
+          "texto": "Miolo 992 páginas",
+          "preco_total": 55570.0,
+          "preco_texto": "R$55.570,00",
+          "diferenca_total": 54012.0,
+          "diferenca_unitaria": 1080.24
+        },
+        {
+          "valor": "Miolo 996 páginas",
+          "texto": "Miolo 996 páginas",
+          "preco_total": 55763.0,
+          "preco_texto": "R$55.763,00",
+          "diferenca_total": 54205.0,
+          "diferenca_unitaria": 1084.1
+        },
+        {
+          "valor": "Miolo 1000 páginas",
+          "texto": "Miolo 1000 páginas",
+          "preco_total": 55953.0,
+          "preco_texto": "R$55.953,00",
+          "diferenca_total": 54395.0,
+          "diferenca_unitaria": 1087.9
+        },
+        {
+          "valor": "Miolo 1004 páginas",
+          "texto": "Miolo 1004 páginas",
+          "preco_total": 56146.0,
+          "preco_texto": "R$56.146,00",
+          "diferenca_total": 54588.0,
+          "diferenca_unitaria": 1091.76
+        },
+        {
+          "valor": "Miolo 1008 páginas",
+          "texto": "Miolo 1008 páginas",
+          "preco_total": 56337.0,
+          "preco_texto": "R$56.337,00",
+          "diferenca_total": 54779.0,
+          "diferenca_unitaria": 1095.58
+        },
+        {
+          "valor": "Miolo 1012 páginas",
+          "texto": "Miolo 1012 páginas",
+          "preco_total": 56529.0,
+          "preco_texto": "R$56.529,00",
+          "diferenca_total": 54971.0,
+          "diferenca_unitaria": 1099.42
+        },
+        {
+          "valor": "Miolo 1016 páginas",
+          "texto": "Miolo 1016 páginas",
+          "preco_total": 56720.0,
+          "preco_texto": "R$56.720,00",
+          "diferenca_total": 55162.0,
+          "diferenca_unitaria": 1103.24
+        },
+        {
+          "valor": "Miolo 1020 páginas",
+          "texto": "Miolo 1020 páginas",
+          "preco_total": 56912.0,
+          "preco_texto": "R$56.912,00",
+          "diferenca_total": 55354.0,
+          "diferenca_unitaria": 1107.08
+        },
+        {
+          "valor": "Miolo 1024 páginas",
+          "texto": "Miolo 1024 páginas",
+          "preco_total": 57103.0,
+          "preco_texto": "R$57.103,00",
+          "diferenca_total": 55545.0,
+          "diferenca_unitaria": 1110.9
+        },
+        {
+          "valor": "Miolo 1028 páginas",
+          "texto": "Miolo 1028 páginas",
+          "preco_total": 57296.0,
+          "preco_texto": "R$57.296,00",
+          "diferenca_total": 55738.0,
+          "diferenca_unitaria": 1114.76
+        },
+        {
+          "valor": "Miolo 1032 páginas",
+          "texto": "Miolo 1032 páginas",
+          "preco_total": 57486.0,
+          "preco_texto": "R$57.486,00",
+          "diferenca_total": 55928.0,
+          "diferenca_unitaria": 1118.56
+        },
+        {
+          "valor": "Miolo 1036 páginas",
+          "texto": "Miolo 1036 páginas",
+          "preco_total": 57679.0,
+          "preco_texto": "R$57.679,00",
+          "diferenca_total": 56121.0,
+          "diferenca_unitaria": 1122.42
+        },
+        {
+          "valor": "Miolo 1040 páginas",
+          "texto": "Miolo 1040 páginas",
+          "preco_total": 57870.0,
+          "preco_texto": "R$57.870,00",
+          "diferenca_total": 56312.0,
+          "diferenca_unitaria": 1126.24
+        },
+        {
+          "valor": "Miolo 1044 páginas",
+          "texto": "Miolo 1044 páginas",
+          "preco_total": 1505467.0,
+          "preco_texto": "R$1.505.467,00",
+          "diferenca_total": 1503909.0,
+          "diferenca_unitaria": 30078.18
+        },
+        {
+          "valor": "Miolo 1048 páginas",
+          "texto": "Miolo 1048 páginas",
+          "preco_total": 1505658.0,
+          "preco_texto": "R$1.505.658,00",
+          "diferenca_total": 1504100.0,
+          "diferenca_unitaria": 30082.0
+        },
+        {
+          "valor": "Miolo 1052 páginas",
+          "texto": "Miolo 1052 páginas",
+          "preco_total": 1505850.0,
+          "preco_texto": "R$1.505.850,00",
+          "diferenca_total": 1504292.0,
+          "diferenca_unitaria": 30085.84
+        },
+        {
+          "valor": "Miolo 1056 páginas",
+          "texto": "Miolo 1056 páginas",
+          "preco_total": 1506041.0,
+          "preco_texto": "R$1.506.041,00",
+          "diferenca_total": 1504483.0,
+          "diferenca_unitaria": 30089.66
+        },
+        {
+          "valor": "Miolo 1060 páginas",
+          "texto": "Miolo 1060 páginas",
+          "preco_total": 1506234.0,
+          "preco_texto": "R$1.506.234,00",
+          "diferenca_total": 1504676.0,
+          "diferenca_unitaria": 30093.52
+        },
+        {
+          "valor": "Miolo 1064 páginas",
+          "texto": "Miolo 1064 páginas",
+          "preco_total": 1506425.0,
+          "preco_texto": "R$1.506.425,00",
+          "diferenca_total": 1504867.0,
+          "diferenca_unitaria": 30097.34
+        },
+        {
+          "valor": "Miolo 1068 páginas",
+          "texto": "Miolo 1068 páginas",
+          "preco_total": 1506617.0,
+          "preco_texto": "R$1.506.617,00",
+          "diferenca_total": 1505059.0,
+          "diferenca_unitaria": 30101.18
+        },
+        {
+          "valor": "Miolo 1072 páginas",
+          "texto": "Miolo 1072 páginas",
+          "preco_total": 1506808.0,
+          "preco_texto": "R$1.506.808,00",
+          "diferenca_total": 1505250.0,
+          "diferenca_unitaria": 30105.0
+        },
+        {
+          "valor": "Miolo 1076 páginas",
+          "texto": "Miolo 1076 páginas",
+          "preco_total": 1507000.0,
+          "preco_texto": "R$1.507.000,00",
+          "diferenca_total": 1505442.0,
+          "diferenca_unitaria": 30108.84
+        },
+        {
+          "valor": "Miolo 1080 páginas",
+          "texto": "Miolo 1080 páginas",
+          "preco_total": 1507191.0,
+          "preco_texto": "R$1.507.191,00",
+          "diferenca_total": 1505633.0,
+          "diferenca_unitaria": 30112.66
+        },
+        {
+          "valor": "Miolo 1084 páginas",
+          "texto": "Miolo 1084 páginas",
+          "preco_total": 1507384.0,
+          "preco_texto": "R$1.507.384,00",
+          "diferenca_total": 1505826.0,
+          "diferenca_unitaria": 30116.52
+        },
+        {
+          "valor": "Miolo 1088 páginas",
+          "texto": "Miolo 1088 páginas",
+          "preco_total": 1507574.0,
+          "preco_texto": "R$1.507.574,00",
+          "diferenca_total": 1506016.0,
+          "diferenca_unitaria": 30120.32
+        },
+        {
+          "valor": "Miolo 1092 páginas",
+          "texto": "Miolo 1092 páginas",
+          "preco_total": 1507767.0,
+          "preco_texto": "R$1.507.767,00",
+          "diferenca_total": 1506209.0,
+          "diferenca_unitaria": 30124.18
+        },
+        {
+          "valor": "Miolo 1096 páginas",
+          "texto": "Miolo 1096 páginas",
+          "preco_total": 1507958.0,
+          "preco_texto": "R$1.507.958,00",
+          "diferenca_total": 1506400.0,
+          "diferenca_unitaria": 30128.0
+        },
+        {
+          "valor": "Miolo 1100 páginas",
+          "texto": "Miolo 1100 páginas",
+          "preco_total": 1508150.0,
+          "preco_texto": "R$1.508.150,00",
+          "diferenca_total": 1506592.0,
+          "diferenca_unitaria": 30131.84
+        },
+        {
+          "valor": "Miolo 1104 páginas",
+          "texto": "Miolo 1104 páginas",
+          "preco_total": 1508341.0,
+          "preco_texto": "R$1.508.341,00",
+          "diferenca_total": 1506783.0,
+          "diferenca_unitaria": 30135.66
+        },
+        {
+          "valor": "Miolo 1108 páginas",
+          "texto": "Miolo 1108 páginas",
+          "preco_total": 1508533.0,
+          "preco_texto": "R$1.508.533,00",
+          "diferenca_total": 1506975.0,
+          "diferenca_unitaria": 30139.5
+        },
+        {
+          "valor": "Miolo 1112 páginas",
+          "texto": "Miolo 1112 páginas",
+          "preco_total": 1508724.0,
+          "preco_texto": "R$1.508.724,00",
+          "diferenca_total": 1507166.0,
+          "diferenca_unitaria": 30143.32
+        },
+        {
+          "valor": "Miolo 1116 páginas",
+          "texto": "Miolo 1116 páginas",
+          "preco_total": 1508917.0,
+          "preco_texto": "R$1.508.917,00",
+          "diferenca_total": 1507359.0,
+          "diferenca_unitaria": 30147.18
+        },
+        {
+          "valor": "Miolo 1120 páginas",
+          "texto": "Miolo 1120 páginas",
+          "preco_total": 1509107.0,
+          "preco_texto": "R$1.509.107,00",
+          "diferenca_total": 1507549.0,
+          "diferenca_unitaria": 30150.98
+        },
+        {
+          "valor": "Miolo 1124 páginas",
+          "texto": "Miolo 1124 páginas",
+          "preco_total": 1509300.0,
+          "preco_texto": "R$1.509.300,00",
+          "diferenca_total": 1507742.0,
+          "diferenca_unitaria": 30154.84
+        },
+        {
+          "valor": "Miolo 1128 páginas",
+          "texto": "Miolo 1128 páginas",
+          "preco_total": 1509491.0,
+          "preco_texto": "R$1.509.491,00",
+          "diferenca_total": 1507933.0,
+          "diferenca_unitaria": 30158.66
+        },
+        {
+          "valor": "Miolo 1132 páginas",
+          "texto": "Miolo 1132 páginas",
+          "preco_total": 1509683.0,
+          "preco_texto": "R$1.509.683,00",
+          "diferenca_total": 1508125.0,
+          "diferenca_unitaria": 30162.5
+        },
+        {
+          "valor": "Miolo 1136 páginas",
+          "texto": "Miolo 1136 páginas",
+          "preco_total": 1509874.0,
+          "preco_texto": "R$1.509.874,00",
+          "diferenca_total": 1508316.0,
+          "diferenca_unitaria": 30166.32
+        },
+        {
+          "valor": "Miolo 1140 páginas",
+          "texto": "Miolo 1140 páginas",
+          "preco_total": 1510066.0,
+          "preco_texto": "R$1.510.066,00",
+          "diferenca_total": 1508508.0,
+          "diferenca_unitaria": 30170.16
+        },
+        {
+          "valor": "Miolo 1144 páginas",
+          "texto": "Miolo 1144 páginas",
+          "preco_total": 1510257.0,
+          "preco_texto": "R$1.510.257,00",
+          "diferenca_total": 1508699.0,
+          "diferenca_unitaria": 30173.98
+        },
+        {
+          "valor": "Miolo 1148 páginas",
+          "texto": "Miolo 1148 páginas",
+          "preco_total": 1510450.0,
+          "preco_texto": "R$1.510.450,00",
+          "diferenca_total": 1508892.0,
+          "diferenca_unitaria": 30177.84
+        },
+        {
+          "valor": "Miolo 1152 páginas",
+          "texto": "Miolo 1152 páginas",
+          "preco_total": 1510640.0,
+          "preco_texto": "R$1.510.640,00",
+          "diferenca_total": 1509082.0,
+          "diferenca_unitaria": 30181.64
+        },
+        {
+          "valor": "Miolo 1156 páginas",
+          "texto": "Miolo 1156 páginas",
+          "preco_total": 1510833.0,
+          "preco_texto": "R$1.510.833,00",
+          "diferenca_total": 1509275.0,
+          "diferenca_unitaria": 30185.5
+        },
+        {
+          "valor": "Miolo 1160 páginas",
+          "texto": "Miolo 1160 páginas",
+          "preco_total": 1511024.0,
+          "preco_texto": "R$1.511.024,00",
+          "diferenca_total": 1509466.0,
+          "diferenca_unitaria": 30189.32
+        },
+        {
+          "valor": "Miolo 1164 páginas",
+          "texto": "Miolo 1164 páginas",
+          "preco_total": 1511216.0,
+          "preco_texto": "R$1.511.216,00",
+          "diferenca_total": 1509658.0,
+          "diferenca_unitaria": 30193.16
+        },
+        {
+          "valor": "Miolo 1168 páginas",
+          "texto": "Miolo 1168 páginas",
+          "preco_total": 1511407.0,
+          "preco_texto": "R$1.511.407,00",
+          "diferenca_total": 1509849.0,
+          "diferenca_unitaria": 30196.98
+        },
+        {
+          "valor": "Miolo 1172 páginas",
+          "texto": "Miolo 1172 páginas",
+          "preco_total": 1511599.0,
+          "preco_texto": "R$1.511.599,00",
+          "diferenca_total": 1510041.0,
+          "diferenca_unitaria": 30200.82
+        },
+        {
+          "valor": "Miolo 1176 páginas",
+          "texto": "Miolo 1176 páginas",
+          "preco_total": 1511790.0,
+          "preco_texto": "R$1.511.790,00",
+          "diferenca_total": 1510232.0,
+          "diferenca_unitaria": 30204.64
+        },
+        {
+          "valor": "Miolo 1180 páginas",
+          "texto": "Miolo 1180 páginas",
+          "preco_total": 1511983.0,
+          "preco_texto": "R$1.511.983,00",
+          "diferenca_total": 1510425.0,
+          "diferenca_unitaria": 30208.5
+        },
+        {
+          "valor": "Miolo 1184 páginas",
+          "texto": "Miolo 1184 páginas",
+          "preco_total": 1512173.0,
+          "preco_texto": "R$1.512.173,00",
+          "diferenca_total": 1510615.0,
+          "diferenca_unitaria": 30212.3
+        },
+        {
+          "valor": "Miolo 1188 páginas",
+          "texto": "Miolo 1188 páginas",
+          "preco_total": 1512366.0,
+          "preco_texto": "R$1.512.366,00",
+          "diferenca_total": 1510808.0,
+          "diferenca_unitaria": 30216.16
+        },
+        {
+          "valor": "Miolo 1192 páginas",
+          "texto": "Miolo 1192 páginas",
+          "preco_total": 1512557.0,
+          "preco_texto": "R$1.512.557,00",
+          "diferenca_total": 1510999.0,
+          "diferenca_unitaria": 30219.98
+        },
+        {
+          "valor": "Miolo 1196 páginas",
+          "texto": "Miolo 1196 páginas",
+          "preco_total": 1512749.0,
+          "preco_texto": "R$1.512.749,00",
+          "diferenca_total": 1511191.0,
+          "diferenca_unitaria": 30223.82
+        },
+        {
+          "valor": "Miolo 1200 páginas",
+          "texto": "Miolo 1200 páginas",
+          "preco_total": 1512940.0,
+          "preco_texto": "R$1.512.940,00",
+          "diferenca_total": 1511382.0,
+          "diferenca_unitaria": 30227.64
+        },
+        {
+          "valor": "Miolo 1204 páginas",
+          "texto": "Miolo 1204 páginas",
+          "preco_total": 1513132.0,
+          "preco_texto": "R$1.513.132,00",
+          "diferenca_total": 1511574.0,
+          "diferenca_unitaria": 30231.48
+        },
+        {
+          "valor": "Miolo 1208 páginas",
+          "texto": "Miolo 1208 páginas",
+          "preco_total": 1513323.0,
+          "preco_texto": "R$1.513.323,00",
+          "diferenca_total": 1511765.0,
+          "diferenca_unitaria": 30235.3
+        },
+        {
+          "valor": "Miolo 1212 páginas",
+          "texto": "Miolo 1212 páginas",
+          "preco_total": 1513516.0,
+          "preco_texto": "R$1.513.516,00",
+          "diferenca_total": 1511958.0,
+          "diferenca_unitaria": 30239.16
+        },
+        {
+          "valor": "Miolo 1216 páginas",
+          "texto": "Miolo 1216 páginas",
+          "preco_total": 1513706.0,
+          "preco_texto": "R$1.513.706,00",
+          "diferenca_total": 1512148.0,
+          "diferenca_unitaria": 30242.96
+        },
+        {
+          "valor": "Miolo 1220 páginas",
+          "texto": "Miolo 1220 páginas",
+          "preco_total": 1513899.0,
+          "preco_texto": "R$1.513.899,00",
+          "diferenca_total": 1512341.0,
+          "diferenca_unitaria": 30246.82
+        },
+        {
+          "valor": "Miolo 1224 páginas",
+          "texto": "Miolo 1224 páginas",
+          "preco_total": 1514090.0,
+          "preco_texto": "R$1.514.090,00",
+          "diferenca_total": 1512532.0,
+          "diferenca_unitaria": 30250.64
+        },
+        {
+          "valor": "Miolo 1228 páginas",
+          "texto": "Miolo 1228 páginas",
+          "preco_total": 1514282.0,
+          "preco_texto": "R$1.514.282,00",
+          "diferenca_total": 1512724.0,
+          "diferenca_unitaria": 30254.48
+        },
+        {
+          "valor": "Miolo 1232 páginas",
+          "texto": "Miolo 1232 páginas",
+          "preco_total": 1514473.0,
+          "preco_texto": "R$1.514.473,00",
+          "diferenca_total": 1512915.0,
+          "diferenca_unitaria": 30258.3
+        },
+        {
+          "valor": "Miolo 1236 páginas",
+          "texto": "Miolo 1236 páginas",
+          "preco_total": 1514665.0,
+          "preco_texto": "R$1.514.665,00",
+          "diferenca_total": 1513107.0,
+          "diferenca_unitaria": 30262.14
+        },
+        {
+          "valor": "Miolo 1240 páginas",
+          "texto": "Miolo 1240 páginas",
+          "preco_total": 1514856.0,
+          "preco_texto": "R$1.514.856,00",
+          "diferenca_total": 1513298.0,
+          "diferenca_unitaria": 30265.96
+        },
+        {
+          "valor": "Miolo 1244 páginas",
+          "texto": "Miolo 1244 páginas",
+          "preco_total": 1515049.0,
+          "preco_texto": "R$1.515.049,00",
+          "diferenca_total": 1513491.0,
+          "diferenca_unitaria": 30269.82
+        },
+        {
+          "valor": "Miolo 1248 páginas",
+          "texto": "Miolo 1248 páginas",
+          "preco_total": 1515239.0,
+          "preco_texto": "R$1.515.239,00",
+          "diferenca_total": 1513681.0,
+          "diferenca_unitaria": 30273.62
+        },
+        {
+          "valor": "Miolo 1252 páginas",
+          "texto": "Miolo 1252 páginas",
+          "preco_total": 1515432.0,
+          "preco_texto": "R$1.515.432,00",
+          "diferenca_total": 1513874.0,
+          "diferenca_unitaria": 30277.48
+        },
+        {
+          "valor": "Miolo 1256 páginas",
+          "texto": "Miolo 1256 páginas",
+          "preco_total": 1515623.0,
+          "preco_texto": "R$1.515.623,00",
+          "diferenca_total": 1514065.0,
+          "diferenca_unitaria": 30281.3
+        },
+        {
+          "valor": "Miolo 1260 páginas",
+          "texto": "Miolo 1260 páginas",
+          "preco_total": 1515815.0,
+          "preco_texto": "R$1.515.815,00",
+          "diferenca_total": 1514257.0,
+          "diferenca_unitaria": 30285.14
+        },
+        {
+          "valor": "Miolo 1264 páginas",
+          "texto": "Miolo 1264 páginas",
+          "preco_total": 1516006.0,
+          "preco_texto": "R$1.516.006,00",
+          "diferenca_total": 1514448.0,
+          "diferenca_unitaria": 30288.96
+        },
+        {
+          "valor": "Miolo 1268 páginas",
+          "texto": "Miolo 1268 páginas",
+          "preco_total": 1516198.0,
+          "preco_texto": "R$1.516.198,00",
+          "diferenca_total": 1514640.0,
+          "diferenca_unitaria": 30292.8
+        },
+        {
+          "valor": "Miolo 1272 páginas",
+          "texto": "Miolo 1272 páginas",
+          "preco_total": 1516389.0,
+          "preco_texto": "R$1.516.389,00",
+          "diferenca_total": 1514831.0,
+          "diferenca_unitaria": 30296.62
+        },
+        {
+          "valor": "Miolo 1276 páginas",
+          "texto": "Miolo 1276 páginas",
+          "preco_total": 1516582.0,
+          "preco_texto": "R$1.516.582,00",
+          "diferenca_total": 1515024.0,
+          "diferenca_unitaria": 30300.48
+        },
+        {
+          "valor": "Miolo 1280 páginas",
+          "texto": "Miolo 1280 páginas",
+          "preco_total": 1516772.0,
+          "preco_texto": "R$1.516.772,00",
+          "diferenca_total": 1515214.0,
+          "diferenca_unitaria": 30304.28
+        },
+        {
+          "valor": "Miolo 1284 páginas",
+          "texto": "Miolo 1284 páginas",
+          "preco_total": 1516965.0,
+          "preco_texto": "R$1.516.965,00",
+          "diferenca_total": 1515407.0,
+          "diferenca_unitaria": 30308.14
+        },
+        {
+          "valor": "Miolo 1288 páginas",
+          "texto": "Miolo 1288 páginas",
+          "preco_total": 1517156.0,
+          "preco_texto": "R$1.517.156,00",
+          "diferenca_total": 1515598.0,
+          "diferenca_unitaria": 30311.96
+        },
+        {
+          "valor": "Miolo 1292 páginas",
+          "texto": "Miolo 1292 páginas",
+          "preco_total": 1517348.0,
+          "preco_texto": "R$1.517.348,00",
+          "diferenca_total": 1515790.0,
+          "diferenca_unitaria": 30315.8
+        },
+        {
+          "valor": "Miolo 1296 páginas",
+          "texto": "Miolo 1296 páginas",
+          "preco_total": 1517539.0,
+          "preco_texto": "R$1.517.539,00",
+          "diferenca_total": 1515981.0,
+          "diferenca_unitaria": 30319.62
+        },
+        {
+          "valor": "Miolo 1300 páginas",
+          "texto": "Miolo 1300 páginas",
+          "preco_total": 1517732.0,
+          "preco_texto": "R$1.517.732,00",
+          "diferenca_total": 1516174.0,
+          "diferenca_unitaria": 30323.48
+        },
+        {
+          "valor": "Miolo 1304 páginas",
+          "texto": "Miolo 1304 páginas",
+          "preco_total": 1517922.0,
+          "preco_texto": "R$1.517.922,00",
+          "diferenca_total": 1516364.0,
+          "diferenca_unitaria": 30327.28
+        },
+        {
+          "valor": "Miolo 1308 páginas",
+          "texto": "Miolo 1308 páginas",
+          "preco_total": 1518115.0,
+          "preco_texto": "R$1.518.115,00",
+          "diferenca_total": 1516557.0,
+          "diferenca_unitaria": 30331.14
+        },
+        {
+          "valor": "Miolo 1312 páginas",
+          "texto": "Miolo 1312 páginas",
+          "preco_total": 1518306.0,
+          "preco_texto": "R$1.518.306,00",
+          "diferenca_total": 1516748.0,
+          "diferenca_unitaria": 30334.96
+        },
+        {
+          "valor": "Miolo 1316 páginas",
+          "texto": "Miolo 1316 páginas",
+          "preco_total": 1518498.0,
+          "preco_texto": "R$1.518.498,00",
+          "diferenca_total": 1516940.0,
+          "diferenca_unitaria": 30338.8
+        },
+        {
+          "valor": "Miolo 1320 páginas",
+          "texto": "Miolo 1320 páginas",
+          "preco_total": 1518689.0,
+          "preco_texto": "R$1.518.689,00",
+          "diferenca_total": 1517131.0,
+          "diferenca_unitaria": 30342.62
+        },
+        {
+          "valor": "Miolo 1324 páginas",
+          "texto": "Miolo 1324 páginas",
+          "preco_total": 1518881.0,
+          "preco_texto": "R$1.518.881,00",
+          "diferenca_total": 1517323.0,
+          "diferenca_unitaria": 30346.46
+        },
+        {
+          "valor": "Miolo 1328 páginas",
+          "texto": "Miolo 1328 páginas",
+          "preco_total": 1519072.0,
+          "preco_texto": "R$1.519.072,00",
+          "diferenca_total": 1517514.0,
+          "diferenca_unitaria": 30350.28
+        },
+        {
+          "valor": "Miolo 1332 páginas",
+          "texto": "Miolo 1332 páginas",
+          "preco_total": 1519265.0,
+          "preco_texto": "R$1.519.265,00",
+          "diferenca_total": 1517707.0,
+          "diferenca_unitaria": 30354.14
+        },
+        {
+          "valor": "Miolo 1336 páginas",
+          "texto": "Miolo 1336 páginas",
+          "preco_total": 1519455.0,
+          "preco_texto": "R$1.519.455,00",
+          "diferenca_total": 1517897.0,
+          "diferenca_unitaria": 30357.94
+        },
+        {
+          "valor": "Miolo 1340 páginas",
+          "texto": "Miolo 1340 páginas",
+          "preco_total": 1519648.0,
+          "preco_texto": "R$1.519.648,00",
+          "diferenca_total": 1518090.0,
+          "diferenca_unitaria": 30361.8
+        },
+        {
+          "valor": "Miolo 1344 páginas",
+          "texto": "Miolo 1344 páginas",
+          "preco_total": 1519839.0,
+          "preco_texto": "R$1.519.839,00",
+          "diferenca_total": 1518281.0,
+          "diferenca_unitaria": 30365.62
+        },
+        {
+          "valor": "Miolo 1348 páginas",
+          "texto": "Miolo 1348 páginas",
+          "preco_total": 1520031.0,
+          "preco_texto": "R$1.520.031,00",
+          "diferenca_total": 1518473.0,
+          "diferenca_unitaria": 30369.46
+        },
+        {
+          "valor": "Miolo 1352 páginas",
+          "texto": "Miolo 1352 páginas",
+          "preco_total": 1520222.0,
+          "preco_texto": "R$1.520.222,00",
+          "diferenca_total": 1518664.0,
+          "diferenca_unitaria": 30373.28
+        },
+        {
+          "valor": "Miolo 1356 páginas",
+          "texto": "Miolo 1356 páginas",
+          "preco_total": 1520414.0,
+          "preco_texto": "R$1.520.414,00",
+          "diferenca_total": 1518856.0,
+          "diferenca_unitaria": 30377.12
+        },
+        {
+          "valor": "Miolo 1360 páginas",
+          "texto": "Miolo 1360 páginas",
+          "preco_total": 1520605.0,
+          "preco_texto": "R$1.520.605,00",
+          "diferenca_total": 1519047.0,
+          "diferenca_unitaria": 30380.94
+        },
+        {
+          "valor": "Miolo 1364 páginas",
+          "texto": "Miolo 1364 páginas",
+          "preco_total": 1520798.0,
+          "preco_texto": "R$1.520.798,00",
+          "diferenca_total": 1519240.0,
+          "diferenca_unitaria": 30384.8
+        },
+        {
+          "valor": "Miolo 1368 páginas",
+          "texto": "Miolo 1368 páginas",
+          "preco_total": 1520988.0,
+          "preco_texto": "R$1.520.988,00",
+          "diferenca_total": 1519430.0,
+          "diferenca_unitaria": 30388.6
+        },
+        {
+          "valor": "Miolo 1372 páginas",
+          "texto": "Miolo 1372 páginas",
+          "preco_total": 1521181.0,
+          "preco_texto": "R$1.521.181,00",
+          "diferenca_total": 1519623.0,
+          "diferenca_unitaria": 30392.46
+        },
+        {
+          "valor": "Miolo 1376 páginas",
+          "texto": "Miolo 1376 páginas",
+          "preco_total": 1521372.0,
+          "preco_texto": "R$1.521.372,00",
+          "diferenca_total": 1519814.0,
+          "diferenca_unitaria": 30396.28
+        },
+        {
+          "valor": "Miolo 1380 páginas",
+          "texto": "Miolo 1380 páginas",
+          "preco_total": 1521564.0,
+          "preco_texto": "R$1.521.564,00",
+          "diferenca_total": 1520006.0,
+          "diferenca_unitaria": 30400.12
+        },
+        {
+          "valor": "Miolo 1384 páginas",
+          "texto": "Miolo 1384 páginas",
+          "preco_total": 1521755.0,
+          "preco_texto": "R$1.521.755,00",
+          "diferenca_total": 1520197.0,
+          "diferenca_unitaria": 30403.94
+        },
+        {
+          "valor": "Miolo 1388 páginas",
+          "texto": "Miolo 1388 páginas",
+          "preco_total": 1521947.0,
+          "preco_texto": "R$1.521.947,00",
+          "diferenca_total": 1520389.0,
+          "diferenca_unitaria": 30407.78
+        },
+        {
+          "valor": "Miolo 1392 páginas",
+          "texto": "Miolo 1392 páginas",
+          "preco_total": 1522138.0,
+          "preco_texto": "R$1.522.138,00",
+          "diferenca_total": 1520580.0,
+          "diferenca_unitaria": 30411.6
+        },
+        {
+          "valor": "Miolo 1396 páginas",
+          "texto": "Miolo 1396 páginas",
+          "preco_total": 1522331.0,
+          "preco_texto": "R$1.522.331,00",
+          "diferenca_total": 1520773.0,
+          "diferenca_unitaria": 30415.46
+        },
+        {
+          "valor": "Miolo 1400 páginas",
+          "texto": "Miolo 1400 páginas",
+          "preco_total": 1522521.0,
+          "preco_texto": "R$1.522.521,00",
+          "diferenca_total": 1520963.0,
+          "diferenca_unitaria": 30419.26
+        },
+        {
+          "valor": "Miolo 1404 páginas",
+          "texto": "Miolo 1404 páginas",
+          "preco_total": 1522714.0,
+          "preco_texto": "R$1.522.714,00",
+          "diferenca_total": 1521156.0,
+          "diferenca_unitaria": 30423.12
+        },
+        {
+          "valor": "Miolo 1408 páginas",
+          "texto": "Miolo 1408 páginas",
+          "preco_total": 1522905.0,
+          "preco_texto": "R$1.522.905,00",
+          "diferenca_total": 1521347.0,
+          "diferenca_unitaria": 30426.94
+        },
+        {
+          "valor": "Miolo 1412 páginas",
+          "texto": "Miolo 1412 páginas",
+          "preco_total": 1523097.0,
+          "preco_texto": "R$1.523.097,00",
+          "diferenca_total": 1521539.0,
+          "diferenca_unitaria": 30430.78
+        }
+      ]
+    },
+    {
+      "indice": 9,
+      "nome": "Options[9].Value",
+      "id": "Options[9].Value",
+      "name": "Options[9].Value",
+      "opcoes": [
+        {
+          "valor": "Dobrado",
+          "texto": "Dobrado",
+          "preco_total": 1523097.0,
+          "preco_texto": "R$1.523.097,00",
+          "diferenca_total": 1521539.0,
+          "diferenca_unitaria": 30430.78
+        }
+      ]
+    },
+    {
+      "indice": 10,
+      "nome": "Options[10].Value",
+      "id": "Options[10].Value",
+      "name": "Options[10].Value",
+      "opcoes": [
+        {
+          "valor": "Colado PUR",
+          "texto": "Colado PUR",
+          "preco_total": 1523097.0,
+          "preco_texto": "R$1.523.097,00",
+          "diferenca_total": 1521539.0,
+          "diferenca_unitaria": 30430.78
+        },
+        {
+          "valor": "Costurado",
+          "texto": "Costurado",
+          "preco_total": 1564505.0,
+          "preco_texto": "R$1.564.505,00",
+          "diferenca_total": 1562947.0,
+          "diferenca_unitaria": 31258.94
+        },
+        {
+          "valor": "Grampeado - 2 grampos",
+          "texto": "Grampeado - 2 grampos",
+          "preco_total": 1522830.0,
+          "preco_texto": "R$1.522.830,00",
+          "diferenca_total": 1521272.0,
+          "diferenca_unitaria": 30425.44
+        },
+        {
+          "valor": "Espiral Plastico",
+          "texto": "Espiral Plastico",
+          "preco_total": 1523419.0,
+          "preco_texto": "R$1.523.419,00",
+          "diferenca_total": 1521861.0,
+          "diferenca_unitaria": 30437.22
+        },
+        {
+          "valor": "Capa Dura Papelão 18 (1,8mm) + Cola PUR",
+          "texto": "Capa Dura Papelão 18 (1,8mm) + Cola PUR",
+          "preco_total": 1525443.0,
+          "preco_texto": "R$1.525.443,00",
+          "diferenca_total": 1523885.0,
+          "diferenca_unitaria": 30477.7
+        },
+        {
+          "valor": "Capa Dura Papelão 18  (1,8mm) + Costura - acima de 1.000un",
+          "texto": "Capa Dura Papelão 18 (1,8mm) + Costura - acima de 1.000un",
+          "preco_total": 1565669.0,
+          "preco_texto": "R$1.565.669,00",
+          "diferenca_total": 1564111.0,
+          "diferenca_unitaria": 31282.22
+        },
+        {
+          "valor": "Capa Dura Papelão 18 (1,8mm) + Espiral",
+          "texto": "Capa Dura Papelão 18 (1,8mm) + Espiral",
+          "preco_total": 1523936.0,
+          "preco_texto": "R$1.523.936,00",
+          "diferenca_total": 1522378.0,
+          "diferenca_unitaria": 30447.56
+        },
+        {
+          "valor": "Capa Dura Papelão 15 (2,2mm) + Cola PUR",
+          "texto": "Capa Dura Papelão 15 (2,2mm) + Cola PUR",
+          "preco_total": 1525487.0,
+          "preco_texto": "R$1.525.487,00",
+          "diferenca_total": 1523929.0,
+          "diferenca_unitaria": 30478.58
+        },
+        {
+          "valor": "Capa Dura Papelão 15 (2,2mm) + Costura - acima de 1.000 um.",
+          "texto": "Capa Dura Papelão 15 (2,2mm) + Costura - acima de 1.000 um.",
+          "preco_total": 1565771.0,
+          "preco_texto": "R$1.565.771,00",
+          "diferenca_total": 1564213.0,
+          "diferenca_unitaria": 31284.26
+        },
+        {
+          "valor": "Capa Dura Papelão 15 (2,2mm) + Espiral",
+          "texto": "Capa Dura Papelão 15 (2,2mm) + Espiral",
+          "preco_total": 1523979.0,
+          "preco_texto": "R$1.523.979,00",
+          "diferenca_total": 1522421.0,
+          "diferenca_unitaria": 30448.42
+        }
+      ]
+    },
+    {
+      "indice": 11,
+      "nome": "Options[11].Value",
+      "id": "Options[11].Value",
+      "name": "Options[11].Value",
+      "opcoes": [
+        {
+          "valor": "SEM GUARDAS",
+          "texto": "SEM GUARDAS",
+          "preco_total": 1523979.0,
+          "preco_texto": "R$1.523.979,00",
+          "diferenca_total": 1522421.0,
+          "diferenca_unitaria": 30448.42
+        },
+        {
+          "valor": "offset 180g - sem impressão",
+          "texto": "offset 180g - sem impressão",
+          "preco_total": 1524101.0,
+          "preco_texto": "R$1.524.101,00",
+          "diferenca_total": 1522543.0,
+          "diferenca_unitaria": 30450.86
+        },
+        {
+          "valor": "offset 180g - Com Impressão 4x4 Escala",
+          "texto": "offset 180g - Com Impressão 4x4 Escala",
+          "preco_total": 1524249.0,
+          "preco_texto": "R$1.524.249,00",
+          "diferenca_total": 1522691.0,
+          "diferenca_unitaria": 30453.82
+        },
+        {
+          "valor": "Vergê Madrepérola180g (Creme) - sem impressão",
+          "texto": "Vergê Madrepérola180g (Creme) - sem impressão",
+          "preco_total": 1524226.0,
+          "preco_texto": "R$1.524.226,00",
+          "diferenca_total": 1522668.0,
+          "diferenca_unitaria": 30453.36
+        },
+        {
+          "valor": "Vergê Madrepérola180g (Creme) - Com Impressão 4x4 Escala",
+          "texto": "Vergê Madrepérola180g (Creme) - Com Impressão 4x4 Escala",
+          "preco_total": 1524374.0,
+          "preco_texto": "R$1.524.374,00",
+          "diferenca_total": 1522816.0,
+          "diferenca_unitaria": 30456.32
+        },
+        {
+          "valor": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala",
+          "texto": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala",
+          "preco_total": 1524739.0,
+          "preco_texto": "R$1.524.739,00",
+          "diferenca_total": 1523181.0,
+          "diferenca_unitaria": 30463.62
+        }
+      ]
+    },
+    {
+      "indice": 12,
+      "nome": "Options[12].Value",
+      "id": "Options[12].Value",
+      "name": "Options[12].Value",
+      "opcoes": [
+        {
+          "valor": "Nenhum",
+          "texto": "Nenhum",
+          "preco_total": 1524739.0,
+          "preco_texto": "R$1.524.739,00",
+          "diferenca_total": 1523181.0,
+          "diferenca_unitaria": 30463.62
+        },
+        {
+          "valor": "Shrink Individual",
+          "texto": "Shrink Individual",
+          "preco_total": 1524768.0,
+          "preco_texto": "R$1.524.768,00",
+          "diferenca_total": 1523210.0,
+          "diferenca_unitaria": 30464.2
+        },
+        {
+          "valor": "Shrink Coletivo c/ 5 peças",
+          "texto": "Shrink Coletivo c/ 5 peças",
+          "preco_total": 1524753.0,
+          "preco_texto": "R$1.524.753,00",
+          "diferenca_total": 1523195.0,
+          "diferenca_unitaria": 30463.9
+        },
+        {
+          "valor": "Shrink Coletivo c/ 10 peças",
+          "texto": "Shrink Coletivo c/ 10 peças",
+          "preco_total": 1524749.0,
+          "preco_texto": "R$1.524.749,00",
+          "diferenca_total": 1523191.0,
+          "diferenca_unitaria": 30463.82
+        },
+        {
+          "valor": "Shrink Coletivo c/ 20 peças",
+          "texto": "Shrink Coletivo c/ 20 peças",
+          "preco_total": 1524748.0,
+          "preco_texto": "R$1.524.748,00",
+          "diferenca_total": 1523190.0,
+          "diferenca_unitaria": 30463.8
+        },
+        {
+          "valor": "Shrink Coletivo c/ 30 peças",
+          "texto": "Shrink Coletivo c/ 30 peças",
+          "preco_total": 1524747.0,
+          "preco_texto": "R$1.524.747,00",
+          "diferenca_total": 1523189.0,
+          "diferenca_unitaria": 30463.78
+        },
+        {
+          "valor": "Shrink Coletivo c/ 50 peças",
+          "texto": "Shrink Coletivo c/ 50 peças",
+          "preco_total": 1524747.0,
+          "preco_texto": "R$1.524.747,00",
+          "diferenca_total": 1523189.0,
+          "diferenca_unitaria": 30463.78
+        }
+      ]
+    },
+    {
+      "indice": 13,
+      "nome": "Options[13].Value",
+      "id": "Options[13].Value",
+      "name": "Options[13].Value",
+      "opcoes": [
+        {
+          "valor": "Incluso",
+          "texto": "Incluso",
+          "preco_total": 1524747.0,
+          "preco_texto": "R$1.524.747,00",
+          "diferenca_total": 1523189.0,
+          "diferenca_unitaria": 30463.78
+        },
+        {
+          "valor": "Cliente Retira",
+          "texto": "Cliente Retira",
+          "preco_total": 1523027.0,
+          "preco_texto": "R$1.523.027,00",
+          "diferenca_total": 1521469.0,
+          "diferenca_unitaria": 30429.38
+        }
+      ]
+    },
+    {
+      "indice": 14,
+      "nome": "Options[14].Value",
+      "id": "Options[14].Value",
+      "name": "Options[14].Value",
+      "opcoes": [
+        {
+          "valor": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+          "texto": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+          "preco_total": 1523027.0,
+          "preco_texto": "R$1.523.027,00",
+          "diferenca_total": 1521469.0,
+          "diferenca_unitaria": 30429.38
+        },
+        {
+          "valor": "Digital On-Line - via Web-Approval ou PDF",
+          "texto": "Digital On-Line - via Web-Approval ou PDF",
+          "preco_total": 1523215.0,
+          "preco_texto": "R$1.523.215,00",
+          "diferenca_total": 1521657.0,
+          "diferenca_unitaria": 30433.14
+        },
+        {
+          "valor": "Capa: Prova de Cor Digital | Miolo: Aprovação Virtual",
+          "texto": "Capa: Prova de Cor Digital | Miolo: Aprovação Virtual",
+          "preco_total": 1523379.0,
+          "preco_texto": "R$1.523.379,00",
+          "diferenca_total": 1521821.0,
+          "diferenca_unitaria": 30436.42
+        },
+        {
+          "valor": "Capa: Prova de Cor Digital | Miolo: Prova em Baixa (Plotter)",
+          "texto": "Capa: Prova de Cor Digital | Miolo: Prova em Baixa (Plotter)",
+          "preco_total": 1525044.0,
+          "preco_texto": "R$1.525.044,00",
+          "diferenca_total": 1523486.0,
+          "diferenca_unitaria": 30469.72
+        },
+        {
+          "valor": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen",
+          "texto": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen",
+          "preco_total": 1529950.0,
+          "preco_texto": "R$1.529.950,00",
+          "diferenca_total": 1528392.0,
+          "diferenca_unitaria": 30567.84
+        },
+        {
+          "valor": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)",
+          "texto": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)",
+          "preco_total": 1530239.0,
+          "preco_texto": "R$1.530.239,00",
+          "diferenca_total": 1528681.0,
+          "diferenca_unitaria": 30573.62
+        }
+      ]
+    },
+    {
+      "indice": 15,
+      "nome": "Options[15].Value",
+      "id": "Options[15].Value",
+      "name": "Options[15].Value",
+      "opcoes": [
+        {
+          "valor": "Padrão: 10 dias úteis de Produção + tempo de FRETE*",
+          "texto": "Padrão: 10 dias úteis de Produção + tempo de FRETE*",
+          "preco_total": 1530239.0,
+          "preco_texto": "R$1.530.239,00",
+          "diferenca_total": 1528681.0,
+          "diferenca_unitaria": 30573.62
+        }
+      ]
+    }
+  ]
+}

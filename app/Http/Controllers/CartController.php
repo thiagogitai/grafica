@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Services\ProductConfig;
+use App\Http\Controllers\ProductPriceController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -33,9 +34,16 @@ class CartController extends Controller
 
         $cart = session()->get('cart', []);
 
-        // Get selected options
-        $options = $request->only(['capa_tipo', 'paginas', 'papel_tipo', 'uploaded_file_path']);
-        $quantity = $request->input('quantity', 1);
+        // Get selected options - pegar todas as opções do formulário
+        $options = $request->input('options', []);
+        if (empty($options)) {
+            // Fallback para campos antigos
+            $options = $request->only(['capa_tipo', 'paginas', 'papel_tipo', 'uploaded_file_path']);
+        }
+        $quantity = (int) ($request->input('quantity') ?? $request->input('options.quantity') ?? 1);
+
+        // Garantir quantidade mínima de 50 para produtos que precisam validação
+        $quantity = max(50, (int) $quantity);
 
         // Calcula preço: se houver config JSON do produto, usa as regras do JSON (preço final + extras)
         $configSlug = null;
@@ -46,7 +54,48 @@ class CartController extends Controller
             }
         }
         $config = ProductConfig::loadForProduct($product, $configSlug);
-        if ($config) {
+        
+        // VALIDAÇÃO DUPLA: Validar preço no checkout antes de adicionar ao carrinho
+        $produtosComValidacao = [
+            'impressao-de-livro',
+            'impressao-de-panfleto',
+            'impressao-de-apostila',
+            'impressao-online-de-livretos-personalizados',
+            'impressao-de-revista',
+            'impressao-de-tabloide',
+            'impressao-de-jornal-de-bairro',
+            'impressao-de-guia-de-bairro'
+        ];
+        
+        if ($config && in_array($configSlug, $produtosComValidacao)) {
+            // VALIDAÇÃO DUPLA: Validar preço antes de adicionar ao carrinho
+            $priceController = new ProductPriceController();
+            // Preparar dados para validação
+            $validationPayload = array_merge($options, [
+                'quantity' => $quantity,
+                'product_slug' => $configSlug
+            ]);
+            
+            $validationRequest = new Request();
+            $validationRequest->merge($validationPayload);
+            $validationRequest->headers->set('Content-Type', 'application/json');
+            $validationResponse = $priceController->validatePrice($validationRequest);
+            $validationResult = json_decode($validationResponse->getContent(), true);
+            
+            if (!($validationResult['success'] ?? false) || !($validationResult['validated'] ?? false)) {
+                if ($request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Erro ao validar preço no checkout. Por favor, tente novamente.',
+                        'error' => 'Validação de preço falhou no checkout'
+                    ], 400);
+                }
+                return redirect()->back()->withErrors(['price' => 'Erro ao validar preço no checkout. Por favor, tente novamente.']);
+            }
+            
+            // Usar preço validado
+            $totalPrice = $validationResult['price'] ?? 0;
+        } else if ($config) {
             // Converter valores selecionados para labels conforme o catálogo (para exibição fiel)
             $labeledOptions = $options;
             foreach (($config['options'] ?? []) as $opt) {

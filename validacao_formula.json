@@ -1,0 +1,23 @@
+[
+  {
+    "quantidade": 50,
+    "preco_real": 704.5,
+    "preco_formula": 1558.0,
+    "diferenca": 853.5,
+    "percentual_erro": 121.14975159687722
+  },
+  {
+    "quantidade": 100,
+    "preco_real": 704.5,
+    "preco_formula": 3116.0,
+    "diferenca": 2411.5,
+    "percentual_erro": 342.29950319375445
+  },
+  {
+    "quantidade": 500,
+    "preco_real": 704.5,
+    "preco_formula": 15580.0,
+    "diferenca": 14875.5,
+    "percentual_erro": 2111.497515968772
+  }
+]

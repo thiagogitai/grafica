@@ -1,0 +1,241 @@
+{
+  "url": "https://www.lojagraficaeskenazi.com.br/product/impressao-de-panfleto",
+  "mapeamento": {
+    "0": {
+      "label": "1- Quantidade",
+      "name": "Q1",
+      "id": "Q1",
+      "opcoes": [
+        {
+          "value": "50",
+          "text": "50"
+        },
+        {
+          "value": "100",
+          "text": "100"
+        },
+        {
+          "value": "200",
+          "text": "200"
+        },
+        {
+          "value": "250",
+          "text": "250"
+        },
+        {
+          "value": "300",
+          "text": "300"
+        },
+        {
+          "value": "400",
+          "text": "400"
+        },
+        {
+          "value": "500",
+          "text": "500"
+        },
+        {
+          "value": "600",
+          "text": "600"
+        },
+        {
+          "value": "700",
+          "text": "700"
+        },
+        {
+          "value": "800",
+          "text": "800"
+        }
+      ]
+    },
+    "1": {
+      "label": "2- Papel",
+      "name": "Options[0].Value",
+      "id": "Options[0].Value",
+      "opcoes": [
+        {
+          "value": "Couche Brilho 150gr ",
+          "text": "Couche Brilho 150gr"
+        },
+        {
+          "value": "Couche Brilho 90gr",
+          "text": "Couche Brilho 90gr"
+        },
+        {
+          "value": "Couche Brilho 115gr ",
+          "text": "Couche Brilho 115gr"
+        },
+        {
+          "value": "Couche Brilho 210gr ",
+          "text": "Couche Brilho 210gr"
+        },
+        {
+          "value": "Offset 75gr ",
+          "text": "Offset 75gr"
+        },
+        {
+          "value": "Offset 90gr ",
+          "text": "Offset 90gr"
+        },
+        {
+          "value": "Offset 120gr ",
+          "text": "Offset 120gr"
+        },
+        {
+          "value": "Offset 180gr ",
+          "text": "Offset 180gr"
+        },
+        {
+          "value": "Couche Fosco 150gr ",
+          "text": "Couche Fosco 150gr"
+        },
+        {
+          "value": "Cartão Triplex C2S 300gr ",
+          "text": "Cartão Triplex C2S 300gr"
+        }
+      ]
+    },
+    "2": {
+      "label": "3- Formato",
+      "name": "Options[1].Value",
+      "id": "Options[1].Value",
+      "opcoes": [
+        {
+          "value": "A4: 210mmx297mm",
+          "text": "A4: 210mmx297mm"
+        },
+        {
+          "value": "A5: 210mmx148mm",
+          "text": "A5: 210mmx148mm"
+        },
+        {
+          "value": "A6: 105mmx148mm",
+          "text": "A6: 105mmx148mm"
+        },
+        {
+          "value": "DL: 210mmx100mm",
+          "text": "DL: 210mmx100mm"
+        },
+        {
+          "value": "300mmx310mm",
+          "text": "300mmx310mm"
+        },
+        {
+          "value": "420mmx300mm",
+          "text": "420mmx300mm"
+        },
+        {
+          "value": "210mmx210mm",
+          "text": "210mmx210mm"
+        },
+        {
+          "value": "150mmx150mm",
+          "text": "150mmx150mm"
+        },
+        {
+          "value": "90mmx120mm",
+          "text": "90mmx120mm"
+        },
+        {
+          "value": "100mmx100mm",
+          "text": "100mmx100mm"
+        }
+      ]
+    },
+    "3": {
+      "label": "4- Cores",
+      "name": "Options[2].Value",
+      "id": "Options[2].Value",
+      "opcoes": [
+        {
+          "value": "4 cores frente e verso",
+          "text": "4 cores frente e verso"
+        },
+        {
+          "value": "4 cores frente",
+          "text": "4 cores frente"
+        },
+        {
+          "value": "1 cor frente preto",
+          "text": "1 cor frente preto"
+        },
+        {
+          "value": "1 cor frente e verso preto",
+          "text": "1 cor frente e verso preto"
+        }
+      ]
+    },
+    "4": {
+      "label": "5- Acabamento",
+      "name": "Options[3].Value",
+      "id": "Options[3].Value",
+      "opcoes": [
+        {
+          "value": "Cantos Retos",
+          "text": "Cantos Retos"
+        },
+        {
+          "value": "Cantos Retos + Laminação FOSCO Bopp Frente e Verso (acima de 200g)",
+          "text": "Cantos Retos + Laminação FOSCO Bopp Frente e Verso (acima de 200g)"
+        },
+        {
+          "value": "Cantos Retos + Laminação BRILHO Bopp Frente e Verso (Acima de 200g)",
+          "text": "Cantos Retos + Laminação BRILHO Bopp Frente e Verso (Acima de 200g)"
+        }
+      ]
+    },
+    "5": {
+      "label": "6- Extras",
+      "name": "Options[4].Value",
+      "id": "Options[4].Value",
+      "opcoes": [
+        {
+          "value": "Nenhum",
+          "text": "Nenhum"
+        }
+      ]
+    },
+    "6": {
+      "label": "7- Formato do Arquivo",
+      "name": "Options[5].Value",
+      "id": "Options[5].Value",
+      "opcoes": [
+        {
+          "value": "Arquivo PDF (fechado para impressão) (Grátis)",
+          "text": "Arquivo PDF (fechado para impressão) (Grátis)"
+        },
+        {
+          "value": "Arquvo CDR / INDD / AI / JPG / PNG (aberto) (R$ 80,00)",
+          "text": "Arquvo CDR / INDD / AI / JPG / PNG (aberto) (R$ 80,00)"
+        }
+      ]
+    },
+    "7": {
+      "label": "8- Verificação do Arquivo",
+      "name": "Options[6].Value",
+      "id": "Options[6].Value",
+      "opcoes": [
+        {
+          "value": "Digital On-Line (Grátis)",
+          "text": "Digital On-Line (Grátis)"
+        },
+        {
+          "value": "Prova de Cor Impressa - SOMENTE para São Paulo (R$ 150,00)",
+          "text": "Prova de Cor Impressa - SOMENTE para São Paulo (R$ 150,00)"
+        }
+      ]
+    },
+    "8": {
+      "label": "9- Prazo de Entrega",
+      "name": "Options[7].Value",
+      "id": "Options[7].Value",
+      "opcoes": [
+        {
+          "value": "Padrão: 5 dias úteis de Produção + tempo de FRETE*",
+          "text": "Padrão: 5 dias úteis de Produção + tempo de FRETE*"
+        }
+      ]
+    }
+  },
+  "total_selects": 9
+}

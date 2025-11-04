@@ -1,5 +1,5 @@
 {
-  "title_override": "Impressão de Apostila",
+  "title_override": null,
   "base_price": null,
   "redirect_to_upload": true,
   "options": [
@@ -7,12 +7,12 @@
       "name": "quantity",
       "label": "1- Quantidade",
       "type": "number",
-      "default": 10,
-      "min": 1,
+      "default": 50,
+      "min": 50,
       "step": 1
     },
     {
-      "name": "formato_final_fechado",
+      "name": "formato",
       "label": "2- Apostila: Formato Final Fechado",
       "type": "select",
       "choices": [
@@ -40,11 +40,11 @@
       "type": "select",
       "choices": [
         {
-          "value": "Cartão Triplex 250gr",
+          "value": "Cartão Triplex 250gr ",
           "label": "Cartão Triplex 250gr"
         },
         {
-          "value": "Cartão Triplex 300gr",
+          "value": "Cartão Triplex 300gr ",
           "label": "Cartão Triplex 300gr"
         },
         {
@@ -136,23 +136,23 @@
           "label": "Couche Brilho 90gr"
         },
         {
-          "value": "Couche Brilho 115gr",
+          "value": "Couche Brilho 115gr ",
           "label": "Couche Brilho 115gr"
         },
         {
-          "value": "Couche Brilho 150gr",
+          "value": "Couche Brilho 150gr ",
           "label": "Couche Brilho 150gr"
         },
         {
-          "value": "Couche Fosco 115gr",
+          "value": "Couche Fosco 115gr ",
           "label": "Couche Fosco 115gr"
         },
         {
-          "value": "Couche Fosco 150gr",
+          "value": "Couche Fosco 150gr ",
           "label": "Couche Fosco 150gr"
         },
         {
-          "value": "Couche Fosco 210gr",
+          "value": "Couche Fosco 210gr ",
           "label": "Couche Fosco 210gr"
         }
       ]
@@ -181,99 +181,12 @@
       ]
     },
     {
-      "name": "quantidade_folhas_miolo_1",
+      "name": "quantity",
       "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 páginas)",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Miolo 4 folhas",
-          "label": "Miolo 4 folhas"
-        },
-        {
-          "value": "Miolo 8 folhas",
-          "label": "Miolo 8 folhas"
-        },
-        {
-          "value": "Miolo 12 folhas",
-          "label": "Miolo 12 folhas"
-        },
-        {
-          "value": "Miolo 16 folhas",
-          "label": "Miolo 16 folhas"
-        },
-        {
-          "value": "Miolo 20 folhas",
-          "label": "Miolo 20 folhas"
-        },
-        {
-          "value": "Miolo 24 folhas",
-          "label": "Miolo 24 folhas"
-        },
-        {
-          "value": "Miolo 28 folhas",
-          "label": "Miolo 28 folhas"
-        },
-        {
-          "value": "Miolo 32 folhas",
-          "label": "Miolo 32 folhas"
-        },
-        {
-          "value": "Miolo 36 folhas",
-          "label": "Miolo 36 folhas"
-        },
-        {
-          "value": "Miolo 40 folhas",
-          "label": "Miolo 40 folhas"
-        },
-        {
-          "value": "Miolo 44 folhas",
-          "label": "Miolo 44 folhas"
-        },
-        {
-          "value": "Miolo 48 folhas",
-          "label": "Miolo 48 folhas"
-        },
-        {
-          "value": "Miolo 52 folhas",
-          "label": "Miolo 52 folhas"
-        },
-        {
-          "value": "Miolo 56 folhas",
-          "label": "Miolo 56 folhas"
-        },
-        {
-          "value": "Miolo 60 folhas",
-          "label": "Miolo 60 folhas"
-        },
-        {
-          "value": "Miolo 64 folhas",
-          "label": "Miolo 64 folhas"
-        },
-        {
-          "value": "Miolo 68 folhas",
-          "label": "Miolo 68 folhas"
-        },
-        {
-          "value": "Miolo 72 folhas",
-          "label": "Miolo 72 folhas"
-        },
-        {
-          "value": "Miolo 76 folhas",
-          "label": "Miolo 76 folhas"
-        },
-        {
-          "value": "Miolo 80 folhas",
-          "label": "Miolo 80 folhas"
-        },
-        {
-          "value": "Miolo 84 folhas",
-          "label": "Miolo 84 folhas"
-        },
-        {
-          "value": "Miolo 88 folhas",
-          "label": "Miolo 88 folhas"
-        }
-      ]
+      "type": "number",
+      "default": 50,
+      "min": 50,
+      "step": 1
     },
     {
       "name": "acabamento_miolo",
@@ -296,7 +209,7 @@
           "label": "Couche Brilho 70gr"
         },
         {
-          "value": "Couche Brilho 115gr",
+          "value": "Couche Brilho 115gr ",
           "label": "Couche Brilho 115gr"
         },
         {
@@ -308,7 +221,7 @@
           "label": "Couche Brilho 90gr"
         },
         {
-          "value": "Couche Brilho 150gr",
+          "value": "Couche Brilho 150gr ",
           "label": "Couche Brilho 150gr"
         },
         {
@@ -320,36 +233,16 @@
           "label": "Couche Fosco 90gr"
         },
         {
-          "value": "Couche Fosco 115gr",
+          "value": "Couche Fosco 115gr ",
           "label": "Couche Fosco 115gr"
         },
         {
-          "value": "Couche Fosco 150gr",
+          "value": "Couche Fosco 150gr ",
           "label": "Couche Fosco 150gr"
         },
         {
-          "value": "Couche Fosco 210gr",
+          "value": "Couche Fosco 210gr ",
           "label": "Couche Fosco 210gr"
-        },
-        {
-          "value": "Offset 70gr",
-          "label": "Offset 70gr"
-        },
-        {
-          "value": "Offset 75gr",
-          "label": "Offset 75gr"
-        },
-        {
-          "value": "Offset 90gr",
-          "label": "Offset 90gr"
-        },
-        {
-          "value": "Offset 120gr",
-          "label": "Offset 120gr"
-        },
-        {
-          "value": "Não tem Miolo 2",
-          "label": "Não tem Miolo 2"
         }
       ]
     },
@@ -377,106 +270,15 @@
       ]
     },
     {
-      "name": "quantidade_folhas_miolo_2",
+      "name": "quantity",
       "label": "13- Quantidade folhas MIOLO 2",
-      "type": "select",
-      "choices": [
-        {
-          "value": "NÃO TEM MIOLO 2",
-          "label": "NÃO TEM MIOLO 2"
-        },
-        {
-          "value": "Miolo 4 folhas",
-          "label": "Miolo 4 folhas"
-        },
-        {
-          "value": "Miolo 8 folhas",
-          "label": "Miolo 8 folhas"
-        },
-        {
-          "value": "Miolo 12 folhas",
-          "label": "Miolo 12 folhas"
-        },
-        {
-          "value": "Miolo 16 folhas",
-          "label": "Miolo 16 folhas"
-        },
-        {
-          "value": "Miolo 20 folhas",
-          "label": "Miolo 20 folhas"
-        },
-        {
-          "value": "Miolo 24 folhas",
-          "label": "Miolo 24 folhas"
-        },
-        {
-          "value": "Miolo 28 folhas",
-          "label": "Miolo 28 folhas"
-        },
-        {
-          "value": "Miolo 32 folhas",
-          "label": "Miolo 32 folhas"
-        },
-        {
-          "value": "Miolo 36 folhas",
-          "label": "Miolo 36 folhas"
-        },
-        {
-          "value": "Miolo 40 folhas",
-          "label": "Miolo 40 folhas"
-        },
-        {
-          "value": "Miolo 44 folhas",
-          "label": "Miolo 44 folhas"
-        },
-        {
-          "value": "Miolo 48 folhas",
-          "label": "Miolo 48 folhas"
-        },
-        {
-          "value": "Miolo 52 folhas",
-          "label": "Miolo 52 folhas"
-        },
-        {
-          "value": "Miolo 56 folhas",
-          "label": "Miolo 56 folhas"
-        },
-        {
-          "value": "Miolo 60 folhas",
-          "label": "Miolo 60 folhas"
-        },
-        {
-          "value": "Miolo 64 folhas",
-          "label": "Miolo 64 folhas"
-        },
-        {
-          "value": "Miolo 68 folhas",
-          "label": "Miolo 68 folhas"
-        },
-        {
-          "value": "Miolo 72 folhas",
-          "label": "Miolo 72 folhas"
-        },
-        {
-          "value": "Miolo 76 folhas",
-          "label": "Miolo 76 folhas"
-        },
-        {
-          "value": "Miolo 80 folhas",
-          "label": "Miolo 80 folhas"
-        },
-        {
-          "value": "Miolo 84 folhas",
-          "label": "Miolo 84 folhas"
-        },
-        {
-          "value": "Miolo 88 folhas",
-          "label": "Miolo 88 folhas"
-        }
-      ]
+      "type": "number",
+      "default": 50,
+      "min": 50,
+      "step": 1
     },
     {
-      "name": "acabamento_apostila",
+      "name": "option_12",
       "label": "14- Acabamento da Apostila",
       "type": "select",
       "choices": [
@@ -506,7 +308,7 @@
       ]
     },
     {
-      "name": "formato_arquivo",
+      "name": "formato",
       "label": "16- Formato do Arquivo",
       "type": "select",
       "choices": [
