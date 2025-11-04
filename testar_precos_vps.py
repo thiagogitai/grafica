@@ -204,9 +204,16 @@ def obter_preco_script_python(slug, opcoes):
     """Obtém preço usando o script Python de scraping"""
     import subprocess
     import json
+    import platform
     
     try:
         quantidade = opcoes.get('quantity', 50)
+        
+        # Detectar comando Python correto
+        if platform.system() == 'Windows':
+            python_cmd = 'python'  # Windows geralmente usa 'python'
+        else:
+            python_cmd = 'python3'  # Linux/Mac usa 'python3'
         
         # Determinar qual script usar
         script_path = None
@@ -235,7 +242,7 @@ def obter_preco_script_python(slug, opcoes):
         # Executar script via subprocess para capturar stdout corretamente
         # script_path já está em caminho absoluto
         resultado_subprocess = subprocess.run(
-            ['python3', script_path, dados_json],
+            [python_cmd, script_path, dados_json],
             capture_output=True,
             text=True,
             timeout=120,

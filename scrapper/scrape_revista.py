@@ -67,13 +67,20 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         except:
             pass
         
-        # Aplicar quantidade
+        # Aplicar quantidade ANTES de processar selects
         try:
             qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
             qtd_input.clear()
             qtd_input.send_keys(str(quantidade))
-            time.sleep(0.5)
-        except:
+            # Disparar eventos para garantir que o JavaScript detecte a mudança
+            driver.execute_script("""
+                var input = arguments[0];
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            """, qtd_input)
+            time.sleep(1.0)  # Aguardar mais tempo para o cálculo
+        except Exception as e:
+            print(f"DEBUG: ERRO ao aplicar quantidade: {e}", file=sys.stderr)
             pass
         
         selects = driver.find_elements(By.TAG_NAME, 'select')
@@ -149,8 +156,24 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 if not opcao_encontrada:
                     print(f"DEBUG: AVISO - Opção não encontrada para {campo} = {valor}", file=sys.stderr)
         
+        # Reaplicar quantidade após processar todos os campos (para garantir que o preço está correto)
+        try:
+            qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+            valor_atual = qtd_input.get_attribute('value')
+            if valor_atual != str(quantidade):
+                qtd_input.clear()
+                qtd_input.send_keys(str(quantidade))
+                driver.execute_script("""
+                    var input = arguments[0];
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                """, qtd_input)
+                time.sleep(1.0)
+        except:
+            pass
+        
         # Aguardar cálculo final
-        time.sleep(0.6)
+        time.sleep(1.0)
         for tentativa in range(30):
             time.sleep(0.1)
             try:
