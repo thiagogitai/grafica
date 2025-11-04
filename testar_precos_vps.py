@@ -166,15 +166,28 @@ def obter_preco_site_matriz(url, opcoes_escolhidas):
             except Exception as e:
                 pass
         
-        # Aplicar quantidade se for input
+        # Aplicar quantidade - campo é input id="Q1" (não type="number")
         try:
-            qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+            # Tentar primeiro pelo ID específico (para revista)
+            qtd_input = driver.find_element(By.ID, "Q1")
             if 'quantity' in opcoes_escolhidas:
                 qtd_input.clear()
+                time.sleep(0.2)
                 qtd_input.send_keys(str(opcoes_escolhidas['quantity']))
+                time.sleep(0.3)
+                # Clicar fora (blur) para confirmar
+                driver.execute_script("arguments[0].blur();", qtd_input)
                 time.sleep(1)
         except:
-            pass
+            # Fallback: tentar input type="number" (para outros produtos)
+            try:
+                qtd_input = driver.find_element(By.XPATH, "//input[@type='number']")
+                if 'quantity' in opcoes_escolhidas:
+                    qtd_input.clear()
+                    qtd_input.send_keys(str(opcoes_escolhidas['quantity']))
+                    time.sleep(1)
+            except:
+                pass
         
         # Aguardar cálculo do preço
         time.sleep(4)
