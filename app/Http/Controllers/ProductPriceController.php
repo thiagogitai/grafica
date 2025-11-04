@@ -38,7 +38,6 @@ class ProductPriceController extends Controller
         }
         
         // Remover parâmetros de controle (não são campos do formulário)
-        $forceValidation = isset($opcoes['force_validation']) || isset($opcoes['_force']);
         unset($opcoes['force_validation'], $opcoes['_force']);
         
         \Log::error("DEBUG: Opções recebidas: " . json_encode($opcoes));
@@ -74,61 +73,51 @@ class ProductPriceController extends Controller
             ], 400);
         }
 
-        // Normalizar e ordenar opções para garantir chave de cache consistente
+        // Normalizar e ordenar opções (apenas para log)
         ksort($opcoes);
         // Garantir que a quantidade está nas opções
         $opcoes['quantity'] = $quantidade;
         
-        // Gerar chave de cache baseada em todas as opções ordenadas
-        $cacheKey = 'product_price_' . $productSlug . '_' . md5(json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
-        
-        \Log::error("DEBUG: Chave de cache gerada: {$cacheKey}");
-        \Log::error("DEBUG: Opções para cache: " . json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        \Log::error("DEBUG: Opções normalizadas para validação: " . json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        \Log::error("DEBUG: CACHE COMPLETAMENTE DESABILITADO - Sempre validando no site matriz");
 
-        // forceValidation já foi definido acima
+        // SEMPRE validar no site matriz - cache desabilitado completamente
+        $preco = null;
         
-        // Tentar obter do cache (apenas se não forçar validação)
-        $preco = $forceValidation ? null : Cache::get($cacheKey);
-        
-        \Log::error("DEBUG: Cache check - preco = " . ($preco !== null ? $preco : 'null') . ($forceValidation ? ' (FORÇADO)' : ''));
+        \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
+        try {
+            // Fazer scraping
+            \Log::error("DEBUG: Dentro do try - Iniciando validação de preço para produto: {$productSlug}");
+            \Log::info("Quantidade: {$quantidade}");
+            \Log::info("Opções recebidas: " . json_encode($opcoes));
+            $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
+            \Log::info("Preço retornado: " . ($preco !== null ? $preco : 'null'));
 
-        if ($preco === null) {
-            \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
-            try {
-                // Fazer scraping
-                \Log::error("DEBUG: Dentro do try - Iniciando validação de preço para produto: {$productSlug}");
-                \Log::info("Quantidade: {$quantidade}");
-                \Log::info("Opções recebidas: " . json_encode($opcoes));
-                $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
-                \Log::info("Preço retornado: " . ($preco !== null ? $preco : 'null'));
-
-                if ($preco !== null && $preco > 0) {
-                    // Armazenar no cache por 30 segundos apenas (sempre validar no site)
-                    Cache::put($cacheKey, $preco, now()->addSeconds(30));
-                    \Log::info("Preço validado com sucesso: R$ {$preco} para produto {$productSlug}");
-                } else {
-                    \Log::error("Validação de preço falhou para produto: {$productSlug}");
-                    \Log::error("Opções: " . json_encode($opcoes));
-                    \Log::error("Quantidade: {$quantidade}");
-                    
-                    return response()->json([
-                        'success' => false,
-                        'error' => 'Não foi possível validar o preço. Tente novamente.',
-                        'validated' => false
-                    ], 500);
-                }
-            } catch (\Exception $e) {
-                \Log::error("Exceção ao validar preço: " . $e->getMessage());
-                \Log::error("Trace: " . $e->getTraceAsString());
-                \Log::error("Arquivo: " . $e->getFile() . " Linha: " . $e->getLine());
+            if ($preco !== null && $preco > 0) {
+                // CACHE DESABILITADO - Não armazenar cache, sempre validar no site
+                \Log::info("Preço validado com sucesso: R$ {$preco} para produto {$productSlug} (validado no site matriz)");
+            } else {
+                \Log::error("Validação de preço falhou para produto: {$productSlug}");
+                \Log::error("Opções: " . json_encode($opcoes));
+                \Log::error("Quantidade: {$quantidade}");
                 
                 return response()->json([
                     'success' => false,
-                    'error' => 'Erro interno ao validar preço. Tente novamente.',
-                    'validated' => false,
-                    'debug' => config('app.debug') ? $e->getMessage() : null
+                    'error' => 'Não foi possível validar o preço. Tente novamente.',
+                    'validated' => false
                 ], 500);
             }
+        } catch (\Exception $e) {
+            \Log::error("Exceção ao validar preço: " . $e->getMessage());
+            \Log::error("Trace: " . $e->getTraceAsString());
+            \Log::error("Arquivo: " . $e->getFile() . " Linha: " . $e->getLine());
+            
+            return response()->json([
+                'success' => false,
+                'error' => 'Erro interno ao validar preço. Tente novamente.',
+                'validated' => false,
+                'debug' => config('app.debug') ? $e->getMessage() : null
+            ], 500);
         }
 
         return response()->json([

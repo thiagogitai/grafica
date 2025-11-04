@@ -129,24 +129,41 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             print("DEBUG: Nenhum select encontrado na página", file=sys.stderr)
             return None
         
-        # Revista NÃO tem select de quantidade (igual ao livreto)
+        # Mapeamento completo baseado no site matriz (https://www.lojagraficaeskenazi.com.br/product/impressao-de-revista)
+        # Ordem dos selects na página: 0-15 (16 selects no total)
         mapeamento_revista = {
-            'formato_miolo_paginas': 0,
-            'formato': 0,  # Aceitar também 'formato' como fallback
+            # Select 0: Formato do Miolo (Páginas)
+            'formato': 0,
+            'formato_miolo_paginas': 0,  # Alias alternativo
+            # Select 1: Papel CAPA
             'papel_capa': 1,
+            # Select 2: Cores CAPA
             'cores_capa': 2,
+            # Select 3: Orelha da CAPA
             'orelha_capa': 3,
+            # Select 4: Acabamento CAPA
             'acabamento_capa': 4,
+            # Select 5: Papel MIOLO
             'papel_miolo': 5,
+            # Select 6: Cores MIOLO
             'cores_miolo': 6,
+            # Select 7: MIOLO Sangrado?
             'miolo_sangrado': 7,
+            # Select 8: Quantidade Paginas MIOLO
             'quantidade_paginas_miolo': 8,
+            # Select 9: Acabamento MIOLO
             'acabamento_miolo': 9,
+            # Select 10: Acabamento LIVRO
             'acabamento_livro': 10,
+            # Select 11: Guardas LIVRO
             'guardas_livro': 11,
+            # Select 12: Extras
             'extras': 12,
+            # Select 13: Frete
             'frete': 13,
+            # Select 14: Verificação do Arquivo
             'verificacao_arquivo': 14,
+            # Select 15: Prazo de Entrega
             'prazo_entrega': 15,
         }
         
@@ -158,10 +175,22 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         print(f"DEBUG: Campos recebidos: {list(opcoes.keys())}", file=sys.stderr)
         print(f"DEBUG: Total de selects na página: {len(selects)}", file=sys.stderr)
         
+        # Ordenar campos para processar na ordem correta (formato primeiro, depois os outros)
+        campos_ordenados = []
+        outros_campos = []
+        
         for campo, valor in opcoes.items():
             if campo == 'quantity':
                 continue
-            
+            if campo in ['formato', 'formato_miolo_paginas']:
+                campos_ordenados.insert(0, (campo, valor))  # Formato primeiro
+            else:
+                outros_campos.append((campo, valor))
+        
+        # Processar todos os campos na ordem correta
+        todos_campos = campos_ordenados + outros_campos
+        
+        for campo, valor in todos_campos:
             idx = mapeamento_revista.get(campo)
             if idx is not None and idx < len(selects):
                 print(f"DEBUG: Processando campo {campo} = {valor} (select index {idx})", file=sys.stderr)
@@ -170,26 +199,41 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                 for opt in select.find_elements(By.TAG_NAME, 'option'):
                     v = opt.get_attribute('value')
                     t = opt.text.strip()
-                    if v == str(valor) or t == str(valor) or str(valor) in v or str(valor) in t:
-                        print(f"DEBUG: Opção encontrada para {campo}: {v} / {t}", file=sys.stderr)
-                        Select(select).select_by_value(v)
-                        opcoes_encontradas += 1
-                        campos_processados += 1
-                        campos_encontrados.append(campo)
-                        time.sleep(0.3)
-                        for _ in range(27):
-                            time.sleep(0.1)
-                            try:
-                                preco_element = driver.find_element(By.ID, "calc-total")
-                                preco_texto = preco_element.text
-                                preco_valor = extrair_valor_preco(preco_texto)
-                                if preco_valor and preco_valor > 0:
-                                    return preco_valor
-                            except:
-                                pass
+                    # Comparação mais flexível para encontrar a opção correta
+                    valor_str = str(valor).strip()
+                    v_str = str(v).strip() if v else ''
+                    t_str = str(t).strip() if t else ''
+                    
+                    if (v_str == valor_str or t_str == valor_str or 
+                        valor_str in v_str or valor_str in t_str or
+                        v_str in valor_str or t_str in valor_str):
+                        print(f"DEBUG: Opção encontrada para {campo}: value='{v_str}' / text='{t_str}' (buscando: '{valor_str}')", file=sys.stderr)
+                        try:
+                            Select(select).select_by_value(v)
+                            opcoes_encontradas += 1
+                            campos_processados += 1
+                            campos_encontrados.append(f"{campo}={valor}")
+                            time.sleep(0.4)  # Aguardar mais tempo para página atualizar
+                            # Verificar se preço já foi calculado
+                            for _ in range(20):
+                                time.sleep(0.15)
+                                try:
+                                    preco_element = driver.find_element(By.ID, "calc-total")
+                                    preco_texto = preco_element.text
+                                    preco_valor = extrair_valor_preco(preco_texto)
+                                    if preco_valor and preco_valor > 0:
+                                        print(f"DEBUG: Preço encontrado durante processamento: {preco_valor}", file=sys.stderr)
+                                        return preco_valor
+                                except:
+                                    pass
+                        except Exception as e:
+                            print(f"DEBUG: ERRO ao selecionar opção para {campo}: {e}", file=sys.stderr)
                         break
                 if opcoes_encontradas == 0:
                     print(f"DEBUG: AVISO - Opção não encontrada para campo {campo} = {valor}", file=sys.stderr)
+                    print(f"DEBUG: Opções disponíveis no select {idx}:", file=sys.stderr)
+                    for opt in select.find_elements(By.TAG_NAME, 'option')[:5]:  # Mostrar primeiras 5
+                        print(f"DEBUG:   - value='{opt.get_attribute('value')}' text='{opt.text.strip()}'", file=sys.stderr)
                     campos_nao_encontrados.append(f"{campo}={valor}")
             else:
                 if idx is None:
@@ -199,9 +243,9 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                     print(f"DEBUG: AVISO - Campo {campo} tem índice {idx} mas página tem apenas {len(selects)} selects", file=sys.stderr)
                     campos_nao_encontrados.append(f"{campo} (índice {idx} inválido)")
         
-        print(f"DEBUG: Campos processados com sucesso: {campos_encontrados}", file=sys.stderr)
+        print(f"DEBUG: Campos processados com sucesso ({campos_processados}): {campos_encontrados}", file=sys.stderr)
         if campos_nao_encontrados:
-            print(f"DEBUG: AVISO - Campos não processados: {campos_nao_encontrados}", file=sys.stderr)
+            print(f"DEBUG: AVISO - Campos não processados ({len(campos_nao_encontrados)}): {campos_nao_encontrados}", file=sys.stderr)
         
         print(f"DEBUG: Processados {campos_processados} campos. Aguardando cálculo final...", file=sys.stderr)
         time.sleep(0.6)

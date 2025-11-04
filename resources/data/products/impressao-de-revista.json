@@ -296,12 +296,51 @@
       ]
     },
     {
-      "name": "quantity",
+      "name": "quantidade_paginas_miolo",
       "label": "10- Quantidade Paginas MIOLO:",
-      "type": "number",
-      "default": 50,
-      "min": 50,
-      "step": 1
+      "type": "select",
+      "choices": [
+        {
+          "value": "Miolo 8 páginas",
+          "label": "Miolo 8 páginas"
+        },
+        {
+          "value": "Miolo 12 páginas",
+          "label": "Miolo 12 páginas"
+        },
+        {
+          "value": "Miolo 16 páginas",
+          "label": "Miolo 16 páginas"
+        },
+        {
+          "value": "Miolo 20 páginas",
+          "label": "Miolo 20 páginas"
+        },
+        {
+          "value": "Miolo 24 páginas",
+          "label": "Miolo 24 páginas"
+        },
+        {
+          "value": "Miolo 28 páginas",
+          "label": "Miolo 28 páginas"
+        },
+        {
+          "value": "Miolo 32 páginas",
+          "label": "Miolo 32 páginas"
+        },
+        {
+          "value": "Miolo 36 páginas",
+          "label": "Miolo 36 páginas"
+        },
+        {
+          "value": "Miolo 40 páginas",
+          "label": "Miolo 40 páginas"
+        },
+        {
+          "value": "Miolo 44 páginas",
+          "label": "Miolo 44 páginas"
+        }
+      ]
     },
     {
       "name": "acabamento_miolo",
