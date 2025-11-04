@@ -37,6 +37,10 @@ class ProductPriceController extends Controller
             $opcoes = $request->all();
         }
         
+        // Remover parâmetros de controle (não são campos do formulário)
+        $forceValidation = isset($opcoes['force_validation']) || isset($opcoes['_force']);
+        unset($opcoes['force_validation'], $opcoes['_force']);
+        
         \Log::error("DEBUG: Opções recebidas: " . json_encode($opcoes));
         
         $quantidade = (int) ($opcoes['quantity'] ?? 1);
@@ -81,10 +85,12 @@ class ProductPriceController extends Controller
         \Log::error("DEBUG: Chave de cache gerada: {$cacheKey}");
         \Log::error("DEBUG: Opções para cache: " . json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
-        // Tentar obter do cache
-        $preco = Cache::get($cacheKey);
+        // forceValidation já foi definido acima
         
-        \Log::error("DEBUG: Cache check - preco = " . ($preco !== null ? $preco : 'null'));
+        // Tentar obter do cache (apenas se não forçar validação)
+        $preco = $forceValidation ? null : Cache::get($cacheKey);
+        
+        \Log::error("DEBUG: Cache check - preco = " . ($preco !== null ? $preco : 'null') . ($forceValidation ? ' (FORÇADO)' : ''));
 
         if ($preco === null) {
             \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
@@ -97,8 +103,8 @@ class ProductPriceController extends Controller
                 \Log::info("Preço retornado: " . ($preco !== null ? $preco : 'null'));
 
                 if ($preco !== null && $preco > 0) {
-                    // Armazenar no cache por 5 minutos
-                    Cache::put($cacheKey, $preco, now()->addMinutes(5));
+                    // Armazenar no cache por 30 segundos apenas (sempre validar no site)
+                    Cache::put($cacheKey, $preco, now()->addSeconds(30));
                     \Log::info("Preço validado com sucesso: R$ {$preco} para produto {$productSlug}");
                 } else {
                     \Log::error("Validação de preço falhou para produto: {$productSlug}");

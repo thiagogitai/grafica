@@ -151,6 +151,13 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         }
         
         campos_processados = 0
+        campos_nao_encontrados = []
+        campos_encontrados = []
+        
+        print(f"DEBUG: Total de campos recebidos: {len(opcoes)}", file=sys.stderr)
+        print(f"DEBUG: Campos recebidos: {list(opcoes.keys())}", file=sys.stderr)
+        print(f"DEBUG: Total de selects na página: {len(selects)}", file=sys.stderr)
+        
         for campo, valor in opcoes.items():
             if campo == 'quantity':
                 continue
@@ -168,6 +175,7 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                         Select(select).select_by_value(v)
                         opcoes_encontradas += 1
                         campos_processados += 1
+                        campos_encontrados.append(campo)
                         time.sleep(0.3)
                         for _ in range(27):
                             time.sleep(0.1)
@@ -180,6 +188,20 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                             except:
                                 pass
                         break
+                if opcoes_encontradas == 0:
+                    print(f"DEBUG: AVISO - Opção não encontrada para campo {campo} = {valor}", file=sys.stderr)
+                    campos_nao_encontrados.append(f"{campo}={valor}")
+            else:
+                if idx is None:
+                    print(f"DEBUG: AVISO - Campo {campo} não está no mapeamento", file=sys.stderr)
+                    campos_nao_encontrados.append(f"{campo} (não mapeado)")
+                else:
+                    print(f"DEBUG: AVISO - Campo {campo} tem índice {idx} mas página tem apenas {len(selects)} selects", file=sys.stderr)
+                    campos_nao_encontrados.append(f"{campo} (índice {idx} inválido)")
+        
+        print(f"DEBUG: Campos processados com sucesso: {campos_encontrados}", file=sys.stderr)
+        if campos_nao_encontrados:
+            print(f"DEBUG: AVISO - Campos não processados: {campos_nao_encontrados}", file=sys.stderr)
         
         print(f"DEBUG: Processados {campos_processados} campos. Aguardando cálculo final...", file=sys.stderr)
         time.sleep(0.6)

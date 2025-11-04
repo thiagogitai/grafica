@@ -259,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function () {
             validationStatus.innerHTML = '<small><i class="fas fa-spinner fa-spin me-2"></i>Validando preço final no checkout...</small>';
         }
 
-        // Fazer validação dupla
+        // Fazer validação dupla - sempre forçar validação no site (bypass cache)
         fetch('/api/product/validate-price', {
             method: 'POST',
             headers: {
@@ -268,7 +268,9 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify({
                 ...opts,
-                product_slug: configSlug
+                product_slug: configSlug,
+                force_validation: true, // Forçar validação sempre no site
+                _force: true // Duplo check
             })
         })
         .then(response => response.json())
