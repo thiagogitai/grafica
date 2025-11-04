@@ -68,6 +68,7 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         # Revista NÃO tem select de quantidade (igual ao livreto)
         mapeamento_revista = {
             'formato_miolo_paginas': 0,
+            'formato': 0,  # Aceitar também 'formato' como fallback
             'papel_capa': 1,
             'cores_capa': 2,
             'orelha_capa': 3,
