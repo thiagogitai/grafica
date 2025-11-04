@@ -167,7 +167,8 @@ def scrape_preco_tempo_real(opcoes, quantidade):
         print(f"DEBUG: Encontrados {len(selects)} selects na página", file=sys.stderr)
         
         # Mapeamento EXATO baseado no site matriz (extraído automaticamente)
-        # Ordem dos selects na página: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
+        # IMPORTANTE: Processar na sequência EXATA dos selects na página (0, 1, 2, 3...)
+        # Ordem dos labels no site: 2- Formato, 3- Papel CAPA, 4- Cores CAPA, etc.
         mapeamento = {
             'formato': 0,  # 2- Formato do Miolo (Páginas):
             'papel_capa': 1,  # 3- Papel CAPA:
@@ -187,18 +188,31 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             'prazo_entrega': 15,  # 17- Prazo de Entrega:
         }
         
-        # Ordenar campos para processar na sequência correta
+        # Ordenar campos para processar na sequência EXATA dos selects (0, 1, 2, 3...)
+        # Não importa a ordem das opções recebidas - sempre processar na ordem dos selects
         campos_ordenados = []
         max_idx = max(mapeamento.values()) if mapeamento else 0
         print(f"DEBUG: Total de campos recebidos: {len(opcoes)}", file=sys.stderr)
         print(f"DEBUG: Campos recebidos: {list(opcoes.keys())}", file=sys.stderr)
+        
+        # Processar na ordem EXATA dos índices (0, 1, 2, 3...)
         for idx in range(max_idx + 1):
+            # Encontrar qual campo corresponde a este índice
+            campo_encontrado = None
+            valor_encontrado = None
             for campo, valor in opcoes.items():
                 if campo == 'quantity':
                     continue
                 if mapeamento.get(campo) == idx:
-                    campos_ordenados.append((campo, valor))
+                    campo_encontrado = campo
+                    valor_encontrado = valor
                     break
+            
+            if campo_encontrado:
+                campos_ordenados.append((campo_encontrado, valor_encontrado))
+            else:
+                # Se não encontrou campo para este índice, logar
+                print(f"DEBUG: ⚠️ Nenhum campo mapeado para select idx {idx}", file=sys.stderr)
         
         print(f"DEBUG: Campos ordenados para processar: {len(campos_ordenados)}", file=sys.stderr)
         for i, (campo, valor) in enumerate(campos_ordenados):
