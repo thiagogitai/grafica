@@ -170,7 +170,7 @@ class ProductPriceController extends Controller
                 $output = '';
                 $returnVar = 0;
                 $fullCommand = "cd " . escapeshellarg(base_path()) . " && {$commandStr} 2>&1";
-                exec($fullCommand, $outputLines, $returnVar);
+                \exec($fullCommand, $outputLines, $returnVar);
                 $output = implode("\n", $outputLines);
                 
                 if ($returnVar !== 0) {
