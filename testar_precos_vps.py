@@ -41,31 +41,48 @@ def limpar_preco(texto):
 
 def encontrar_elemento_preco(driver):
     """Encontra o elemento que contém o preço"""
-    possiveis_ids = ['calc-total', 'total-price', 'preco-total', 'price-total', 'total']
-    possiveis_xpath = [
-        "//*[contains(@id, 'calc-total')]",
-        "//*[contains(@id, 'total-price')]",
-        "//*[contains(@id, 'preco')]",
-        "//*[contains(text(), 'Valor desse pedido')]/following-sibling::*",
-        "//*[contains(text(), 'R$') and string-length(text()) < 50]",
-    ]
+    # Primeiro tentar ID específico (mais confiável)
+    try:
+        elemento = driver.find_element(By.ID, "calc-total")
+        texto = elemento.text.strip()
+        if 'R$' in texto:
+            # Verificar se é um valor razoável (não milhões)
+            valor = limpar_preco(texto)
+            if valor and valor < 100000:  # Preço razoável (menos de 100 mil)
+                return elemento, "calc-total"
+    except:
+        pass
     
+    # Tentar outros IDs
+    possiveis_ids = ['total-price', 'preco-total', 'price-total', 'total']
     for id_tentativa in possiveis_ids:
         try:
             elemento = driver.find_element(By.ID, id_tentativa)
-            texto = elemento.text
-            if 'R$' in texto or any(c.isdigit() for c in texto):
-                return elemento, id_tentativa
+            texto = elemento.text.strip()
+            if 'R$' in texto:
+                valor = limpar_preco(texto)
+                if valor and valor < 100000:
+                    return elemento, id_tentativa
         except:
             continue
+    
+    # Tentar XPath mais específicos
+    possiveis_xpath = [
+        "//*[@id='calc-total']",
+        "//*[contains(@id, 'calc-total')]",
+        "//*[contains(text(), 'Valor desse pedido')]/following-sibling::*[1]",
+        "//*[contains(text(), 'Valor desse pedido')]/following-sibling::*[contains(text(), 'R$')]",
+    ]
     
     for xpath in possiveis_xpath:
         try:
             elementos = driver.find_elements(By.XPATH, xpath)
             for elemento in elementos:
-                texto = elemento.text
+                texto = elemento.text.strip()
                 if 'R$' in texto and len(texto) < 100:
-                    return elemento, elemento.get_attribute('id') or 'preco_encontrado'
+                    valor = limpar_preco(texto)
+                    if valor and valor < 100000:
+                        return elemento, elemento.get_attribute('id') or 'preco_encontrado'
         except:
             continue
     
@@ -162,13 +179,22 @@ def obter_preco_site_matriz(url, opcoes_escolhidas):
         # Aguardar cálculo do preço
         time.sleep(4)
         
-        # Encontrar preço
-        elemento_preco, id_encontrado = encontrar_elemento_preco(driver)
+        # Encontrar preço - tentar múltiplas vezes
+        for tentativa in range(10):
+            elemento_preco, id_encontrado = encontrar_elemento_preco(driver)
+            
+            if elemento_preco:
+                preco_texto = elemento_preco.text.strip()
+                preco_valor = limpar_preco(preco_texto)
+                
+                # Validar se o preço é razoável
+                if preco_valor and 0 < preco_valor < 100000:
+                    print(f"   Preço encontrado (tentativa {tentativa + 1}): R$ {preco_valor:.2f} (texto: {preco_texto})", file=sys.stderr)
+                    return preco_valor
+            
+            time.sleep(0.3)
         
-        if elemento_preco:
-            preco_texto = elemento_preco.text
-            return limpar_preco(preco_texto)
-        
+        print(f"   Não foi possível encontrar preço válido", file=sys.stderr)
         return None
         
     finally:
@@ -176,18 +202,79 @@ def obter_preco_site_matriz(url, opcoes_escolhidas):
 
 def obter_preco_script_python(slug, opcoes):
     """Obtém preço usando o script Python de scraping"""
+    import subprocess
+    import json
+    
     try:
-        if slug == 'impressao-de-revista' and scrape_revista:
-            resultado = scrape_revista(opcoes, opcoes.get('quantity', 50))
-            if resultado and isinstance(resultado, dict):
-                return resultado.get('preco')
-        elif scrape_generico:
-            resultado = scrape_generico(opcoes, opcoes.get('quantity', 50), f"https://www.lojagraficaeskenazi.com.br/product/{slug}")
-            if resultado and isinstance(resultado, dict):
-                return resultado.get('preco')
+        quantidade = opcoes.get('quantity', 50)
+        
+        # Determinar qual script usar
+        script_path = None
+        if slug == 'impressao-de-revista':
+            script_path = 'scrapper/scrape_revista.py'
+        elif slug == 'impressao-de-tabloide':
+            script_path = 'scrapper/scrape_tabloide.py'
+        else:
+            # Tentar usar genérico
+            script_path = 'scrapper/scrape_tempo_real.py'
+        
+        if not script_path or not os.path.exists(script_path):
+            print(f"   Script não encontrado: {script_path}", file=sys.stderr)
+            return None
+        
+        # Preparar dados para o script
+        dados_json = json.dumps({
+            'opcoes': opcoes,
+            'quantidade': quantidade
+        })
+        
+        # Executar script via subprocess para capturar stdout corretamente
+        resultado_subprocess = subprocess.run(
+            ['python3', script_path, dados_json],
+            capture_output=True,
+            text=True,
+            timeout=120,
+            cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        )
+        
+        # Capturar stdout e stderr
+        stdout = resultado_subprocess.stdout
+        stderr = resultado_subprocess.stderr
+        
+        # Log stderr para debug
+        if stderr:
+            print(f"   Script stderr: {stderr[:500]}", file=sys.stderr)
+        
+        # Tentar parsear JSON do stdout
+        if stdout:
+            try:
+                resultado = json.loads(stdout)
+                if resultado.get('success'):
+                    preco = resultado.get('price') or resultado.get('preco')
+                    if preco:
+                        return float(preco)
+                else:
+                    print(f"   Script retornou erro: {resultado.get('error', 'Erro desconhecido')}", file=sys.stderr)
+            except json.JSONDecodeError:
+                # Tentar extrair número do stdout
+                import re
+                numeros = re.findall(r'\d+\.?\d*', stdout)
+                if numeros:
+                    try:
+                        return float(numeros[0])
+                    except:
+                        pass
+                print(f"   Não foi possível parsear JSON do stdout: {stdout[:200]}", file=sys.stderr)
+        
+        return None
+        
+    except subprocess.TimeoutExpired:
+        print(f"   Script excedeu timeout (120s)", file=sys.stderr)
         return None
     except Exception as e:
         print(f"   Erro ao executar script Python: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc()
         return None
 
 def escolher_opcoes_aleatorias(slug):
