@@ -22,7 +22,7 @@
 @section('content')
 <div class="container my-5">
     @if(!$requestOnlyCombined)
-    <form action="{{ route('upload.create', $product) }}" method="GET" id="customization-form" enctype="multipart/form-data">
+    <form action="{{ route('cart.add', $product) }}" method="POST" id="customization-form">
         @csrf
         <input type="hidden" name="product_id" value="{{ $product->id }}">
         <input type="hidden" name="name" value="{{ $product->name }}">
@@ -149,16 +149,16 @@
                         <p class="text-muted small">valor de cada unidade: <span id="unit-price"></span></p>
                     </div>
                     <div class="d-grid gap-3">
-                        <div>
-                            <label for="file-upload" class="form-label small">Faça upload da sua arte:</label>
-                            <input id="file-upload" name="artwork" type="file" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" disabled>
-                            <i class="fas fa-file-upload me-2"></i>
-                            <span id="submit-text">Validando preço...</span>
+                        <button type="button" class="btn btn-outline-primary btn-lg" id="btn-ver-preco">
+                            <i class="fas fa-calculator me-2"></i>
+                            <span>VER PREÇO</span>
                         </button>
-                        <div class="alert alert-info d-none" id="price-validation-status">
-                            <small><i class="fas fa-spinner fa-spin me-2"></i>Validando preço final...</small>
+                        <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" disabled>
+                            <i class="fas fa-shopping-cart me-2"></i>
+                            <span id="submit-text">Adicionar ao Carrinho</span>
+                        </button>
+                        <div class="alert alert-info" id="price-validation-status">
+                            <small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>
                         </div>
                     </div>
                     <div class="mt-4 text-center">
@@ -458,6 +458,22 @@ document.addEventListener('DOMContentLoaded', function () {
             field.addEventListener('input', calculatePrice);
         }
     });
+
+    // Botão VER PREÇO
+    const btnVerPreco = document.getElementById('btn-ver-preco');
+    if (btnVerPreco && precisaValidacao) {
+        btnVerPreco.addEventListener('click', function() {
+            const opts = {};
+            optionFields.forEach(field => {
+                const fieldName = field.getAttribute('data-option-field');
+                if (fieldName) {
+                    opts[fieldName] = field.value || field.textContent || '';
+                }
+            });
+            const quantity = parseInt(opts.quantity || document.querySelector('[data-option-field="quantity"]')?.value || 50);
+            validatePriceAndEnableButton(opts, quantity);
+        });
+    }
 
     calculatePrice();
 });
