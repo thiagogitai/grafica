@@ -70,8 +70,16 @@ class ProductPriceController extends Controller
             ], 400);
         }
 
-        // Gerar chave de cache
-        $cacheKey = 'product_price_' . $productSlug . '_' . md5(json_encode($opcoes));
+        // Normalizar e ordenar opções para garantir chave de cache consistente
+        ksort($opcoes);
+        // Garantir que a quantidade está nas opções
+        $opcoes['quantity'] = $quantidade;
+        
+        // Gerar chave de cache baseada em todas as opções ordenadas
+        $cacheKey = 'product_price_' . $productSlug . '_' . md5(json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+        
+        \Log::error("DEBUG: Chave de cache gerada: {$cacheKey}");
+        \Log::error("DEBUG: Opções para cache: " . json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
 
         // Tentar obter do cache
         $preco = Cache::get($cacheKey);
