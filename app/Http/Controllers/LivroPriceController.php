@@ -98,18 +98,42 @@ class LivroPriceController extends Controller
         }
         
         try {
-            $process = new Process($command, base_path());
-            $process->setTimeout(120); // 2 minutos para scraping
-            $process->run();
+            $commandStr = implode(' ', array_map('escapeshellarg', $command));
+            Log::error("DEBUG: Executando comando: {$commandStr}");
             
-            if (!$process->isSuccessful()) {
-                $errorOutput = $process->getErrorOutput();
-                Log::error("Erro ao executar script Python: {$errorOutput}");
-                Log::error("Output: " . $process->getOutput());
-                return null;
+            // Verificar se proc_open está disponível
+            if (!function_exists('proc_open')) {
+                Log::error("DEBUG: proc_open não disponível, usando exec()");
+                // Usar exec() como fallback
+                $output = '';
+                $returnVar = 0;
+                $fullCommand = "cd " . escapeshellarg(base_path()) . " && {$commandStr} 2>&1";
+                exec($fullCommand, $outputLines, $returnVar);
+                $output = implode("\n", $outputLines);
+                
+                if ($returnVar !== 0) {
+                    Log::error("Erro ao executar script Python via exec()");
+                    Log::error("Exit code: {$returnVar}");
+                    Log::error("Output: {$output}");
+                    return null;
+                }
+            } else {
+                // Usar Process normalmente
+                $process = new Process($command, base_path());
+                $process->setTimeout(120); // 2 minutos para scraping
+                $process->run();
+
+                if (!$process->isSuccessful()) {
+                    $errorOutput = $process->getErrorOutput();
+                    Log::error("Erro ao executar script Python: {$errorOutput}");
+                    Log::error("Output: " . $process->getOutput());
+                    return null;
+                }
+
+                $output = trim($process->getOutput());
             }
             
-            $output = trim($process->getOutput());
+            $output = trim($output);
             if (empty($output)) {
                 Log::error("Script Python retornou vazio");
                 return null;
