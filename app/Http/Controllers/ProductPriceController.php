@@ -208,7 +208,6 @@ class ProductPriceController extends Controller
             
             if (empty($output)) {
                 \Log::error("Script Python retornou vazio: {$scriptName}");
-                \Log::error("Error output foi: " . $process->getErrorOutput());
                 return null;
             }
 
