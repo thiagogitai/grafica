@@ -226,11 +226,6 @@ class ProductPriceController extends Controller
                     'SHELL' => '/bin/bash',
                     'LANG' => 'C.UTF-8',
                     'LC_ALL' => 'C.UTF-8',
-                    // Chrome precisa dessas variáveis mesmo em headless
-                    'DISPLAY' => ':99',
-                    'XAUTHORITY' => '/tmp/.Xauthority',
-                    // Evitar problemas de permissão do Chrome
-                    'CHROME_DEVEL_SANDBOX' => '/usr/lib/chromium-browser/chrome-sandbox',
                 ];
                 
                 // Adicionar variáveis do sistema se existirem

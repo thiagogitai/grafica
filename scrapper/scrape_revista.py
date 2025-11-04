@@ -11,6 +11,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+import logging
 
 def extrair_valor_preco(texto):
     """Extrai valor numérico do preço"""
@@ -64,12 +66,32 @@ def scrape_preco_tempo_real(opcoes, quantidade):
     try:
         print("DEBUG: Iniciando ChromeDriver...", file=sys.stderr)
         try:
-            driver = webdriver.Chrome(options=options)
+            # Tentar criar Service com logs (opcional)
+            try:
+                service = Service()
+                # Tentar configurar log se possível
+                try:
+                    service.log_path = '/tmp/chromedriver.log'
+                except:
+                    pass
+                driver = webdriver.Chrome(service=service, options=options)
+            except Exception as service_error:
+                # Se Service falhar, tentar sem Service
+                print(f"DEBUG: Service falhou, tentando sem Service: {service_error}", file=sys.stderr)
+                driver = webdriver.Chrome(options=options)
             print("DEBUG: ChromeDriver iniciado com sucesso", file=sys.stderr)
         except Exception as e:
             print(f"DEBUG: ERRO ao iniciar ChromeDriver: {type(e).__name__}: {str(e)}", file=sys.stderr)
             import traceback
             print(f"DEBUG: Traceback: {traceback.format_exc()}", file=sys.stderr)
+            # Tentar ler log do ChromeDriver se existir
+            try:
+                with open('/tmp/chromedriver.log', 'r') as f:
+                    log_content = f.read()
+                    if log_content:
+                        print(f"DEBUG: ChromeDriver log: {log_content[-2000:]}", file=sys.stderr)
+            except:
+                pass
             raise
         driver.set_page_load_timeout(6)
         
