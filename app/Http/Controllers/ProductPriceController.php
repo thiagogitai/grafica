@@ -177,14 +177,21 @@ class ProductPriceController extends Controller
                     // Capturar tanto stdout quanto stderr (2>&1 já está no comando)
                     $output = \shell_exec($fullCommand);
                     $output = trim($output ?? '');
-                    \Log::error("DEBUG: shell_exec() retornou, tamanho: " . strlen($output));
-                    \Log::error("DEBUG: Output completo (primeiros 1000 chars): " . substr($output, 0, 1000));
+                    $outputLen = strlen($output);
+                    \Log::error("DEBUG: shell_exec() retornou, tamanho: {$outputLen}");
                     
-                    if (empty($output)) {
-                        \Log::error("Erro: shell_exec() retornou vazio");
-                        // Tentar executar novamente apenas para ver o erro
-                        $errorTest = \shell_exec($fullCommand . " 2>&1");
-                        \Log::error("DEBUG: Teste de erro retornou: " . substr($errorTest ?? '', 0, 500));
+                    // Sempre logar o output, mesmo se vazio
+                    if ($outputLen > 0) {
+                        \Log::error("DEBUG: Output completo (primeiros 2000 chars): " . substr($output, 0, 2000));
+                        if ($outputLen > 2000) {
+                            \Log::error("DEBUG: Output (últimos 500 chars): " . substr($output, -500));
+                        }
+                    } else {
+                        \Log::error("DEBUG: Output está VAZIO - script pode não ter executado");
+                        // Tentar executar novamente com mais verbosidade
+                        $testCommand = $fullCommand . " ; echo 'EXIT_CODE:' $?";
+                        $testOutput = \shell_exec($testCommand);
+                        \Log::error("DEBUG: Teste de execução retornou: " . substr($testOutput ?? 'VAZIO', 0, 1000));
                         return null;
                     }
                 } elseif (function_exists('exec')) {
