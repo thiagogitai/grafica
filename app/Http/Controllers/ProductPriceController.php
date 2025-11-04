@@ -234,9 +234,15 @@ class ProductPriceController extends Controller
                 $stderrLen = strlen($errorOutput);
                 $stdoutLen = strlen($output);
                 \Log::error("DEBUG: stderr tamanho: {$stderrLen}, stdout tamanho: {$stdoutLen}");
+                // Log completo do stderr para debug
                 \Log::error("DEBUG: stderr completo (primeiros 5000 chars): " . substr($errorOutput, 0, 5000));
                 if ($stderrLen > 5000) {
+                    \Log::error("DEBUG: stderr (meio, 2000 chars): " . substr($errorOutput, 2000, 2000));
                     \Log::error("DEBUG: stderr (últimos 1000 chars): " . substr($errorOutput, -1000));
+                }
+                // Se houver erro de ChromeDriver, logar traceback completo
+                if (strpos($errorOutput, 'SessionNotCreatedException') !== false || strpos($errorOutput, 'Traceback') !== false) {
+                    \Log::error("DEBUG: ERRO ChromeDriver detectado - stderr COMPLETO: " . $errorOutput);
                 }
                 \Log::error("DEBUG: stdout completo (primeiros 5000 chars): " . substr($output, 0, 5000));
                 
