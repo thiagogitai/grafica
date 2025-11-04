@@ -69,11 +69,14 @@ class ProductPriceController extends Controller
 
         // Tentar obter do cache
         $preco = Cache::get($cacheKey);
+        
+        \Log::error("DEBUG: Cache check - preco = " . ($preco !== null ? $preco : 'null'));
 
         if ($preco === null) {
+            \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
             try {
                 // Fazer scraping
-                \Log::info("Iniciando validação de preço para produto: {$productSlug}");
+                \Log::error("DEBUG: Dentro do try - Iniciando validação de preço para produto: {$productSlug}");
                 \Log::info("Quantidade: {$quantidade}");
                 \Log::info("Opções recebidas: " . json_encode($opcoes));
                 $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
