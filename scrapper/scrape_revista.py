@@ -76,23 +76,33 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             valor_antes = qtd_input.get_attribute('value')
             print(f"DEBUG: Campo Q1 encontrado! Valor antes: {valor_antes}", file=sys.stderr)
             
-            # Usar JavaScript diretamente para definir o valor e disparar eventos
-            # Isso garante que o valor não seja alterado por validações
-            valor_aplicado = driver.execute_script("""
+            # Primeiro limpar o campo completamente
+            qtd_input.clear()
+            time.sleep(0.2)
+            
+            # Agora digitar o valor
+            qtd_input.send_keys(str(quantidade))
+            time.sleep(0.3)
+            
+            # Clicar fora (blur) para confirmar - isso é essencial!
+            driver.execute_script("""
                 var input = arguments[0];
-                var qtd = arguments[1];
-                // Definir valor diretamente via JavaScript
-                input.value = qtd;
-                // Disparar todos os eventos necessários
+                // Garantir que o valor está correto
+                input.value = arguments[1];
+                // Clicar fora (blur) para confirmar
+                input.blur();
+                // Disparar eventos
                 input.dispatchEvent(new Event('input', { bubbles: true }));
                 input.dispatchEvent(new Event('change', { bubbles: true }));
                 input.dispatchEvent(new Event('blur', { bubbles: true }));
                 // Também tentar trigger do jQuery se existir
                 if (window.jQuery) {
-                    jQuery(input).val(qtd).trigger('input').trigger('change');
+                    jQuery(input).val(arguments[1]).trigger('input').trigger('change').trigger('blur');
                 }
                 return input.value;
             """, qtd_input, str(quantidade))
+            
+            valor_aplicado = qtd_input.get_attribute('value')
             
             print(f"DEBUG: Valor aplicado via JavaScript: {valor_aplicado}", file=sys.stderr)
             time.sleep(1.5)  # Aguardar mais tempo para validações e cálculos
@@ -103,16 +113,22 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             
             # Se o valor ainda não está correto, tentar novamente
             if valor_final != str(quantidade):
-                print(f"DEBUG: Valor não corresponde! Tentando novamente...", file=sys.stderr)
-                # Forçar valor novamente
+                print(f"DEBUG: Valor não corresponde! Tentando novamente com limpeza completa...", file=sys.stderr)
+                # Limpar completamente e tentar novamente
+                qtd_input.clear()
+                time.sleep(0.2)
+                qtd_input.send_keys(str(quantidade))
+                time.sleep(0.3)
+                # Clicar fora (blur) para confirmar
                 driver.execute_script("""
                     var input = arguments[0];
-                    var qtd = arguments[1];
-                    input.value = qtd;
+                    input.value = arguments[1];
+                    input.blur();
                     input.dispatchEvent(new Event('input', { bubbles: true }));
                     input.dispatchEvent(new Event('change', { bubbles: true }));
+                    input.dispatchEvent(new Event('blur', { bubbles: true }));
                     if (window.jQuery) {
-                        jQuery(input).val(qtd).trigger('input').trigger('change');
+                        jQuery(input).val(arguments[1]).trigger('input').trigger('change').trigger('blur');
                     }
                 """, qtd_input, str(quantidade))
                 time.sleep(1.5)
@@ -235,17 +251,23 @@ def scrape_preco_tempo_real(opcoes, quantidade):
             valor_atual = qtd_input.get_attribute('value')
             print(f"DEBUG: Valor atual do Q1: {valor_atual}, esperado: {quantidade}", file=sys.stderr)
             if valor_atual != str(quantidade):
-                print(f"DEBUG: Valor diferente! Reaplicando quantidade via JavaScript...", file=sys.stderr)
-                # Usar JavaScript diretamente
+                print(f"DEBUG: Valor diferente! Reaplicando quantidade com limpeza e blur...", file=sys.stderr)
+                # Limpar completamente
+                qtd_input.clear()
+                time.sleep(0.2)
+                # Digitar novamente
+                qtd_input.send_keys(str(quantidade))
+                time.sleep(0.3)
+                # Clicar fora (blur) para confirmar
                 driver.execute_script("""
                     var input = arguments[0];
-                    var qtd = arguments[1];
-                    input.value = qtd;
+                    input.value = arguments[1];
+                    input.blur();
                     input.dispatchEvent(new Event('input', { bubbles: true }));
                     input.dispatchEvent(new Event('change', { bubbles: true }));
                     input.dispatchEvent(new Event('blur', { bubbles: true }));
                     if (window.jQuery) {
-                        jQuery(input).val(qtd).trigger('input').trigger('change');
+                        jQuery(input).val(arguments[1]).trigger('input').trigger('change').trigger('blur');
                     }
                 """, qtd_input, str(quantidade))
                 time.sleep(1.5)
