@@ -162,29 +162,48 @@ def scrape_preco_tempo_real(opcoes, quantidade):
                     }
                     
                     if (!encontrado) {
-                        valores_aplicados.push([idx, null, 'NÃO ENCONTRADO']);
+                        valores_aplicados.push([idx, null, 'NÃO ENCONTRADO', false]);
                     }
                 }
             }
             
-            // Aguardar um pouco para cálculos
+            // Forçar recálculo do preço (se houver função de cálculo)
+            if (typeof calculatePrice === 'function') {
+                try {
+                    calculatePrice();
+                } catch(e) {
+                    console.log('Erro ao chamar calculatePrice:', e);
+                }
+            }
+            
             return {
                 quantidade_aplicada: qtdInput ? qtdInput.value : null,
-                valores_aplicados: valores_aplicados
+                valores_aplicados: valores_aplicados,
+                total_selects: selects.length
             };
         """, str(quantidade), [[idx, str(valor)] for idx, campo, valor in campos_ordenados])
         
-        print(f"DEBUG: Resultado JavaScript:", file=sys.stderr)
+        print(f"DEBUG: Resultado JavaScript (tudo aplicado de uma vez):", file=sys.stderr)
         print(f"DEBUG:   Quantidade aplicada: {resultado_js.get('quantidade_aplicada', 'N/A')}", file=sys.stderr)
+        print(f"DEBUG:   Total de selects na página: {resultado_js.get('total_selects', 'N/A')}", file=sys.stderr)
         print(f"DEBUG:   Valores aplicados nos selects:", file=sys.stderr)
-        for idx, value, text in resultado_js.get('valores_aplicados', []):
-            if value is None:
-                print(f"DEBUG:     Select {idx}: ❌ NÃO ENCONTRADO", file=sys.stderr)
+        for item in resultado_js.get('valores_aplicados', []):
+            if len(item) >= 4:
+                idx, value, text, sucesso = item[0], item[1], item[2], item[3]
+                if not sucesso:
+                    print(f"DEBUG:     Select {idx}: ❌ NÃO ENCONTRADO", file=sys.stderr)
+                else:
+                    print(f"DEBUG:     Select {idx}: ✅ value='{value}', text='{text}'", file=sys.stderr)
             else:
-                print(f"DEBUG:     Select {idx}: value='{value}', text='{text}'", file=sys.stderr)
+                idx, value, text = item[0], item[1], item[2]
+                if value is None:
+                    print(f"DEBUG:     Select {idx}: ❌ NÃO ENCONTRADO", file=sys.stderr)
+                else:
+                    print(f"DEBUG:     Select {idx}: ✅ value='{value}', text='{text}'", file=sys.stderr)
         
-        # Aguardar cálculo após aplicar tudo
-        time.sleep(2.0)
+        # Aguardar cálculo após aplicar tudo (mais tempo para garantir)
+        print(f"DEBUG: Aguardando cálculo do preço após aplicar todas as opções...", file=sys.stderr)
+        time.sleep(3.0)  # Mais tempo para garantir que todos os cálculos foram feitos
         
         # Verificar valores finais dos selects antes de buscar preço
         print(f"DEBUG: Verificando valores finais selecionados:", file=sys.stderr)
