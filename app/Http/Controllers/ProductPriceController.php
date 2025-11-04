@@ -174,13 +174,17 @@ class ProductPriceController extends Controller
                 // Tentar shell_exec primeiro
                 if (function_exists('shell_exec')) {
                     \Log::error("DEBUG: Usando shell_exec()");
+                    // Capturar tanto stdout quanto stderr (2>&1 já está no comando)
                     $output = \shell_exec($fullCommand);
                     $output = trim($output ?? '');
                     \Log::error("DEBUG: shell_exec() retornou, tamanho: " . strlen($output));
-                    \Log::error("DEBUG: Output (primeiros 500 chars): " . substr($output, 0, 500));
+                    \Log::error("DEBUG: Output completo (primeiros 1000 chars): " . substr($output, 0, 1000));
                     
                     if (empty($output)) {
                         \Log::error("Erro: shell_exec() retornou vazio");
+                        // Tentar executar novamente apenas para ver o erro
+                        $errorTest = \shell_exec($fullCommand . " 2>&1");
+                        \Log::error("DEBUG: Teste de erro retornou: " . substr($errorTest ?? '', 0, 500));
                         return null;
                     }
                 } elseif (function_exists('exec')) {
