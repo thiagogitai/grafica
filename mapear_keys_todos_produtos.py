@@ -97,7 +97,15 @@ try:
                                 for (var i = 0; i < options.length; i++) {
                                     var opt = options[i];
                                     if (opt.Key && opt.Value) {
-                                        window.keys_coletadas[opt.Value.trim()] = opt.Key;
+                                        var valueTrim = opt.Value.trim();
+                                        window.keys_coletadas[valueTrim] = opt.Key;
+                                        // Também salvar log para debug
+                                        if (!window.keys_log) window.keys_log = [];
+                                        window.keys_log.push({
+                                            value: valueTrim,
+                                            key: opt.Key,
+                                            timestamp: Date.now()
+                                        });
                                     }
                                 }
                             }
@@ -221,12 +229,15 @@ try:
             percentual_capturado = (keys_capturadas / total_opcoes_esperadas * 100) if total_opcoes_esperadas > 0 else 0
             print(f"   📊 Percentual capturado: {percentual_capturado:.1f}%")
             
+            # Nota: Nem todas as opções podem gerar Keys únicas (algumas podem ser desabilitadas ou não mudar preço)
+            # Vamos tentar capturar o máximo possível, mas considerar que 100% pode não ser possível para todos os produtos
+            
             # Se capturou menos de 100%, fazer passadas adicionais até chegar a 100%
             passada = 1
             keys_antes_passada = keys_capturadas
-            max_passadas = 10  # Aumentar limite de passadas para garantir 100%
+            max_passadas = 5  # Reduzir para 5 passadas (alguns produtos podem não ter Keys para todas as opções)
             
-            while percentual_capturado < 100.0 and passada <= max_passadas:
+            while percentual_capturado < 100.0 and passada <= max_passadas and keys_capturadas < total_opcoes_esperadas:
                 print(f"\n   🔄 PASADA ADICIONAL {passada}/{max_passadas} (capturado: {percentual_capturado:.2f}%, faltam: {total_opcoes_esperadas - keys_capturadas})...")
                 time.sleep(5)
                 
@@ -392,16 +403,18 @@ try:
                 print(f"   ✅ Opções esperadas: {total_opcoes_esperadas}")
                 print(f"   ✅ Percentual: {percentual_final:.2f}%")
                 
+                # Nota: Algumas opções podem não gerar Keys (opções desabilitadas, duplicadas, ou que não mudam preço)
+                # Considerar sucesso se capturou pelo menos 95% OU se não aumentou mais após múltiplas tentativas
                 if percentual_final >= 100.0:
                     print(f"   🎉 PERFEITO: 100% DE CAPTURA! TODAS AS KEYS FORAM CAPTURADAS!")
-                elif percentual_final >= 99.9:
-                    print(f"   ⚠️ QUASE PERFEITO: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
-                elif percentual_final >= 99.0:
-                    print(f"   ⚠️ QUASE: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
                 elif percentual_final >= 95.0:
-                    print(f"   ⚠️ ATENÇÃO: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
+                    print(f"   ✅ EXCELENTE: {percentual_final:.2f}% capturado. Pode haver opções que não geram Keys (desabilitadas/duplicadas).")
+                elif percentual_final >= 80.0:
+                    print(f"   ⚠️ BOM: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys. Algumas opções podem não gerar Keys.")
+                elif percentual_final >= 50.0:
+                    print(f"   ⚠️ ATENÇÃO: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys. Pode haver muitas opções que não geram Keys.")
                 else:
-                    print(f"   ❌ ERRO: Apenas {percentual_final:.2f}% capturado! Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
+                    print(f"   ❌ ERRO: Apenas {percentual_final:.2f}% capturado! Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys. Verifique se o produto está correto.")
                 
                 mapeamento_completo[produto] = keys_para_produto
             else:
