@@ -421,16 +421,61 @@ try:
                 print(f"   ❌ ERRO: Nenhuma Key capturada para {produto}")
                 mapeamento_completo[produto] = {}
             
+            # SALVAR PROGRESSO APÓS CADA PRODUTO (para não perder se parar)
+            try:
+                resultado_parcial = {
+                    'mapeamento_por_produto': mapeamento_completo,
+                    'total_produtos': len(PRODUTOS),
+                    'produtos_processados': idx,
+                    'produtos_com_keys': len([p for p, keys in mapeamento_completo.items() if keys]),
+                    'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S'),
+                    'status': 'em_andamento'
+                }
+                
+                keys_unificadas_parcial = {}
+                for p, keys in mapeamento_completo.items():
+                    keys_unificadas_parcial.update(keys)
+                
+                resultado_parcial['keys_reais'] = keys_unificadas_parcial
+                resultado_parcial['total_keys_unificadas'] = len(keys_unificadas_parcial)
+                
+                with open('mapeamento_keys_todos_produtos.json', 'w', encoding='utf-8') as f:
+                    json.dump(resultado_parcial, f, indent=2, ensure_ascii=False)
+                
+                print(f"   💾 Progresso salvo! ({idx}/{len(PRODUTOS)} produtos processados)")
+            except Exception as e:
+                print(f"   ⚠️ Erro ao salvar progresso: {e}")
+            
         except Exception as e:
             print(f"   ❌ Erro ao processar {produto}: {e}")
             mapeamento_completo[produto] = {}
+            
+            # Salvar mesmo em caso de erro
+            try:
+                resultado_parcial = {
+                    'mapeamento_por_produto': mapeamento_completo,
+                    'total_produtos': len(PRODUTOS),
+                    'produtos_processados': idx,
+                    'produtos_com_keys': len([p for p, keys in mapeamento_completo.items() if keys]),
+                    'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S'),
+                    'status': 'em_andamento',
+                    'ultimo_erro': str(e)
+                }
+                
+                with open('mapeamento_keys_todos_produtos.json', 'w', encoding='utf-8') as f:
+                    json.dump(resultado_parcial, f, indent=2, ensure_ascii=False)
+                
+                print(f"   💾 Progresso salvo mesmo após erro! ({idx}/{len(PRODUTOS)} produtos processados)")
+            except:
+                pass
     
-    # Salvar mapeamento completo
+    # Salvar mapeamento completo (final)
     resultado = {
         'mapeamento_por_produto': mapeamento_completo,
         'total_produtos': len(PRODUTOS),
         'produtos_com_keys': len([p for p, keys in mapeamento_completo.items() if keys]),
-        'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S')
+        'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S'),
+        'status': 'completo'
     }
     
     # Também criar um mapeamento unificado (todas as keys juntas)
