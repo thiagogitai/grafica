@@ -42,7 +42,11 @@ chrome_options.add_argument(f'--user-data-dir={chrome_user_data_dir}')
 os.environ['SELENIUM_CACHE_DIR'] = tempfile.gettempdir()
 
 service = Service()
+# Configurar timeouts maiores para conexões lentas
+chrome_options.add_argument('--timeout=300')
 driver = webdriver.Chrome(service=service, options=chrome_options)
+driver.set_page_load_timeout(60)  # 60 segundos para carregar página
+driver.implicitly_wait(10)  # Esperar até 10s por elementos
 
 mapeamento_completo = {}
 
@@ -104,20 +108,40 @@ try:
         url = f"{base_url}/product/{produto}"
         
         try:
-            driver.get(url)
+            # Tentar carregar página com retry em caso de timeout
+            tentativas_carregamento = 0
+            while tentativas_carregamento < 3:
+                try:
+                    driver.get(url)
+                    break
+                except Exception as load_error:
+                    tentativas_carregamento += 1
+                    if tentativas_carregamento < 3:
+                        print(f"   ⚠️ Erro ao carregar página (tentativa {tentativas_carregamento}/3): {load_error}")
+                        print(f"   ⏳ Aguardando 5s antes de tentar novamente...")
+                        time.sleep(5)
+                    else:
+                        raise load_error
+            
             time.sleep(5)  # Mais tempo inicial para carregar página
             
             # Aguardar página carregar completamente
-            driver.execute_script("""
-                return new Promise((resolve) => {
-                    if (document.readyState === 'complete') {
-                        resolve();
-                    } else {
-                        window.addEventListener('load', resolve);
-                    }
-                });
-            """)
-            time.sleep(3)
+            try:
+                driver.execute_script("""
+                    return new Promise((resolve) => {
+                        if (document.readyState === 'complete') {
+                            resolve();
+                        } else {
+                            window.addEventListener('load', resolve);
+                            // Timeout de 30s
+                            setTimeout(resolve, 30000);
+                        }
+                    });
+                """)
+            except:
+                pass  # Se falhar, continuar mesmo assim
+            
+            time.sleep(5)  # Mais tempo para garantir que tudo carregou
             
             # Aceitar cookies
             try:
