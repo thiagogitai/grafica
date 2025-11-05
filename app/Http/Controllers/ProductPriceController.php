@@ -82,60 +82,38 @@ class ProductPriceController extends Controller
         \Log::error("DEBUG: Opções normalizadas para validação: " . json_encode($opcoes, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
         \Log::error("DEBUG: CACHE COMPLETAMENTE DESABILITADO - Sempre validando no site matriz");
 
-        // SEMPRE validar no site matriz - cache desabilitado completamente
+        // SEMPRE validar no site matriz via API - SEM FALLBACK
         $preco = null;
         
-        // Tentar primeiro via API (mais rápido e confiável)
         try {
             $pricingService = new MatrixPricingService();
             $preco = $pricingService->obterPrecoViaAPI($productSlug, $opcoes, $quantidade);
             
-            if ($preco !== null && $preco > 0) {
-                \Log::info("Preço obtido via API: R$ {$preco} para produto {$productSlug}");
-            } else {
-                \Log::warning("API não retornou preço válido, tentando scraping como fallback...");
-                $preco = null; // Forçar fallback para scraping
-            }
-        } catch (\Exception $e) {
-            \Log::warning("Erro ao usar API de pricing: " . $e->getMessage() . ". Usando scraping como fallback...");
-            $preco = null;
-        }
-        
-        // Fallback: usar scraping se API não funcionou
-        if ($preco === null || $preco <= 0) {
-            \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
-            try {
-                // Fazer scraping
-                \Log::error("DEBUG: Dentro do try - Iniciando validação de preço para produto: {$productSlug}");
-                \Log::info("Quantidade: {$quantidade}");
-                \Log::info("Opções recebidas: " . json_encode($opcoes));
-                $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
-                \Log::info("Preço retornado via scraping: " . ($preco !== null ? $preco : 'null'));
-
-            if ($preco !== null && $preco > 0) {
-                // CACHE DESABILITADO - Não armazenar cache, sempre validar no site
-                \Log::info("Preço validado com sucesso: R$ {$preco} para produto {$productSlug} (validado no site matriz)");
-            } else {
-                \Log::error("Validação de preço falhou para produto: {$productSlug}");
+            if ($preco === null || $preco <= 0) {
+                \Log::error("API não retornou preço válido para produto: {$productSlug}");
                 \Log::error("Opções: " . json_encode($opcoes));
                 \Log::error("Quantidade: {$quantidade}");
                 
                 return response()->json([
                     'success' => false,
-                    'error' => 'Não foi possível validar o preço. Tente novamente.',
+                    'error' => 'Não foi possível obter o preço via API. Verifique se o mapeamento de opções está completo.',
                     'validated' => false
                 ], 500);
             }
+            
+            \Log::info("✅ Preço obtido via API: R$ {$preco} para produto {$productSlug}");
+            
         } catch (\Exception $e) {
-            \Log::error("Exceção ao validar preço: " . $e->getMessage());
+            \Log::error("Erro ao usar API de pricing: " . $e->getMessage());
             \Log::error("Trace: " . $e->getTraceAsString());
-            \Log::error("Arquivo: " . $e->getFile() . " Linha: " . $e->getLine());
+            \Log::error("Opções: " . json_encode($opcoes));
+            \Log::error("Quantidade: {$quantidade}");
             
             return response()->json([
                 'success' => false,
-                'error' => 'Erro interno ao validar preço. Tente novamente.',
+                'error' => 'Erro ao consultar API de preços: ' . $e->getMessage(),
                 'validated' => false,
-                'debug' => config('app.debug') ? $e->getMessage() : null
+                'debug' => config('app.debug') ? $e->getTraceAsString() : null
             ], 500);
         }
 

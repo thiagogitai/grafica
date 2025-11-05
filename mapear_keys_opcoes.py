@@ -102,105 +102,92 @@ try:
     print("\n📋 Mapeamento encontrado:")
     print(json.dumps(mapeamento, indent=2, ensure_ascii=False))
     
-    # Tentar outra abordagem: interceptar a chamada da API para ver as Keys
-    print("\n🔍 Tentando interceptar chamada da API para obter Keys reais...")
+    # Interceptar TODAS as chamadas da API para obter Keys reais
+    print("\n🔍 Interceptando chamadas da API para obter Keys reais de TODAS as opções...")
     
-    # Limpar logs
-    driver.get_log('performance')
-    
-    # Alterar um select para disparar a chamada
-    selects = driver.find_elements(By.TAG_NAME, 'select')
-    if selects:
-        try:
-            Select(selects[0]).select_by_index(1)
-            time.sleep(2)
-        except:
-            pass
-    
-    # Capturar logs
-    logs = driver.get_log('performance')
     keys_reais = {}
+    selects = driver.find_elements(By.TAG_NAME, 'select')
     
-    for log in logs:
-        try:
-            message = json.loads(log['message'])
-            method = message.get('message', {}).get('method', '')
+    # Para cada select, alterar todas as opções e capturar as Keys
+    for idx_select, select in enumerate(selects):
+        print(f"\n📋 Processando select {idx_select} ({len(select.find_elements(By.TAG_NAME, 'option'))} opções)...")
+        
+        opcoes_select = select.find_elements(By.TAG_NAME, 'option')
+        
+        for idx_opt, opt in enumerate(opcoes_select):
+            if idx_opt == 0:  # Pular primeira opção (geralmente vazia)
+                continue
             
-            if method == 'Network.requestWillBeSent':
-                request = message.get('message', {}).get('params', {}).get('request', {})
-                url_request = request.get('url', '')
+            try:
+                # Limpar logs
+                driver.get_log('performance')
                 
-                if 'pricing' in url_request.lower():
-                    post_data = request.get('postData', '')
-                    if post_data:
-                        try:
-                            post_json = json.loads(post_data)
-                            options = post_json.get('pricingParameters', {}).get('Options', [])
+                # Selecionar esta opção
+                Select(select).select_by_index(idx_opt)
+                time.sleep(1.5)  # Aguardar chamada da API
+                
+                # Capturar logs
+                logs = driver.get_log('performance')
+                
+                for log in logs:
+                    try:
+                        message = json.loads(log['message'])
+                        method = message.get('message', {}).get('method', '')
+                        
+                        if method == 'Network.requestWillBeSent':
+                            request = message.get('message', {}).get('params', {}).get('request', {})
+                            url_request = request.get('url', '')
                             
-                            for opt in options:
-                                key = opt.get('Key', '')
-                                value = opt.get('Value', '')
-                                if key and value:
-                                    keys_reais[value.strip()] = key
-                        except:
-                            pass
-        except:
-            continue
+                            if 'pricing' in url_request.lower():
+                                post_data = request.get('postData', '')
+                                if post_data:
+                                    try:
+                                        post_json = json.loads(post_data)
+                                        options = post_json.get('pricingParameters', {}).get('Options', [])
+                                        
+                                        # Encontrar a opção correspondente a este select
+                                        if idx_select < len(options):
+                                            opt_data = options[idx_select]
+                                            key = opt_data.get('Key', '')
+                                            value = opt_data.get('Value', '').strip()
+                                            
+                                            if key and value:
+                                                keys_reais[value] = key
+                                                print(f"   ✅ [{idx_select}] '{value}' → {key[:20]}...")
+                                    except Exception as e:
+                                        pass
+                    except:
+                        continue
+            except Exception as e:
+                print(f"   ⚠️ Erro ao processar opção {idx_opt}: {e}")
+                continue
     
-    print("\n🔑 Keys reais encontradas na chamada da API:")
+    print(f"\n🔑 Total de Keys reais encontradas: {len(keys_reais)}")
     if keys_reais:
-        print(json.dumps(keys_reais, indent=2, ensure_ascii=False))
-    else:
-        print("   Nenhuma Key encontrada. Vamos tentar outra abordagem...")
-        
-        # Tentar obter via função JavaScript que calcula as Keys
-        keys_via_js = driver.execute_script("""
-            // Procurar função que gera Keys
-            var keys = {};
-            
-            // Tentar encontrar função que calcula Keys
-            if (typeof getOptionKey === 'function') {
-                console.log('Função getOptionKey encontrada');
-            }
-            
-            // Tentar obter Keys de todos os selects
-            var selects = document.querySelectorAll('select');
-            for (var i = 0; i < selects.length; i++) {
-                var select = selects[i];
-                var options = select.querySelectorAll('option');
-                
-                for (var j = 0; j < options.length; j++) {
-                    var opt = options[j];
-                    var text = (opt.text || '').trim();
-                    var value = opt.value || '';
-                    
-                    // Tentar várias formas de obter a Key
-                    var key = opt.getAttribute('data-key') ||
-                             opt.getAttribute('data-option-key') ||
-                             value; // Se value já for a key
-                    
-                    if (key && text) {
-                        keys[text] = key;
-                    }
-                }
-            }
-            
-            return keys;
-        """)
-        
-        print("\n🔑 Keys via JavaScript:")
-        print(json.dumps(keys_via_js, indent=2, ensure_ascii=False))
+        print("\n📋 Primeiras 10 Keys:")
+        for i, (value, key) in enumerate(list(keys_reais.items())[:10]):
+            print(f"   [{i+1}] '{value}' → {key[:30]}...")
+    
+    # Validar se temos Keys suficientes
+    if not keys_reais:
+        print("\n❌ ERRO: Nenhuma Key foi encontrada!")
+        print("   O mapeamento NÃO será salvo.")
+        print("   Verifique se o site está funcionando corretamente.")
+        exit(1)
     
     # Salvar mapeamento em arquivo JSON
     resultado = {
         'mapeamento_selects': mapeamento,
-        'keys_reais': keys_reais if keys_reais else keys_via_js
+        'keys_reais': keys_reais,
+        'total_keys': len(keys_reais),
+        'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S')
     }
     
     with open('mapeamento_keys_opcoes.json', 'w', encoding='utf-8') as f:
         json.dump(resultado, f, indent=2, ensure_ascii=False)
     
-    print("\n✅ Mapeamento salvo em 'mapeamento_keys_opcoes.json'")
+    print(f"\n✅ Mapeamento salvo em 'mapeamento_keys_opcoes.json'")
+    print(f"   Total de Keys mapeadas: {len(keys_reais)}")
     
 finally:
     try:

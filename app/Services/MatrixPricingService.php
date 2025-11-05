@@ -25,9 +25,29 @@ class MatrixPricingService
             // TODO: Implementar mapeamento de valores para Keys
             // Por enquanto, vamos precisar fazer scraping para obter as Keys primeiro
             
+            // Mapear opções para Keys
+            $options = $this->mapearOpcoesParaKeys($opcoes, $productSlug);
+            
+            // Validar se todas as opções foram mapeadas
+            $opcoesEsperadas = count($opcoes) - (isset($opcoes['quantity']) ? 1 : 0);
+            $opcoesMapeadas = count($options);
+            
+            if ($opcoesMapeadas < $opcoesEsperadas) {
+                \Log::error("Nem todas as opções foram mapeadas!", [
+                    'esperadas' => $opcoesEsperadas,
+                    'mapeadas' => $opcoesMapeadas,
+                    'opcoes' => $opcoes
+                ]);
+                throw new \Exception("Nem todas as opções foram mapeadas para Keys. Execute o script mapear_keys_opcoes.py para atualizar o mapeamento.");
+            }
+            
+            if (empty($options)) {
+                throw new \Exception("Nenhuma opção foi mapeada. O arquivo de mapeamento não foi encontrado ou está vazio.");
+            }
+            
             $pricingParameters = [
                 'Q1' => (string) $quantidade,
-                'Options' => $this->mapearOpcoesParaKeys($opcoes, $productSlug)
+                'Options' => $options
             ];
             
             $payload = [
@@ -36,7 +56,8 @@ class MatrixPricingService
             
             \Log::info("DEBUG: Chamando API de pricing", [
                 'url' => $url,
-                'payload' => $payload
+                'q1' => $quantidade,
+                'options_count' => count($options)
             ]);
             
             $response = Http::withHeaders([
@@ -56,15 +77,26 @@ class MatrixPricingService
                 
                 // Verificar se há erro
                 if (!empty($data['ErrorMessage'])) {
-                    \Log::warning("API retornou erro: " . $data['ErrorMessage']);
-                    return null;
+                    $errorMsg = $data['ErrorMessage'];
+                    \Log::error("API retornou erro: " . $errorMsg);
+                    throw new \Exception("API retornou erro: " . $errorMsg);
+                }
+                
+                // Validar que temos o preço
+                if (!isset($data['Cost']) || empty($data['Cost'])) {
+                    \Log::error("API não retornou campo Cost", ['data' => $data]);
+                    throw new \Exception("API não retornou o campo Cost no preço.");
                 }
                 
                 // Retornar preço (Cost é string, converter para float)
-                if (isset($data['Cost'])) {
-                    $preco = (float) str_replace(',', '.', $data['Cost']);
-                    return $preco;
+                $preco = (float) str_replace(',', '.', $data['Cost']);
+                
+                if ($preco <= 0) {
+                    \Log::error("Preço inválido retornado pela API: {$preco}", ['data' => $data]);
+                    throw new \Exception("API retornou preço inválido: {$preco}");
                 }
+                
+                return $preco;
             } else {
                 \Log::error("Erro ao chamar API de pricing", [
                     'status' => $response->status(),
