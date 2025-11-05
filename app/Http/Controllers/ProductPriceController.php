@@ -65,13 +65,11 @@ class ProductPriceController extends Controller
             ], 400);
         }
 
-        // Verificar se produto tem scraper
-        if (!isset(self::PRODUCT_SCRAPERS[$productSlug])) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Produto não suporta validação de preço',
-                'validated' => false
-            ], 400);
+        // Verificar se produto tem configuração JSON (todos os produtos com JSON podem usar API)
+        $configPath = base_path("resources/data/products/{$productSlug}.json");
+        if (!file_exists($configPath)) {
+            \Log::warning("Arquivo de configuração não encontrado para: {$productSlug}");
+            // Não retornar erro, tentar usar API mesmo assim (pode funcionar)
         }
 
         // Normalizar e ordenar opções (apenas para log)
