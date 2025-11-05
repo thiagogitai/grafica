@@ -115,43 +115,95 @@ try:
             
             keys_para_produto = {}
             
-            # Para cada select, alterar TODAS as opções para capturar TODAS as Keys
-            total_keys_antes = 0
+            # Contar TODAS as opções esperadas primeiro
+            total_opcoes_esperadas = 0
+            selects_info = []
             for idx_select, select in enumerate(selects):
                 opcoes_select = select.find_elements(By.TAG_NAME, 'option')
                 total_opcoes = len(opcoes_select)
-                
-                if total_opcoes <= 1:
-                    continue
+                if total_opcoes > 1:
+                    total_opcoes_esperadas += total_opcoes - 1  # -1 porque primeira geralmente é vazia
+                    selects_info.append({
+                        'index': idx_select,
+                        'select': select,
+                        'total_opcoes': total_opcoes,
+                        'opcoes': opcoes_select
+                    })
+            
+            print(f"   📊 Total de opções a processar: {total_opcoes_esperadas}")
+            print(f"   📊 Total de selects com opções: {len(selects_info)}")
+            
+            # Processar TODAS as opções de TODOS os selects - SEM EXCEÇÃO
+            total_keys_antes = 0
+            opcoes_processadas = 0
+            
+            for select_info in selects_info:
+                idx_select = select_info['index']
+                select = select_info['select']
+                total_opcoes = select_info['total_opcoes']
+                opcoes_select = select_info['opcoes']
                 
                 print(f"   Select {idx_select}: Processando TODAS as {total_opcoes} opções...")
                 
                 # Processar TODAS as opções (exceto a primeira que geralmente é vazia)
                 for idx_opt in range(1, total_opcoes):
                     try:
-                        # Selecionar opção
-                        Select(select).select_by_index(idx_opt)
+                        # Tentar até 3 vezes se necessário
+                        tentativas = 0
+                        sucesso = False
                         
-                        # Aguardar requisição API (mínimo 1.5s para garantir que a requisição foi feita)
-                        time.sleep(1.5)
+                        while tentativas < 3 and not sucesso:
+                            try:
+                                # Selecionar opção
+                                Select(select).select_by_index(idx_opt)
+                                
+                                # Aguardar requisição API (mínimo 2s para garantir)
+                                time.sleep(2.0)
+                                
+                                # Verificar se a requisição foi feita
+                                keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
+                                
+                                # Se capturou mais Keys, foi sucesso
+                                if len(keys_atuais) >= total_keys_antes:
+                                    sucesso = True
+                                else:
+                                    tentativas += 1
+                                    if tentativas < 3:
+                                        time.sleep(1.0)
+                                        continue
+                                
+                            except Exception as e:
+                                tentativas += 1
+                                if tentativas < 3:
+                                    time.sleep(0.5)
+                                    continue
+                                else:
+                                    print(f"     ⚠️ Erro ao selecionar opção {idx_opt} após 3 tentativas: {e}")
                         
-                        # Verificar quantas Keys foram capturadas
+                        # Atualizar contadores
                         keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
                         keys_capturadas = len(keys_atuais)
                         
-                        # Log a cada 25 opções ou se aumentou o número de Keys
-                        if idx_opt % 25 == 0 or keys_capturadas > total_keys_antes:
-                            print(f"     Progresso: {idx_opt}/{total_opcoes} opções, {keys_capturadas} Keys capturadas")
+                        if keys_capturadas > total_keys_antes:
                             total_keys_antes = keys_capturadas
+                        
+                        opcoes_processadas += 1
+                        
+                        # Log a cada 50 opções ou a cada 10% do total
+                        if opcoes_processadas % 50 == 0 or opcoes_processadas % max(1, total_opcoes_esperadas // 10) == 0:
+                            percentual = (opcoes_processadas / total_opcoes_esperadas) * 100
+                            print(f"     📈 Progresso: {opcoes_processadas}/{total_opcoes_esperadas} opções ({percentual:.1f}%), {keys_capturadas} Keys capturadas")
+                            
                     except Exception as e:
-                        print(f"     ⚠️ Erro ao selecionar opção {idx_opt}: {e}")
+                        print(f"     ❌ ERRO CRÍTICO ao processar opção {idx_opt} do select {idx_select}: {e}")
+                        opcoes_processadas += 1
                         # Continuar mesmo com erro
                         pass
                 
                 # Aguardar um pouco mais após terminar cada select
-                time.sleep(2)
+                time.sleep(3)
                 keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
-                print(f"   ✅ Select {idx_select} concluído: {len(keys_atuais)} Keys capturadas até agora")
+                print(f"   ✅ Select {idx_select} concluído: {len(keys_atuais)} Keys capturadas até agora ({opcoes_processadas}/{total_opcoes_esperadas} opções processadas)")
             
             # Aguardar todas as requisições finais
             print(f"   Aguardando requisições finais...")
