@@ -123,11 +123,13 @@ foreach ($testes as $idx => $opcoes) {
                 'Key' => $keys_livro[$valor_str],
                 'Value' => $valor_str
             ];
+            echo "   ✅ {$campo}: '{$valor_str}'\n";
         } else {
             // Match parcial (mais flexível)
             $encontrado = false;
             $melhor_match = null;
             $melhor_score = 0;
+            $melhor_texto = null;
             
             foreach ($keys_livro as $key_texto => $key_value) {
                 $key_texto_trim = trim($key_texto);
@@ -140,6 +142,7 @@ foreach ($testes as $idx => $opcoes) {
                         'Value' => $key_texto_trim
                     ];
                     $encontrado = true;
+                    echo "   ✅ {$campo}: '{$valor_str}' → '{$key_texto_trim}' (match exato CI)\n";
                     break;
                 }
                 
@@ -150,17 +153,41 @@ foreach ($testes as $idx => $opcoes) {
                     if ($score > $melhor_score) {
                         $melhor_score = $score;
                         $melhor_match = ['Key' => $key_value, 'Value' => $key_texto_trim];
+                        $melhor_texto = $key_texto_trim;
                     }
                 }
             }
             
-            if (!$encontrado && $melhor_match) {
+            if (!$encontrado && $melhor_match && $melhor_score > 0.5) {
                 $options[] = $melhor_match;
                 $encontrado = true;
+                echo "   ✅ {$campo}: '{$valor_str}' → '{$melhor_texto}' (score: " . round($melhor_score * 100) . "%)\n";
             }
             
             if (!$encontrado) {
-                echo "   ⚠️ Key não encontrada para: {$campo} = {$valor_str}\n";
+                echo "   ❌ Key não encontrada para: {$campo} = '{$valor_str}'\n";
+                
+                // Mostrar sugestões
+                $sugestoes = [];
+                $valor_lower = strtolower($valor_str);
+                $palavras_valor = array_filter(explode(' ', $valor_lower));
+                
+                foreach ($keys_livro as $key_texto => $key_value) {
+                    $key_lower = strtolower($key_texto);
+                    $palavras_key = array_filter(explode(' ', $key_lower));
+                    $comuns = array_intersect($palavras_valor, $palavras_key);
+                    
+                    if (count($comuns) > 0 && count($comuns) >= max(1, count($palavras_valor) * 0.3)) {
+                        $sugestoes[] = $key_texto;
+                    }
+                }
+                
+                if (!empty($sugestoes)) {
+                    echo "      💡 Sugestões (primeiras 3):\n";
+                    foreach (array_slice($sugestoes, 0, 3) as $sug) {
+                        echo "         - {$sug}\n";
+                    }
+                }
             }
         }
     }
