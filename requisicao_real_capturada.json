@@ -1,0 +1,1266 @@
+[
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "105x148mm (A6)"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Cartão Triplex 250gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores Frente"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "SEM ORELHA"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA FRENTE (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "",
+        "hdnTotalCost": "500,25",
+        "hdnTotalWeight": "0,340048"
+      }
+    },
+    "timestamp": 1762356442997,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "105x148mm (A6)"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Cartão Triplex 250gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores Frente"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "SEM ORELHA"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA FRENTE (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "500,25",
+        "hdnTotalWeight": "0,340048"
+      }
+    },
+    "timestamp": 1762356443580,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Cartão Triplex 250gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores Frente"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "SEM ORELHA"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA FRENTE (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "500,25",
+        "hdnTotalWeight": "0,340048"
+      }
+    },
+    "timestamp": 1762356443687,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores Frente"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "SEM ORELHA"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA FRENTE (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "517,75",
+        "hdnTotalWeight": "0,449963375"
+      }
+    },
+    "timestamp": 1762356444286,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "SEM ORELHA"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA FRENTE (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1449787,75",
+        "hdnTotalWeight": "0,335645025"
+      }
+    },
+    "timestamp": 1762356444884,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA FRENTE (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1449803,25",
+        "hdnTotalWeight": "0,335645025"
+      }
+    },
+    "timestamp": 1762356445480,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Offset 75gr"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1449917,25",
+        "hdnTotalWeight": "0,452335125"
+      }
+    },
+    "timestamp": 1762356446068,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "4 cores frente e verso"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1450940,25",
+        "hdnTotalWeight": "0,452335125"
+      }
+    },
+    "timestamp": 1762356446687,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "NÃO"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1450940,5",
+        "hdnTotalWeight": "0,463279625"
+      }
+    },
+    "timestamp": 1762356447268,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 8 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1450921,25",
+        "hdnTotalWeight": "0,463279625"
+      }
+    },
+    "timestamp": 1762356447882,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 12 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Colado PUR"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1450921,25",
+        "hdnTotalWeight": "0,463279625"
+      }
+    },
+    "timestamp": 1762356448539,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 12 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Costurado"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "SEM GUARDAS"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1450925,75",
+        "hdnTotalWeight": "0,550835625"
+      }
+    },
+    "timestamp": 1762356449138,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 12 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Costurado"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "offset 180g - sem impressão"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Nenhum"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1450925,75",
+        "hdnTotalWeight": "0,550835625"
+      }
+    },
+    "timestamp": 1762356449722,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 12 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Costurado"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "offset 180g - sem impressão"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Shrink Individual"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Incluso"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1453471,75",
+        "hdnTotalWeight": "0,54230925"
+      }
+    },
+    "timestamp": 1762356450294,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 12 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Costurado"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "offset 180g - sem impressão"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Shrink Individual"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Cliente Retira"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1453484,25",
+        "hdnTotalWeight": "0,54230925"
+      }
+    },
+    "timestamp": 1762356450878,
+    "url": "/product/impressao-de-livro/pricing"
+  },
+  {
+    "method": "POST",
+    "payload": {
+      "pricingParameters": {
+        "KitParameters": null,
+        "Options": [
+          {
+            "Key": "8507966BFD1CED08D52954CA1BFBAFAC",
+            "Value": "118x175mm"
+          },
+          {
+            "Key": "9DD0C964AA872B2B8F882356423C922D",
+            "Value": "Couche Brilho 150gr "
+          },
+          {
+            "Key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+            "Value": "4 cores FxV"
+          },
+          {
+            "Key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+            "Value": "COM Orelha de 8cm"
+          },
+          {
+            "Key": "9D50176D0602173B5575AC4A62173EA2",
+            "Value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+          },
+          {
+            "Key": "2913797D83A57041C2A87BED6F1FEDA9",
+            "Value": "Pólen Natural 80g"
+          },
+          {
+            "Key": "E90F9B0C705E3F28CE0D3B51613AE230",
+            "Value": "1 cor frente e verso PRETO"
+          },
+          {
+            "Key": "CFAB249F3402BE020FEFFD84CB991DAA",
+            "Value": "SIM"
+          },
+          {
+            "Key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+            "Value": "Miolo 12 páginas"
+          },
+          {
+            "Key": "AFF7AA292FE40E02A7B255713E731899",
+            "Value": "Dobrado"
+          },
+          {
+            "Key": "3E9AFD1A94DA1802222717C0AAAC0093",
+            "Value": "Costurado"
+          },
+          {
+            "Key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+            "Value": "offset 180g - sem impressão"
+          },
+          {
+            "Key": "07316319702E082CF6DA43BF4A1C130A",
+            "Value": "Shrink Individual"
+          },
+          {
+            "Key": "9F0D19D9628523760A8B7FF3464C9E9E",
+            "Value": "Cliente Retira"
+          },
+          {
+            "Key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+            "Value": "Digital On-Line - via Web-Approval ou PDF"
+          },
+          {
+            "Key": "8C654A289F9D4F2A56C753120083C2ED",
+            "Value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+          }
+        ],
+        "Q1": "25",
+        "hdnTotalCost": "1453323,75",
+        "hdnTotalWeight": "0,54230925"
+      }
+    },
+    "timestamp": 1762356451457,
+    "url": "/product/impressao-de-livro/pricing"
+  }
+]

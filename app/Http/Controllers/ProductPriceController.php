@@ -43,7 +43,7 @@ class ProductPriceController extends Controller
         
         \Log::error("DEBUG: Opções recebidas: " . json_encode($opcoes));
         
-        $quantidade = (int) ($opcoes['quantity'] ?? 1);
+        $quantidade = (int) ($opcoes['quantity'] ?? $opcoes['quantidade'] ?? 1);
         $productSlug = $opcoes['product_slug'] ?? $request->input('product_slug');
         
         \Log::error("DEBUG: productSlug = {$productSlug}, quantidade = {$quantidade}");
@@ -51,10 +51,19 @@ class ProductPriceController extends Controller
         // Remover product_slug das opções
         unset($opcoes['product_slug']);
 
-        // Garantir quantidade mínima de 50
-        if ($quantidade < 50) {
-            $quantidade = 50;
-            $opcoes['quantity'] = $quantidade;
+        // Para impressao-de-livro, aceitar quantidade mínima de 25 (padrão do site)
+        // Para outros produtos, manter mínimo de 50
+        if ($productSlug === 'impressao-de-livro') {
+            if ($quantidade < 25) {
+                $quantidade = 25;
+                $opcoes['quantity'] = $quantidade;
+            }
+        } else {
+            // Garantir quantidade mínima de 50 para outros produtos
+            if ($quantidade < 50) {
+                $quantidade = 50;
+                $opcoes['quantity'] = $quantidade;
+            }
         }
 
         if ($quantidade <= 0) {

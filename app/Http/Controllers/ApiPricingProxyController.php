@@ -111,43 +111,151 @@ class ApiPricingProxyController extends Controller
                 }
             }
             
-            // Mapear opções para Keys
+            // Mapear opções para Keys NA ORDEM CORRETA DOS SELECTS
             $options = [];
-            foreach ($opcoes as $campo => $valor) {
-                $valorStr = trim((string) $valor);
+            
+            // Para impressao-de-livro, usar ordem específica dos selects
+            if ($productSlug === 'impressao-de-livro') {
+                $ordemSelects = [
+                    0 => 'formato_miolo_paginas',
+                    1 => 'papel_capa',
+                    2 => 'cores_capa',
+                    3 => 'orelha_capa',
+                    4 => 'acabamento_capa',
+                    5 => 'papel_miolo',
+                    6 => 'cores_miolo',
+                    7 => 'miolo_sangrado',
+                    8 => 'quantidade_paginas_miolo',
+                    10 => 'acabamento_miolo',  // "Dobrado" na requisição real
+                    11 => 'acabamento_livro',  // "Costurado" na requisição real
+                    12 => 'guardas_livro',  // "offset 180g - sem impressão" na requisição real
+                    13 => 'extras',  // "Shrink Individual" na requisição real
+                    14 => 'frete',
+                    15 => 'verificacao_arquivo',
+                    16 => 'prazo_entrega',  // Última opção
+                ];
                 
-                // Tentar match exato
-                if (isset($keysMap[$valorStr])) {
-                    $options[] = [
-                        'Key' => $keysMap[$valorStr],
-                        'Value' => $valorStr
-                    ];
-                    continue;
-                }
+                // Nota: Na requisição real capturada (última que funcionou):
+                // - Posição 0: "118x175mm" (formato_miolo_paginas)
+                // - Posição 1: "Couche Brilho 150gr " (papel_capa) - TEM ESPAÇO NO FINAL!
+                // - Posição 2: "4 cores FxV" (cores_capa)
+                // - Posição 3: "COM Orelha de 8cm" (orelha_capa)
+                // - Posição 4: "Laminação FOSCA Frente + UV Reserva..." (acabamento_capa)
+                // - Posição 5: "Pólen Natural 80g" (papel_miolo)
+                // - Posição 6: "1 cor frente e verso PRETO" (cores_miolo)
+                // - Posição 7: "SIM" (miolo_sangrado)
+                // - Posição 8: "Miolo 12 páginas" (quantidade_paginas_miolo)
+                // - Posição 9: (pulada)
+                // - Posição 10: "Dobrado" (acabamento_miolo)
+                // - Posição 11: "Costurado" (acabamento_livro)
+                // - Posição 12: "offset 180g - sem impressão" (guardas_livro)
+                // - Posição 13: "Shrink Individual" (extras)
+                // - Posição 14: "Cliente Retira" (frete)
+                // - Posição 15: "Digital On-Line..." (verificacao_arquivo)
+                // - Posição 16: "Padrão: 10 dias..." (prazo_entrega)
                 
-                // Match parcial
-                $encontrado = false;
-                foreach ($keysMap as $texto => $key) {
-                    if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
+                // Processar na ordem dos selects
+                foreach ($ordemSelects as $selectIdx => $campo) {
+                    if (!isset($opcoes[$campo]) || $campo === 'quantity') {
+                        continue;
+                    }
+                    
+                    $valorStr = trim((string) $opcoes[$campo]);
+                    
+                    // Tentar match exato
+                    if (isset($keysMap[$valorStr])) {
                         $options[] = [
-                            'Key' => $key,
-                            'Value' => $texto
+                            'Key' => $keysMap[$valorStr],
+                            'Value' => $valorStr
                         ];
-                        $encontrado = true;
-                        break;
+                        continue;
+                    }
+                    
+                    // Match case-insensitive
+                    $encontrado = false;
+                    foreach ($keysMap as $texto => $key) {
+                        if (strcasecmp(trim($texto), $valorStr) === 0) {
+                            $options[] = [
+                                'Key' => $key,
+                                'Value' => trim($texto)
+                            ];
+                            $encontrado = true;
+                            break;
+                        }
+                    }
+                    
+                    // Match parcial se não encontrou
+                    if (!$encontrado) {
+                        foreach ($keysMap as $texto => $key) {
+                            if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
+                                $options[] = [
+                                    'Key' => $key,
+                                    'Value' => trim($texto)
+                                ];
+                                $encontrado = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!$encontrado) {
+                        \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
                     }
                 }
-                
-                if (!$encontrado) {
-                    \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
+            } else {
+                // Para outros produtos, manter ordem original
+                foreach ($opcoes as $campo => $valor) {
+                    if ($campo === 'quantity') {
+                        continue;
+                    }
+                    
+                    $valorStr = trim((string) $valor);
+                    
+                    // Tentar match exato
+                    if (isset($keysMap[$valorStr])) {
+                        $options[] = [
+                            'Key' => $keysMap[$valorStr],
+                            'Value' => $valorStr
+                        ];
+                        continue;
+                    }
+                    
+                    // Match parcial
+                    $encontrado = false;
+                    foreach ($keysMap as $texto => $key) {
+                        if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
+                            $options[] = [
+                                'Key' => $key,
+                                'Value' => $texto
+                            ];
+                            $encontrado = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!$encontrado) {
+                        \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
+                    }
                 }
             }
             
-            if (count($options) < count($opcoes)) {
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Nem todas as opções foram mapeadas para Keys. Cache pode estar desatualizado.'
-                ], 500);
+            // Para impressao-de-livro, verificar se temos pelo menos 15 opções (número esperado)
+            $minOptions = ($productSlug === 'impressao-de-livro') ? 15 : count($opcoes);
+            
+            if (count($options) < $minOptions) {
+                \Log::warning("Nem todas as opções foram mapeadas", [
+                    'esperadas' => $minOptions,
+                    'mapeadas' => count($options),
+                    'opcoes_recebidas' => count($opcoes)
+                ]);
+                
+                // Continuar mesmo assim se tiver pelo menos 10 opções (pode faltar algumas opcionais)
+                if (count($options) < 10) {
+                    return response()->json([
+                        'success' => false,
+                        'error' => 'Nem todas as opções foram mapeadas para Keys. Cache pode estar desatualizado.'
+                    ], 500);
+                }
             }
             
             // Chamar API de pricing
@@ -155,6 +263,7 @@ class ApiPricingProxyController extends Controller
             
             $payload = [
                 'pricingParameters' => [
+                    'KitParameters' => null,  // Campo obrigatório que o site envia
                     'Q1' => (string) $quantidade,
                     'Options' => $options
                 ]
