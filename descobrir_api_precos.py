@@ -14,14 +14,35 @@ import json
 url = "https://www.lojagraficaeskenazi.com.br/product/impressao-de-revista"
 
 chrome_options = Options()
-# NÃO usar headless para ver o que acontece
-# chrome_options.add_argument('--headless=new')
+# Usar headless para funcionar no VPS (mas pode comentar para ver o navegador)
+chrome_options.add_argument('--headless=new')
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--disable-extensions')
+chrome_options.add_argument('--disable-software-rasterizer')
+chrome_options.add_argument('--disable-background-timer-throttling')
+chrome_options.add_argument('--disable-backgrounding-occluded-windows')
+chrome_options.add_argument('--disable-renderer-backgrounding')
+chrome_options.add_argument('--disable-infobars')
+chrome_options.add_argument('--disable-notifications')
 chrome_options.add_argument('--window-size=1920,1080')
+chrome_options.add_argument('--disable-setuid-sandbox')
+chrome_options.add_argument('--disable-crash-reporter')
+chrome_options.add_argument('--disable-logging')
+chrome_options.add_argument('--log-level=3')
 
 # Habilitar logging de performance para capturar requisições
 chrome_options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
+
+# Configurar diretório temporário para user data
+import tempfile
+import os
+chrome_user_data_dir = tempfile.mkdtemp(prefix='chrome_user_data_')
+chrome_options.add_argument(f'--user-data-dir={chrome_user_data_dir}')
+
+# Configurar variáveis de ambiente
+os.environ['SELENIUM_CACHE_DIR'] = tempfile.gettempdir()
 
 service = Service()
 driver = webdriver.Chrome(service=service, options=chrome_options)
@@ -220,6 +241,14 @@ try:
     print("   5. Veja quais requisições aparecem")
     
 finally:
-    input("\nPressione Enter para fechar o navegador...")
-    driver.quit()
+    try:
+        driver.quit()
+    except:
+        pass
+    # Limpar diretório temporário
+    try:
+        import shutil
+        shutil.rmtree(chrome_user_data_dir, ignore_errors=True)
+    except:
+        pass
 
