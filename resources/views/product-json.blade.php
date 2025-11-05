@@ -157,10 +157,10 @@
                         @endif
                         <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" @if(in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro'])) disabled @endif>
                             <i class="fas fa-shopping-cart me-2"></i>
-                            <span id="submit-text">@if(in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro']))Clique em "VER PREÇO" primeiro@else Adicionar ao Carrinho @endif</span>
+                            <span id="submit-text">@if(in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro']))Calculando preço...@else Adicionar ao Carrinho @endif</span>
                         </button>
                         <div class="alert alert-info @if(!in_array($configSlug ?? '', ['impressao-de-livro', 'impressao-de-panfleto', 'impressao-de-apostila', 'impressao-online-de-livretos-personalizados', 'impressao-de-revista', 'impressao-de-tabloide', 'impressao-de-jornal-de-bairro', 'impressao-de-guia-de-bairro'])) d-none @endif" id="price-validation-status">
-                            <small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>
+                            <small><i class="fas fa-spinner fa-spin me-2"></i>Calculando preço...</small>
                         </div>
                     </div>
                     <div class="mt-4 text-center">
@@ -343,24 +343,121 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Debounce para evitar muitas requisições
+    let debounceTimer = null;
+    let validandoPreco = false;
+
+    function calcularPrecoViaAPI(opts, quantity) {
+        // Se já está validando, aguardar
+        if (validandoPreco) {
+            return;
+        }
+
+        validandoPreco = true;
+
+        // Mostrar status de carregamento
+        if (totalPriceEl) totalPriceEl.textContent = 'Calculando...';
+        if (unitPriceEl) unitPriceEl.textContent = 'Calculando...';
+        if (priceContainer) priceContainer.classList.remove('d-none');
+        if (submitBtn) submitBtn.disabled = true;
+        if (submitText) submitText.textContent = 'Calculando preço...';
+        if (validationStatus) {
+            validationStatus.classList.remove('d-none', 'alert-danger', 'alert-success');
+            validationStatus.classList.add('alert-info');
+            validationStatus.innerHTML = '<small><i class="fas fa-spinner fa-spin me-2"></i>Calculando preço...</small>';
+        }
+
+        // Preparar dados para API
+        const payload = {
+            product_slug: configSlug,
+            quantity: quantity,
+            ...opts
+        };
+
+        // Fazer requisição para API
+        fetch('/api/product/validate-price', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+            validandoPreco = false;
+
+            if (data.success && data.price) {
+                const preco = parseFloat(data.price);
+                const unitPrice = preco / Math.max(quantity, 1);
+
+                // Atualizar preços na tela
+                if (totalPriceEl) totalPriceEl.textContent = formatCurrency(preco);
+                if (unitPriceEl) unitPriceEl.textContent = formatCurrency(unitPrice);
+                if (finalPriceInput) finalPriceInput.value = preco;
+                if (finalDetailsInput) finalDetailsInput.value = JSON.stringify(opts);
+
+                // Habilitar botão
+                if (submitBtn) submitBtn.disabled = false;
+                if (submitText) submitText.textContent = 'Adicionar ao Carrinho';
+                if (validationStatus) {
+                    validationStatus.classList.remove('alert-info', 'alert-danger');
+                    validationStatus.classList.add('alert-success');
+                    validationStatus.innerHTML = '<small><i class="fas fa-check-circle me-2"></i>Preço atualizado: ' + formatCurrency(preco) + '</small>';
+                }
+
+                precoValidado = true;
+                precoValidadoValue = preco;
+            } else {
+                // Erro
+                if (totalPriceEl) totalPriceEl.textContent = 'Erro ao calcular';
+                if (unitPriceEl) unitPriceEl.textContent = 'R$ 0,00';
+                if (submitBtn) submitBtn.disabled = true;
+                if (submitText) submitText.textContent = 'Erro no cálculo';
+                if (validationStatus) {
+                    validationStatus.classList.remove('alert-info', 'alert-success');
+                    validationStatus.classList.add('alert-danger');
+                    const errorMsg = data.error || 'Erro ao calcular preço. Tente novamente.';
+                    validationStatus.innerHTML = '<small><i class="fas fa-exclamation-circle me-2"></i>' + errorMsg + '</small>';
+                }
+
+                precoValidado = false;
+            }
+        })
+        .catch(error => {
+            validandoPreco = false;
+            console.error('Erro ao calcular preço:', error);
+            
+            if (totalPriceEl) totalPriceEl.textContent = 'Erro ao calcular';
+            if (unitPriceEl) unitPriceEl.textContent = 'R$ 0,00';
+            if (submitBtn) submitBtn.disabled = true;
+            if (submitText) submitText.textContent = 'Erro no cálculo';
+            if (validationStatus) {
+                validationStatus.classList.remove('alert-info', 'alert-success');
+                validationStatus.classList.add('alert-danger');
+                validationStatus.innerHTML = '<small><i class="fas fa-exclamation-circle me-2"></i>Erro ao conectar com o servidor. Tente novamente.</small>';
+            }
+
+            precoValidado = false;
+        });
+    }
+
     function calculatePrice() {
         const opts = getOptions();
         const quantity = Math.max(1, parseInt(opts.quantity ?? '1', 10) || 1);
 
-        // Verificar se precisa validação (incluindo livro)
+        // Verificar se precisa validação (produtos que usam API)
         if (precisaValidacao || configSlug === 'impressao-de-livro') {
-            // Não validar automaticamente - aguardar botão VER PREÇO
-            if (totalPriceEl) totalPriceEl.textContent = 'R$ 0,00';
-            if (unitPriceEl) unitPriceEl.textContent = 'R$ 0,00';
-            if (priceContainer) priceContainer.classList.remove('d-none');
-            if (submitBtn) submitBtn.disabled = true;
-            if (submitText) submitText.textContent = 'Clique em "VER PREÇO" primeiro';
-            if (validationStatus) {
-                validationStatus.classList.remove('d-none');
-                validationStatus.classList.remove('alert-danger', 'alert-success');
-                validationStatus.classList.add('alert-info');
-                validationStatus.innerHTML = '<small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>';
+            // Limpar timer anterior
+            if (debounceTimer) {
+                clearTimeout(debounceTimer);
             }
+
+            // Aguardar 500ms após última mudança (debounce)
+            debounceTimer = setTimeout(() => {
+                calcularPrecoViaAPI(opts, quantity);
+            }, 500);
+
             return;
         }
 
@@ -463,47 +560,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const optionFields = document.querySelectorAll('#calculator [data-option-field]');
     optionFields.forEach(field => {
         field.addEventListener('change', function() {
-            // Resetar validação quando uma opção mudar
-            precoValidado = false;
-            precoValidadoValue = 0;
-            if (submitBtn && precisaValidacao) {
-                submitBtn.disabled = true;
-                submitText.textContent = 'Clique em "VER PREÇO" primeiro';
-            }
-            if (validationStatus && precisaValidacao) {
-                validationStatus.classList.remove('alert-success', 'alert-danger');
-                validationStatus.classList.add('alert-info');
-                validationStatus.innerHTML = '<small><i class="fas fa-info-circle me-2"></i>Clique em "VER PREÇO" para calcular o valor</small>';
-            }
+            // Quando qualquer campo muda, recalcular automaticamente
             calculatePrice();
         });
         if (field.tagName === 'INPUT') {
             field.addEventListener('input', function() {
-                // Resetar validação quando uma opção mudar
-                precoValidado = false;
-                precoValidadoValue = 0;
-                if (submitBtn && precisaValidacao) {
-                    submitBtn.disabled = true;
-                    submitText.textContent = 'Clique em "VER PREÇO" primeiro';
-                }
+                // Para campos de input, também recalcular (com debounce já implementado)
                 calculatePrice();
             });
         }
     });
 
-    // Botão VER PREÇO
+    // Botão VER PREÇO (opcional - mantém para forçar recálculo manual se necessário)
     const btnVerPreco = document.getElementById('btn-ver-preco');
     if (btnVerPreco && precisaValidacao) {
         btnVerPreco.addEventListener('click', function() {
-            // Sempre pegar as opções atuais dos campos (não usar cache)
+            // Limpar debounce e calcular imediatamente
+            if (debounceTimer) {
+                clearTimeout(debounceTimer);
+            }
             const opts = getOptions();
             const quantity = Math.max(1, parseInt(opts.quantity || '50', 10) || 50);
-            
-            console.log('Opções capturadas para validação:', opts);
-            console.log('Quantidade capturada:', quantity);
-            
-            validatePriceAndEnableButton(opts, quantity);
+            calcularPrecoViaAPI(opts, quantity);
         });
+    } else if (btnVerPreco) {
+        // Se não precisa validação, esconder botão
+        btnVerPreco.style.display = 'none';
     }
 
     calculatePrice();
