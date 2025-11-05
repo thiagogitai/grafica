@@ -115,7 +115,8 @@ try:
             
             keys_para_produto = {}
             
-            # Para cada select, alterar algumas opções
+            # Para cada select, alterar TODAS as opções para capturar TODAS as Keys
+            total_keys_antes = 0
             for idx_select, select in enumerate(selects):
                 opcoes_select = select.find_elements(By.TAG_NAME, 'option')
                 total_opcoes = len(opcoes_select)
@@ -123,32 +124,65 @@ try:
                 if total_opcoes <= 1:
                     continue
                 
-                # Selecionar 2-3 opções representativas
-                indices_para_testar = [1]  # Segunda opção
-                if total_opcoes > 2:
-                    indices_para_testar.append(min(3, total_opcoes - 1))
-                if total_opcoes > 5:
-                    indices_para_testar.append(min(5, total_opcoes - 1))
+                print(f"   Select {idx_select}: Processando TODAS as {total_opcoes} opções...")
                 
-                for idx_opt in indices_para_testar[:2]:  # Máximo 2 por select
+                # Processar TODAS as opções (exceto a primeira que geralmente é vazia)
+                for idx_opt in range(1, total_opcoes):
                     try:
+                        # Selecionar opção
                         Select(select).select_by_index(idx_opt)
+                        
+                        # Aguardar requisição API (mínimo 1.5s para garantir que a requisição foi feita)
                         time.sleep(1.5)
-                    except:
+                        
+                        # Verificar quantas Keys foram capturadas
+                        keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
+                        keys_capturadas = len(keys_atuais)
+                        
+                        # Log a cada 25 opções ou se aumentou o número de Keys
+                        if idx_opt % 25 == 0 or keys_capturadas > total_keys_antes:
+                            print(f"     Progresso: {idx_opt}/{total_opcoes} opções, {keys_capturadas} Keys capturadas")
+                            total_keys_antes = keys_capturadas
+                    except Exception as e:
+                        print(f"     ⚠️ Erro ao selecionar opção {idx_opt}: {e}")
+                        # Continuar mesmo com erro
                         pass
+                
+                # Aguardar um pouco mais após terminar cada select
+                time.sleep(2)
+                keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
+                print(f"   ✅ Select {idx_select} concluído: {len(keys_atuais)} Keys capturadas até agora")
             
-            # Aguardar todas as requisições
-            time.sleep(3)
+            # Aguardar todas as requisições finais
+            print(f"   Aguardando requisições finais...")
+            time.sleep(5)
             
             # Obter keys coletadas
             keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
             
             if keys_coletadas:
                 keys_para_produto = keys_coletadas
-                print(f"   ✅ Capturadas {len(keys_para_produto)} Keys")
+                print(f"   ✅ Capturadas {len(keys_para_produto)} Keys para {produto}")
+                
+                # Verificar se capturamos todas as opções visíveis
+                todas_opcoes_visiveis = driver.execute_script("""
+                    var total = 0;
+                    var selects = document.querySelectorAll('select');
+                    for (var i = 0; i < selects.length; i++) {
+                        var options = selects[i].querySelectorAll('option');
+                        total += Math.max(0, options.length - 1); // -1 para excluir primeira opção vazia
+                    }
+                    return total;
+                """)
+                
+                print(f"   📊 Total de opções visíveis: {todas_opcoes_visiveis}, Keys capturadas: {len(keys_para_produto)}")
+                
+                if len(keys_para_produto) < todas_opcoes_visiveis * 0.8:  # Se capturamos menos de 80%
+                    print(f"   ⚠️ AVISO: Pode estar faltando Keys! Capturamos {len(keys_para_produto)} de ~{todas_opcoes_visiveis} opções esperadas")
+                
                 mapeamento_completo[produto] = keys_para_produto
             else:
-                print(f"   ⚠️ Nenhuma Key capturada para {produto}")
+                print(f"   ❌ Nenhuma Key capturada para {produto}")
                 mapeamento_completo[produto] = {}
             
         except Exception as e:
