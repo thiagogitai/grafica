@@ -38,10 +38,19 @@ class ApiPricingProxyController extends Controller
             $rateLimitKey = "api_rate_limit_{$productSlug}";
             $lastRequest = Cache::get($rateLimitKey);
             
-            // Mínimo de 1 segundo entre requisições para o mesmo produto
-            if ($lastRequest && (time() - $lastRequest) < 1) {
-                \Log::warning("Rate limit: aguardando antes de nova requisição");
-                sleep(1);
+            // Mínimo de 2-4 segundos entre requisições para o mesmo produto (mais discreto)
+            $minDelay = 2;
+            $maxDelay = 4;
+            
+            if ($lastRequest) {
+                $elapsed = time() - $lastRequest;
+                if ($elapsed < $minDelay) {
+                    $waitTime = $minDelay + rand(0, $maxDelay - $minDelay) - $elapsed;
+                    if ($waitTime > 0) {
+                        \Log::info("Rate limit: aguardando {$waitTime}s antes de nova requisição");
+                        sleep($waitTime);
+                    }
+                }
             }
             
             Cache::put($rateLimitKey, time(), now()->addMinute());
