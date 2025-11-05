@@ -81,13 +81,20 @@ try:
     produtos_processados_contador = 0
     for idx, produto in enumerate(PRODUTOS, 1):
         # Verificar se já foi processado com sucesso (tem Keys)
-        if produto in mapeamento_completo and len(mapeamento_completo[produto]) > 0:
+        # Considerar processado se tem pelo menos 10 Keys (número razoável)
+        keys_existentes = len(mapeamento_completo.get(produto, {}))
+        if keys_existentes >= 10:  # Se tem 10 ou mais Keys, considera completo
             print("="*80)
             print(f"PRODUTO {idx}/{len(PRODUTOS)}: {produto}")
             print("="*80)
-            print(f"   ⏭️  JÁ PROCESSADO COM SUCESSO! ({len(mapeamento_completo[produto])} Keys)")
+            print(f"   ⏭️  JÁ PROCESSADO COM SUCESSO! ({keys_existentes} Keys)")
             print(f"   ⏭️  Pulando...\n")
             continue
+        elif keys_existentes > 0 and keys_existentes < 10:
+            print("="*80)
+            print(f"PRODUTO {idx}/{len(PRODUTOS)}: {produto}")
+            print("="*80)
+            print(f"   ⚠️  Tem {keys_existentes} Keys (poucas), mas vai reprocessar para completar...")
         
         produtos_processados_contador += 1
         print("="*80)
