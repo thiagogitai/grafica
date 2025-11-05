@@ -124,17 +124,39 @@ foreach ($testes as $idx => $opcoes) {
                 'Value' => $valor_str
             ];
         } else {
-            // Match parcial
+            // Match parcial (mais flexível)
             $encontrado = false;
+            $melhor_match = null;
+            $melhor_score = 0;
+            
             foreach ($keys_livro as $key_texto => $key_value) {
-                if (stripos($key_texto, $valor_str) !== false || stripos($valor_str, $key_texto) !== false) {
+                $key_texto_trim = trim($key_texto);
+                $valor_str_trim = trim($valor_str);
+                
+                // Match exato (case-insensitive)
+                if (strcasecmp($key_texto_trim, $valor_str_trim) === 0) {
                     $options[] = [
                         'Key' => $key_value,
-                        'Value' => $key_texto
+                        'Value' => $key_texto_trim
                     ];
                     $encontrado = true;
                     break;
                 }
+                
+                // Match parcial - calcular score
+                if (stripos($key_texto_trim, $valor_str_trim) !== false || stripos($valor_str_trim, $key_texto_trim) !== false) {
+                    // Calcular score baseado no tamanho da correspondência
+                    $score = min(strlen($valor_str_trim), strlen($key_texto_trim)) / max(strlen($valor_str_trim), strlen($key_texto_trim));
+                    if ($score > $melhor_score) {
+                        $melhor_score = $score;
+                        $melhor_match = ['Key' => $key_value, 'Value' => $key_texto_trim];
+                    }
+                }
+            }
+            
+            if (!$encontrado && $melhor_match) {
+                $options[] = $melhor_match;
+                $encontrado = true;
             }
             
             if (!$encontrado) {
@@ -150,22 +172,29 @@ foreach ($testes as $idx => $opcoes) {
     
     echo "   📊 Opções mapeadas: " . count($options) . "\n";
     
-    // Chamar API
-    $url = "https://www.lojagraficaeskenazi.com.br/api/pricing/calculate";
+    // Chamar API (URL correta)
+    $url = "https://www.lojagraficaeskenazi.com.br/product/impressao-de-livro/pricing";
+    
     $payload = [
         'pricingParameters' => [
-            'Options' => $options,
-            'Quantity' => $opcoes['quantidade']
+            'Q1' => (string) $opcoes['quantidade'],
+            'Options' => $options
         ]
     ];
     
     echo "\n📡 Chamando API de pricing...\n";
+    echo "   URL: {$url}\n";
+    echo "   Q1: {$opcoes['quantidade']}\n";
+    echo "   Options: " . count($options) . "\n";
     
     try {
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            'Accept' => 'application/json'
+            'Accept' => 'application/json, text/plain, */*',
+            'Accept-Language' => 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Referer' => 'https://www.lojagraficaeskenazi.com.br/product/impressao-de-livro',
+            'Origin' => 'https://www.lojagraficaeskenazi.com.br'
         ])->timeout(15)->post($url, $payload);
         
         if ($response->successful()) {
