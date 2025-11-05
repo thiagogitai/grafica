@@ -221,15 +221,17 @@ try:
             percentual_capturado = (keys_capturadas / total_opcoes_esperadas * 100) if total_opcoes_esperadas > 0 else 0
             print(f"   📊 Percentual capturado: {percentual_capturado:.1f}%")
             
-            # Se capturou menos de 95%, fazer passadas adicionais até chegar a 100%
+            # Se capturou menos de 100%, fazer passadas adicionais até chegar a 100%
             passada = 1
             keys_antes_passada = keys_capturadas
+            max_passadas = 10  # Aumentar limite de passadas para garantir 100%
             
-            while percentual_capturado < 95.0 and passada <= 3:
-                print(f"\n   🔄 PASADA ADICIONAL {passada}/3 (capturado: {percentual_capturado:.1f}%)...")
+            while percentual_capturado < 100.0 and passada <= max_passadas:
+                print(f"\n   🔄 PASADA ADICIONAL {passada}/{max_passadas} (capturado: {percentual_capturado:.2f}%, faltam: {total_opcoes_esperadas - keys_capturadas})...")
                 time.sleep(5)
                 
                 # Processar novamente todas as opções (pode ter perdido algumas requisições)
+                opcoes_na_passada = 0
                 for select_info in selects_info:
                     idx_select = select_info['index']
                     select = select_info['select']
@@ -238,20 +240,47 @@ try:
                     for idx_opt in range(1, total_opcoes):
                         try:
                             Select(select).select_by_index(idx_opt)
-                            time.sleep(2.5)  # Mais tempo na passada adicional
-                        except:
+                            time.sleep(3.0)  # Mais tempo na passada adicional para garantir
+                            opcoes_na_passada += 1
+                            
+                            # Verificar progresso a cada 50 opções
+                            if opcoes_na_passada % 50 == 0:
+                                keys_temp = driver.execute_script("return window.keys_coletadas || {};")
+                                print(f"     Progresso passada {passada}: {opcoes_na_passada} opções processadas, {len(keys_temp)} Keys capturadas")
+                        except Exception as e:
+                            print(f"     ⚠️ Erro na passada {passada}, select {idx_select}, opção {idx_opt}: {e}")
                             pass
                 
-                time.sleep(10)
+                time.sleep(15)  # Mais tempo para garantir todas as requisições
                 keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
                 keys_capturadas = len(keys_coletadas)
                 percentual_capturado = (keys_capturadas / total_opcoes_esperadas * 100) if total_opcoes_esperadas > 0 else 0
+                keys_novas = keys_capturadas - keys_antes_passada
                 
-                print(f"   ✅ Após passada {passada}: {keys_capturadas} Keys ({percentual_capturado:.1f}%)")
+                print(f"   ✅ Após passada {passada}: {keys_capturadas} Keys ({percentual_capturado:.2f}%), +{keys_novas} novas")
                 
-                # Se não aumentou significativamente, parar
-                if keys_capturadas - keys_antes_passada < 5:
-                    print(f"   ⚠️ Poucas Keys novas capturadas nesta passada. Parando.")
+                # Se não aumentou nada, fazer mais uma tentativa com estratégia diferente
+                if keys_novas == 0 and percentual_capturado < 100.0:
+                    print(f"   ⚠️ Nenhuma Key nova. Tentando estratégia diferente...")
+                    # Tentar selecionar opções em ordem reversa
+                    for select_info in reversed(selects_info):
+                        select = select_info['select']
+                        total_opcoes = select_info['total_opcoes']
+                        for idx_opt in range(total_opcoes - 1, 0, -1):  # Ordem reversa
+                            try:
+                                Select(select).select_by_index(idx_opt)
+                                time.sleep(3.0)
+                            except:
+                                pass
+                    time.sleep(15)
+                    keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
+                    keys_capturadas = len(keys_coletadas)
+                    percentual_capturado = (keys_capturadas / total_opcoes_esperadas * 100) if total_opcoes_esperadas > 0 else 0
+                    print(f"   ✅ Após estratégia reversa: {keys_capturadas} Keys ({percentual_capturado:.2f}%)")
+                
+                # Se ainda não chegou a 100%, continuar
+                if percentual_capturado >= 100.0:
+                    print(f"   🎉 100% ATINGIDO!")
                     break
                 
                 keys_antes_passada = keys_capturadas
@@ -267,12 +296,14 @@ try:
                 print(f"   ✅ Opções esperadas: {total_opcoes_esperadas}")
                 print(f"   ✅ Percentual: {percentual_final:.2f}%")
                 
-                if percentual_final >= 95.0:
-                    print(f"   ✅ SUCESSO: Captura acima de 95%!")
-                elif percentual_final >= 80.0:
-                    print(f"   ⚠️ ATENÇÃO: Captura entre 80-95%. Pode faltar algumas Keys.")
+                if percentual_final >= 100.0:
+                    print(f"   🎉 PERFEITO: 100% DE CAPTURA! TODAS AS KEYS FORAM CAPTURADAS!")
+                elif percentual_final >= 99.0:
+                    print(f"   ⚠️ QUASE: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
+                elif percentual_final >= 95.0:
+                    print(f"   ⚠️ ATENÇÃO: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
                 else:
-                    print(f"   ❌ ERRO: Captura abaixo de 80%! Pode estar faltando muitas Keys.")
+                    print(f"   ❌ ERRO: Apenas {percentual_final:.2f}% capturado! Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
                 
                 mapeamento_completo[produto] = keys_para_produto
             else:
