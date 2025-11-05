@@ -51,19 +51,10 @@ class ProductPriceController extends Controller
         // Remover product_slug das opções
         unset($opcoes['product_slug']);
 
-        // Para impressao-de-livro, aceitar quantidade mínima de 25 (padrão do site)
-        // Para outros produtos, manter mínimo de 50
-        if ($productSlug === 'impressao-de-livro') {
-            if ($quantidade < 25) {
-                $quantidade = 25;
-                $opcoes['quantity'] = $quantidade;
-            }
-        } else {
-            // Garantir quantidade mínima de 50 para outros produtos
-            if ($quantidade < 50) {
-                $quantidade = 50;
-                $opcoes['quantity'] = $quantidade;
-            }
+        // Garantir quantidade mínima de 50 para todos os produtos
+        if ($quantidade < 50) {
+            $quantidade = 50;
+            $opcoes['quantity'] = $quantidade;
         }
 
         if ($quantidade <= 0) {
