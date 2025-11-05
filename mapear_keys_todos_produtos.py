@@ -105,6 +105,18 @@ try:
         
         try:
             driver.get(url)
+            time.sleep(5)  # Mais tempo inicial para carregar página
+            
+            # Aguardar página carregar completamente
+            driver.execute_script("""
+                return new Promise((resolve) => {
+                    if (document.readyState === 'complete') {
+                        resolve();
+                    } else {
+                        window.addEventListener('load', resolve);
+                    }
+                });
+            """)
             time.sleep(3)
             
             # Aceitar cookies
@@ -161,9 +173,26 @@ try:
                 };
             """)
             
-            # Alterar alguns selects para capturar Keys
+            # Aguardar carregamento completo da página e todos os selects dinâmicos
+            print(f"   ⏳ Aguardando carregamento completo da página...")
+            time.sleep(5)  # Mais tempo para garantir que selects dinâmicos carreguem
+            
+            # Aguardar até que todos os selects estejam presentes (alguns podem carregar dinamicamente)
+            max_tentativas_selects = 10
+            for tentativa in range(max_tentativas_selects):
+                selects = driver.find_elements(By.TAG_NAME, 'select')
+                if len(selects) > 0:
+                    # Verificar se há selects com opções (pode haver selects vazios temporários)
+                    selects_com_opcoes = [s for s in selects if len(s.find_elements(By.TAG_NAME, 'option')) > 1]
+                    if len(selects_com_opcoes) > 0:
+                        print(f"   ✅ Encontrados {len(selects)} selects (tentativa {tentativa+1})")
+                        break
+                if tentativa < max_tentativas_selects - 1:
+                    print(f"   ⏳ Aguardando selects carregarem... (tentativa {tentativa+1}/{max_tentativas_selects})")
+                    time.sleep(2)
+            
             selects = driver.find_elements(By.TAG_NAME, 'select')
-            print(f"   Encontrados {len(selects)} selects")
+            print(f"   📊 Total de selects encontrados: {len(selects)}")
             
             keys_para_produto = {}
             
@@ -171,16 +200,20 @@ try:
             total_opcoes_esperadas = 0
             selects_info = []
             for idx_select, select in enumerate(selects):
-                opcoes_select = select.find_elements(By.TAG_NAME, 'option')
-                total_opcoes = len(opcoes_select)
-                if total_opcoes > 1:
-                    total_opcoes_esperadas += total_opcoes - 1  # -1 porque primeira geralmente é vazia
-                    selects_info.append({
-                        'index': idx_select,
-                        'select': select,
-                        'total_opcoes': total_opcoes,
-                        'opcoes': opcoes_select
-                    })
+                try:
+                    opcoes_select = select.find_elements(By.TAG_NAME, 'option')
+                    total_opcoes = len(opcoes_select)
+                    if total_opcoes > 1:
+                        total_opcoes_esperadas += total_opcoes - 1  # -1 porque primeira geralmente é vazia
+                        selects_info.append({
+                            'index': idx_select,
+                            'select': select,
+                            'total_opcoes': total_opcoes,
+                            'opcoes': opcoes_select
+                        })
+                except Exception as e:
+                    print(f"   ⚠️ Erro ao processar select {idx_select}: {e}")
+                    continue
             
             print(f"   📊 Total de opções a processar: {total_opcoes_esperadas}")
             print(f"   📊 Total de selects com opções: {len(selects_info)}")
