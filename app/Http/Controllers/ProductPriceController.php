@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use App\Services\MatrixPricingService;
 
 class ProductPriceController extends Controller
 {
@@ -84,14 +85,32 @@ class ProductPriceController extends Controller
         // SEMPRE validar no site matriz - cache desabilitado completamente
         $preco = null;
         
-        \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
+        // Tentar primeiro via API (mais rápido e confiável)
         try {
-            // Fazer scraping
-            \Log::error("DEBUG: Dentro do try - Iniciando validação de preço para produto: {$productSlug}");
-            \Log::info("Quantidade: {$quantidade}");
-            \Log::info("Opções recebidas: " . json_encode($opcoes));
-            $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
-            \Log::info("Preço retornado: " . ($preco !== null ? $preco : 'null'));
+            $pricingService = new MatrixPricingService();
+            $preco = $pricingService->obterPrecoViaAPI($productSlug, $opcoes, $quantidade);
+            
+            if ($preco !== null && $preco > 0) {
+                \Log::info("Preço obtido via API: R$ {$preco} para produto {$productSlug}");
+            } else {
+                \Log::warning("API não retornou preço válido, tentando scraping como fallback...");
+                $preco = null; // Forçar fallback para scraping
+            }
+        } catch (\Exception $e) {
+            \Log::warning("Erro ao usar API de pricing: " . $e->getMessage() . ". Usando scraping como fallback...");
+            $preco = null;
+        }
+        
+        // Fallback: usar scraping se API não funcionou
+        if ($preco === null || $preco <= 0) {
+            \Log::error("DEBUG: Iniciando scraping para produto: {$productSlug}");
+            try {
+                // Fazer scraping
+                \Log::error("DEBUG: Dentro do try - Iniciando validação de preço para produto: {$productSlug}");
+                \Log::info("Quantidade: {$quantidade}");
+                \Log::info("Opções recebidas: " . json_encode($opcoes));
+                $preco = $this->scrapePrecoTempoReal($opcoes, $quantidade, $productSlug);
+                \Log::info("Preço retornado via scraping: " . ($preco !== null ? $preco : 'null'));
 
             if ($preco !== null && $preco > 0) {
                 // CACHE DESABILITADO - Não armazenar cache, sempre validar no site

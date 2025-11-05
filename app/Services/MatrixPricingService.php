@@ -92,43 +92,86 @@ class MatrixPricingService
         // Por enquanto, precisamos fazer scraping para obter as Keys
         
         // Carregar mapeamento do arquivo (se existir)
+        // Primeiro tentar arquivo específico do produto
         $arquivoMapeamento = storage_path("app/mapeamento_keys_{$productSlug}.json");
+        
+        // Se não existir, tentar arquivo genérico
+        if (!file_exists($arquivoMapeamento)) {
+            $arquivoMapeamento = base_path("mapeamento_keys_opcoes.json");
+        }
         
         if (file_exists($arquivoMapeamento)) {
             $mapeamento = json_decode(file_get_contents($arquivoMapeamento), true);
             $keysMap = $mapeamento['keys_reais'] ?? [];
             
-            $result = [];
-            foreach ($opcoes as $campo => $valor) {
-                if ($campo === 'quantity') {
-                    continue;
-                }
-                
-                $valorStr = trim((string) $valor);
-                if (isset($keysMap[$valorStr])) {
-                    $result[] = [
-                        'Key' => $keysMap[$valorStr],
-                        'Value' => $valorStr
-                    ];
-                } else {
-                    // Se não encontrou, tentar match parcial
-                    foreach ($keysMap as $texto => $key) {
-                        if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
-                            $result[] = [
-                                'Key' => $key,
-                                'Value' => $texto
-                            ];
-                            break;
+            // Se não encontrou em keys_reais, tentar em mapeamento_selects
+            if (empty($keysMap) && isset($mapeamento['mapeamento_selects'])) {
+                // Tentar extrair keys do mapeamento de selects
+                foreach ($mapeamento['mapeamento_selects'] as $selectData) {
+                    foreach ($selectData['options'] ?? [] as $opt) {
+                        if (!empty($opt['key']) && !empty($opt['text'])) {
+                            $keysMap[trim($opt['text'])] = $opt['key'];
                         }
                     }
                 }
             }
             
-            return $result;
+            if (!empty($keysMap)) {
+                $result = [];
+                foreach ($opcoes as $campo => $valor) {
+                    if ($campo === 'quantity') {
+                        continue;
+                    }
+                    
+                    $valorStr = trim((string) $valor);
+                    
+                    // Match exato primeiro
+                    if (isset($keysMap[$valorStr])) {
+                        $result[] = [
+                            'Key' => $keysMap[$valorStr],
+                            'Value' => $valorStr
+                        ];
+                        continue;
+                    }
+                    
+                    // Match parcial (case-insensitive)
+                    $encontrado = false;
+                    foreach ($keysMap as $texto => $key) {
+                        $textoTrim = trim($texto);
+                        $valorTrim = trim($valorStr);
+                        
+                        // Match exato (case-insensitive)
+                        if (strcasecmp($textoTrim, $valorTrim) === 0) {
+                            $result[] = [
+                                'Key' => $key,
+                                'Value' => $textoTrim
+                            ];
+                            $encontrado = true;
+                            break;
+                        }
+                        
+                        // Match parcial
+                        if (stripos($textoTrim, $valorTrim) !== false || stripos($valorTrim, $textoTrim) !== false) {
+                            $result[] = [
+                                'Key' => $key,
+                                'Value' => $textoTrim
+                            ];
+                            $encontrado = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!$encontrado) {
+                        \Log::warning("Key não encontrada para opção: {$campo} = {$valorStr}");
+                    }
+                }
+                
+                return $result;
+            }
         }
         
         // Se não tem mapeamento, retornar vazio (vai precisar fazer scraping)
-        \Log::warning("Mapeamento de Keys não encontrado para {$productSlug}. Execute o script de mapeamento primeiro.");
+        \Log::warning("Mapeamento de Keys não encontrado para {$productSlug}. Execute o script mapear_keys_opcoes.py primeiro.");
         return [];
     }
 }
