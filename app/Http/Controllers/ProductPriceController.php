@@ -86,25 +86,25 @@ class ProductPriceController extends Controller
         $preco = null;
         
         try {
-            $pricingService = new MatrixPricingService();
-            $preco = $pricingService->obterPrecoViaAPI($productSlug, $opcoes, $quantidade);
+            // Usar proxy diretamente (sem HTTP interno)
+            $proxyController = new \App\Http\Controllers\ApiPricingProxyController();
+            $proxyRequest = new Request([
+                'product_slug' => $productSlug,
+                'quantity' => $quantidade,
+            ] + $opcoes);
             
-            if ($preco === null || $preco <= 0) {
-                \Log::error("API não retornou preço válido para produto: {$productSlug}");
-                \Log::error("Opções: " . json_encode($opcoes));
-                \Log::error("Quantidade: {$quantidade}");
-                
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Não foi possível obter o preço via API. Verifique se o mapeamento de opções está completo.',
-                    'validated' => false
-                ], 500);
+            $proxyResponse = $proxyController->obterPreco($proxyRequest);
+            $proxyData = json_decode($proxyResponse->getContent(), true);
+            
+            if ($proxyData['success'] ?? false) {
+                $preco = $proxyData['price'];
+                \Log::info("✅ Preço obtido via API Proxy: R$ {$preco} para produto {$productSlug}");
+            } else {
+                throw new \Exception($proxyData['error'] ?? 'Erro desconhecido no proxy');
             }
             
-            \Log::info("✅ Preço obtido via API: R$ {$preco} para produto {$productSlug}");
-            
         } catch (\Exception $e) {
-            \Log::error("Erro ao usar API de pricing: " . $e->getMessage());
+            \Log::error("Erro ao usar API Proxy de pricing: " . $e->getMessage());
             \Log::error("Trace: " . $e->getTraceAsString());
             \Log::error("Opções: " . json_encode($opcoes));
             \Log::error("Quantidade: {$quantidade}");
@@ -114,6 +114,18 @@ class ProductPriceController extends Controller
                 'error' => 'Erro ao consultar API de preços: ' . $e->getMessage(),
                 'validated' => false,
                 'debug' => config('app.debug') ? $e->getTraceAsString() : null
+            ], 500);
+        }
+        
+        if ($preco === null || $preco <= 0) {
+            \Log::error("API não retornou preço válido para produto: {$productSlug}");
+            \Log::error("Opções: " . json_encode($opcoes));
+            \Log::error("Quantidade: {$quantidade}");
+            
+            return response()->json([
+                'success' => false,
+                'error' => 'Não foi possível obter o preço via API.',
+                'validated' => false
             ], 500);
         }
 

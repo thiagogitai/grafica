@@ -36,6 +36,9 @@ Route::post('/api/livro/price', [\App\Http\Controllers\LivroPriceController::cla
 // Rota genérica para validar preço de produtos (dupla validação)
 Route::post('/api/product/validate-price', [\App\Http\Controllers\ProductPriceController::class, 'validatePrice']);
 
+// Proxy para API de pricing (descobre Keys automaticamente)
+Route::post('/api/pricing-proxy', [\App\Http\Controllers\ApiPricingProxyController::class, 'obterPreco']);
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/cart/add/flyer', function () {
     return redirect()
