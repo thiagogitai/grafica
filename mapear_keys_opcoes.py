@@ -156,32 +156,34 @@ try:
             print(f"   ⚠️ Erro ao selecionar opção {idx_opt_para_testar}: {e}")
             continue
     
-    # Usar JavaScript para interceptar requisições
-    print("\n🔍 Usando JavaScript para interceptar requisições da API...")
+    # Usar JavaScript para interceptar requisições ANTES de alterar selects
+    print("\n🔍 Configurando interceptor JavaScript para capturar Keys...")
     
-    keys_via_js = driver.execute_script("""
-        var keys_coletadas = {};
-        var selects = document.querySelectorAll('select');
+    # Primeiro, instalar o interceptor
+    driver.execute_script("""
+        window.keys_coletadas = {};
         
         // Interceptar XMLHttpRequest
         var originalOpen = XMLHttpRequest.prototype.open;
         var originalSend = XMLHttpRequest.prototype.send;
         
-        XMLHttpRequest.prototype.open = function(method, url, ...args) {
+        XMLHttpRequest.prototype.open = function(method, url) {
             this._url = url;
-            return originalOpen.apply(this, [method, url, ...args]);
+            this._method = method;
+            return originalOpen.apply(this, arguments);
         };
         
         XMLHttpRequest.prototype.send = function(data) {
-            if (this._url && this._url.indexOf('pricing') >= 0) {
+            if (this._url && this._url.indexOf('pricing') >= 0 && data) {
                 try {
-                    var payload = JSON.parse(data);
-                    var options = payload.pricingParameters.Options || [];
-                    
-                    for (var i = 0; i < options.length; i++) {
-                        var opt = options[i];
-                        if (opt.Key && opt.Value) {
-                            keys_coletadas[opt.Value.trim()] = opt.Key;
+                    var payload = typeof data === 'string' ? JSON.parse(data) : data;
+                    if (payload.pricingParameters && payload.pricingParameters.Options) {
+                        var options = payload.pricingParameters.Options;
+                        for (var i = 0; i < options.length; i++) {
+                            var opt = options[i];
+                            if (opt.Key && opt.Value) {
+                                window.keys_coletadas[opt.Value.trim()] = opt.Key;
+                            }
                         }
                     }
                 } catch(e) {
@@ -190,42 +192,43 @@ try:
             }
             return originalSend.apply(this, arguments);
         };
-        
-        // Alterar selects para disparar requisições
-        for (var i = 0; i < selects.length; i++) {
-            var select = selects[i];
-            var options = select.querySelectorAll('option');
-            
-            // Selecionar algumas opções representativas
-            for (var j = 1; j < Math.min(options.length, 5); j++) {
-                select.selectedIndex = j;
-                var event = new Event('change', { bubbles: true });
-                select.dispatchEvent(event);
-            }
-        }
-        
-        // Aguardar um pouco para as requisições
-        return new Promise(function(resolve) {
-            setTimeout(function() {
-                resolve(keys_coletadas);
-            }, 3000);
-        });
     """)
     
-    # Aguardar um pouco mais
-    time.sleep(2)
+    print("✅ Interceptor instalado. Alterando selects para capturar Keys...")
     
-    # Tentar obter keys via JavaScript novamente
-    keys_via_js_final = driver.execute_script("""
-        // Retornar keys coletadas se existir
-        if (typeof window.keys_coletadas !== 'undefined') {
-            return window.keys_coletadas;
-        }
-        return {};
+    # Agora alterar selects para disparar requisições
+    for idx_select, select in enumerate(selects):
+        opcoes_select = select.find_elements(By.TAG_NAME, 'option')
+        total_opcoes = len(opcoes_select)
+        
+        if total_opcoes <= 1:
+            continue
+        
+        # Selecionar algumas opções representativas (primeira, do meio, última)
+        indices_para_testar = [1]  # Começar com a segunda opção
+        if total_opcoes > 2:
+            indices_para_testar.append(total_opcoes // 2)
+        if total_opcoes > 3:
+            indices_para_testar.append(total_opcoes - 1)
+        
+        for idx_opt in indices_para_testar[:3]:  # Máximo 3 por select
+            try:
+                Select(select).select_by_index(idx_opt)
+                time.sleep(1.5)  # Aguardar requisição
+            except:
+                pass
+    
+    # Aguardar todas as requisições
+    time.sleep(3)
+    
+    # Obter keys coletadas
+    keys_via_js = driver.execute_script("""
+        return window.keys_coletadas || {};
     """)
     
-    if keys_via_js_final:
-        keys_reais.update(keys_via_js_final)
+    if keys_via_js:
+        keys_reais.update(keys_via_js)
+        print(f"✅ Capturadas {len(keys_via_js)} Keys via interceptor JavaScript")
     
     # Se ainda não temos keys, tentar uma abordagem mais direta: fazer algumas requisições manualmente
     if not keys_reais:
