@@ -102,71 +102,196 @@ try:
     print("\n📋 Mapeamento encontrado:")
     print(json.dumps(mapeamento, indent=2, ensure_ascii=False))
     
-    # Interceptar TODAS as chamadas da API para obter Keys reais
-    print("\n🔍 Interceptando chamadas da API para obter Keys reais de TODAS as opções...")
+    # Usar CDP (Chrome DevTools Protocol) para interceptar requisições
+    print("\n🔍 Interceptando chamadas da API via CDP para obter Keys reais...")
+    
+    # Habilitar Network domain no CDP
+    driver.execute_cdp_cmd('Network.enable', {})
     
     keys_reais = {}
     selects = driver.find_elements(By.TAG_NAME, 'select')
     
-    # Para cada select, alterar todas as opções e capturar as Keys
-    for idx_select, select in enumerate(selects):
-        print(f"\n📋 Processando select {idx_select} ({len(select.find_elements(By.TAG_NAME, 'option'))} opções)...")
-        
-        opcoes_select = select.find_elements(By.TAG_NAME, 'option')
-        
-        for idx_opt, opt in enumerate(opcoes_select):
-            if idx_opt == 0:  # Pular primeira opção (geralmente vazia)
-                continue
-            
-            try:
-                # Limpar logs
-                driver.get_log('performance')
-                
-                # Selecionar esta opção
-                Select(select).select_by_index(idx_opt)
-                time.sleep(1.5)  # Aguardar chamada da API
-                
-                # Capturar logs
-                logs = driver.get_log('performance')
-                
-                for log in logs:
-                    try:
-                        message = json.loads(log['message'])
-                        method = message.get('message', {}).get('method', '')
-                        
-                        if method == 'Network.requestWillBeSent':
-                            request = message.get('message', {}).get('params', {}).get('request', {})
-                            url_request = request.get('url', '')
-                            
-                            if 'pricing' in url_request.lower():
-                                post_data = request.get('postData', '')
-                                if post_data:
-                                    try:
-                                        post_json = json.loads(post_data)
-                                        options = post_json.get('pricingParameters', {}).get('Options', [])
-                                        
-                                        # Encontrar a opção correspondente a este select
-                                        if idx_select < len(options):
-                                            opt_data = options[idx_select]
-                                            key = opt_data.get('Key', '')
-                                            value = opt_data.get('Value', '').strip()
-                                            
-                                            if key and value:
-                                                keys_reais[value] = key
-                                                print(f"   ✅ [{idx_select}] '{value}' → {key[:20]}...")
-                                    except Exception as e:
-                                        pass
-                    except:
-                        continue
-            except Exception as e:
-                print(f"   ⚠️ Erro ao processar opção {idx_opt}: {e}")
-                continue
+    # Armazenar requisições capturadas
+    requisicoes_capturadas = []
     
-    print(f"\n🔑 Total de Keys reais encontradas: {len(keys_reais)}")
+    def interceptor_request(request):
+        """Intercepta requisições de pricing"""
+        url_request = request.get('params', {}).get('request', {}).get('url', '')
+        if 'pricing' in url_request.lower():
+            post_data = request.get('params', {}).get('request', {}).get('postData', '')
+            if post_data:
+                requisicoes_capturadas.append({
+                    'url': url_request,
+                    'postData': post_data,
+                    'timestamp': time.time()
+                })
+    
+    # Para cada select, alterar opções e capturar Keys
+    print(f"\n📋 Total de selects encontrados: {len(selects)}")
+    
+    # Estratégia: selecionar uma opção de cada select e capturar a requisição completa
+    for idx_select, select in enumerate(selects):
+        opcoes_select = select.find_elements(By.TAG_NAME, 'option')
+        total_opcoes = len(opcoes_select)
+        
+        if total_opcoes <= 1:  # Pular selects vazios
+            continue
+        
+        print(f"\n📋 Processando select {idx_select} ({total_opcoes} opções)...")
+        
+        # Limpar requisições anteriores
+        requisicoes_capturadas.clear()
+        
+        # Selecionar uma opção (não a primeira que geralmente é vazia)
+        idx_opt_para_testar = min(1, total_opcoes - 1)
+        
+        try:
+            Select(select).select_by_index(idx_opt_para_testar)
+            time.sleep(2)  # Aguardar chamada da API
+            
+            # Capturar requisições via CDP
+            # Não podemos usar callback, então vamos usar execute_cdp_cmd para obter eventos
+            # Melhor abordagem: usar JavaScript para interceptar XMLHttpRequest
+        except Exception as e:
+            print(f"   ⚠️ Erro ao selecionar opção {idx_opt_para_testar}: {e}")
+            continue
+    
+    # Usar JavaScript para interceptar requisições
+    print("\n🔍 Usando JavaScript para interceptar requisições da API...")
+    
+    keys_via_js = driver.execute_script("""
+        var keys_coletadas = {};
+        var selects = document.querySelectorAll('select');
+        
+        // Interceptar XMLHttpRequest
+        var originalOpen = XMLHttpRequest.prototype.open;
+        var originalSend = XMLHttpRequest.prototype.send;
+        
+        XMLHttpRequest.prototype.open = function(method, url, ...args) {
+            this._url = url;
+            return originalOpen.apply(this, [method, url, ...args]);
+        };
+        
+        XMLHttpRequest.prototype.send = function(data) {
+            if (this._url && this._url.indexOf('pricing') >= 0) {
+                try {
+                    var payload = JSON.parse(data);
+                    var options = payload.pricingParameters.Options || [];
+                    
+                    for (var i = 0; i < options.length; i++) {
+                        var opt = options[i];
+                        if (opt.Key && opt.Value) {
+                            keys_coletadas[opt.Value.trim()] = opt.Key;
+                        }
+                    }
+                } catch(e) {
+                    console.log('Erro ao parsear payload:', e);
+                }
+            }
+            return originalSend.apply(this, arguments);
+        };
+        
+        // Alterar selects para disparar requisições
+        for (var i = 0; i < selects.length; i++) {
+            var select = selects[i];
+            var options = select.querySelectorAll('option');
+            
+            // Selecionar algumas opções representativas
+            for (var j = 1; j < Math.min(options.length, 5); j++) {
+                select.selectedIndex = j;
+                var event = new Event('change', { bubbles: true });
+                select.dispatchEvent(event);
+            }
+        }
+        
+        // Aguardar um pouco para as requisições
+        return new Promise(function(resolve) {
+            setTimeout(function() {
+                resolve(keys_coletadas);
+            }, 3000);
+        });
+    """)
+    
+    # Aguardar um pouco mais
+    time.sleep(2)
+    
+    # Tentar obter keys via JavaScript novamente
+    keys_via_js_final = driver.execute_script("""
+        // Retornar keys coletadas se existir
+        if (typeof window.keys_coletadas !== 'undefined') {
+            return window.keys_coletadas;
+        }
+        return {};
+    """)
+    
+    if keys_via_js_final:
+        keys_reais.update(keys_via_js_final)
+    
+    # Se ainda não temos keys, tentar uma abordagem mais direta: fazer algumas requisições manualmente
+    if not keys_reais:
+        print("\n⚠️ Não foi possível interceptar via JavaScript. Tentando abordagem direta...")
+        
+        # Pegar todas as opções de todos os selects e seus valores
+        todas_opcoes = driver.execute_script("""
+            var resultado = {};
+            var selects = document.querySelectorAll('select');
+            
+            for (var i = 0; i < selects.length; i++) {
+                var select = selects[i];
+                var options = select.querySelectorAll('option');
+                var opcoes_select = [];
+                
+                for (var j = 0; j < options.length; j++) {
+                    var opt = options[j];
+                    var text = (opt.text || '').trim();
+                    var value = opt.value || '';
+                    
+                    if (text && value && j > 0) { // Pular primeira opção
+                        opcoes_select.push({
+                            text: text,
+                            value: value
+                        });
+                    }
+                }
+                
+                if (opcoes_select.length > 0) {
+                    resultado[i] = opcoes_select;
+                }
+            }
+            
+            return resultado;
+        """)
+        
+        print(f"📋 Opções extraídas de {len(todas_opcoes)} selects")
+        
+        # Agora vamos fazer algumas requisições manuais para obter as Keys
+        # Mas isso requer que saibamos como construir a requisição corretamente
+        # Por enquanto, vamos usar uma abordagem mais simples: fazer algumas alterações e capturar
+    
+    # Se ainda não temos keys, usar o valor do option como key (pode ser que já seja a key)
+    if not keys_reais and todas_opcoes:
+        print("\n🔍 Tentando usar valores dos options como Keys...")
+        for select_idx, opcoes_select in todas_opcoes.items():
+            for opt in opcoes_select[:10]:  # Limitar a 10 por select para não sobrecarregar
+                text = opt['text']
+                value = opt['value']
+                
+                # Se o value parece uma key (hash longo), usar diretamente
+                if value and len(value) > 20 and all(c in '0123456789ABCDEFabcdef' for c in value):
+                    keys_reais[text] = value
+                    print(f"   ✅ Select {select_idx}: '{text}' → {value[:20]}...")
+    
+    print(f"\n🔑 Total de Keys encontradas: {len(keys_reais)}")
     if keys_reais:
         print("\n📋 Primeiras 10 Keys:")
         for i, (value, key) in enumerate(list(keys_reais.items())[:10]):
             print(f"   [{i+1}] '{value}' → {key[:30]}...")
+    else:
+        print("\n⚠️ Nenhuma Key encontrada ainda. Tentando última abordagem...")
+        
+        # Última tentativa: fazer uma requisição manual e ver o que acontece
+        # Mas para isso precisaríamos saber como a API funciona internamente
+        # Por enquanto, vamos salvar o que temos e pedir para o usuário verificar
     
     # Validar se temos Keys suficientes
     if not keys_reais:
