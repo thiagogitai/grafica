@@ -39,6 +39,17 @@ Route::post('/api/product/validate-price', [\App\Http\Controllers\ProductPriceCo
 // Proxy para API de pricing (descobre Keys automaticamente)
 Route::post('/api/pricing-proxy', [\App\Http\Controllers\ApiPricingProxyController::class, 'obterPreco']);
 
+// Rota temporária para baixar mapeamento de Keys (REMOVER após uso)
+Route::get('/download-keys-mapping', function () {
+    $arquivo = base_path('mapeamento_keys_todos_produtos.json');
+    if (!file_exists($arquivo)) {
+        return response()->json(['error' => 'Arquivo não encontrado no servidor'], 404);
+    }
+    return response()->download($arquivo, 'mapeamento_keys_todos_produtos.json', [
+        'Content-Type' => 'application/json',
+    ]);
+})->name('download.keys.mapping');
+
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/cart/add/flyer', function () {
     return redirect()
