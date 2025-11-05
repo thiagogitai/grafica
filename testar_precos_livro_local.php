@@ -49,12 +49,28 @@ echo str_repeat("=", 80) . "\n";
 $campos_sem_keys = [];
 $campos_com_keys = [];
 
-foreach ($template['options'] ?? [] as $campo => $opcoes) {
-    if ($campo === 'quantity') {
+foreach ($template['options'] ?? [] as $opcao_config) {
+    $campo = $opcao_config['name'] ?? '';
+    $tipo = $opcao_config['type'] ?? '';
+    
+    if ($campo === 'quantity' || $tipo === 'number') {
         continue;
     }
     
-    $opcoes_array = $opcoes['options'] ?? [];
+    // Ler choices (opções do select)
+    $choices = $opcao_config['choices'] ?? [];
+    $opcoes_array = [];
+    foreach ($choices as $choice) {
+        $value = $choice['value'] ?? $choice['label'] ?? '';
+        if ($value) {
+            $opcoes_array[] = $value;
+        }
+    }
+    
+    if (empty($opcoes_array)) {
+        continue;
+    }
+    
     $keys_encontradas = 0;
     $opcoes_sem_key = [];
     
@@ -119,7 +135,7 @@ foreach ($campos_com_keys as $campo => $info) {
 
 echo "\n❌ CAMPOS COM KEYS FALTANDO (" . count($campos_sem_keys) . "):\n";
 foreach ($campos_sem_keys as $campo => $info) {
-    echo "\n   ⚠️ {$campo}: {$info['encontradas']}/{$info['total']} Keys ({$info['percentual']:.1f}%)\n";
+    echo "\n   ⚠️ {$campo}: {$info['encontradas']}/{$info['total']} Keys (" . number_format($info['percentual'], 1) . "%)\n";
     if (!empty($info['opcoes_sem_key'])) {
         echo "      Opções sem Key (" . count($info['opcoes_sem_key']) . "):\n";
         foreach (array_slice($info['opcoes_sem_key'], 0, 10) as $opcao) {
@@ -160,14 +176,22 @@ echo str_repeat("=", 80) . "\n\n";
 
 // Pegar primeiras opções de cada campo para teste
 $opcoes_teste = ['quantidade' => 50];
-foreach ($template['options'] ?? [] as $campo => $opcoes) {
-    if ($campo === 'quantity') {
+foreach ($template['options'] ?? [] as $opcao_config) {
+    $campo = $opcao_config['name'] ?? '';
+    $tipo = $opcao_config['type'] ?? '';
+    
+    if ($campo === 'quantity' || $tipo === 'number') {
         continue;
     }
     
-    $opcoes_array = $opcoes['options'] ?? [];
-    if (!empty($opcoes_array)) {
-        $opcoes_teste[$campo] = $opcoes_array[0]; // Primeira opção
+    // Ler choices (opções do select)
+    $choices = $opcao_config['choices'] ?? [];
+    if (!empty($choices)) {
+        $primeira_choice = $choices[0];
+        $value = $primeira_choice['value'] ?? $primeira_choice['label'] ?? '';
+        if ($value) {
+            $opcoes_teste[$campo] = $value;
+        }
     }
 }
 
@@ -270,6 +294,8 @@ echo "\n📡 Chamando API de pricing...\n";
 echo "   URL: {$url}\n";
 echo "   Q1: {$opcoes_teste['quantidade']}\n";
 echo "   Options: " . count($options) . "\n";
+echo "\n📋 Payload completo:\n";
+echo json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n\n";
 
 try {
     $response = Http::withHeaders([
