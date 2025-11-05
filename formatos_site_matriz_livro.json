@@ -1,0 +1,112 @@
+[
+  {
+    "texto": "118x175mm",
+    "value": "118x175mm",
+    "index": 1
+  },
+  {
+    "texto": "115x183mm",
+    "value": "115x183mm",
+    "index": 2
+  },
+  {
+    "texto": "137x210mm (formato otimizado offset)",
+    "value": "137x210mm (formato otimizado offset)",
+    "index": 3
+  },
+  {
+    "texto": "138x210mm",
+    "value": "138x210mm",
+    "index": 4
+  },
+  {
+    "texto": "140x210mm",
+    "value": "140x210mm",
+    "index": 5
+  },
+  {
+    "texto": "148x210mm (A5)",
+    "value": "148x210mm (A5) ",
+    "index": 6
+  },
+  {
+    "texto": "155x230mm (formato otimizado digital)",
+    "value": "155x230mm (formato otimizado digital)",
+    "index": 7
+  },
+  {
+    "texto": "158x230mm",
+    "value": "158x230mm",
+    "index": 8
+  },
+  {
+    "texto": "160x230mm",
+    "value": "160x230mm",
+    "index": 9
+  },
+  {
+    "texto": "170x240mm",
+    "value": "170x240mm",
+    "index": 10
+  },
+  {
+    "texto": "170x230mm",
+    "value": "170x230mm",
+    "index": 11
+  },
+  {
+    "texto": "190mmx230mm",
+    "value": "190mmx230mm",
+    "index": 12
+  },
+  {
+    "texto": "205x205mm",
+    "value": "205x205mm",
+    "index": 13
+  },
+  {
+    "texto": "205x275mm",
+    "value": "205x275mm",
+    "index": 14
+  },
+  {
+    "texto": "210x280mm",
+    "value": "210x280mm",
+    "index": 15
+  },
+  {
+    "texto": "210x297mm (A4)",
+    "value": "210x297mm (A4) ",
+    "index": 16
+  },
+  {
+    "texto": "230x230mm",
+    "value": "230x230mm",
+    "index": 17
+  },
+  {
+    "texto": "230x300mm",
+    "value": "230x300mm",
+    "index": 18
+  },
+  {
+    "texto": "250x300mm",
+    "value": "250x300mm",
+    "index": 19
+  },
+  {
+    "texto": "260x260mm",
+    "value": "260x260mm",
+    "index": 20
+  },
+  {
+    "texto": "280x300mm",
+    "value": "280x300mm",
+    "index": 21
+  },
+  {
+    "texto": "300x280mm",
+    "value": "300x280mm",
+    "index": 22
+  }
+]
