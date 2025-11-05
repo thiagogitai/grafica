@@ -279,7 +279,8 @@ try:
             # Se capturou menos de 100%, fazer passadas adicionais até chegar a 100%
             passada = 1
             keys_antes_passada = keys_capturadas
-            max_passadas = 5  # Reduzir para 5 passadas (alguns produtos podem não ter Keys para todas as opções)
+            max_passadas = 3  # Reduzir para 3 passadas (se não conseguir novas Keys, parar e ir para validação)
+            passadas_sem_novas_keys = 0  # Contar passadas sem novas Keys
             
             while percentual_capturado < 100.0 and passada <= max_passadas and keys_capturadas < total_opcoes_esperadas:
                 print(f"\n   🔄 PASADA ADICIONAL {passada}/{max_passadas} (capturado: {percentual_capturado:.2f}%, faltam: {total_opcoes_esperadas - keys_capturadas})...")
@@ -314,6 +315,14 @@ try:
                 
                 print(f"   ✅ Após passada {passada}: {keys_capturadas} Keys ({percentual_capturado:.2f}%), +{keys_novas} novas")
                 
+                # Se não aumentou nada, contar passadas sem novas Keys
+                if keys_novas == 0:
+                    passadas_sem_novas_keys += 1
+                    # Se 2 passadas seguidas sem novas Keys, parar e ir para validação
+                    if passadas_sem_novas_keys >= 2:
+                        print(f"   ⚠️ {passadas_sem_novas_keys} passadas sem novas Keys. Parando passadas adicionais e indo para validação focada...")
+                        break
+                
                 # Se não aumentou nada, fazer mais uma tentativa com estratégia diferente
                 if keys_novas == 0 and percentual_capturado < 100.0:
                     print(f"   ⚠️ Nenhuma Key nova. Tentando estratégia diferente...")
@@ -331,7 +340,17 @@ try:
                     keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
                     keys_capturadas = len(keys_coletadas)
                     percentual_capturado = (keys_capturadas / total_opcoes_esperadas * 100) if total_opcoes_esperadas > 0 else 0
-                    print(f"   ✅ Após estratégia reversa: {keys_capturadas} Keys ({percentual_capturado:.2f}%)")
+                    keys_novas_reversa = keys_capturadas - keys_antes_passada
+                    print(f"   ✅ Após estratégia reversa: {keys_capturadas} Keys ({percentual_capturado:.2f}%), +{keys_novas_reversa} novas")
+                    
+                    # Se a estratégia reversa também não trouxe novas Keys, parar
+                    if keys_novas_reversa == 0:
+                        passadas_sem_novas_keys += 1
+                        if passadas_sem_novas_keys >= 2:
+                            print(f"   ⚠️ Estratégia reversa também não trouxe novas Keys. Parando e indo para validação focada...")
+                            break
+                    else:
+                        passadas_sem_novas_keys = 0  # Resetar se conseguiu Keys
                 
                 # Se ainda não chegou a 100%, continuar
                 if percentual_capturado >= 100.0:
