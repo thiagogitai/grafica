@@ -30,9 +30,21 @@ class ApiPricingProxyController extends Controller
         unset($opcoes['quantity']);
         
         try {
-            // Tentar obter Keys do cache primeiro
+            // Tentar obter Keys do cache primeiro (24 horas)
             $cacheKey = "api_keys_{$productSlug}";
             $keysMap = Cache::get($cacheKey);
+            
+            // Limitar frequência de requisições (rate limiting)
+            $rateLimitKey = "api_rate_limit_{$productSlug}";
+            $lastRequest = Cache::get($rateLimitKey);
+            
+            // Mínimo de 1 segundo entre requisições para o mesmo produto
+            if ($lastRequest && (time() - $lastRequest) < 1) {
+                \Log::warning("Rate limit: aguardando antes de nova requisição");
+                sleep(1);
+            }
+            
+            Cache::put($rateLimitKey, time(), now()->addMinute());
             
             if (!$keysMap) {
                 // Se não tem cache, fazer scraping uma vez para descobrir Keys
@@ -106,12 +118,32 @@ class ApiPricingProxyController extends Controller
                 'options_count' => count($options)
             ]);
             
+            // Headers para parecer uma requisição legítima do navegador
+            $userAgents = [
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+            ];
+            
+            // Rotacionar User-Agent para parecer mais natural
+            $userAgent = $userAgents[array_rand($userAgents)];
+            
+            // Adicionar pequeno delay aleatório (0.5-2s) para parecer mais humano
+            usleep(rand(500000, 2000000));
+            
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Accept' => 'application/json, text/plain, */*',
+                'Accept-Language' => 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Accept-Encoding' => 'gzip, deflate, br',
+                'User-Agent' => $userAgent,
                 'Referer' => "https://www.lojagraficaeskenazi.com.br/product/{$productSlug}",
-                'Origin' => 'https://www.lojagraficaeskenazi.com.br'
+                'Origin' => 'https://www.lojagraficaeskenazi.com.br',
+                'Connection' => 'keep-alive',
+                'Sec-Fetch-Dest' => 'empty',
+                'Sec-Fetch-Mode' => 'cors',
+                'Sec-Fetch-Site' => 'same-origin',
+                'X-Requested-With' => 'XMLHttpRequest'
             ])->timeout(10)->post($url, $payload);
             
             if ($response->successful()) {
