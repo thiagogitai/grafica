@@ -286,18 +286,116 @@ try:
                 keys_antes_passada = keys_capturadas
                 passada += 1
             
+            # VALIDAÇÃO 1: Verificar quais opções NÃO foram capturadas
+            print(f"\n   🔍 VALIDAÇÃO 1: Identificando opções faltantes...")
+            
+            # Extrair TODOS os textos das opções de TODOS os selects
+            todas_opcoes_texto = []
+            for select_info in selects_info:
+                select = select_info['select']
+                opcoes = select.find_elements(By.TAG_NAME, 'option')
+                for idx_opt in range(1, len(opcoes)):  # Pular primeira opção vazia
+                    try:
+                        texto_opcao = opcoes[idx_opt].text.strip()
+                        if texto_opcao:  # Se tem texto
+                            todas_opcoes_texto.append(texto_opcao)
+                    except:
+                        pass
+            
+            # Verificar quais opções NÃO têm Key
+            opcoes_faltantes = []
+            keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
+            
+            for opcao_texto in todas_opcoes_texto:
+                if opcao_texto not in keys_coletadas:
+                    # Tentar match parcial (pode ter espaços extras)
+                    encontrado = False
+                    for key_texto, key_value in keys_coletadas.items():
+                        if opcao_texto.strip() == key_texto.strip() or opcao_texto.strip() in key_texto.strip() or key_texto.strip() in opcao_texto.strip():
+                            encontrado = True
+                            break
+                    if not encontrado:
+                        opcoes_faltantes.append(opcao_texto)
+            
+            print(f"   📊 Total de opções únicas encontradas: {len(todas_opcoes_texto)}")
+            print(f"   📊 Keys capturadas: {len(keys_coletadas)}")
+            print(f"   📊 Opções faltantes: {len(opcoes_faltantes)}")
+            
+            # VALIDAÇÃO 2: Se ainda faltam Keys, fazer uma última passada FOCADA apenas nas faltantes
+            if opcoes_faltantes:
+                print(f"\n   🔄 VALIDAÇÃO 2: Fazendo passada final focada nas {len(opcoes_faltantes)} opções faltantes...")
+                
+                # Criar um mapa de texto -> select para busca rápida
+                mapa_opcoes = {}
+                for select_info in selects_info:
+                    select = select_info['select']
+                    opcoes = select.find_elements(By.TAG_NAME, 'option')
+                    for idx_opt in range(1, len(opcoes)):
+                        try:
+                            texto_opcao = opcoes[idx_opt].text.strip()
+                            if texto_opcao:
+                                if texto_opcao not in mapa_opcoes:
+                                    mapa_opcoes[texto_opcao] = []
+                                mapa_opcoes[texto_opcao].append({
+                                    'select': select,
+                                    'index': idx_opt,
+                                    'element': opcoes[idx_opt]
+                                })
+                        except:
+                            pass
+                
+                # Processar CADA opção faltante individualmente
+                opcoes_recuperadas = 0
+                for idx_faltante, opcao_faltante in enumerate(opcoes_faltantes, 1):
+                    if opcao_faltante in mapa_opcoes:
+                        for info in mapa_opcoes[opcao_faltante]:
+                            try:
+                                select = info['select']
+                                idx_opt = info['index']
+                                
+                                # Selecionar a opção faltante
+                                Select(select).select_by_index(idx_opt)
+                                
+                                # Aguardar mais tempo para garantir captura
+                                time.sleep(4.0)
+                                
+                                # Verificar se foi capturada
+                                keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
+                                if opcao_faltante in keys_atuais or any(opcao_faltante.strip() in k.strip() or k.strip() in opcao_faltante.strip() for k in keys_atuais.keys()):
+                                    opcoes_recuperadas += 1
+                                    print(f"     ✅ Opção {idx_faltante}/{len(opcoes_faltantes)} recuperada: '{opcao_faltante[:50]}...'")
+                                    break
+                                
+                            except Exception as e:
+                                print(f"     ⚠️ Erro ao processar opção faltante '{opcao_faltante[:50]}...': {e}")
+                                pass
+                    
+                    # Log a cada 10 opções processadas
+                    if idx_faltante % 10 == 0:
+                        keys_atuais = driver.execute_script("return window.keys_coletadas || {};")
+                        print(f"     Progresso: {idx_faltante}/{len(opcoes_faltantes)} opções faltantes processadas, {len(keys_atuais)} Keys agora")
+                
+                # Aguardar requisições finais
+                time.sleep(15)
+                keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
+                print(f"   ✅ Após validação 2: {len(keys_coletadas)} Keys capturadas (+{opcoes_recuperadas} recuperadas)")
+            
             # Verificação final rigorosa
+            keys_coletadas = driver.execute_script("return window.keys_coletadas || {};")
+            
             if keys_coletadas:
                 keys_para_produto = keys_coletadas
                 percentual_final = (len(keys_para_produto) / total_opcoes_esperadas * 100) if total_opcoes_esperadas > 0 else 0
                 
-                print(f"\n   ✅ RESULTADO FINAL:")
+                print(f"\n   ✅ RESULTADO FINAL APÓS 2 VALIDAÇÕES:")
                 print(f"   ✅ Keys capturadas: {len(keys_para_produto)}")
                 print(f"   ✅ Opções esperadas: {total_opcoes_esperadas}")
                 print(f"   ✅ Percentual: {percentual_final:.2f}%")
                 
                 if percentual_final >= 100.0:
                     print(f"   🎉 PERFEITO: 100% DE CAPTURA! TODAS AS KEYS FORAM CAPTURADAS!")
+                elif percentual_final >= 99.9:
+                    print(f"   ⚠️ QUASE PERFEITO: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
                 elif percentual_final >= 99.0:
                     print(f"   ⚠️ QUASE: {percentual_final:.2f}% capturado. Faltam {total_opcoes_esperadas - len(keys_para_produto)} Keys.")
                 elif percentual_final >= 95.0:
