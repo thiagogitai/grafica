@@ -46,13 +46,50 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 mapeamento_completo = {}
 
+# Carregar mapeamento existente (se houver) para continuar de onde parou
+arquivo_existente = 'mapeamento_keys_todos_produtos.json'
+if os.path.exists(arquivo_existente):
+    try:
+        with open(arquivo_existente, 'r', encoding='utf-8') as f:
+            dados_existentes = json.load(f)
+            mapeamento_completo = dados_existentes.get('mapeamento_por_produto', {})
+            print("="*80)
+            print("📂 MAPEAMENTO EXISTENTE ENCONTRADO!")
+            print("="*80)
+            produtos_com_keys = {p: len(keys) for p, keys in mapeamento_completo.items() if keys}
+            produtos_sem_keys = {p: len(keys) for p, keys in mapeamento_completo.items() if not keys}
+            print(f"✅ Produtos já processados ({len(produtos_com_keys)}):")
+            for p, count in produtos_com_keys.items():
+                print(f"   - {p}: {count} Keys")
+            if produtos_sem_keys:
+                print(f"\n❌ Produtos que falharam ({len(produtos_sem_keys)}):")
+                for p in produtos_sem_keys.keys():
+                    print(f"   - {p}: 0 Keys (será reprocessado)")
+            print("="*80)
+            print()
+    except Exception as e:
+        print(f"⚠️ Erro ao carregar mapeamento existente: {e}")
+        print("   Continuando do zero...\n")
+        mapeamento_completo = {}
+
 try:
     print("="*80)
     print("MAPEANDO KEYS DE TODOS OS PRODUTOS")
     print("="*80)
     print(f"Total de produtos: {len(PRODUTOS)}\n")
     
+    produtos_processados_contador = 0
     for idx, produto in enumerate(PRODUTOS, 1):
+        # Verificar se já foi processado com sucesso (tem Keys)
+        if produto in mapeamento_completo and len(mapeamento_completo[produto]) > 0:
+            print("="*80)
+            print(f"PRODUTO {idx}/{len(PRODUTOS)}: {produto}")
+            print("="*80)
+            print(f"   ⏭️  JÁ PROCESSADO COM SUCESSO! ({len(mapeamento_completo[produto])} Keys)")
+            print(f"   ⏭️  Pulando...\n")
+            continue
+        
+        produtos_processados_contador += 1
         print("="*80)
         print(f"PRODUTO {idx}/{len(PRODUTOS)}: {produto}")
         print("="*80)
@@ -426,7 +463,7 @@ try:
                 resultado_parcial = {
                     'mapeamento_por_produto': mapeamento_completo,
                     'total_produtos': len(PRODUTOS),
-                    'produtos_processados': idx,
+                    'produtos_processados': produtos_processados_contador,
                     'produtos_com_keys': len([p for p, keys in mapeamento_completo.items() if keys]),
                     'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S'),
                     'status': 'em_andamento'
@@ -442,7 +479,7 @@ try:
                 with open('mapeamento_keys_todos_produtos.json', 'w', encoding='utf-8') as f:
                     json.dump(resultado_parcial, f, indent=2, ensure_ascii=False)
                 
-                print(f"   💾 Progresso salvo! ({idx}/{len(PRODUTOS)} produtos processados)")
+                print(f"   💾 Progresso salvo! ({produtos_processados_contador} produtos novos processados, {len([p for p, keys in mapeamento_completo.items() if keys])}/{len(PRODUTOS)} com Keys)")
             except Exception as e:
                 print(f"   ⚠️ Erro ao salvar progresso: {e}")
             
@@ -455,7 +492,7 @@ try:
                 resultado_parcial = {
                     'mapeamento_por_produto': mapeamento_completo,
                     'total_produtos': len(PRODUTOS),
-                    'produtos_processados': idx,
+                    'produtos_processados': produtos_processados_contador,
                     'produtos_com_keys': len([p for p, keys in mapeamento_completo.items() if keys]),
                     'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S'),
                     'status': 'em_andamento',
@@ -465,7 +502,7 @@ try:
                 with open('mapeamento_keys_todos_produtos.json', 'w', encoding='utf-8') as f:
                     json.dump(resultado_parcial, f, indent=2, ensure_ascii=False)
                 
-                print(f"   💾 Progresso salvo mesmo após erro! ({idx}/{len(PRODUTOS)} produtos processados)")
+                print(f"   💾 Progresso salvo mesmo após erro! ({produtos_processados_contador} produtos novos processados, {len([p for p, keys in mapeamento_completo.items() if keys])}/{len(PRODUTOS)} com Keys)")
             except:
                 pass
     
