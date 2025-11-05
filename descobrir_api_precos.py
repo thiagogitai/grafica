@@ -95,13 +95,14 @@ try:
             pass
     
     # Aguardar e capturar logs de performance
-    time.sleep(2)
+    time.sleep(3)
     
     logs = driver.get_log('performance')
     
     print(f"\n📊 Total de requisições capturadas: {len(logs)}\n")
     
     apis_encontradas = []
+    respostas_encontradas = []
     
     for log in logs:
         try:
@@ -113,34 +114,91 @@ try:
                 request = message.get('message', {}).get('params', {}).get('request', {})
                 url_request = request.get('url', '')
                 method_http = request.get('method', '')
+                request_id = message.get('message', {}).get('params', {}).get('requestId', '')
                 
                 # Filtrar apenas requisições relevantes
                 if any(keyword in url_request.lower() for keyword in ['pricing', 'price', 'calculate', 'calc', 'api', 'preco', 'valor']):
+                    post_data = request.get('postData', '')
                     apis_encontradas.append({
                         'url': url_request,
                         'method': method_http,
                         'headers': request.get('headers', {}),
-                        'post_data': request.get('postData', '')
+                        'post_data': post_data,
+                        'request_id': request_id
                     })
                     print(f"🔍 API encontrada:")
                     print(f"   URL: {url_request}")
                     print(f"   Method: {method_http}")
-                    if request.get('postData'):
-                        print(f"   POST Data: {request.get('postData')[:200]}...")
+                    if post_data:
+                        try:
+                            post_json = json.loads(post_data)
+                            print(f"   POST Data (parsed):")
+                            print(f"      Q1: {post_json.get('pricingParameters', {}).get('Q1', 'N/A')}")
+                            options = post_json.get('pricingParameters', {}).get('Options', [])
+                            print(f"      Options: {len(options)} opções")
+                            for i, opt in enumerate(options[:3]):  # Mostrar primeiras 3
+                                print(f"         [{i}] Key: {opt.get('Key', '')[:20]}..., Value: {opt.get('Value', '')}")
+                            if len(options) > 3:
+                                print(f"         ... e mais {len(options) - 3} opções")
+                        except:
+                            print(f"   POST Data (raw, first 300 chars): {post_data[:300]}...")
                     print()
             
             # Verificar respostas
             elif method == 'Network.responseReceived':
                 response = message.get('message', {}).get('params', {}).get('response', {})
                 url_response = response.get('url', '')
+                request_id = message.get('message', {}).get('params', {}).get('requestId', '')
                 
                 if any(keyword in url_response.lower() for keyword in ['pricing', 'price', 'calculate', 'calc', 'api', 'preco', 'valor']):
+                    respostas_encontradas.append({
+                        'url': url_response,
+                        'status': response.get('status', 'N/A'),
+                        'headers': response.get('headers', {}),
+                        'request_id': request_id
+                    })
                     print(f"📥 Resposta recebida:")
                     print(f"   URL: {url_response}")
                     print(f"   Status: {response.get('status', 'N/A')}")
                     print()
         except:
             continue
+    
+    # Tentar obter o corpo da resposta usando driver.execute_cdp_cmd
+    print("\n🔍 Tentando obter corpo das respostas...")
+    try:
+        for resp in respostas_encontradas:
+            if resp['status'] == 200:
+                # Usar CDP para obter resposta
+                try:
+                    # Obter requestId correspondente
+                    request_id = resp.get('request_id', '')
+                    if request_id:
+                        response_body = driver.execute_cdp_cmd('Network.getResponseBody', {'requestId': request_id})
+                        body = response_body.get('body', '')
+                        
+                        print(f"\n📦 Resposta completa da API:")
+                        print(f"   URL: {resp['url']}")
+                        try:
+                            body_json = json.loads(body)
+                            print(f"   Resposta (JSON):")
+                            print(json.dumps(body_json, indent=2, ensure_ascii=False))
+                            
+                            # Extrair preço se existir
+                            if 'FormattedCost' in body_json:
+                                print(f"\n   💰 Preço formatado: {body_json['FormattedCost']}")
+                            if 'Cost' in body_json:
+                                print(f"   💰 Preço numérico: {body_json['Cost']}")
+                            if 'ErrorMessage' in body_json and body_json['ErrorMessage']:
+                                print(f"   ⚠️ Erro: {body_json['ErrorMessage']}")
+                        except:
+                            print(f"   Resposta (texto): {body[:500]}...")
+                    else:
+                        print(f"   ⚠️ Não foi possível obter requestId para {resp['url']}")
+                except Exception as e:
+                    print(f"   ⚠️ Erro ao obter corpo da resposta: {e}")
+    except Exception as e:
+        print(f"   ⚠️ Erro geral ao obter respostas: {e}")
     
     # Tentar encontrar funções JavaScript de cálculo
     print("\n🔍 Procurando funções JavaScript de cálculo...")
