@@ -17,10 +17,6 @@
       "type": "select",
       "choices": [
         {
-          "value": "105x148mm (A6)",
-          "label": "105x148mm (A6)"
-        },
-        {
           "value": "118x175mm",
           "label": "118x175mm"
         },
