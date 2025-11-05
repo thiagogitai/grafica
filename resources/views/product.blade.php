@@ -19,8 +19,7 @@
                 'label' => '2- Formato do Miolo (Páginas)',
                 'name' => 'formato_miolo_paginas',
                 'choices' => array_map(fn ($value) => ['value' => $value], [
-                    '105x148mm (A6)',
-                    '118x175mm',
+                '118x175mm',
                     '115x183mm',
                     '137x210mm (formato otimizado offset)',
                     '138x210mm',
