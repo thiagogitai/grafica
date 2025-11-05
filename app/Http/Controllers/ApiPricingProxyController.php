@@ -56,19 +56,58 @@ class ApiPricingProxyController extends Controller
             Cache::put($rateLimitKey, time(), now()->addMinute());
             
             if (!$keysMap) {
-                // Se não tem cache, fazer scraping uma vez para descobrir Keys
-                \Log::info("Cache de Keys não encontrado. Fazendo scraping para descobrir Keys...");
-                $keysMap = $this->descobrirKeysViaScraping($productSlug, $opcoes);
+                // Tentar carregar de arquivo de mapeamento completo (todos os produtos)
+                $arquivoMapeamentoCompleto = base_path('mapeamento_keys_todos_produtos.json');
                 
-                if ($keysMap) {
-                    // Cachear por 24 horas
-                    Cache::put($cacheKey, $keysMap, now()->addHours(24));
-                    \Log::info("Keys descobertas e cacheadas: " . count($keysMap));
-                } else {
-                    return response()->json([
-                        'success' => false,
-                        'error' => 'Não foi possível descobrir as Keys das opções'
-                    ], 500);
+                if (file_exists($arquivoMapeamentoCompleto)) {
+                    $mapeamentoCompleto = json_decode(file_get_contents($arquivoMapeamentoCompleto), true);
+                    
+                    // Tentar pegar keys específicas do produto
+                    if (isset($mapeamentoCompleto['mapeamento_por_produto'][$productSlug])) {
+                        $keysMap = $mapeamentoCompleto['mapeamento_por_produto'][$productSlug];
+                    } elseif (isset($mapeamentoCompleto['keys_reais'])) {
+                        // Fallback: usar keys unificadas
+                        $keysMap = $mapeamentoCompleto['keys_reais'];
+                    }
+                    
+                    if ($keysMap) {
+                        // Cachear por 24 horas
+                        Cache::put($cacheKey, $keysMap, now()->addHours(24));
+                        \Log::info("Keys carregadas do arquivo completo e cacheadas: " . count($keysMap));
+                    }
+                }
+                
+                // Se ainda não tem, tentar arquivo antigo (por produto individual)
+                if (!$keysMap) {
+                    $arquivoMapeamento = base_path('mapeamento_keys_opcoes.json');
+                    
+                    if (file_exists($arquivoMapeamento)) {
+                        $mapeamento = json_decode(file_get_contents($arquivoMapeamento), true);
+                        $keysMap = $mapeamento['keys_reais'] ?? [];
+                        
+                        if ($keysMap) {
+                            // Cachear por 24 horas
+                            Cache::put($cacheKey, $keysMap, now()->addHours(24));
+                            \Log::info("Keys carregadas do arquivo individual e cacheadas: " . count($keysMap));
+                        }
+                    }
+                }
+                
+                // Se ainda não tem, fazer scraping uma vez para descobrir Keys
+                if (!$keysMap) {
+                    \Log::info("Cache de Keys não encontrado. Fazendo scraping para descobrir Keys...");
+                    $keysMap = $this->descobrirKeysViaScraping($productSlug, $opcoes);
+                    
+                    if ($keysMap) {
+                        // Cachear por 24 horas
+                        Cache::put($cacheKey, $keysMap, now()->addHours(24));
+                        \Log::info("Keys descobertas via scraping e cacheadas: " . count($keysMap));
+                    } else {
+                        return response()->json([
+                            'success' => false,
+                            'error' => 'Não foi possível descobrir as Keys das opções. Execute: python3 mapear_keys_todos_produtos.py'
+                        ], 500);
+                    }
                 }
             }
             
