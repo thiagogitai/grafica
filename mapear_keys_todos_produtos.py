@@ -484,8 +484,12 @@ try:
                 print(f"   ⚠️ Erro ao salvar progresso: {e}")
             
         except Exception as e:
-            print(f"   ❌ Erro ao processar {produto}: {e}")
-            mapeamento_completo[produto] = {}
+            print(f"   ❌ ERRO ao processar {produto}: {e}")
+            print(f"   ⏭️  Pulando produto e continuando com o próximo...")
+            import traceback
+            print(f"   📋 Traceback completo:")
+            traceback.print_exc()
+            mapeamento_completo[produto] = {}  # Marcar como vazio mas continuar
             
             # Salvar mesmo em caso de erro
             try:
@@ -496,15 +500,20 @@ try:
                     'produtos_com_keys': len([p for p, keys in mapeamento_completo.items() if keys]),
                     'data_mapeamento': time.strftime('%Y-%m-%d %H:%M:%S'),
                     'status': 'em_andamento',
-                    'ultimo_erro': str(e)
+                    'ultimo_erro': str(e),
+                    'produtos_com_erro': [p for p, keys in mapeamento_completo.items() if not keys]
                 }
                 
                 with open('mapeamento_keys_todos_produtos.json', 'w', encoding='utf-8') as f:
                     json.dump(resultado_parcial, f, indent=2, ensure_ascii=False)
                 
-                print(f"   💾 Progresso salvo mesmo após erro! ({produtos_processados_contador} produtos novos processados, {len([p for p, keys in mapeamento_completo.items() if keys])}/{len(PRODUTOS)} com Keys)")
-            except:
-                pass
+                print(f"   💾 Progresso salvo! Pulando produto com erro e continuando...")
+                print(f"   📊 Status: {produtos_processados_contador} produtos novos processados, {len([p for p, keys in mapeamento_completo.items() if keys])}/{len(PRODUTOS)} com Keys")
+            except Exception as save_error:
+                print(f"   ⚠️ Erro ao salvar progresso: {save_error}")
+            
+            # CONTINUAR para o próximo produto (não parar)
+            continue
     
     # Salvar mapeamento completo (final)
     resultado = {
