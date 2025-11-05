@@ -114,7 +114,7 @@ class ApiPricingProxyController extends Controller
             // Mapear opções para Keys NA ORDEM CORRETA DOS SELECTS
             $options = [];
             
-            // Para impressao-de-livro, usar ordem específica dos selects
+            // Para impressao-de-livro e impressao-de-revista, usar ordem específica dos selects
             if ($productSlug === 'impressao-de-livro') {
                 $ordemSelects = [
                     0 => 'formato_miolo_paginas',
@@ -202,6 +202,75 @@ class ApiPricingProxyController extends Controller
                         \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
                     }
                 }
+            } elseif ($productSlug === 'impressao-de-revista') {
+                // Ordem específica para impressao-de-revista (baseado no scrape_revista.py)
+                $ordemSelects = [
+                    0 => 'formato',  // 2- Formato do Miolo (Páginas):
+                    1 => 'papel_capa',  // 3- Papel CAPA:
+                    2 => 'cores_capa',  // 4- Cores CAPA:
+                    3 => 'orelha_capa',  // 5 - Orelha da CAPA:
+                    4 => 'acabamento_capa',  // 6- Acabamento CAPA:
+                    5 => 'papel_miolo',  // 7- Papel MIOLO:
+                    6 => 'cores_miolo',  // 8- Cores MIOLO:
+                    7 => 'miolo_sangrado',  // 9- MIOLO Sangrado?
+                    8 => 'quantidade_paginas_miolo',  // 10- Quantidade Paginas MIOLO:
+                    9 => 'acabamento_miolo',  // 11- Acabamento MIOLO:
+                    10 => 'acabamento_livro',  // 12- Acabamento LIVRO:
+                    11 => 'guardas_livro',  // 13- Guardas LIVRO:
+                    12 => 'extras',  // 14- Extras:
+                    13 => 'frete',  // 15- Frete:
+                    14 => 'verificacao_arquivo',  // 16- Verificação do Arquivo:
+                    15 => 'prazo_entrega',  // 17- Prazo de Entrega:
+                ];
+                
+                // Processar na ordem dos selects
+                foreach ($ordemSelects as $selectIdx => $campo) {
+                    if (!isset($opcoes[$campo]) || $campo === 'quantity') {
+                        continue;
+                    }
+                    
+                    $valorStr = trim((string) $opcoes[$campo]);
+                    
+                    // Tentar match exato
+                    if (isset($keysMap[$valorStr])) {
+                        $options[] = [
+                            'Key' => $keysMap[$valorStr],
+                            'Value' => $valorStr
+                        ];
+                        continue;
+                    }
+                    
+                    // Match case-insensitive
+                    $encontrado = false;
+                    foreach ($keysMap as $texto => $key) {
+                        if (strcasecmp(trim($texto), $valorStr) === 0) {
+                            $options[] = [
+                                'Key' => $key,
+                                'Value' => trim($texto)
+                            ];
+                            $encontrado = true;
+                            break;
+                        }
+                    }
+                    
+                    // Match parcial se não encontrou
+                    if (!$encontrado) {
+                        foreach ($keysMap as $texto => $key) {
+                            if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
+                                $options[] = [
+                                    'Key' => $key,
+                                    'Value' => trim($texto)
+                                ];
+                                $encontrado = true;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!$encontrado) {
+                        \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
+                    }
+                }
             } else {
                 // Para outros produtos, manter ordem original
                 foreach ($opcoes as $campo => $valor) {
@@ -239,8 +308,13 @@ class ApiPricingProxyController extends Controller
                 }
             }
             
-            // Para impressao-de-livro, verificar se temos pelo menos 15 opções (número esperado)
-            $minOptions = ($productSlug === 'impressao-de-livro') ? 15 : count($opcoes);
+            // Para impressao-de-livro e impressao-de-revista, verificar quantidade mínima de opções
+            $minOptions = count($opcoes);
+            if ($productSlug === 'impressao-de-livro') {
+                $minOptions = 15;
+            } elseif ($productSlug === 'impressao-de-revista') {
+                $minOptions = 16; // 16 campos (0-15)
+            }
             
             if (count($options) < $minOptions) {
                 \Log::warning("Nem todas as opções foram mapeadas", [
