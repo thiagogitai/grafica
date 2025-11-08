@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
 
 class Product extends Model
 {
@@ -17,6 +18,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
+        'category_id',
         'description',
         'price',
         'image',
@@ -40,13 +42,13 @@ class Product extends Model
     public static function templateOptions(): array
     {
         return [
-            self::TEMPLATE_STANDARD => 'Produto padrão (exibe preço fixo)',
-            self::TEMPLATE_CONFIG_AUTO => 'Configuração automática (JSON do produto)',
-            self::templateOptionKey('impressao-de-revista') => 'Template: Impressão de Revista',
-            self::templateOptionKey('impressao-de-livro') => 'Template: Impressão de Livro',
-            self::templateOptionKey('impressao-online-de-livretos-personalizados') => 'Template: Impressão de Livretos',
-            self::templateOptionKey('impressao-de-apostila') => 'Template: Impressão de Apostila',
-            self::TEMPLATE_FLYER => 'Calculadora de Flyers/Panfletos',
+            self::templateOptionKey('livro') => 'Template: Livro',
+            self::templateOptionKey('impressao-de-apostila') => 'Template: Apostila',
+            self::templateOptionKey('impressao-de-jornal-de-bairro') => 'Template: Jornal de Bairro',
+            self::templateOptionKey('impressao-online-de-livretos-personalizados') => 'Template: Livretos Personalizados',
+            self::templateOptionKey('impressao-de-revista') => 'Template: Revista',
+            self::templateOptionKey('impressao-de-tabloide') => 'Template: Tabloide',
+            self::templateOptionKey('impressao-de-panfleto') => 'Template: Panfleto',
         ];
     }
 
@@ -102,5 +104,10 @@ class Product extends Model
         }
 
         return 'Template desconhecido';
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

@@ -37,6 +37,21 @@
                     <small class="text-muted">Escolha o layout/comportamento que será aplicado na vitrine do site.</small>
                 </div>
             </div>
+            <div class="col-12 col-lg-6">
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Categoria</label>
+                    <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+                        <option value="">Sem categoria</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('category_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    <small class="text-muted">Selecione a categoria principal deste produto (opcional).</small>
+                </div>
+            </div>
             <div class="col-12">
                 <label for="description" class="form-label">Descrição</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" required>{{ old('description') }}</textarea>

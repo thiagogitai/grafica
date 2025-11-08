@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -32,7 +33,8 @@ class AdminController extends Controller
     {
         $templates = Product::templateOptions();
         $disablePriceEditor = \App\Models\Setting::boolean('disable_price_editor', false);
-        return view('admin.create-product', compact('templates', 'disablePriceEditor'));
+        $categories = Category::orderBy('name')->get();
+        return view('admin.create-product', compact('templates', 'disablePriceEditor', 'categories'));
     }
 
     public function showProduct(Product $product)
@@ -57,6 +59,7 @@ class AdminController extends Controller
             'template' => 'required|string|in:' . $templateKeys,
             'request_only' => 'nullable|boolean',
             'markup_percentage' => 'nullable|numeric|min:0|max:500',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $imagePath = null;
@@ -66,6 +69,7 @@ class AdminController extends Controller
 
         Product::create([
             'name' => $request->name,
+            'category_id' => $request->input('category_id'),
             'description' => $request->description,
             'price' => $disablePrice ? ($request->input('price', 0) ?? 0) : $request->price,
             'image' => $imagePath,
@@ -83,7 +87,8 @@ class AdminController extends Controller
         $disablePriceEditor = \App\Models\Setting::boolean('disable_price_editor', false)
             || $product->usesConfigTemplate()
             || $product->template === Product::TEMPLATE_FLYER;
-        return view('admin.edit-product', compact('product', 'templates', 'disablePriceEditor'));
+        $categories = Category::orderBy('name')->get();
+        return view('admin.edit-product', compact('product', 'templates', 'disablePriceEditor', 'categories'));
     }
 
     public function updateProduct(Request $request, Product $product)
@@ -103,6 +108,7 @@ class AdminController extends Controller
             'template' => 'required|string|in:' . $templateKeys,
             'request_only' => 'nullable|boolean',
             'markup_percentage' => 'nullable|numeric|min:0|max:500',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $imagePath = $product->image;
@@ -116,6 +122,7 @@ class AdminController extends Controller
 
         $product->update([
             'name' => $request->name,
+            'category_id' => $request->input('category_id'),
             'description' => $request->description,
             'price' => $disablePrice ? $product->price : $request->price,
             'image' => $imagePath,

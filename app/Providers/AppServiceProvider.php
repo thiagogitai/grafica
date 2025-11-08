@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -27,15 +28,24 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        $requestOnly = Setting::boolean('request_only', false);
-        $whatsappNumber = Setting::get('whatsapp_number');
-        $whatsappLink = $whatsappNumber ? 'https://wa.me/' . preg_replace('/\D+/', '', (string) $whatsappNumber) : null;
-        $socialLinks = json_decode(Setting::get('social_links', '[]'), true);
-        if (!is_array($socialLinks)) {
-            $socialLinks = [];
+        $requestOnly = false;
+        $whatsappNumber = null;
+        $socialLinks = [];
+        $footerText = '';
+        $disablePriceEditor = false;
+
+        if (Schema::hasTable('settings')) {
+            $requestOnly = Setting::boolean('request_only', false);
+            $whatsappNumber = Setting::get('whatsapp_number');
+            $socialLinks = json_decode(Setting::get('social_links', '[]'), true);
+            if (!is_array($socialLinks)) {
+                $socialLinks = [];
+            }
+            $footerText = Setting::get('footer_text', '');
+            $disablePriceEditor = Setting::boolean('disable_price_editor', false);
         }
-        $footerText = Setting::get('footer_text', '');
-        $disablePriceEditor = Setting::boolean('disable_price_editor', false);
+
+        $whatsappLink = $whatsappNumber ? 'https://wa.me/' . preg_replace('/\D+/', '', (string) $whatsappNumber) : null;
 
         View::share('requestOnlyMode', $requestOnly);
         View::share('globalWhatsappNumber', $whatsappNumber);

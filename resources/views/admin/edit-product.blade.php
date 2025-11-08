@@ -34,6 +34,19 @@
                 @error('template')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 <small class="text-muted">Controle o layout e regras exibidas na vitrine.</small>
             </div>
+            <div class="col-12 col-lg-6">
+                <label for="category_id" class="form-label">Categoria</label>
+                <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+                    <option value="">Sem categoria</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('category_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <small class="text-muted">Atualize a categoria principal deste item.</small>
+            </div>
             <div class="col-12">
                 <label for="description" class="form-label">Descrição</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" required>{{ old('description', $product->description) }}</textarea>
