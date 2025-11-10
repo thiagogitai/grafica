@@ -187,7 +187,7 @@ class HomeController extends Controller
                 break;
         }
 
-        return view('product', [
+        return view('products.default', [
             'product' => $product,
             'requestOnlyGlobal' => $requestOnlyGlobal,
             'requestOnlyProduct' => $requestOnlyProduct,
@@ -256,12 +256,8 @@ class HomeController extends Controller
     {
         $defaults = [
             'title' => $product->name,
-            'subtitle' => 'Reproduzimos fielmente o fluxo de orçamento oficial e atualizamos o preço em tempo real.',
-            'highlights' => [
-                'Opções e acabamentos idênticos à matriz',
-                'Preço validado direto na API oficial',
-                'Upload do PDF e dados de frete no carrinho',
-            ],
+            'subtitle' => '',
+            'highlights' => [],
         ];
 
         $heroMap = [
