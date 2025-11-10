@@ -22,7 +22,7 @@ class PricingService
 
         $payload = $this->buildPayload($slug, $options);
 
-        $response = Http::withHeaders($this->defaultHeaders())->timeout(30)
+        $response = Http::withHeaders($this->defaultHeaders($slug))->timeout(30)
             ->post(self::BASE_URL . "/product/{$slug}/pricing", $payload);
 
         if (!$response->successful()) {
@@ -163,6 +163,32 @@ class PricingService
     protected function fieldKeysPath(string $slug): string
     {
         return base_path("resources/data/products/{$slug}-field-keys.json");
+    }
+
+    protected function defaultHeaders(string $slug): array
+    {
+        static $userAgents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        ];
+
+        $userAgent = $userAgents[array_rand($userAgents)];
+
+        return [
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json, text/plain, */*',
+            'Accept-Language' => 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Accept-Encoding' => 'gzip, deflate, br',
+            'User-Agent' => $userAgent,
+            'Referer' => self::BASE_URL . "/product/{$slug}",
+            'Origin' => self::BASE_URL,
+            'Connection' => 'keep-alive',
+            'Sec-Fetch-Dest' => 'empty',
+            'Sec-Fetch-Mode' => 'cors',
+            'Sec-Fetch-Site' => 'same-origin',
+            'X-Requested-With' => 'XMLHttpRequest',
+        ];
     }
 
 }
