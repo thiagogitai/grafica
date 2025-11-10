@@ -1,0 +1,2005 @@
+{
+  "slug": "impressao-de-livro",
+  "field_keys": [
+    {
+      "index": 0,
+      "label": "2- Formato do Miolo (Páginas):",
+      "key": "8507966BFD1CED08D52954CA1BFBAFAC",
+      "options": [
+        {
+          "value": "105x148mm (A6)",
+          "label": "105x148mm (A6)"
+        },
+        {
+          "value": "118x175mm",
+          "label": "118x175mm"
+        },
+        {
+          "value": "115x183mm",
+          "label": "115x183mm"
+        },
+        {
+          "value": "137x210mm (formato otimizado offset)",
+          "label": "137x210mm (formato otimizado offset)"
+        },
+        {
+          "value": "138x210mm",
+          "label": "138x210mm"
+        },
+        {
+          "value": "140x210mm",
+          "label": "140x210mm"
+        },
+        {
+          "value": "148x210mm (A5) ",
+          "label": "148x210mm (A5)"
+        },
+        {
+          "value": "155x230mm (formato otimizado digital)",
+          "label": "155x230mm (formato otimizado digital)"
+        },
+        {
+          "value": "158x230mm",
+          "label": "158x230mm"
+        },
+        {
+          "value": "160x230mm",
+          "label": "160x230mm"
+        },
+        {
+          "value": "170x240mm",
+          "label": "170x240mm"
+        },
+        {
+          "value": "170x230mm",
+          "label": "170x230mm"
+        },
+        {
+          "value": "190mmx230mm",
+          "label": "190mmx230mm"
+        },
+        {
+          "value": "205x205mm",
+          "label": "205x205mm"
+        },
+        {
+          "value": "205x275mm",
+          "label": "205x275mm"
+        },
+        {
+          "value": "210x280mm",
+          "label": "210x280mm"
+        },
+        {
+          "value": "210x297mm (A4) ",
+          "label": "210x297mm (A4)"
+        },
+        {
+          "value": "230x230mm",
+          "label": "230x230mm"
+        },
+        {
+          "value": "230x300mm",
+          "label": "230x300mm"
+        },
+        {
+          "value": "250x300mm",
+          "label": "250x300mm"
+        },
+        {
+          "value": "260x260mm",
+          "label": "260x260mm"
+        },
+        {
+          "value": "280x300mm",
+          "label": "280x300mm"
+        },
+        {
+          "value": "300x280mm",
+          "label": "300x280mm"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "label": "3- Papel CAPA:",
+      "key": "9DD0C964AA872B2B8F882356423C922D",
+      "options": [
+        {
+          "value": "Cartão Triplex 250gr ",
+          "label": "Cartão Triplex 250gr"
+        },
+        {
+          "value": "Couche Brilho 150gr ",
+          "label": "Couche Brilho 150gr"
+        },
+        {
+          "value": "SEM CAPA",
+          "label": "SEM CAPA"
+        },
+        {
+          "value": "Cartão Triplex 300gr ",
+          "label": "Cartão Triplex 300gr"
+        },
+        {
+          "value": "Couche Fosco 150gr ",
+          "label": "Couche Fosco 150gr"
+        },
+        {
+          "value": "Couche Fosco 170gr ",
+          "label": "Couche Fosco 170gr"
+        },
+        {
+          "value": "Couche Fosco 210gr ",
+          "label": "Couche Fosco 210gr"
+        },
+        {
+          "value": "Couche Brilho 170gr ",
+          "label": "Couche Brilho 170gr"
+        },
+        {
+          "value": "Couche Brilho 210gr ",
+          "label": "Couche Brilho 210gr"
+        },
+        {
+          "value": "Couche Brilho 250g Importado",
+          "label": "Couche Brilho 250g Importado"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "label": "4- Cores CAPA:",
+      "key": "F54EB0969F0ACEBD67F0722A3FF633F3",
+      "options": [
+        {
+          "value": "4 cores Frente",
+          "label": "4 cores Frente"
+        },
+        {
+          "value": "4 cores FxV",
+          "label": "4 cores FxV"
+        },
+        {
+          "value": "1 Cor Frente (Preto)",
+          "label": "1 Cor Frente (Preto)"
+        },
+        {
+          "value": "1 Cor FxV (Preto)",
+          "label": "1 Cor FxV (Preto)"
+        },
+        {
+          "value": "4 cores Frente x 1 cor Preto Verso",
+          "label": "4 cores Frente x 1 cor Preto Verso"
+        },
+        {
+          "value": "4 cores Frente x 1 cor Pantone Verso",
+          "label": "4 cores Frente x 1 cor Pantone Verso"
+        },
+        {
+          "value": "5 cores Frente x 1 cor Preto Verso",
+          "label": "5 cores Frente x 1 cor Preto Verso"
+        },
+        {
+          "value": "5 cores Frente x 1 cor Pantone Verso",
+          "label": "5 cores Frente x 1 cor Pantone Verso"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "label": "5 - Orelha da CAPA:",
+      "key": "FC83B57DD0039A0D73EC0FB9F63BDB59",
+      "options": [
+        {
+          "value": "SEM ORELHA",
+          "label": "SEM ORELHA"
+        },
+        {
+          "value": "COM Orelha de 8cm",
+          "label": "COM Orelha de 8cm"
+        },
+        {
+          "value": "COM Orelha de 7cm",
+          "label": "COM Orelha de 7cm"
+        },
+        {
+          "value": "COM Orelha de 6cm",
+          "label": "COM Orelha de 6cm"
+        },
+        {
+          "value": "COM Orelha de 5cm",
+          "label": "COM Orelha de 5cm"
+        },
+        {
+          "value": "COM Orelha de 9cm",
+          "label": "COM Orelha de 9cm"
+        },
+        {
+          "value": "COM Orelha de 10cm",
+          "label": "COM Orelha de 10cm"
+        },
+        {
+          "value": "COM Orelha de 11cm",
+          "label": "COM Orelha de 11cm"
+        },
+        {
+          "value": "COM Orelha de 12cm",
+          "label": "COM Orelha de 12cm"
+        },
+        {
+          "value": "COM Orelha de 13cm",
+          "label": "COM Orelha de 13cm"
+        },
+        {
+          "value": "COM Orelha de 14cm",
+          "label": "COM Orelha de 14cm"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "label": "6- Acabamento CAPA:",
+      "key": "9D50176D0602173B5575AC4A62173EA2",
+      "options": [
+        {
+          "value": "Laminação FOSCA FRENTE (Acima de 240g)",
+          "label": "Laminação FOSCA FRENTE (Acima de 240g)"
+        },
+        {
+          "value": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)",
+          "label": "Laminação FOSCA Frente + UV Reserva (Acima de 240g)"
+        },
+        {
+          "value": "Laminação BRILHO FRENTE (Acima de 240g)",
+          "label": "Laminação BRILHO FRENTE (Acima de 240g)"
+        },
+        {
+          "value": "Verniz UV TOTAL FRENTE (Acima de 240g)",
+          "label": "Verniz UV TOTAL FRENTE (Acima de 240g)"
+        },
+        {
+          "value": "Sem Acabamento",
+          "label": "Sem Acabamento"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "label": "7- Papel MIOLO:",
+      "key": "2913797D83A57041C2A87BED6F1FEDA9",
+      "options": [
+        {
+          "value": "Offset 75gr",
+          "label": "Offset 75gr"
+        },
+        {
+          "value": "Pólen Natural 80g",
+          "label": "Pólen Natural 80g"
+        },
+        {
+          "value": "Pólen Bold 70g",
+          "label": "Pólen Bold 70g"
+        },
+        {
+          "value": "Pólen Bold 90g",
+          "label": "Pólen Bold 90g"
+        },
+        {
+          "value": "Offset 90gr",
+          "label": "Offset 90gr"
+        },
+        {
+          "value": "Impressão Offset - >500unidades",
+          "label": "Impressão Offset - >500unidades"
+        },
+        {
+          "value": "Pólen Natural 70g",
+          "label": "Pólen Natural 70g"
+        },
+        {
+          "value": "Offset 70gr",
+          "label": "Offset 70gr"
+        },
+        {
+          "value": "Offset 56gr",
+          "label": "Offset 56gr"
+        },
+        {
+          "value": "Offset 63gr",
+          "label": "Offset 63gr"
+        },
+        {
+          "value": "Offset 120gr",
+          "label": "Offset 120gr"
+        },
+        {
+          "value": "Couche Fosco 80gr (Offset - Acima de 300pçs)",
+          "label": "Couche Fosco 80gr (Offset - Acima de 300pçs)"
+        },
+        {
+          "value": "Couche Fosco 90gr Importado (Digital - Abaixo de 300pçs)",
+          "label": "Couche Fosco 90gr Importado (Digital - Abaixo de 300pçs)"
+        },
+        {
+          "value": "Couche Fosco 115gr Importado (Digital - Abaixo de 300pçs)",
+          "label": "Couche Fosco 115gr Importado (Digital - Abaixo de 300pçs)"
+        },
+        {
+          "value": "Couche Fosco 150gr ",
+          "label": "Couche Fosco 150gr"
+        },
+        {
+          "value": "Couche Fosco 170gr ",
+          "label": "Couche Fosco 170gr"
+        },
+        {
+          "value": "Couche brilho 80gr (Offset - Acima de 300pçs)",
+          "label": "Couche brilho 80gr (Offset - Acima de 300pçs)"
+        },
+        {
+          "value": "Couche brilho 90gr importado (Digital - Abaixo de 300pçs)",
+          "label": "Couche brilho 90gr importado (Digital - Abaixo de 300pçs)"
+        },
+        {
+          "value": "Couche brilho 115gr Importado (Digital - Abaixo de 300pçs)",
+          "label": "Couche brilho 115gr Importado (Digital - Abaixo de 300pçs)"
+        },
+        {
+          "value": "Couche brilho 150gr ",
+          "label": "Couche brilho 150gr"
+        },
+        {
+          "value": "Couche brilho 170gr ",
+          "label": "Couche brilho 170gr"
+        },
+        {
+          "value": "Couche brilho 210gr ",
+          "label": "Couche brilho 210gr"
+        },
+        {
+          "value": "Couche Fosco 90gr (Offset - Acima de 300pçs)",
+          "label": "Couche Fosco 90gr (Offset - Acima de 300pçs)"
+        },
+        {
+          "value": "Couche Fosco 115gr (Offset - Acima de 300pçs)",
+          "label": "Couche Fosco 115gr (Offset - Acima de 300pçs)"
+        },
+        {
+          "value": "Couche Brilho 90gr (Offset - Acima de 300pçs)",
+          "label": "Couche Brilho 90gr (Offset - Acima de 300pçs)"
+        },
+        {
+          "value": "Couche Brilho 115gr (Offset - Acima de 300pçs)",
+          "label": "Couche Brilho 115gr (Offset - Acima de 300pçs)"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "label": "8- Cores MIOLO:",
+      "key": "E90F9B0C705E3F28CE0D3B51613AE230",
+      "options": [
+        {
+          "value": "4 cores frente e verso",
+          "label": "4 cores frente e verso"
+        },
+        {
+          "value": "1 cor frente e verso PRETO",
+          "label": "1 cor frente e verso PRETO"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "label": "9- MIOLO Sangrado?",
+      "key": "CFAB249F3402BE020FEFFD84CB991DAA",
+      "options": [
+        {
+          "value": "NÃO",
+          "label": "NÃO"
+        },
+        {
+          "value": "SIM",
+          "label": "SIM"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "label": "10- Quantidade Paginas MIOLO:",
+      "key": "FCDF130D17B1F0C1FB2503C6F33559D7",
+      "options": [
+        {
+          "value": "Miolo 8 páginas",
+          "label": "Miolo 8 páginas"
+        },
+        {
+          "value": "Miolo 12 páginas",
+          "label": "Miolo 12 páginas"
+        },
+        {
+          "value": "Miolo 16 páginas",
+          "label": "Miolo 16 páginas"
+        },
+        {
+          "value": "Miolo 20 páginas",
+          "label": "Miolo 20 páginas"
+        },
+        {
+          "value": "Miolo 24 páginas",
+          "label": "Miolo 24 páginas"
+        },
+        {
+          "value": "Miolo 28 páginas",
+          "label": "Miolo 28 páginas"
+        },
+        {
+          "value": "Miolo 32 páginas",
+          "label": "Miolo 32 páginas"
+        },
+        {
+          "value": "Miolo 36 páginas",
+          "label": "Miolo 36 páginas"
+        },
+        {
+          "value": "Miolo 40 páginas",
+          "label": "Miolo 40 páginas"
+        },
+        {
+          "value": "Miolo 44 páginas",
+          "label": "Miolo 44 páginas"
+        },
+        {
+          "value": "Miolo 48 páginas",
+          "label": "Miolo 48 páginas"
+        },
+        {
+          "value": "Miolo 52 páginas",
+          "label": "Miolo 52 páginas"
+        },
+        {
+          "value": "Miolo 56 páginas",
+          "label": "Miolo 56 páginas"
+        },
+        {
+          "value": "Miolo 60 páginas",
+          "label": "Miolo 60 páginas"
+        },
+        {
+          "value": "Miolo 64 páginas",
+          "label": "Miolo 64 páginas"
+        },
+        {
+          "value": "Miolo 68 páginas",
+          "label": "Miolo 68 páginas"
+        },
+        {
+          "value": "Miolo 72 páginas",
+          "label": "Miolo 72 páginas"
+        },
+        {
+          "value": "Miolo 76 páginas",
+          "label": "Miolo 76 páginas"
+        },
+        {
+          "value": "Miolo 80 páginas",
+          "label": "Miolo 80 páginas"
+        },
+        {
+          "value": "Miolo 84 páginas",
+          "label": "Miolo 84 páginas"
+        },
+        {
+          "value": "Miolo 88 páginas",
+          "label": "Miolo 88 páginas"
+        },
+        {
+          "value": "Miolo 92 páginas",
+          "label": "Miolo 92 páginas"
+        },
+        {
+          "value": "Miolo 96 páginas",
+          "label": "Miolo 96 páginas"
+        },
+        {
+          "value": "Miolo 100 páginas",
+          "label": "Miolo 100 páginas"
+        },
+        {
+          "value": "Miolo 104 páginas",
+          "label": "Miolo 104 páginas"
+        },
+        {
+          "value": "Miolo 108 páginas",
+          "label": "Miolo 108 páginas"
+        },
+        {
+          "value": "Miolo 112 páginas",
+          "label": "Miolo 112 páginas"
+        },
+        {
+          "value": "Miolo 116 páginas",
+          "label": "Miolo 116 páginas"
+        },
+        {
+          "value": "Miolo 120 páginas",
+          "label": "Miolo 120 páginas"
+        },
+        {
+          "value": "Miolo 124 páginas",
+          "label": "Miolo 124 páginas"
+        },
+        {
+          "value": "Miolo 128 páginas",
+          "label": "Miolo 128 páginas"
+        },
+        {
+          "value": "Miolo 132 páginas",
+          "label": "Miolo 132 páginas"
+        },
+        {
+          "value": "Miolo 136 páginas",
+          "label": "Miolo 136 páginas"
+        },
+        {
+          "value": "Miolo 140 páginas",
+          "label": "Miolo 140 páginas"
+        },
+        {
+          "value": "Miolo 144 páginas",
+          "label": "Miolo 144 páginas"
+        },
+        {
+          "value": "Miolo 148 páginas",
+          "label": "Miolo 148 páginas"
+        },
+        {
+          "value": "Miolo 152 páginas",
+          "label": "Miolo 152 páginas"
+        },
+        {
+          "value": "Miolo 156 páginas",
+          "label": "Miolo 156 páginas"
+        },
+        {
+          "value": "Miolo 160 páginas",
+          "label": "Miolo 160 páginas"
+        },
+        {
+          "value": "Miolo 164 páginas",
+          "label": "Miolo 164 páginas"
+        },
+        {
+          "value": "Miolo 168 páginas",
+          "label": "Miolo 168 páginas"
+        },
+        {
+          "value": "Miolo 172 páginas",
+          "label": "Miolo 172 páginas"
+        },
+        {
+          "value": "Miolo 176 páginas",
+          "label": "Miolo 176 páginas"
+        },
+        {
+          "value": "Miolo 180 páginas",
+          "label": "Miolo 180 páginas"
+        },
+        {
+          "value": "Miolo 184 páginas",
+          "label": "Miolo 184 páginas"
+        },
+        {
+          "value": "Miolo 188 páginas",
+          "label": "Miolo 188 páginas"
+        },
+        {
+          "value": "Miolo 192 páginas",
+          "label": "Miolo 192 páginas"
+        },
+        {
+          "value": "Miolo 196 páginas",
+          "label": "Miolo 196 páginas"
+        },
+        {
+          "value": "Miolo 200 páginas",
+          "label": "Miolo 200 páginas"
+        },
+        {
+          "value": "Miolo 204 páginas",
+          "label": "Miolo 204 páginas"
+        },
+        {
+          "value": "Miolo 208 páginas",
+          "label": "Miolo 208 páginas"
+        },
+        {
+          "value": "Miolo 212 páginas",
+          "label": "Miolo 212 páginas"
+        },
+        {
+          "value": "Miolo 216 páginas",
+          "label": "Miolo 216 páginas"
+        },
+        {
+          "value": "Miolo 220 páginas",
+          "label": "Miolo 220 páginas"
+        },
+        {
+          "value": "Miolo 224 páginas",
+          "label": "Miolo 224 páginas"
+        },
+        {
+          "value": "Miolo 228 páginas",
+          "label": "Miolo 228 páginas"
+        },
+        {
+          "value": "Miolo 232 páginas",
+          "label": "Miolo 232 páginas"
+        },
+        {
+          "value": "Miolo 236 páginas",
+          "label": "Miolo 236 páginas"
+        },
+        {
+          "value": "Miolo 240 páginas",
+          "label": "Miolo 240 páginas"
+        },
+        {
+          "value": "Miolo 244 páginas",
+          "label": "Miolo 244 páginas"
+        },
+        {
+          "value": "Miolo 248 páginas",
+          "label": "Miolo 248 páginas"
+        },
+        {
+          "value": "Miolo 252 páginas",
+          "label": "Miolo 252 páginas"
+        },
+        {
+          "value": "Miolo 256 páginas",
+          "label": "Miolo 256 páginas"
+        },
+        {
+          "value": "Miolo 260 páginas",
+          "label": "Miolo 260 páginas"
+        },
+        {
+          "value": "Miolo 264 páginas",
+          "label": "Miolo 264 páginas"
+        },
+        {
+          "value": "Miolo 268 páginas",
+          "label": "Miolo 268 páginas"
+        },
+        {
+          "value": "Miolo 272 páginas",
+          "label": "Miolo 272 páginas"
+        },
+        {
+          "value": "Miolo 276 páginas",
+          "label": "Miolo 276 páginas"
+        },
+        {
+          "value": "Miolo 280 páginas",
+          "label": "Miolo 280 páginas"
+        },
+        {
+          "value": "Miolo 284 páginas",
+          "label": "Miolo 284 páginas"
+        },
+        {
+          "value": "Miolo 288 páginas",
+          "label": "Miolo 288 páginas"
+        },
+        {
+          "value": "Miolo 292 páginas",
+          "label": "Miolo 292 páginas"
+        },
+        {
+          "value": "Miolo 296 páginas",
+          "label": "Miolo 296 páginas"
+        },
+        {
+          "value": "Miolo 300 páginas",
+          "label": "Miolo 300 páginas"
+        },
+        {
+          "value": "Miolo 304 páginas",
+          "label": "Miolo 304 páginas"
+        },
+        {
+          "value": "Miolo 308 páginas",
+          "label": "Miolo 308 páginas"
+        },
+        {
+          "value": "Miolo 312 páginas",
+          "label": "Miolo 312 páginas"
+        },
+        {
+          "value": "Miolo 316 páginas",
+          "label": "Miolo 316 páginas"
+        },
+        {
+          "value": "Miolo 320 páginas",
+          "label": "Miolo 320 páginas"
+        },
+        {
+          "value": "Miolo 324 páginas",
+          "label": "Miolo 324 páginas"
+        },
+        {
+          "value": "Miolo 328 páginas",
+          "label": "Miolo 328 páginas"
+        },
+        {
+          "value": "Miolo 332 páginas",
+          "label": "Miolo 332 páginas"
+        },
+        {
+          "value": "Miolo 336 páginas",
+          "label": "Miolo 336 páginas"
+        },
+        {
+          "value": "Miolo 340 páginas",
+          "label": "Miolo 340 páginas"
+        },
+        {
+          "value": "Miolo 344 páginas",
+          "label": "Miolo 344 páginas"
+        },
+        {
+          "value": "Miolo 348 páginas",
+          "label": "Miolo 348 páginas"
+        },
+        {
+          "value": "Miolo 352 páginas",
+          "label": "Miolo 352 páginas"
+        },
+        {
+          "value": "Miolo 356 páginas",
+          "label": "Miolo 356 páginas"
+        },
+        {
+          "value": "Miolo 360 páginas",
+          "label": "Miolo 360 páginas"
+        },
+        {
+          "value": "Miolo 364 páginas",
+          "label": "Miolo 364 páginas"
+        },
+        {
+          "value": "Miolo 368 páginas",
+          "label": "Miolo 368 páginas"
+        },
+        {
+          "value": "Miolo 372 páginas",
+          "label": "Miolo 372 páginas"
+        },
+        {
+          "value": "Miolo 376 páginas",
+          "label": "Miolo 376 páginas"
+        },
+        {
+          "value": "Miolo 380 páginas",
+          "label": "Miolo 380 páginas"
+        },
+        {
+          "value": "Miolo 384 páginas",
+          "label": "Miolo 384 páginas"
+        },
+        {
+          "value": "Miolo 388 páginas",
+          "label": "Miolo 388 páginas"
+        },
+        {
+          "value": "Miolo 392 páginas",
+          "label": "Miolo 392 páginas"
+        },
+        {
+          "value": "Miolo 396 páginas",
+          "label": "Miolo 396 páginas"
+        },
+        {
+          "value": "Miolo 400 páginas",
+          "label": "Miolo 400 páginas"
+        },
+        {
+          "value": "Miolo 404 páginas",
+          "label": "Miolo 404 páginas"
+        },
+        {
+          "value": "Miolo 408 páginas",
+          "label": "Miolo 408 páginas"
+        },
+        {
+          "value": "Miolo 412 páginas",
+          "label": "Miolo 412 páginas"
+        },
+        {
+          "value": "Miolo 416 páginas",
+          "label": "Miolo 416 páginas"
+        },
+        {
+          "value": "Miolo 420 páginas",
+          "label": "Miolo 420 páginas"
+        },
+        {
+          "value": "Miolo 424 páginas",
+          "label": "Miolo 424 páginas"
+        },
+        {
+          "value": "Miolo 428 páginas",
+          "label": "Miolo 428 páginas"
+        },
+        {
+          "value": "Miolo 432 páginas",
+          "label": "Miolo 432 páginas"
+        },
+        {
+          "value": "Miolo 436 páginas",
+          "label": "Miolo 436 páginas"
+        },
+        {
+          "value": "Miolo 440 páginas",
+          "label": "Miolo 440 páginas"
+        },
+        {
+          "value": "Miolo 444 páginas",
+          "label": "Miolo 444 páginas"
+        },
+        {
+          "value": "Miolo 448 páginas",
+          "label": "Miolo 448 páginas"
+        },
+        {
+          "value": "Miolo 452 páginas",
+          "label": "Miolo 452 páginas"
+        },
+        {
+          "value": "Miolo 456 páginas",
+          "label": "Miolo 456 páginas"
+        },
+        {
+          "value": "Miolo 460 páginas",
+          "label": "Miolo 460 páginas"
+        },
+        {
+          "value": "Miolo 464 páginas",
+          "label": "Miolo 464 páginas"
+        },
+        {
+          "value": "Miolo 468 páginas",
+          "label": "Miolo 468 páginas"
+        },
+        {
+          "value": "Miolo 472 páginas",
+          "label": "Miolo 472 páginas"
+        },
+        {
+          "value": "Miolo 476 páginas",
+          "label": "Miolo 476 páginas"
+        },
+        {
+          "value": "Miolo 480 páginas",
+          "label": "Miolo 480 páginas"
+        },
+        {
+          "value": "Miolo 484 páginas",
+          "label": "Miolo 484 páginas"
+        },
+        {
+          "value": "Miolo 488 páginas",
+          "label": "Miolo 488 páginas"
+        },
+        {
+          "value": "Miolo 492 páginas",
+          "label": "Miolo 492 páginas"
+        },
+        {
+          "value": "Miolo 496 páginas",
+          "label": "Miolo 496 páginas"
+        },
+        {
+          "value": "Miolo 500 páginas",
+          "label": "Miolo 500 páginas"
+        },
+        {
+          "value": "Miolo 504 páginas",
+          "label": "Miolo 504 páginas"
+        },
+        {
+          "value": "Miolo 508 páginas",
+          "label": "Miolo 508 páginas"
+        },
+        {
+          "value": "Miolo 512 páginas",
+          "label": "Miolo 512 páginas"
+        },
+        {
+          "value": "Miolo 516 páginas",
+          "label": "Miolo 516 páginas"
+        },
+        {
+          "value": "Miolo 520 páginas",
+          "label": "Miolo 520 páginas"
+        },
+        {
+          "value": "Miolo 524 páginas",
+          "label": "Miolo 524 páginas"
+        },
+        {
+          "value": "Miolo 528 páginas",
+          "label": "Miolo 528 páginas"
+        },
+        {
+          "value": "Miolo 532 páginas",
+          "label": "Miolo 532 páginas"
+        },
+        {
+          "value": "Miolo 536 páginas",
+          "label": "Miolo 536 páginas"
+        },
+        {
+          "value": "Miolo 540 páginas",
+          "label": "Miolo 540 páginas"
+        },
+        {
+          "value": "Miolo 544 páginas",
+          "label": "Miolo 544 páginas"
+        },
+        {
+          "value": "Miolo 548 páginas",
+          "label": "Miolo 548 páginas"
+        },
+        {
+          "value": "Miolo 552 páginas",
+          "label": "Miolo 552 páginas"
+        },
+        {
+          "value": "Miolo 556 páginas",
+          "label": "Miolo 556 páginas"
+        },
+        {
+          "value": "Miolo 560 páginas",
+          "label": "Miolo 560 páginas"
+        },
+        {
+          "value": "Miolo 564 páginas",
+          "label": "Miolo 564 páginas"
+        },
+        {
+          "value": "Miolo 568 páginas",
+          "label": "Miolo 568 páginas"
+        },
+        {
+          "value": "Miolo 572 páginas",
+          "label": "Miolo 572 páginas"
+        },
+        {
+          "value": "Miolo 576 páginas",
+          "label": "Miolo 576 páginas"
+        },
+        {
+          "value": "Miolo 580 páginas",
+          "label": "Miolo 580 páginas"
+        },
+        {
+          "value": "Miolo 584 páginas",
+          "label": "Miolo 584 páginas"
+        },
+        {
+          "value": "Miolo 588 páginas",
+          "label": "Miolo 588 páginas"
+        },
+        {
+          "value": "Miolo 592 páginas",
+          "label": "Miolo 592 páginas"
+        },
+        {
+          "value": "Miolo 596 páginas",
+          "label": "Miolo 596 páginas"
+        },
+        {
+          "value": "Miolo 600 páginas",
+          "label": "Miolo 600 páginas"
+        },
+        {
+          "value": "Miolo 604 páginas",
+          "label": "Miolo 604 páginas"
+        },
+        {
+          "value": "Miolo 608 páginas",
+          "label": "Miolo 608 páginas"
+        },
+        {
+          "value": "Miolo 612 páginas",
+          "label": "Miolo 612 páginas"
+        },
+        {
+          "value": "Miolo 616 páginas",
+          "label": "Miolo 616 páginas"
+        },
+        {
+          "value": "Miolo 620 páginas",
+          "label": "Miolo 620 páginas"
+        },
+        {
+          "value": "Miolo 624 páginas",
+          "label": "Miolo 624 páginas"
+        },
+        {
+          "value": "Miolo 628 páginas",
+          "label": "Miolo 628 páginas"
+        },
+        {
+          "value": "Miolo 632 páginas",
+          "label": "Miolo 632 páginas"
+        },
+        {
+          "value": "Miolo 636 páginas",
+          "label": "Miolo 636 páginas"
+        },
+        {
+          "value": "Miolo 640 páginas",
+          "label": "Miolo 640 páginas"
+        },
+        {
+          "value": "Miolo 644 páginas",
+          "label": "Miolo 644 páginas"
+        },
+        {
+          "value": "Miolo 648 páginas",
+          "label": "Miolo 648 páginas"
+        },
+        {
+          "value": "Miolo 652 páginas",
+          "label": "Miolo 652 páginas"
+        },
+        {
+          "value": "Miolo 656 páginas",
+          "label": "Miolo 656 páginas"
+        },
+        {
+          "value": "Miolo 660 páginas",
+          "label": "Miolo 660 páginas"
+        },
+        {
+          "value": "Miolo 664 páginas",
+          "label": "Miolo 664 páginas"
+        },
+        {
+          "value": "Miolo 668 páginas",
+          "label": "Miolo 668 páginas"
+        },
+        {
+          "value": "Miolo 672 páginas",
+          "label": "Miolo 672 páginas"
+        },
+        {
+          "value": "Miolo 676 páginas",
+          "label": "Miolo 676 páginas"
+        },
+        {
+          "value": "Miolo 680 páginas",
+          "label": "Miolo 680 páginas"
+        },
+        {
+          "value": "Miolo 684 páginas",
+          "label": "Miolo 684 páginas"
+        },
+        {
+          "value": "Miolo 688 páginas",
+          "label": "Miolo 688 páginas"
+        },
+        {
+          "value": "Miolo 692 páginas",
+          "label": "Miolo 692 páginas"
+        },
+        {
+          "value": "Miolo 696 páginas",
+          "label": "Miolo 696 páginas"
+        },
+        {
+          "value": "Miolo 700 páginas",
+          "label": "Miolo 700 páginas"
+        },
+        {
+          "value": "Miolo 704 páginas",
+          "label": "Miolo 704 páginas"
+        },
+        {
+          "value": "Miolo 708 páginas",
+          "label": "Miolo 708 páginas"
+        },
+        {
+          "value": "Miolo 712 páginas",
+          "label": "Miolo 712 páginas"
+        },
+        {
+          "value": "Miolo 716 páginas",
+          "label": "Miolo 716 páginas"
+        },
+        {
+          "value": "Miolo 720 páginas",
+          "label": "Miolo 720 páginas"
+        },
+        {
+          "value": "Miolo 724 páginas",
+          "label": "Miolo 724 páginas"
+        },
+        {
+          "value": "Miolo 728 páginas",
+          "label": "Miolo 728 páginas"
+        },
+        {
+          "value": "Miolo 732 páginas",
+          "label": "Miolo 732 páginas"
+        },
+        {
+          "value": "Miolo 736 páginas",
+          "label": "Miolo 736 páginas"
+        },
+        {
+          "value": "Miolo 740 páginas",
+          "label": "Miolo 740 páginas"
+        },
+        {
+          "value": "Miolo 744 páginas",
+          "label": "Miolo 744 páginas"
+        },
+        {
+          "value": "Miolo 748 páginas",
+          "label": "Miolo 748 páginas"
+        },
+        {
+          "value": "Miolo 752 páginas",
+          "label": "Miolo 752 páginas"
+        },
+        {
+          "value": "Miolo 756 páginas",
+          "label": "Miolo 756 páginas"
+        },
+        {
+          "value": "Miolo 760 páginas",
+          "label": "Miolo 760 páginas"
+        },
+        {
+          "value": "Miolo 764 páginas",
+          "label": "Miolo 764 páginas"
+        },
+        {
+          "value": "Miolo 768 páginas",
+          "label": "Miolo 768 páginas"
+        },
+        {
+          "value": "Miolo 772 páginas",
+          "label": "Miolo 772 páginas"
+        },
+        {
+          "value": "Miolo 776 páginas",
+          "label": "Miolo 776 páginas"
+        },
+        {
+          "value": "Miolo 780 páginas",
+          "label": "Miolo 780 páginas"
+        },
+        {
+          "value": "Miolo 784 páginas",
+          "label": "Miolo 784 páginas"
+        },
+        {
+          "value": "Miolo 788 páginas",
+          "label": "Miolo 788 páginas"
+        },
+        {
+          "value": "Miolo 792 páginas",
+          "label": "Miolo 792 páginas"
+        },
+        {
+          "value": "Miolo 796 páginas",
+          "label": "Miolo 796 páginas"
+        },
+        {
+          "value": "Miolo 800 páginas",
+          "label": "Miolo 800 páginas"
+        },
+        {
+          "value": "Miolo 804 páginas",
+          "label": "Miolo 804 páginas"
+        },
+        {
+          "value": "Miolo 808 páginas",
+          "label": "Miolo 808 páginas"
+        },
+        {
+          "value": "Miolo 812 páginas",
+          "label": "Miolo 812 páginas"
+        },
+        {
+          "value": "Miolo 816 páginas",
+          "label": "Miolo 816 páginas"
+        },
+        {
+          "value": "Miolo 820 páginas",
+          "label": "Miolo 820 páginas"
+        },
+        {
+          "value": "Miolo 824 páginas",
+          "label": "Miolo 824 páginas"
+        },
+        {
+          "value": "Miolo 828 páginas",
+          "label": "Miolo 828 páginas"
+        },
+        {
+          "value": "Miolo 832 páginas",
+          "label": "Miolo 832 páginas"
+        },
+        {
+          "value": "Miolo 836 páginas",
+          "label": "Miolo 836 páginas"
+        },
+        {
+          "value": "Miolo 840 páginas",
+          "label": "Miolo 840 páginas"
+        },
+        {
+          "value": "Miolo 844 páginas",
+          "label": "Miolo 844 páginas"
+        },
+        {
+          "value": "Miolo 848 páginas",
+          "label": "Miolo 848 páginas"
+        },
+        {
+          "value": "Miolo 852 páginas",
+          "label": "Miolo 852 páginas"
+        },
+        {
+          "value": "Miolo 856 páginas",
+          "label": "Miolo 856 páginas"
+        },
+        {
+          "value": "Miolo 860 páginas",
+          "label": "Miolo 860 páginas"
+        },
+        {
+          "value": "Miolo 864 páginas",
+          "label": "Miolo 864 páginas"
+        },
+        {
+          "value": "Miolo 868 páginas",
+          "label": "Miolo 868 páginas"
+        },
+        {
+          "value": "Miolo 872 páginas",
+          "label": "Miolo 872 páginas"
+        },
+        {
+          "value": "Miolo 876 páginas",
+          "label": "Miolo 876 páginas"
+        },
+        {
+          "value": "Miolo 880 páginas",
+          "label": "Miolo 880 páginas"
+        },
+        {
+          "value": "Miolo 884 páginas",
+          "label": "Miolo 884 páginas"
+        },
+        {
+          "value": "Miolo 888 páginas",
+          "label": "Miolo 888 páginas"
+        },
+        {
+          "value": "Miolo 892 páginas",
+          "label": "Miolo 892 páginas"
+        },
+        {
+          "value": "Miolo 896 páginas",
+          "label": "Miolo 896 páginas"
+        },
+        {
+          "value": "Miolo 900 páginas",
+          "label": "Miolo 900 páginas"
+        },
+        {
+          "value": "Miolo 904 páginas",
+          "label": "Miolo 904 páginas"
+        },
+        {
+          "value": "Miolo 908 páginas",
+          "label": "Miolo 908 páginas"
+        },
+        {
+          "value": "Miolo 912 páginas",
+          "label": "Miolo 912 páginas"
+        },
+        {
+          "value": "Miolo 916 páginas",
+          "label": "Miolo 916 páginas"
+        },
+        {
+          "value": "Miolo 920 páginas",
+          "label": "Miolo 920 páginas"
+        },
+        {
+          "value": "Miolo 924 páginas",
+          "label": "Miolo 924 páginas"
+        },
+        {
+          "value": "Miolo 928 páginas",
+          "label": "Miolo 928 páginas"
+        },
+        {
+          "value": "Miolo 932 páginas",
+          "label": "Miolo 932 páginas"
+        },
+        {
+          "value": "Miolo 936 páginas",
+          "label": "Miolo 936 páginas"
+        },
+        {
+          "value": "Miolo 940 páginas",
+          "label": "Miolo 940 páginas"
+        },
+        {
+          "value": "Miolo 944 páginas",
+          "label": "Miolo 944 páginas"
+        },
+        {
+          "value": "Miolo 948 páginas",
+          "label": "Miolo 948 páginas"
+        },
+        {
+          "value": "Miolo 952 páginas",
+          "label": "Miolo 952 páginas"
+        },
+        {
+          "value": "Miolo 956 páginas",
+          "label": "Miolo 956 páginas"
+        },
+        {
+          "value": "Miolo 960 páginas",
+          "label": "Miolo 960 páginas"
+        },
+        {
+          "value": "Miolo 964 páginas",
+          "label": "Miolo 964 páginas"
+        },
+        {
+          "value": "Miolo 968 páginas",
+          "label": "Miolo 968 páginas"
+        },
+        {
+          "value": "Miolo 972 páginas",
+          "label": "Miolo 972 páginas"
+        },
+        {
+          "value": "Miolo 976 páginas",
+          "label": "Miolo 976 páginas"
+        },
+        {
+          "value": "Miolo 980 páginas",
+          "label": "Miolo 980 páginas"
+        },
+        {
+          "value": "Miolo 984 páginas",
+          "label": "Miolo 984 páginas"
+        },
+        {
+          "value": "Miolo 988 páginas",
+          "label": "Miolo 988 páginas"
+        },
+        {
+          "value": "Miolo 992 páginas",
+          "label": "Miolo 992 páginas"
+        },
+        {
+          "value": "Miolo 996 páginas",
+          "label": "Miolo 996 páginas"
+        },
+        {
+          "value": "Miolo 1000 páginas",
+          "label": "Miolo 1000 páginas"
+        },
+        {
+          "value": "Miolo 1004 páginas",
+          "label": "Miolo 1004 páginas"
+        },
+        {
+          "value": "Miolo 1008 páginas",
+          "label": "Miolo 1008 páginas"
+        },
+        {
+          "value": "Miolo 1012 páginas",
+          "label": "Miolo 1012 páginas"
+        },
+        {
+          "value": "Miolo 1016 páginas",
+          "label": "Miolo 1016 páginas"
+        },
+        {
+          "value": "Miolo 1020 páginas",
+          "label": "Miolo 1020 páginas"
+        },
+        {
+          "value": "Miolo 1024 páginas",
+          "label": "Miolo 1024 páginas"
+        },
+        {
+          "value": "Miolo 1028 páginas",
+          "label": "Miolo 1028 páginas"
+        },
+        {
+          "value": "Miolo 1032 páginas",
+          "label": "Miolo 1032 páginas"
+        },
+        {
+          "value": "Miolo 1036 páginas",
+          "label": "Miolo 1036 páginas"
+        },
+        {
+          "value": "Miolo 1040 páginas",
+          "label": "Miolo 1040 páginas"
+        },
+        {
+          "value": "Miolo 1044 páginas",
+          "label": "Miolo 1044 páginas"
+        },
+        {
+          "value": "Miolo 1048 páginas",
+          "label": "Miolo 1048 páginas"
+        },
+        {
+          "value": "Miolo 1052 páginas",
+          "label": "Miolo 1052 páginas"
+        },
+        {
+          "value": "Miolo 1056 páginas",
+          "label": "Miolo 1056 páginas"
+        },
+        {
+          "value": "Miolo 1060 páginas",
+          "label": "Miolo 1060 páginas"
+        },
+        {
+          "value": "Miolo 1064 páginas",
+          "label": "Miolo 1064 páginas"
+        },
+        {
+          "value": "Miolo 1068 páginas",
+          "label": "Miolo 1068 páginas"
+        },
+        {
+          "value": "Miolo 1072 páginas",
+          "label": "Miolo 1072 páginas"
+        },
+        {
+          "value": "Miolo 1076 páginas",
+          "label": "Miolo 1076 páginas"
+        },
+        {
+          "value": "Miolo 1080 páginas",
+          "label": "Miolo 1080 páginas"
+        },
+        {
+          "value": "Miolo 1084 páginas",
+          "label": "Miolo 1084 páginas"
+        },
+        {
+          "value": "Miolo 1088 páginas",
+          "label": "Miolo 1088 páginas"
+        },
+        {
+          "value": "Miolo 1092 páginas",
+          "label": "Miolo 1092 páginas"
+        },
+        {
+          "value": "Miolo 1096 páginas",
+          "label": "Miolo 1096 páginas"
+        },
+        {
+          "value": "Miolo 1100 páginas",
+          "label": "Miolo 1100 páginas"
+        },
+        {
+          "value": "Miolo 1104 páginas",
+          "label": "Miolo 1104 páginas"
+        },
+        {
+          "value": "Miolo 1108 páginas",
+          "label": "Miolo 1108 páginas"
+        },
+        {
+          "value": "Miolo 1112 páginas",
+          "label": "Miolo 1112 páginas"
+        },
+        {
+          "value": "Miolo 1116 páginas",
+          "label": "Miolo 1116 páginas"
+        },
+        {
+          "value": "Miolo 1120 páginas",
+          "label": "Miolo 1120 páginas"
+        },
+        {
+          "value": "Miolo 1124 páginas",
+          "label": "Miolo 1124 páginas"
+        },
+        {
+          "value": "Miolo 1128 páginas",
+          "label": "Miolo 1128 páginas"
+        },
+        {
+          "value": "Miolo 1132 páginas",
+          "label": "Miolo 1132 páginas"
+        },
+        {
+          "value": "Miolo 1136 páginas",
+          "label": "Miolo 1136 páginas"
+        },
+        {
+          "value": "Miolo 1140 páginas",
+          "label": "Miolo 1140 páginas"
+        },
+        {
+          "value": "Miolo 1144 páginas",
+          "label": "Miolo 1144 páginas"
+        },
+        {
+          "value": "Miolo 1148 páginas",
+          "label": "Miolo 1148 páginas"
+        },
+        {
+          "value": "Miolo 1152 páginas",
+          "label": "Miolo 1152 páginas"
+        },
+        {
+          "value": "Miolo 1156 páginas",
+          "label": "Miolo 1156 páginas"
+        },
+        {
+          "value": "Miolo 1160 páginas",
+          "label": "Miolo 1160 páginas"
+        },
+        {
+          "value": "Miolo 1164 páginas",
+          "label": "Miolo 1164 páginas"
+        },
+        {
+          "value": "Miolo 1168 páginas",
+          "label": "Miolo 1168 páginas"
+        },
+        {
+          "value": "Miolo 1172 páginas",
+          "label": "Miolo 1172 páginas"
+        },
+        {
+          "value": "Miolo 1176 páginas",
+          "label": "Miolo 1176 páginas"
+        },
+        {
+          "value": "Miolo 1180 páginas",
+          "label": "Miolo 1180 páginas"
+        },
+        {
+          "value": "Miolo 1184 páginas",
+          "label": "Miolo 1184 páginas"
+        },
+        {
+          "value": "Miolo 1188 páginas",
+          "label": "Miolo 1188 páginas"
+        },
+        {
+          "value": "Miolo 1192 páginas",
+          "label": "Miolo 1192 páginas"
+        },
+        {
+          "value": "Miolo 1196 páginas",
+          "label": "Miolo 1196 páginas"
+        },
+        {
+          "value": "Miolo 1200 páginas",
+          "label": "Miolo 1200 páginas"
+        },
+        {
+          "value": "Miolo 1204 páginas",
+          "label": "Miolo 1204 páginas"
+        },
+        {
+          "value": "Miolo 1208 páginas",
+          "label": "Miolo 1208 páginas"
+        },
+        {
+          "value": "Miolo 1212 páginas",
+          "label": "Miolo 1212 páginas"
+        },
+        {
+          "value": "Miolo 1216 páginas",
+          "label": "Miolo 1216 páginas"
+        },
+        {
+          "value": "Miolo 1220 páginas",
+          "label": "Miolo 1220 páginas"
+        },
+        {
+          "value": "Miolo 1224 páginas",
+          "label": "Miolo 1224 páginas"
+        },
+        {
+          "value": "Miolo 1228 páginas",
+          "label": "Miolo 1228 páginas"
+        },
+        {
+          "value": "Miolo 1232 páginas",
+          "label": "Miolo 1232 páginas"
+        },
+        {
+          "value": "Miolo 1236 páginas",
+          "label": "Miolo 1236 páginas"
+        },
+        {
+          "value": "Miolo 1240 páginas",
+          "label": "Miolo 1240 páginas"
+        },
+        {
+          "value": "Miolo 1244 páginas",
+          "label": "Miolo 1244 páginas"
+        },
+        {
+          "value": "Miolo 1248 páginas",
+          "label": "Miolo 1248 páginas"
+        },
+        {
+          "value": "Miolo 1252 páginas",
+          "label": "Miolo 1252 páginas"
+        },
+        {
+          "value": "Miolo 1256 páginas",
+          "label": "Miolo 1256 páginas"
+        },
+        {
+          "value": "Miolo 1260 páginas",
+          "label": "Miolo 1260 páginas"
+        },
+        {
+          "value": "Miolo 1264 páginas",
+          "label": "Miolo 1264 páginas"
+        },
+        {
+          "value": "Miolo 1268 páginas",
+          "label": "Miolo 1268 páginas"
+        },
+        {
+          "value": "Miolo 1272 páginas",
+          "label": "Miolo 1272 páginas"
+        },
+        {
+          "value": "Miolo 1276 páginas",
+          "label": "Miolo 1276 páginas"
+        },
+        {
+          "value": "Miolo 1280 páginas",
+          "label": "Miolo 1280 páginas"
+        },
+        {
+          "value": "Miolo 1284 páginas",
+          "label": "Miolo 1284 páginas"
+        },
+        {
+          "value": "Miolo 1288 páginas",
+          "label": "Miolo 1288 páginas"
+        },
+        {
+          "value": "Miolo 1292 páginas",
+          "label": "Miolo 1292 páginas"
+        },
+        {
+          "value": "Miolo 1296 páginas",
+          "label": "Miolo 1296 páginas"
+        },
+        {
+          "value": "Miolo 1300 páginas",
+          "label": "Miolo 1300 páginas"
+        },
+        {
+          "value": "Miolo 1304 páginas",
+          "label": "Miolo 1304 páginas"
+        },
+        {
+          "value": "Miolo 1308 páginas",
+          "label": "Miolo 1308 páginas"
+        },
+        {
+          "value": "Miolo 1312 páginas",
+          "label": "Miolo 1312 páginas"
+        },
+        {
+          "value": "Miolo 1316 páginas",
+          "label": "Miolo 1316 páginas"
+        },
+        {
+          "value": "Miolo 1320 páginas",
+          "label": "Miolo 1320 páginas"
+        },
+        {
+          "value": "Miolo 1324 páginas",
+          "label": "Miolo 1324 páginas"
+        },
+        {
+          "value": "Miolo 1328 páginas",
+          "label": "Miolo 1328 páginas"
+        },
+        {
+          "value": "Miolo 1332 páginas",
+          "label": "Miolo 1332 páginas"
+        },
+        {
+          "value": "Miolo 1336 páginas",
+          "label": "Miolo 1336 páginas"
+        },
+        {
+          "value": "Miolo 1340 páginas",
+          "label": "Miolo 1340 páginas"
+        },
+        {
+          "value": "Miolo 1344 páginas",
+          "label": "Miolo 1344 páginas"
+        },
+        {
+          "value": "Miolo 1348 páginas",
+          "label": "Miolo 1348 páginas"
+        },
+        {
+          "value": "Miolo 1352 páginas",
+          "label": "Miolo 1352 páginas"
+        },
+        {
+          "value": "Miolo 1356 páginas",
+          "label": "Miolo 1356 páginas"
+        },
+        {
+          "value": "Miolo 1360 páginas",
+          "label": "Miolo 1360 páginas"
+        },
+        {
+          "value": "Miolo 1364 páginas",
+          "label": "Miolo 1364 páginas"
+        },
+        {
+          "value": "Miolo 1368 páginas",
+          "label": "Miolo 1368 páginas"
+        },
+        {
+          "value": "Miolo 1372 páginas",
+          "label": "Miolo 1372 páginas"
+        },
+        {
+          "value": "Miolo 1376 páginas",
+          "label": "Miolo 1376 páginas"
+        },
+        {
+          "value": "Miolo 1380 páginas",
+          "label": "Miolo 1380 páginas"
+        },
+        {
+          "value": "Miolo 1384 páginas",
+          "label": "Miolo 1384 páginas"
+        },
+        {
+          "value": "Miolo 1388 páginas",
+          "label": "Miolo 1388 páginas"
+        },
+        {
+          "value": "Miolo 1392 páginas",
+          "label": "Miolo 1392 páginas"
+        },
+        {
+          "value": "Miolo 1396 páginas",
+          "label": "Miolo 1396 páginas"
+        },
+        {
+          "value": "Miolo 1400 páginas",
+          "label": "Miolo 1400 páginas"
+        },
+        {
+          "value": "Miolo 1404 páginas",
+          "label": "Miolo 1404 páginas"
+        },
+        {
+          "value": "Miolo 1408 páginas",
+          "label": "Miolo 1408 páginas"
+        },
+        {
+          "value": "Miolo 1412 páginas",
+          "label": "Miolo 1412 páginas"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "label": "11- Acabamento MIOLO:",
+      "key": "AFF7AA292FE40E02A7B255713E731899",
+      "options": [
+        {
+          "value": "Dobrado",
+          "label": "Dobrado"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "label": "12- Acabamento LIVRO:",
+      "key": "3E9AFD1A94DA1802222717C0AAAC0093",
+      "options": [
+        {
+          "value": "Colado PUR",
+          "label": "Colado PUR"
+        },
+        {
+          "value": "Costurado",
+          "label": "Costurado"
+        },
+        {
+          "value": "Grampeado - 2 grampos",
+          "label": "Grampeado - 2 grampos"
+        },
+        {
+          "value": "Espiral Plastico",
+          "label": "Espiral Plastico"
+        },
+        {
+          "value": "Capa Dura Papelão 18 (1,8mm) + Cola PUR",
+          "label": "Capa Dura Papelão 18 (1,8mm) + Cola PUR"
+        },
+        {
+          "value": "Capa Dura Papelão 18  (1,8mm) + Costura - acima de 1.000un",
+          "label": "Capa Dura Papelão 18  (1,8mm) + Costura - acima de 1.000un"
+        },
+        {
+          "value": "Capa Dura Papelão 18 (1,8mm) + Espiral",
+          "label": "Capa Dura Papelão 18 (1,8mm) + Espiral"
+        },
+        {
+          "value": "Capa Dura Papelão 15 (2,2mm) + Cola PUR",
+          "label": "Capa Dura Papelão 15 (2,2mm) + Cola PUR"
+        },
+        {
+          "value": "Capa Dura Papelão 15 (2,2mm) + Costura - acima de 1.000 um.",
+          "label": "Capa Dura Papelão 15 (2,2mm) + Costura - acima de 1.000 um."
+        },
+        {
+          "value": "Capa Dura Papelão 15 (2,2mm) + Espiral",
+          "label": "Capa Dura Papelão 15 (2,2mm) + Espiral"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "label": "13- Guardas LIVRO:",
+      "key": "2211AA823438ACBE3BBCE2EF334AC4EA",
+      "options": [
+        {
+          "value": "SEM GUARDAS",
+          "label": "SEM GUARDAS"
+        },
+        {
+          "value": "offset 180g - sem impressão",
+          "label": "offset 180g - sem impressão"
+        },
+        {
+          "value": "offset 180g - Com Impressão 4x4 Escala",
+          "label": "offset 180g - Com Impressão 4x4 Escala"
+        },
+        {
+          "value": "Vergê Madrepérola180g (Creme) - sem impressão",
+          "label": "Vergê Madrepérola180g (Creme) - sem impressão"
+        },
+        {
+          "value": "Vergê Madrepérola180g (Creme) - Com Impressão 4x4 Escala",
+          "label": "Vergê Madrepérola180g (Creme) - Com Impressão 4x4 Escala"
+        },
+        {
+          "value": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala",
+          "label": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "label": "14- Extras:",
+      "key": "07316319702E082CF6DA43BF4A1C130A",
+      "options": [
+        {
+          "value": "Nenhum",
+          "label": "Nenhum"
+        },
+        {
+          "value": "Shrink Individual",
+          "label": "Shrink Individual"
+        },
+        {
+          "value": "Shrink Coletivo c/ 5 peças",
+          "label": "Shrink Coletivo c/ 5 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 10 peças",
+          "label": "Shrink Coletivo c/ 10 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 20 peças",
+          "label": "Shrink Coletivo c/ 20 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 30 peças",
+          "label": "Shrink Coletivo c/ 30 peças"
+        },
+        {
+          "value": "Shrink Coletivo c/ 50 peças",
+          "label": "Shrink Coletivo c/ 50 peças"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "label": "15- Frete:",
+      "key": "9F0D19D9628523760A8B7FF3464C9E9E",
+      "options": [
+        {
+          "value": "Incluso",
+          "label": "Incluso"
+        },
+        {
+          "value": "Cliente Retira",
+          "label": "Cliente Retira"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "label": "16- Verificação do Arquivo:",
+      "key": "A1EA4ABCE9F3330525CAD39BE77D01F7",
+      "options": [
+        {
+          "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+          "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+        },
+        {
+          "value": "Digital On-Line - via Web-Approval ou PDF",
+          "label": "Digital On-Line - via Web-Approval ou PDF"
+        },
+        {
+          "value": "Capa: Prova de Cor Digital | Miolo: Aprovação Virtual",
+          "label": "Capa: Prova de Cor Digital | Miolo: Aprovação Virtual"
+        },
+        {
+          "value": "Capa: Prova de Cor Digital | Miolo: Prova em Baixa (Plotter)",
+          "label": "Capa: Prova de Cor Digital | Miolo: Prova em Baixa (Plotter)"
+        },
+        {
+          "value": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen",
+          "label": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen"
+        },
+        {
+          "value": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)",
+          "label": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "label": "17- Prazo de Entrega:",
+      "key": "8C654A289F9D4F2A56C753120083C2ED",
+      "options": [
+        {
+          "value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*",
+          "label": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
+        }
+      ]
+    }
+  ]
+}

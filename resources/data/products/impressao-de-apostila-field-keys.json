@@ -1,0 +1,91 @@
+{
+  "slug": "impressao-de-apostila",
+  "quantity_key": "Q1",
+  "fields": {
+    "formato": {
+      "label": "2- Apostila: Formato Final Fechado",
+      "index": 1,
+      "key": "35CD53A30BD70A15678817A63C7BCC05"
+    },
+    "papel_capa": {
+      "label": "3- Papel CAPA",
+      "index": 2,
+      "key": "A9A913390E6188980F6A713105578BEE"
+    },
+    "cores_capa": {
+      "label": "4- Cores CAPA",
+      "index": 3,
+      "key": "43593D58CE7FA5A438F47C3818BD49A9"
+    },
+    "acabamento_capa": {
+      "label": "5- Acabamento CAPA",
+      "index": 4,
+      "key": "CA7269CEC1BB2F4F4305F2771390334E"
+    },
+    "contra_capa": {
+      "label": "6- Contra Capa",
+      "index": 5,
+      "key": "8C94B217C450A8B1C984E5B56477A0DC"
+    },
+    "papel_miolo_1": {
+      "label": "7- Papel MIOLO 1",
+      "index": 6,
+      "key": "8F0487977A17E3489F2A32B0DA1A2090"
+    },
+    "cores_miolo_1": {
+      "label": "8- Cores MIOLO 1",
+      "index": 7,
+      "key": "91CF87830943E017E1FB18B607260F38"
+    },
+    "folhas_miolo_1": {
+      "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 páginas)",
+      "index": 8,
+      "key": "28D34FD227132AF4A9A6147A072DC143"
+    },
+    "acabamento_miolo": {
+      "label": "10- Acabamento MIOLO",
+      "index": 9,
+      "key": "3799DA51872255AB82F28FC16416E5FE"
+    },
+    "papel_miolo_2": {
+      "label": "11- Papel MIOLO 2",
+      "index": 10,
+      "key": "8042ED104B3BC02C4BD6C29529190FB9"
+    },
+    "cores_miolo_2": {
+      "label": "12- Cores MIOLO 2",
+      "index": 11,
+      "key": "B061F951CC759EB0EACDA5829B543190"
+    },
+    "folhas_miolo_2": {
+      "label": "13- Quantidade folhas MIOLO 2",
+      "index": 12,
+      "key": "14EC37B4098AB07F96B5DCA6B4055BCD"
+    },
+    "option_12": {
+      "label": "14- Acabamento da Apostila",
+      "index": 13,
+      "key": "80A61FB04B032435A53084F70D002DDD"
+    },
+    "extras": {
+      "label": "15- Extras",
+      "index": 14,
+      "key": "963D6192C645A067DDD4A02DFBDB4250"
+    },
+    "formato_arquivo": {
+      "label": "16- Formato do Arquivo",
+      "index": 15,
+      "key": "9A0CADF6FCE767246337F9B5BFF28859"
+    },
+    "verificacao_arquivo": {
+      "label": "17- Verificação do Arquivo",
+      "index": 16,
+      "key": "25B777A92C39BEA0C60B34443D71AC25"
+    },
+    "prazo_entrega": {
+      "label": "18- Prazo de Entrega",
+      "index": 17,
+      "key": "E33CB42982ED996F01E6A1F0F62BE6B8"
+    }
+  }
+}

@@ -28,8 +28,22 @@ class CheckoutController extends Controller
         foreach ($cart as $item) {
             $total += $item['price'] * $item['quantity'];
         }
+        $shippingDefaults = [
+            'postal_code' => null,
+            'service' => 'PAC',
+            'carrier' => 'Correios',
+            'street' => null,
+            'number' => null,
+            'complement' => null,
+            'district' => null,
+            'city' => null,
+            'state' => null,
+        ];
+        $shipping = array_merge($shippingDefaults, session()->get('cart_shipping', []));
+        $shippingAddress = $this->formatShippingAddress($shipping);
+
         $user = Auth::user();
-        return view('checkout', compact('cart', 'total', 'user'));
+        return view('checkout', compact('cart', 'total', 'user', 'shipping', 'shippingAddress'));
     }
 
     /**
@@ -63,17 +77,39 @@ class CheckoutController extends Controller
             return $response;
         }
 
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'address' => 'required|string|max:255',
             'payment_method' => 'required|string|in:pix,credit_card,bank_transfer',
+            'postal_code' => 'required|string|min:8|max:12',
+            'street' => 'required|string|max:120',
+            'number' => 'nullable|string|max:30',
+            'complement' => 'nullable|string|max:80',
+            'district' => 'nullable|string|max:80',
+            'city' => 'required|string|max:80',
+            'state' => 'required|string|max:2',
+            'service' => 'required|string|max:50',
         ]);
 
         $cart = session()->get('cart', []);
         if (empty($cart)) {
             return redirect()->route('cart.index')->with('error', 'Seu carrinho está vazio.');
+        }
+
+        $shippingData = [
+            'postal_code' => preg_replace('/[^0-9]/', '', $validated['postal_code']),
+            'street' => $validated['street'],
+            'number' => $validated['number'] ?? null,
+            'complement' => $validated['complement'] ?? null,
+            'district' => $validated['district'] ?? null,
+            'city' => $validated['city'],
+            'state' => strtoupper($validated['state']),
+            'service' => $validated['service'],
+        ];
+        $shippingAddress = $this->formatShippingAddress($shippingData);
+        if (!$shippingAddress) {
+            $shippingAddress = trim($shippingData['street'] . ' ' . ($shippingData['number'] ?? ''));
         }
 
         // Calcula total a partir do preço salvo no carrinho, aplicando percentual de acréscimo
@@ -117,16 +153,23 @@ class CheckoutController extends Controller
             ];
         }
 
+        $shippingSession = session()->get('cart_shipping', []);
+        $shippingCost = (float) ($shippingSession['price'] ?? 0);
+        $total += $shippingCost;
+
         // Cria o pedido
         $order = Order::create([
             'user_id' => Auth::id(),
             'total' => $total,
             'status' => 'pending',
-            'shipping_address' => $request->address,
+            'shipping_address' => $shippingAddress,
             'payment_method' => $request->payment_method,
             // Guardamos apenas as linhas do pedido no JSON
             'items' => [
                 'items' => $orderItems,
+                'shipping' => array_merge($shippingData, [
+                    'price' => $shippingCost,
+                ]),
             ],
         ]);
 
@@ -140,7 +183,7 @@ class CheckoutController extends Controller
         foreach ($orderItems as $item) {
             $message .= "- " . $item['name'] . " (x" . $item['quantity'] . ")\n";
         }
-        $message .= "\nEndereço de entrega: " . $request->address;
+        $message .= "\nEndereço de entrega:\n" . $shippingAddress;
         $message .= "\nMétodo de pagamento: " . $request->payment_method;
         $message .= "\n\nPor favor, entre em contato para finalizar a compra.";
 
@@ -191,5 +234,41 @@ class CheckoutController extends Controller
         }
 
         return null;
+    }
+
+    protected function formatShippingAddress(array $shipping): ?string
+    {
+        $parts = [];
+        if (!empty($shipping['street'])) {
+            $streetLine = $shipping['street'];
+            if (!empty($shipping['number'])) {
+                $streetLine .= ', ' . $shipping['number'];
+            }
+            if (!empty($shipping['complement'])) {
+                $streetLine .= ' - ' . $shipping['complement'];
+            }
+            $parts[] = $streetLine;
+        }
+        if (!empty($shipping['district'])) {
+            $parts[] = $shipping['district'];
+        }
+        $cityState = [];
+        if (!empty($shipping['city'])) {
+            $cityState[] = $shipping['city'];
+        }
+        if (!empty($shipping['state'])) {
+            $cityState[] = strtoupper($shipping['state']);
+        }
+        if ($cityState) {
+            $parts[] = implode(' / ', $cityState);
+        }
+        if (!empty($shipping['postal_code'])) {
+            $parts[] = 'CEP: ' . $shipping['postal_code'];
+        }
+        if (!empty($shipping['service'])) {
+            $parts[] = 'Serviço: ' . $shipping['service'];
+        }
+
+        return $parts ? implode("\n", $parts) : null;
     }
 }

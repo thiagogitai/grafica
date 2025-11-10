@@ -47,7 +47,7 @@ class ApiPricingProxyController extends Controller
                 if ($elapsed < $minDelay) {
                     $waitTime = $minDelay + rand(0, $maxDelay - $minDelay) - $elapsed;
                     if ($waitTime > 0) {
-                        \Log::info("Rate limit: aguardando {$waitTime}s antes de nova requisição");
+                        Log::info("Rate limit: aguardando {$waitTime}s antes de nova requisição");
                         sleep($waitTime);
                     }
                 }
@@ -73,7 +73,7 @@ class ApiPricingProxyController extends Controller
                     if ($keysMap) {
                         // Cachear por 24 horas
                         Cache::put($cacheKey, $keysMap, now()->addHours(24));
-                        \Log::info("Keys carregadas do arquivo completo e cacheadas: " . count($keysMap));
+                        Log::info("Keys carregadas do arquivo completo e cacheadas: " . count($keysMap));
                     }
                 }
                 
@@ -88,20 +88,20 @@ class ApiPricingProxyController extends Controller
                         if ($keysMap) {
                             // Cachear por 24 horas
                             Cache::put($cacheKey, $keysMap, now()->addHours(24));
-                            \Log::info("Keys carregadas do arquivo individual e cacheadas: " . count($keysMap));
+                            Log::info("Keys carregadas do arquivo individual e cacheadas: " . count($keysMap));
                         }
                     }
                 }
                 
                 // Se ainda não tem, fazer scraping uma vez para descobrir Keys
                 if (!$keysMap) {
-                    \Log::info("Cache de Keys não encontrado. Fazendo scraping para descobrir Keys...");
+                    Log::info("Cache de Keys não encontrado. Fazendo scraping para descobrir Keys...");
                     $keysMap = $this->descobrirKeysViaScraping($productSlug, $opcoes);
                     
                     if ($keysMap) {
                         // Cachear por 24 horas
                         Cache::put($cacheKey, $keysMap, now()->addHours(24));
-                        \Log::info("Keys descobertas via scraping e cacheadas: " . count($keysMap));
+                        Log::info("Keys descobertas via scraping e cacheadas: " . count($keysMap));
                     } else {
                         return response()->json([
                             'success' => false,
@@ -160,46 +160,90 @@ class ApiPricingProxyController extends Controller
                         continue;
                     }
                     
-                    $valorStr = trim((string) $opcoes[$campo]);
+                    $valorStr = (string) $opcoes[$campo];
+                    $valorStrTrimmed = trim($valorStr);
+                    $valorComEspaco = $valorStrTrimmed . ' ';
                     
-                    // Tentar match exato
-                    if (isset($keysMap[$valorStr])) {
+                    // Para impressao-de-livro, SEMPRE priorizar versão com espaço no final
+                    // A API externa REQUER espaço no final para alguns valores
+                    // IMPORTANTE: O mapeamento SÓ tem versão COM espaço para alguns valores
+                    $keyFinal = null;
+                    $valorFinal = null;
+                    
+                    // ESTRATÉGIA: SEMPRE verificar versão com espaço PRIMEIRO (mesmo antes de verificar sem espaço)
+                    // Isso garante que usamos a versão correta que a API espera
+                    
+                    // PRIORIDADE 1: Versão com espaço (API espera isso) - SEMPRE verificar PRIMEIRO
+                    if (isset($keysMap[$valorComEspaco])) {
+                        $keyFinal = $keysMap[$valorComEspaco];
+                        $valorFinal = $valorComEspaco;
+                    }
+                    // PRIORIDADE 2: Valor original (pode ter espaço)
+                    elseif (isset($keysMap[$valorStr])) {
+                        $keyFinal = $keysMap[$valorStr];
+                        $valorFinal = $valorStr;
+                    }
+                    // PRIORIDADE 3: Valor trimmed (sem espaço) - só usar se NÃO existir versão com espaço
+                    elseif (isset($keysMap[$valorStrTrimmed])) {
+                        // Se chegou aqui, não existe versão com espaço, usar sem espaço
+                        $keyFinal = $keysMap[$valorStrTrimmed];
+                        $valorFinal = $valorStrTrimmed;
+                    }
+                    
+                    if ($keyFinal && $valorFinal) {
+                        // Log para debug - verificar se está usando versão com espaço
+                        $temEspaco = substr($valorFinal, -1) === ' ';
+                        if ($temEspaco) {
+                            Log::info("✅ Usando versão COM espaço: {$campo} = '{$valorFinal}'");
+                        } else {
+                            Log::warning("⚠️ Usando versão SEM espaço: {$campo} = '{$valorFinal}' (deveria ter espaço?)");
+                        }
                         $options[] = [
-                            'Key' => $keysMap[$valorStr],
-                            'Value' => $valorStr
+                            'Key' => $keyFinal,
+                            'Value' => $valorFinal
                         ];
                         continue;
                     }
                     
-                    // Match case-insensitive
+                    // Match case-insensitive (preservar valor original do mapeamento)
+                    // Priorizar matches exatos (case-insensitive) para evitar Keys incorretas
                     $encontrado = false;
-                    foreach ($keysMap as $texto => $key) {
-                        if (strcasecmp(trim($texto), $valorStr) === 0) {
-                            $options[] = [
-                                'Key' => $key,
-                                'Value' => trim($texto)
-                            ];
-                            $encontrado = true;
-                            break;
-                        }
-                    }
+                    $melhorMatch = null;
+                    $melhorScore = 0;
                     
-                    // Match parcial se não encontrou
-                    if (!$encontrado) {
-                        foreach ($keysMap as $texto => $key) {
-                            if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
-                                $options[] = [
-                                    'Key' => $key,
-                                    'Value' => trim($texto)
-                                ];
-                                $encontrado = true;
-                                break;
+                    foreach ($keysMap as $texto => $key) {
+                        $textoTrimmed = trim($texto);
+                        $score = 0;
+                        
+                        // Match exato (case-insensitive) - score base
+                        if (strcasecmp($textoTrimmed, $valorStrTrimmed) === 0) {
+                            $score = ($texto === $valorStr) ? 100 : 90; // Bonus se case também bater
+                            
+                            // BONUS EXTRA: Se tem espaço no final do mapeamento, priorizar (API espera isso)
+                            if (substr($texto, -1) === ' ') {
+                                $score += 10; // Bonus de +10 para versões com espaço
+                            }
+                            
+                            if ($score > $melhorScore) {
+                                $melhorMatch = ['Key' => $key, 'Value' => $texto];
+                                $melhorScore = $score;
+                            }
+                        }
+                        // Match parcial (último recurso) - score menor, apenas se não encontrou match exato
+                        elseif ($melhorScore < 80 && (stripos($textoTrimmed, $valorStrTrimmed) !== false || stripos($valorStrTrimmed, $textoTrimmed) !== false)) {
+                            $score = 50 - abs(strlen($textoTrimmed) - strlen($valorStrTrimmed)); // Penalizar diferenças de tamanho
+                            if ($score > $melhorScore) {
+                                $melhorMatch = ['Key' => $key, 'Value' => $texto];
+                                $melhorScore = $score;
                             }
                         }
                     }
                     
-                    if (!$encontrado) {
-                        \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
+                    if ($melhorMatch && $melhorScore >= 50) {
+                        $options[] = $melhorMatch;
+                        $encontrado = true;
+                    } else {
+                        Log::warning("Key não encontrada para: {$campo} = {$valorStr} (melhor score: {$melhorScore})");
                     }
                 }
             } elseif ($productSlug === 'impressao-de-revista') {
@@ -229,46 +273,65 @@ class ApiPricingProxyController extends Controller
                         continue;
                     }
                     
-                    $valorStr = trim((string) $opcoes[$campo]);
+                    $valorStr = (string) $opcoes[$campo];
+                    $valorStrTrimmed = trim($valorStr);
                     
-                    // Tentar match exato
+                    // Tentar match exato (com e sem trim)
                     if (isset($keysMap[$valorStr])) {
                         $options[] = [
                             'Key' => $keysMap[$valorStr],
-                            'Value' => $valorStr
+                            'Value' => $valorStr  // Preservar valor original (incluindo espaços)
                         ];
                         continue;
                     }
                     
-                    // Match case-insensitive
-                    $encontrado = false;
-                    foreach ($keysMap as $texto => $key) {
-                        if (strcasecmp(trim($texto), $valorStr) === 0) {
-                            $options[] = [
-                                'Key' => $key,
-                                'Value' => trim($texto)
-                            ];
-                            $encontrado = true;
-                            break;
-                        }
+                    if (isset($keysMap[$valorStrTrimmed])) {
+                        $options[] = [
+                            'Key' => $keysMap[$valorStrTrimmed],
+                            'Value' => $valorStrTrimmed
+                        ];
+                        continue;
                     }
                     
-                    // Match parcial se não encontrou
-                    if (!$encontrado) {
-                        foreach ($keysMap as $texto => $key) {
-                            if (stripos($texto, $valorStr) !== false || stripos($valorStr, $texto) !== false) {
-                                $options[] = [
-                                    'Key' => $key,
-                                    'Value' => trim($texto)
-                                ];
-                                $encontrado = true;
-                                break;
+                    // Match case-insensitive (preservar valor original do mapeamento)
+                    // Priorizar matches exatos (case-insensitive) para evitar Keys incorretas
+                    $encontrado = false;
+                    $melhorMatch = null;
+                    $melhorScore = 0;
+                    
+                    foreach ($keysMap as $texto => $key) {
+                        $textoTrimmed = trim($texto);
+                        $score = 0;
+                        
+                        // Match exato (case-insensitive) - score base
+                        if (strcasecmp($textoTrimmed, $valorStrTrimmed) === 0) {
+                            $score = ($texto === $valorStr) ? 100 : 90; // Bonus se case também bater
+                            
+                            // BONUS EXTRA: Se tem espaço no final do mapeamento, priorizar (API espera isso)
+                            if (substr($texto, -1) === ' ') {
+                                $score += 10; // Bonus de +10 para versões com espaço
+                            }
+                            
+                            if ($score > $melhorScore) {
+                                $melhorMatch = ['Key' => $key, 'Value' => $texto];
+                                $melhorScore = $score;
+                            }
+                        }
+                        // Match parcial (último recurso) - score menor, apenas se não encontrou match exato
+                        elseif ($melhorScore < 80 && (stripos($textoTrimmed, $valorStrTrimmed) !== false || stripos($valorStrTrimmed, $textoTrimmed) !== false)) {
+                            $score = 50 - abs(strlen($textoTrimmed) - strlen($valorStrTrimmed)); // Penalizar diferenças de tamanho
+                            if ($score > $melhorScore) {
+                                $melhorMatch = ['Key' => $key, 'Value' => $texto];
+                                $melhorScore = $score;
                             }
                         }
                     }
                     
-                    if (!$encontrado) {
-                        \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
+                    if ($melhorMatch && $melhorScore >= 50) {
+                        $options[] = $melhorMatch;
+                        $encontrado = true;
+                    } else {
+                        Log::warning("Key não encontrada para: {$campo} = {$valorStr} (melhor score: {$melhorScore})");
                     }
                 }
             } else {
@@ -303,7 +366,7 @@ class ApiPricingProxyController extends Controller
                     }
                     
                     if (!$encontrado) {
-                        \Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
+                        Log::warning("Key não encontrada para: {$campo} = {$valorStr}");
                     }
                 }
             }
@@ -311,16 +374,27 @@ class ApiPricingProxyController extends Controller
             // Para impressao-de-livro e impressao-de-revista, verificar quantidade mínima de opções
             $minOptions = count($opcoes);
             if ($productSlug === 'impressao-de-livro') {
-                $minOptions = 15;
+                $minOptions = 15; // 15 opções obrigatórias (posições 0-14, pulando 9)
             } elseif ($productSlug === 'impressao-de-revista') {
                 $minOptions = 16; // 16 campos (0-15)
             }
             
+            // Log detalhado para debug
+            Log::info("Mapeamento de opções", [
+                'product_slug' => $productSlug,
+                'opcoes_recebidas' => count($opcoes),
+                'opcoes_mapeadas' => count($options),
+                'min_esperado' => $minOptions,
+                'options_keys' => array_column($options, 'Key'),
+                'options_values' => array_column($options, 'Value')
+            ]);
+            
             if (count($options) < $minOptions) {
-                \Log::warning("Nem todas as opções foram mapeadas", [
+                Log::warning("Nem todas as opções foram mapeadas", [
                     'esperadas' => $minOptions,
                     'mapeadas' => count($options),
-                    'opcoes_recebidas' => count($opcoes)
+                    'opcoes_recebidas' => count($opcoes),
+                    'opcoes_nao_mapeadas' => array_diff(array_keys($opcoes), array_column($options, 'Value'))
                 ]);
                 
                 // Continuar mesmo assim se tiver pelo menos 10 opções (pode faltar algumas opcionais)
@@ -343,10 +417,12 @@ class ApiPricingProxyController extends Controller
                 ]
             ];
             
-            \Log::info("Chamando API de pricing", [
+            Log::info("Chamando API de pricing", [
                 'url' => $url,
                 'q1' => $quantidade,
-                'options_count' => count($options)
+                'options_count' => count($options),
+                'options' => $options,
+                'payload' => $payload
             ]);
             
             // Headers para parecer uma requisição legítima do navegador
@@ -404,7 +480,7 @@ class ApiPricingProxyController extends Controller
             ], 500);
             
         } catch (\Exception $e) {
-            \Log::error("Erro no proxy de pricing: " . $e->getMessage());
+            Log::error("Erro no proxy de pricing: " . $e->getMessage());
             
             return response()->json([
                 'success' => false,
@@ -422,7 +498,7 @@ class ApiPricingProxyController extends Controller
         $scriptPath = base_path('mapear_keys_opcoes.py');
         
         if (!file_exists($scriptPath)) {
-            \Log::error("Script mapear_keys_opcoes.py não encontrado");
+            Log::error("Script mapear_keys_opcoes.py não encontrado");
             return null;
         }
         

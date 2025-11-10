@@ -360,7 +360,7 @@
       ]
     },
     {
-      "name": "quantity",
+      "name": "quantidade_paginas_miolo",
       "label": "10- Quantidade Paginas MIOLO:",
       "type": "number",
       "default": 50,

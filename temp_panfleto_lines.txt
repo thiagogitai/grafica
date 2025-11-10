@@ -1,0 +1,203 @@
+1: {
+2:   "title_override": "Impressão de Panfleto Online",
+3:   "base_price": null,
+4:   "redirect_to_upload": true,
+5:   "options": [
+6:     {
+7:       "name": "quantity",
+8:       "label": "1- Quantidade",
+9:       "type": "number",
+10:       "default": 50,
+11:       "min": 50,
+12:       "step": 1
+13:     },
+14:     {
+15:       "name": "papel",
+16:       "label": "2- Papel",
+17:       "type": "select",
+18:       "choices": [
+19:         {
+20:           "value": "Couche Brilho 150gr ",
+21:           "label": "Couche Brilho 150gr"
+22:         },
+23:         {
+24:           "value": "Couche Brilho 90gr",
+25:           "label": "Couche Brilho 90gr"
+26:         },
+27:         {
+28:           "value": "Couche Brilho 115gr ",
+29:           "label": "Couche Brilho 115gr"
+30:         },
+31:         {
+32:           "value": "Couche Brilho 210gr ",
+33:           "label": "Couche Brilho 210gr"
+34:         },
+35:         {
+36:           "value": "Offset 75gr ",
+37:           "label": "Offset 75gr"
+38:         },
+39:         {
+40:           "value": "Offset 90gr ",
+41:           "label": "Offset 90gr"
+42:         },
+43:         {
+44:           "value": "Offset 120gr ",
+45:           "label": "Offset 120gr"
+46:         },
+47:         {
+48:           "value": "Offset 180gr ",
+49:           "label": "Offset 180gr"
+50:         },
+51:         {
+52:           "value": "Couche Fosco 150gr ",
+53:           "label": "Couche Fosco 150gr"
+54:         },
+55:         {
+56:           "value": "Cartão Triplex C2S 300gr ",
+57:           "label": "Cartão Triplex C2S 300gr"
+58:         }
+59:       ]
+60:     },
+61:     {
+62:       "name": "formato",
+63:       "label": "3- Formato",
+64:       "type": "select",
+65:       "choices": [
+66:         {
+67:           "value": "A4: 210mmx297mm",
+68:           "label": "A4: 210mmx297mm"
+69:         },
+70:         {
+71:           "value": "A5: 210mmx148mm",
+72:           "label": "A5: 210mmx148mm"
+73:         },
+74:         {
+75:           "value": "A6: 105mmx148mm",
+76:           "label": "A6: 105mmx148mm"
+77:         },
+78:         {
+79:           "value": "DL: 210mmx100mm",
+80:           "label": "DL: 210mmx100mm"
+81:         },
+82:         {
+83:           "value": "300mmx310mm",
+84:           "label": "300mmx310mm"
+85:         },
+86:         {
+87:           "value": "420mmx300mm",
+88:           "label": "420mmx300mm"
+89:         },
+90:         {
+91:           "value": "210mmx210mm",
+92:           "label": "210mmx210mm"
+93:         },
+94:         {
+95:           "value": "150mmx150mm",
+96:           "label": "150mmx150mm"
+97:         },
+98:         {
+99:           "value": "90mmx120mm",
+100:           "label": "90mmx120mm"
+101:         },
+102:         {
+103:           "value": "100mmx100mm",
+104:           "label": "100mmx100mm"
+105:         }
+106:       ]
+107:     },
+108:     {
+109:       "name": "cores",
+110:       "label": "4- Cores",
+111:       "type": "select",
+112:       "choices": [
+113:         {
+114:           "value": "4 cores frente e verso",
+115:           "label": "4 cores frente e verso"
+116:         },
+117:         {
+118:           "value": "4 cores frente",
+119:           "label": "4 cores frente"
+120:         },
+121:         {
+122:           "value": "1 cor frente preto",
+123:           "label": "1 cor frente preto"
+124:         },
+125:         {
+126:           "value": "1 cor frente e verso preto",
+127:           "label": "1 cor frente e verso preto"
+128:         }
+129:       ]
+130:     },
+131:     {
+132:       "name": "acabamento",
+133:       "label": "5- Acabamento",
+134:       "type": "select",
+135:       "choices": [
+136:         {
+137:           "value": "Cantos Retos",
+138:           "label": "Cantos Retos"
+139:         },
+140:         {
+141:           "value": "Cantos Retos + Laminação FOSCO Bopp Frente e Verso (acima de 200g)",
+142:           "label": "Cantos Retos + Laminação FOSCO Bopp Frente e Verso (acima de 200g)"
+143:         },
+144:         {
+145:           "value": "Cantos Retos + Laminação BRILHO Bopp Frente e Verso (Acima de 200g)",
+146:           "label": "Cantos Retos + Laminação BRILHO Bopp Frente e Verso (Acima de 200g)"
+147:         }
+148:       ]
+149:     },
+150:     {
+151:       "name": "extras",
+152:       "label": "6- Extras",
+153:       "type": "select",
+154:       "choices": [
+155:         {
+156:           "value": "Nenhum",
+157:           "label": "Nenhum"
+158:         }
+159:       ]
+160:     },
+161:     {
+162:       "name": "formato_arquivo",
+163:       "label": "7- Formato do Arquivo",
+164:       "type": "select",
+165:       "choices": [
+166:         {
+167:           "value": "Arquivo PDF (fechado para impressão) (Grátis)",
+168:           "label": "Arquivo PDF (fechado para impressão) (Grátis)"
+169:         },
+170:         {
+171:           "value": "Arquvo CDR / INDD / AI / JPG / PNG (aberto) (R$ 80,00)",
+172:           "label": "Arquvo CDR / INDD / AI / JPG / PNG (aberto) (R$ 80,00)"
+173:         }
+174:       ]
+175:     },
+176:     {
+177:       "name": "verificacao_arquivo",
+178:       "label": "8- Verificação do Arquivo",
+179:       "type": "select",
+180:       "choices": [
+181:         {
+182:           "value": "Digital On-Line (Grátis)",
+183:           "label": "Digital On-Line (Grátis)"
+184:         },
+185:         {
+186:           "value": "Prova de Cor Impressa - SOMENTE para São Paulo (R$ 150,00)",
+187:           "label": "Prova de Cor Impressa - SOMENTE para São Paulo (R$ 150,00)"
+188:         }
+189:       ]
+190:     },
+191:     {
+192:       "name": "prazo_entrega",
+193:       "label": "9- Prazo de Entrega",
+194:       "type": "select",
+195:       "choices": [
+196:         {
+197:           "value": "Padrão: 5 dias úteis de Produção + tempo de FRETE*",
+198:           "label": "Padrão: 5 dias úteis de Produção + tempo de FRETE*"
+199:         }
+200:       ]
+201:     }
+202:   ]
+203: }

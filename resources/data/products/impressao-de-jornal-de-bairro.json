@@ -81,7 +81,7 @@
       ]
     },
     {
-      "name": "quantity",
+      "name": "paginas_miolo",
       "label": "5- Quantidade Paginas MIOLO:",
       "type": "number",
       "default": 50,

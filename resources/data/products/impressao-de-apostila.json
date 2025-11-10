@@ -181,7 +181,7 @@
       ]
     },
     {
-      "name": "quantity",
+      "name": "folhas_miolo_1",
       "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 páginas)",
       "type": "number",
       "default": 50,
@@ -290,7 +290,7 @@
       ]
     },
     {
-      "name": "quantity",
+      "name": "folhas_miolo_2",
       "label": "13- Quantidade folhas MIOLO 2",
       "type": "number",
       "default": 50,
@@ -328,7 +328,7 @@
       ]
     },
     {
-      "name": "formato",
+      "name": "formato_arquivo",
       "label": "16- Formato do Arquivo",
       "type": "select",
       "choices": [

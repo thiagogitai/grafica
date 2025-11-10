@@ -1,0 +1,46 @@
+{
+  "slug": "impressao-de-panfleto",
+  "quantity_key": "Q1",
+  "fields": {
+    "papel": {
+      "label": "2- Papel",
+      "index": 1,
+      "key": "783282BBE1EDC45E7CA4C772533F93F8"
+    },
+    "formato": {
+      "label": "3- Formato",
+      "index": 2,
+      "key": "20D239C1174C3AB4AD37C87030163926"
+    },
+    "cores": {
+      "label": "4- Cores",
+      "index": 3,
+      "key": "A7C3517F4635B1E9C6285BF5B99FDAEA"
+    },
+    "acabamento": {
+      "label": "5- Acabamento",
+      "index": 4,
+      "key": "BAA50AF6AD95A1420952550BB9BE2813"
+    },
+    "extras": {
+      "label": "6- Extras",
+      "index": 5,
+      "key": "99B028763EDAEAE6ACD3BE9E51F34B23"
+    },
+    "formato_arquivo": {
+      "label": "7- Formato do Arquivo",
+      "index": 6,
+      "key": "C59DC69618AB6A6885BD703BF27C3990"
+    },
+    "verificacao_arquivo": {
+      "label": "8- Verificação do Arquivo",
+      "index": 7,
+      "key": "82BCCF9E849323C13513C06FAED166C5"
+    },
+    "prazo_entrega": {
+      "label": "9- Prazo de Entrega",
+      "index": 8,
+      "key": "194F56DEAEE24F32871D02D0F1C864C8"
+    }
+  }
+}

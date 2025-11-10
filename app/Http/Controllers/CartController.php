@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Services\ProductConfig;
+use App\Services\Pricing;
 use App\Http\Controllers\ProductPriceController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,9 +22,33 @@ class CartController extends Controller
         $cart = session()->get('cart', []);
         $total = 0;
         foreach ($cart as $item) {
-            $total += $item['price'] * $item['quantity'];
+            if (isset($item['line_total'])) {
+                $total += $item['line_total'];
+                continue;
+            }
+            $unit = (float) ($item['price'] ?? 0);
+            $qty = (int) ($item['quantity'] ?? 1);
+            $total += $unit * max(1, $qty);
         }
-        return view('cart', compact('cart', 'total'));
+
+        $shippingDefaults = [
+            'postal_code' => null,
+            'service' => 'PAC',
+            'carrier' => 'Correios',
+            'street' => null,
+            'number' => null,
+            'complement' => null,
+            'district' => null,
+            'city' => null,
+            'state' => null,
+            'price' => 0,
+            'status' => 'pending',
+        ];
+        $shipping = array_merge($shippingDefaults, session()->get('cart_shipping', []));
+        $shippingCost = (float) ($shipping['price'] ?? 0);
+        $orderTotal = $total + $shippingCost;
+
+        return view('cart', compact('cart', 'total', 'shipping', 'shippingCost', 'orderTotal'));
     }
 
     public function add(Request $request, Product $product)
@@ -42,10 +67,30 @@ class CartController extends Controller
         }
         $quantity = (int) ($request->input('quantity') ?? $request->input('options.quantity') ?? 1);
 
+        $shippingMetaRaw = $request->input('shipping_meta');
+        $shippingMeta = null;
+        if (is_string($shippingMetaRaw) && $shippingMetaRaw !== '') {
+            $decodedShipping = json_decode($shippingMetaRaw, true);
+            if (is_array($decodedShipping)) {
+                $shippingMeta = $decodedShipping;
+            }
+        }
+
         // Garantir quantidade mínima de 50 para produtos que precisam validação
         $quantity = max(50, (int) $quantity);
 
         // Calcula preço: se houver config JSON do produto, usa as regras do JSON (preço final + extras)
+        $slugAliases = [
+            'livro' => 'impressao-de-livro',
+            'apostila' => 'impressao-de-apostila',
+            'jornal' => 'impressao-de-jornal-de-bairro',
+            'jornal-de-bairro' => 'impressao-de-jornal-de-bairro',
+            'livretos' => 'impressao-online-de-livretos-personalizados',
+            'revista' => 'impressao-de-revista',
+            'tabloide' => 'impressao-de-tabloide',
+            'panfleto' => 'impressao-de-panfleto',
+        ];
+
         $configSlug = null;
         if ($product->usesConfigTemplate() || $product->template === Product::TEMPLATE_CONFIG_AUTO) {
             $configSlug = $product->templateSlug();
@@ -53,7 +98,24 @@ class CartController extends Controller
                 $configSlug = ProductConfig::slugForProduct($product);
             }
         }
+        if ($configSlug && isset($slugAliases[$configSlug])) {
+            $configSlug = $slugAliases[$configSlug];
+        }
         $config = ProductConfig::loadForProduct($product, $configSlug);
+        $detectedSlug = ProductConfig::slugForProduct($product);
+        if ($detectedSlug && isset($slugAliases[$detectedSlug])) {
+            $detectedSlug = $slugAliases[$detectedSlug];
+        }
+        $pricingSlug = $detectedSlug ?: $configSlug;
+        if (!$pricingSlug && $configSlug) {
+            $pricingSlug = $configSlug;
+        }
+        if ($pricingSlug && isset($slugAliases[$pricingSlug])) {
+            $pricingSlug = $slugAliases[$pricingSlug];
+        }
+        if (!$config && $pricingSlug) {
+            $config = ProductConfig::loadForProduct($product, $pricingSlug);
+        }
         
         // VALIDAÇÃO DUPLA: Validar preço no checkout antes de adicionar ao carrinho
         $produtosComValidacao = [
@@ -66,14 +128,19 @@ class CartController extends Controller
             'impressao-de-jornal-de-bairro',
             'impressao-de-guia-de-bairro'
         ];
-        
-        if ($config && in_array($configSlug, $produtosComValidacao)) {
+        $requiresMatrixValidation = in_array($pricingSlug, $produtosComValidacao);
+
+        $unitPrice = 0;
+        $lineTotal = 0;
+
+        if ($requiresMatrixValidation) {
             // VALIDAÇÃO DUPLA: Validar preço antes de adicionar ao carrinho
-            $priceController = new ProductPriceController();
+            /** @var ProductPriceController $priceController */
+            $priceController = app(ProductPriceController::class);
             // Preparar dados para validação
             $validationPayload = array_merge($options, [
                 'quantity' => $quantity,
-                'product_slug' => $configSlug
+                'product_slug' => $pricingSlug
             ]);
             
             $validationRequest = new Request();
@@ -94,30 +161,13 @@ class CartController extends Controller
             }
             
             // Usar preço validado
-            $totalPrice = $validationResult['price'] ?? 0;
+            $totalPrice = (float) ($validationResult['price'] ?? 0);
+            $unitPrice = $totalPrice / max(1, $quantity);
+            $lineTotal = $totalPrice;
         } else if ($config) {
-            // Converter valores selecionados para labels conforme o catálogo (para exibição fiel)
-            $labeledOptions = $options;
-            foreach (($config['options'] ?? []) as $opt) {
-                $name = $opt['name'] ?? null;
-                if (!$name || !array_key_exists($name, $labeledOptions)) { continue; }
-                $selected = $labeledOptions[$name];
-                $label = null;
-                foreach (($opt['choices'] ?? []) as $choice) {
-                    if (($choice['value'] ?? null) == $selected) {
-                        $label = $choice['label'] ?? $selected;
-                        break;
-                    }
-                }
-                if ($label !== null) {
-                    $labeledOptions[$name] = $label;
-                }
-            }
-
             // Preço unitário derivado da configuração (fallback: soma de increments)
-            $totalPrice = ProductConfig::computePrice($config, array_merge($options, ['quantity' => $quantity]), $product->price) / max(1, $quantity);
-
-            $options = $labeledOptions; // guarda labels para o carrinho
+            $unitPrice = ProductConfig::computePrice($config, array_merge($options, ['quantity' => $quantity]), $product->price) / max(1, $quantity);
+            $lineTotal = $unitPrice * max(1, $quantity);
         } else {
             $basePrice = $product->price;
             $additionalPrice = 0;
@@ -142,19 +192,59 @@ class CartController extends Controller
                 $additionalPrice += 10;
             }
 
-            $totalPrice = $basePrice + $additionalPrice;
+            $unitPrice = $basePrice + $additionalPrice;
+            $lineTotal = $unitPrice * max(1, $quantity);
+        }
+
+        $labeledOptions = $options;
+        if ($config) {
+            foreach (($config['options'] ?? []) as $opt) {
+                $name = $opt['name'] ?? null;
+                if (!$name || !array_key_exists($name, $labeledOptions)) {
+                    continue;
+                }
+                $selected = $labeledOptions[$name];
+                $label = null;
+                foreach (($opt['choices'] ?? []) as $choice) {
+                    if (($choice['value'] ?? null) == $selected) {
+                        $label = $choice['label'] ?? $selected;
+                        break;
+                    }
+                }
+                if ($label !== null) {
+                    $labeledOptions[$name] = $label;
+                }
+            }
+        }
+
+        if (($lineTotal ?? 0) <= 0) {
+            $postedTotal = (float) ($request->input('price') ?? 0);
+            if ($postedTotal > 0) {
+                $lineTotal = $postedTotal;
+                $unitPrice = $postedTotal / max(1, $quantity);
+            }
+        }
+
+        $unitPrice = $unitPrice ?? 0;
+        $lineTotal = $lineTotal ?? ($unitPrice * max(1, $quantity));
+        $markupFactor = Pricing::multiplierFor($product, true);
+        if ($markupFactor !== 1.0) {
+            $unitPrice *= $markupFactor;
+            $lineTotal *= $markupFactor;
         }
 
         // Create a unique ID for the cart item to handle cases where the same product is added with different options
-        $cartItemId = $product->id . '_' . md5(implode('_', array_filter($options)));
+        $cartItemId = $product->id . '_' . md5(implode('_', array_filter($labeledOptions)));
 
         $cart[$cartItemId] = [
             'product_id' => $product->id,
             'name' => $product->name,
-            'price' => $totalPrice,
+            'price' => $unitPrice,
+            'line_total' => $lineTotal,
             'image' => $product->image,
             'quantity' => $quantity,
-            'options' => $options,
+            'options' => $labeledOptions,
+            'shipping_meta' => $shippingMeta,
             // Para produtos dirigidos por JSON do site, consideramos preco final (sem markup global)
             'includes_markup' => (bool) $config,
             'type' => $config ? 'json_product' : null,
@@ -172,6 +262,56 @@ class CartController extends Controller
         }
 
         return redirect()->route('cart.index')->with('success', 'Produto adicionado ao carrinho!');
+    }
+
+    public function updateShipping(Request $request)
+    {
+        $data = $request->validate([
+            'postal_code' => ['required', 'string', 'min:8', 'max:12'],
+            'service' => ['required', 'string', 'max:50'],
+            'street' => ['required', 'string', 'max:120'],
+            'number' => ['nullable', 'string', 'max:30'],
+            'complement' => ['nullable', 'string', 'max:80'],
+            'district' => ['nullable', 'string', 'max:80'],
+            'city' => ['required', 'string', 'max:80'],
+            'state' => ['required', 'string', 'max:2'],
+            'price' => ['nullable', 'numeric', 'min:0'],
+            'redirect_to' => ['nullable', 'string'],
+        ]);
+
+        $postalCode = preg_replace('/[^0-9]/', '', $data['postal_code']);
+
+        $shippingData = [
+            'postal_code' => $postalCode,
+            'service' => $data['service'],
+            'carrier' => 'Correios',
+            'street' => $data['street'],
+            'number' => $data['number'] ?? null,
+            'complement' => $data['complement'] ?? null,
+            'district' => $data['district'] ?? null,
+            'city' => $data['city'],
+            'state' => strtoupper($data['state']),
+            'price' => isset($data['price']) ? (float) $data['price'] : 0.0,
+            'status' => ($data['price'] ?? null) ? 'quoted' : 'pending',
+        ];
+
+        session()->put('cart_shipping', $shippingData);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'shipping' => $shippingData,
+            ]);
+        }
+
+        $redirectTo = $data['redirect_to'] ?? $request->input('redirect_to');
+        if ($redirectTo && Str::startsWith($redirectTo, url('/'))) {
+            return redirect($redirectTo)->with('info', 'Opção de frete atualizada! Integração automática com os Correios será aplicada em breve.');
+        }
+
+        return redirect()
+            ->route('cart.index')
+            ->with('info', 'Opção de frete atualizada! Integração automática com os Correios será aplicada em breve.');
     }
 
     public function attachArtwork(Request $request, string $cartItemId)
@@ -394,4 +534,3 @@ class CartController extends Controller
         return null;
     }
 }
-
