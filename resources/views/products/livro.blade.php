@@ -13,11 +13,6 @@
     $hero = $hero ?? [
         'title' => $product->name,
         'subtitle' => 'Configuração fiel ao fluxo da matriz Eskenazi, com validação oficial de preço em tempo real.',
-        'highlights' => [
-            'Opções idênticas à loja oficial',
-            'Validação direta na API da matriz',
-            'Upload de arquivos e frete integrados ao carrinho',
-        ],
     ];
     $availableQuantities = [
         50, 100, 150, 200, 250, 300, 350, 400, 450, 500,
@@ -280,16 +275,6 @@
                     <p class="text-uppercase small fw-semibold mb-2 text-muted">Produto oficial</p>
                     <h1 class="mb-3">{{ $hero['title'] ?? $product->name }}</h1>
                     <p class="lead mb-3">{{ $hero['subtitle'] ?? '' }}</p>
-                    @if(!empty($hero['highlights']) && is_array($hero['highlights']))
-                        <div class="eskenazi-pill-list">
-                            @foreach($hero['highlights'] as $index => $highlight)
-                                <div class="eskenazi-pill">
-                                    <span>{{ $index + 1 }}</span>
-                                    <div>{{ $highlight }}</div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
