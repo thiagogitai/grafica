@@ -264,7 +264,7 @@ class HomeController extends Controller
             'impressao-de-livro' => $defaults,
             'impressao-de-apostila' => [
                 'title' => 'Impressão de Apostilas',
-                'subtitle' => 'Monte apostilas com capas personalizadas, miolos combinados e acabamento em espiral como na loja oficial.',
+                'subtitle' => '',
                 'highlights' => [
                     'Formatação completa: capa, miolo 1 e miolo 2',
                     'Provas de cor e extras idênticos à matriz',
@@ -273,7 +273,7 @@ class HomeController extends Controller
             ],
             'impressao-online-de-livretos-personalizados' => [
                 'title' => 'Impressão de Livretos',
-                'subtitle' => 'Fluxo oficial para livretos personalizados, com capas laminadas e costura conforme os padrões Eskenazi.',
+                'subtitle' => '',
                 'highlights' => [
                     'Formatos especiais e laminação premium',
                     'Validação de preço em tempo real',
@@ -282,7 +282,7 @@ class HomeController extends Controller
             ],
             'impressao-de-revista' => [
                 'title' => 'Impressão de Revista',
-                'subtitle' => 'Replicamos o configurador oficial de revistas, com dobras, grampeação e UV reserva.',
+                'subtitle' => '',
                 'highlights' => [
                     'Capas com laminação e UV reserva',
                     'Miolos couchê em várias gramaturas',
@@ -291,7 +291,7 @@ class HomeController extends Controller
             ],
             'impressao-de-tabloide' => [
                 'title' => 'Impressão de Tabloide',
-                'subtitle' => 'Tabloides com dobras, múltiplos formatos e tiragens controladas, exatamente como na Loja Eskenazi.',
+                'subtitle' => '',
                 'highlights' => [
                     'Formatos grandes com dobras automáticas',
                     'Extras e frete replicados da matriz',
@@ -300,7 +300,7 @@ class HomeController extends Controller
             ],
             'impressao-de-jornal-de-bairro' => [
                 'title' => 'Impressão de Jornal de Bairro',
-                'subtitle' => 'Jornais completos com grampeação, miolo em offset e prazos da gráfica oficial.',
+                'subtitle' => '',
                 'highlights' => [
                     'Miolos em offset 48, 64, 80 páginas',
                     'Acabamentos e extras fiéis ao catálogo',
@@ -309,7 +309,7 @@ class HomeController extends Controller
             ],
             'impressao-de-panfleto' => [
                 'title' => 'Impressão de Panfletos',
-                'subtitle' => 'Seleção rápida de papéis, cores e laminações, com o mesmo cálculo usado na matriz.',
+                'subtitle' => '',
                 'highlights' => [
                     'Papéis couchê e offset com laminação',
                     'Integração com o upload e frete do carrinho',

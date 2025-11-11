@@ -52,6 +52,15 @@ Thank you for considering contributing to the Laravel framework! The contributio
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
+## Pricing tooling
+
+To keep `resources/data/products/{slug}-field-keys.json` aligned with the official Eskenazi payloads, use the helpers under `scripts/`:
+
+- `php scripts/verify-field-keys.php <slug> <payload.json>` compares a browser-exported payload (`pricingParameters->Options`) with the current key map and reports missing or extraneous `Key`s.
+- `php scripts/generate-field-keys.php <slug> <payload.json> --write` rebuilds the field-key file (preserving existing metadata) based on the payload you just captured.
+
+Export the payloads from the browser (network → `validate-price`) and run these scripts whenever you add or modify a product, even if it has hundreds of options—the scripts work with the full list of keys.
+
 ## Security Vulnerabilities
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
