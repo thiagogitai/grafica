@@ -31,10 +31,11 @@ class HomeController extends Controller
     {
         $products = Product::all();
         $categories = \App\Models\Category::all();
+        $banners = \App\Models\Banner::active()->get();
         $requestOnlyGlobal = Setting::boolean('request_only', false);
         $settings = [
-            'hero_title' => Setting::get('hero_title', 'A sua gráfica online'),
-            'hero_subtitle' => Setting::get('hero_subtitle', 'Tudo o que precisa para o seu negócio. Rápido. Simples. A um preço justo.'),
+            'hero_title' => Setting::get('hero_title', ''),
+            'hero_subtitle' => Setting::get('hero_subtitle', ''),
             'about_title' => Setting::get('about_title', 'Sobre nós'),
             'about_description' => Setting::get('about_description', ''),
             'whatsapp_number' => Setting::get('whatsapp_number'),
@@ -45,6 +46,7 @@ class HomeController extends Controller
         return view('home', [
             'products' => $products,
             'categories' => $categories,
+            'banners' => $banners,
             'settings' => $settings,
             'requestOnlyGlobal' => $requestOnlyGlobal,
         ]);
@@ -58,6 +60,7 @@ class HomeController extends Controller
      */
     public function show(Product $product)
     {
+        $banners = \App\Models\Banner::active()->get();
         $requestOnlyGlobal = Setting::boolean('request_only', false);
         $requestOnlyProduct = $product->request_only;
         $requestOnlyCombined = $requestOnlyGlobal || $requestOnlyProduct;
@@ -109,6 +112,7 @@ class HomeController extends Controller
                     'product' => $product,
                     'config' => $config,
                     'configSlug' => $configSlugToLoad,
+                    'banners' => $banners,
                     'requestOnlyGlobal' => $requestOnlyGlobal,
                     'requestOnlyProduct' => $requestOnlyProduct,
                     'requestOnly' => $requestOnlyCombined,
@@ -132,6 +136,7 @@ class HomeController extends Controller
                     'product' => $product,
                     'config' => $config,
                     'configSlug' => $slug,
+                    'banners' => $banners,
                     'requestOnlyGlobal' => $requestOnlyGlobal,
                     'requestOnlyProduct' => $requestOnlyProduct,
                     'requestOnly' => $requestOnlyCombined,

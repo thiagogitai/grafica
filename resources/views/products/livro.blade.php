@@ -166,44 +166,40 @@
     }
 
     .summary-card {
-        background: #1b1f2b;
-        color: #fff;
+        background: #ffffff;
+        color: #1f1f1f;
+        border: 1px solid #e2e2e2;
         border-radius: 20px;
         padding: 2rem;
         position: sticky;
         top: 24px;
         overflow: hidden;
-    }
-
-    .summary-card::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at top right, rgba(255, 255, 255, .08), transparent 45%);
-        pointer-events: none;
+        box-shadow: 0 15px 45px rgba(17, 17, 17, .08);
     }
 
     .summary-card h3 {
         font-size: 1rem;
         text-transform: uppercase;
         letter-spacing: 2px;
-        color: rgba(255, 255, 255, .7);
+        color: var(--eskenazi-muted);
     }
 
     .summary-card .total-price {
         font-size: 2.4rem;
         font-weight: 700;
         margin: .2rem 0;
+        color: var(--eskenazi-dark);
     }
 
     .summary-card .unit-price {
-        color: rgba(255, 255, 255, .75);
+        color: var(--eskenazi-muted);
         font-size: 1rem;
     }
 
     .summary-card .status {
         margin-top: 1rem;
         font-size: .95rem;
+        color: var(--eskenazi-muted);
     }
 
     .summary-card .btn-primary {
@@ -223,7 +219,7 @@
 
     .file-upload-block {
         margin-top: 2rem;
-        background: rgba(255, 255, 255, .06);
+        background: rgba(0, 0, 0, .03);
         border-radius: 14px;
         padding: 1.25rem;
     }
@@ -231,7 +227,7 @@
     .file-upload-block label {
         font-size: .95rem;
         font-weight: 600;
-        color: rgba(255, 255, 255, .9);
+        color: var(--eskenazi-dark);
     }
 
     .eskenazi-badge-list {
@@ -268,16 +264,35 @@
 
 @section('content')
 <div class="container py-4 py-lg-5">
-
-        <div class="eskenazi-hero mb-4">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <p class="text-uppercase small fw-semibold mb-2 text-muted">Produto oficial</p>
-                    <h1 class="mb-3">{{ $hero['title'] ?? $product->name }}</h1>
-                    <p class="lead mb-3">{{ $hero['subtitle'] ?? '' }}</p>
+        @if(isset($banners) && $banners->count() > 0)
+            <div class="banners-section mb-4">
+                <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach($banners as $index => $banner)
+                            <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                @if($banner->link)
+                                    <a href="{{ $banner->link }}" target="_blank">
+                                        <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100" alt="{{ $banner->title ?? 'Banner' }}" style="max-height: 400px; object-fit: cover; border-radius: 12px;">
+                                    </a>
+                                @else
+                                    <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100" alt="{{ $banner->title ?? 'Banner' }}" style="max-height: 400px; object-fit: cover; border-radius: 12px;">
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    @if($banners->count() > 1)
+                        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Próximo</span>
+                        </button>
+                    @endif
                 </div>
             </div>
-        </div>
+        @endif
 
 
         @if($requestOnlyCombined)
@@ -498,7 +513,11 @@
                                 totalEl.textContent = formattedTotal;
                                 unitEl.textContent = formattedUnit;
                                 finalPriceInput.value = adjustedTotal;
-                                finalDetailsInput.value = JSON.stringify(options);
+                                const detailPayload = data.payload ?? {
+                                    product_slug: slug,
+                                    ...options,
+                                };
+                                finalDetailsInput.value = JSON.stringify(detailPayload);
                                 if (shippingMetaInput) {
                                     if (data.meta) {
                                         shippingMetaInput.value = JSON.stringify(data.meta);

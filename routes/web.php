@@ -99,6 +99,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/settings', [AdminController::class, 'updateSettings'])->name('settings.update');
     Route::get('/pricing', [AdminController::class, 'pricing'])->name('pricing');
     Route::post('/pricing', [AdminController::class, 'updatePricing'])->name('pricing.update');
+    Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
 });
 
 // require __DIR__.'/auth.php'; // Commented out as auth.php doesn't exist

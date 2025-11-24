@@ -469,7 +469,8 @@ class ApiPricingProxyController extends Controller
                     return response()->json([
                         'success' => true,
                         'price' => $preco,
-                        'formatted' => $data['FormattedCost'] ?? "R$ " . number_format($preco, 2, ',', '.')
+                        'formatted' => $data['FormattedCost'] ?? "R$ " . number_format($preco, 2, ',', '.'),
+                        'payload' => $payload,
                     ]);
                 }
             }

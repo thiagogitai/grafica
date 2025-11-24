@@ -169,6 +169,10 @@
                        class="list-group-item list-group-item-action {{ request()->routeIs(['admin.categories', 'admin.categories.*']) ? 'active' : '' }}">
                         <i class="fas fa-tags"></i> Categorias
                     </a>
+                    <a href="{{ route('admin.banners.index') }}"
+                       class="list-group-item list-group-item-action {{ request()->routeIs(['admin.banners', 'admin.banners.*']) ? 'active' : '' }}">
+                        <i class="fas fa-image"></i> Banners
+                    </a>
                     <a href="{{ route('admin.settings') }}"
                        class="list-group-item list-group-item-action {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
                         <i class="fas fa-cogs"></i> Configurações

@@ -13,8 +13,12 @@
 <!-- Hero Section -->
 <section class="hero-section text-center bg-light d-flex align-items-center justify-content-center">
     <div class="container">
-        <h1 class="display-4 fw-bold">{{ $settings['hero_title'] ?? 'A sua gráfica online' }}</h1>
-        <p class="lead text-muted">{{ $settings['hero_subtitle'] ?? 'Tudo o que precisa para o seu negócio. Rápido. Simples. A um preço justo.' }}</p>
+        @if(!empty($settings['hero_title']))
+            <h1 class="display-4 fw-bold">{{ $settings['hero_title'] }}</h1>
+        @endif
+        @if(!empty($settings['hero_subtitle']))
+            <p class="lead text-muted">{{ $settings['hero_subtitle'] }}</p>
+        @endif
         @if(!empty($settings['whatsapp_number']))
             <a class="btn btn-success mt-3" href="https://wa.me/{{ preg_replace('/\D/','',$settings['whatsapp_number']) }}" target="_blank">
                 <i class="fab fa-whatsapp me-2"></i> Fale no WhatsApp
@@ -23,30 +27,38 @@
     </div>
     </section>
 
-<!-- Product Categories -->
+@if(isset($banners) && $banners->count() > 0)
+<!-- Banners Section -->
 <section class="py-5">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Navegue por categoria</h2>
-        </div>
-        <div class="row g-4">
-            @foreach($categories->take(4) as $category)
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <a href="#" class="card text-decoration-none text-dark category-card">
-                    @if($category->image)
-                        <img src="{{ asset('storage/' . $category->image) }}" class="card-img-top" alt="{{ $category->name }}">
-                    @else
-                        <img src="https://source.unsplash.com/250x150/?graphic-design,{{ urlencode($category->name) }}" class="card-img-top" alt="{{ $category->name }}">
-                    @endif
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ $category->name }}</h5>
+        <div id="homeBannerCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @foreach($banners as $index => $banner)
+                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                        @if($banner->link)
+                            <a href="{{ $banner->link }}" target="_blank">
+                                <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100" alt="{{ $banner->title ?? 'Banner' }}" style="max-height: 400px; object-fit: cover; border-radius: 12px;">
+                            </a>
+                        @else
+                            <img src="{{ asset('storage/' . $banner->image) }}" class="d-block w-100" alt="{{ $banner->title ?? 'Banner' }}" style="max-height: 400px; object-fit: cover; border-radius: 12px;">
+                        @endif
                     </div>
-                </a>
+                @endforeach
             </div>
-            @endforeach
+            @if($banners->count() > 1)
+                <button class="carousel-control-prev" type="button" data-bs-target="#homeBannerCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#homeBannerCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Próximo</span>
+                </button>
+            @endif
         </div>
     </div>
-    </section>
+</section>
+@endif
 
 <!-- Featured Products -->
 <section id="produtos" class="py-5 bg-light">

@@ -56,6 +56,7 @@ class ProductPriceController extends Controller
                 'quantity' => $quantity,
                 'source' => 'matrix_api',
                 'meta' => $this->buildMetaFromResponse($apiResult['response'] ?? []),
+                'payload' => $apiResult['payload'] ?? null,
             ]);
         }
 
@@ -72,6 +73,7 @@ class ProductPriceController extends Controller
                 'quantity' => $quantity,
                 'source' => 'legacy_proxy',
                 'meta' => $proxyResult['meta'] ?? null,
+                'payload' => $proxyResult['payload'] ?? null,
             ]);
         }
 
@@ -115,6 +117,7 @@ class ProductPriceController extends Controller
                 return [
                     'price' => (float) $payload['price'],
                     'meta' => $payload['meta'] ?? null,
+                    'payload' => $payload['payload'] ?? null,
                 ];
             }
         } catch (\Throwable $e) {
