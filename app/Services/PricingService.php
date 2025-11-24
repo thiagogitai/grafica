@@ -80,6 +80,7 @@ class PricingService
 
         return [
             'pricingParameters' => [
+                'KitParameters' => null,
                 $quantityKey => (string) $quantity,
                 'Options' => $apiOptions,
             ],
@@ -167,26 +168,24 @@ class PricingService
 
     protected function defaultHeaders(string $slug): array
     {
-        static $userAgents = [
-            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        ];
-
-        $userAgent = $userAgents[array_rand($userAgents)];
-
+        // Cabe�alho fixo id�ntico ao capturado no browser oficial
         return [
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json, text/plain, */*',
+            'Accept' => 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Encoding' => 'gzip, deflate, br, zstd',
             'Accept-Language' => 'pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Accept-Encoding' => 'gzip, deflate, br',
-            'User-Agent' => $userAgent,
+            'Cache-Control' => 'no-cache',
+            'Pragma' => 'no-cache',
+            'Content-Type' => 'application/json; charset=UTF-8;',
+            'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36',
             'Referer' => self::BASE_URL . "/product/{$slug}",
             'Origin' => self::BASE_URL,
             'Connection' => 'keep-alive',
             'Sec-Fetch-Dest' => 'empty',
             'Sec-Fetch-Mode' => 'cors',
             'Sec-Fetch-Site' => 'same-origin',
+            'Sec-Ch-Ua' => '"Chromium";v="142", "Google Chrome";v="142", "Not_A Brand";v="99"',
+            'Sec-Ch-Ua-Mobile' => '?0',
+            'Sec-Ch-Ua-Platform' => '"Windows"',
             'X-Requested-With' => 'XMLHttpRequest',
         ];
     }

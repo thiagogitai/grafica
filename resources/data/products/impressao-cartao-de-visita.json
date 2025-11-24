@@ -1,0 +1,93 @@
+{
+    "title_override": "Impressão de Cartão de Visita",
+    "base_price": 0,
+    "redirect_to_upload": true,
+    "options": [
+        {
+            "name": "quantity",
+            "label": "1- Quantidade",
+            "type": "select",
+            "default": "3000",
+            "choices": [
+                { "value": "500", "label": "500 unidades" },
+                { "value": "1000", "label": "1.000 unidades" },
+                { "value": "3000", "label": "3.000 unidades" },
+                { "value": "5000", "label": "5.000 unidades" },
+                { "value": "10000", "label": "10.000 unidades" }
+            ]
+        },
+        {
+            "name": "paper",
+            "label": "Papel",
+            "type": "select",
+            "default": "Cartão Triplex C2S 300gr ",
+            "choices": [
+                { "value": "Cartão Triplex C2S 300gr ", "label": "Cartão Triplex C2S 300gr" }
+            ]
+        },
+        {
+            "name": "size",
+            "label": "Formato",
+            "type": "select",
+            "default": "90mmx50mm",
+            "choices": [
+                { "value": "90mmx50mm", "label": "90mm x 50mm" }
+            ]
+        },
+        {
+            "name": "color",
+            "label": "Cores",
+            "type": "select",
+            "default": "4 cores frente e verso",
+            "choices": [
+                { "value": "4 cores frente e verso", "label": "4 cores frente e verso" },
+                { "value": "4 cores frente", "label": "4 cores frente" }
+            ]
+        },
+        {
+            "name": "finishing",
+            "label": "Acabamento",
+            "type": "select",
+            "default": "Cantos Retos",
+            "choices": [
+                { "value": "Cantos Retos", "label": "Cantos Retos" }
+            ]
+        },
+        {
+            "name": "extras",
+            "label": "Extras",
+            "type": "select",
+            "default": "Nenhum",
+            "choices": [
+                { "value": "Nenhum", "label": "Nenhum" }
+            ]
+        },
+        {
+            "name": "file_format",
+            "label": "Formato do Arquivo",
+            "type": "select",
+            "default": "Arquivo PDF (fechado para impressão) (Grátis)",
+            "choices": [
+                { "value": "Arquivo PDF (fechado para impressão) (Grátis)", "label": "Arquivo PDF (fechado para impressão) (Grátis)" }
+            ]
+        },
+        {
+            "name": "file_check",
+            "label": "Verificação do Arquivo",
+            "type": "select",
+            "default": "Digital On-Line (Grátis)",
+            "choices": [
+                { "value": "Digital On-Line (Grátis)", "label": "Digital On-Line (Grátis)" }
+            ]
+        },
+        {
+            "name": "prazo_entrega",
+            "label": "Prazo de Entrega",
+            "type": "select",
+            "default": "Padrão: 6 dias úteis de Produção + tempo de FRETE*",
+            "choices": [
+                { "value": "Padrão: 6 dias úteis de Produção + tempo de FRETE*", "label": "Padrão: 6 dias úteis de Produção + tempo de FRETE*" }
+            ]
+        }
+    ]
+}

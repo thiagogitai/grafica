@@ -1,0 +1,46 @@
+{
+  "slug": "impressao-de-flyer",
+  "quantity_key": "Q1",
+  "fields": {
+    "paper": {
+      "label": "Papel",
+      "index": 1,
+      "key": "783282BBE1EDC45E7CA4C772533F93F8"
+    },
+    "size": {
+      "label": "Formato",
+      "index": 2,
+      "key": "20D239C1174C3AB4AD37C87030163926"
+    },
+    "color": {
+      "label": "Cores",
+      "index": 3,
+      "key": "A7C3517F4635B1E9C6285BF5B99FDAEA"
+    },
+    "finishing": {
+      "label": "Acabamento",
+      "index": 4,
+      "key": "BAA50AF6AD95A1420952550BB9BE2813"
+    },
+    "extras": {
+      "label": "Extras",
+      "index": 5,
+      "key": "99B028763EDAEAE6ACD3BE9E51F34B23"
+    },
+    "file_format": {
+      "label": "Formato do Arquivo",
+      "index": 6,
+      "key": "C59DC69618AB6A6885BD703BF27C3990"
+    },
+    "file_check": {
+      "label": "Verificação do Arquivo",
+      "index": 7,
+      "key": "82BCCF9E849323C13513C06FAED166C5"
+    },
+    "prazo_entrega": {
+      "label": "Prazo de Entrega",
+      "index": 8,
+      "key": "194F56DEAEE24F32871D02D0F1C864C8"
+    }
+  }
+}
