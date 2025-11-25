@@ -12,7 +12,7 @@
 
 @if(isset($banners) && $banners->count() > 0)
 <!-- Banners Section -->
-<section class="py-5">
+<section class="py-4">
     <div class="container">
         <div id="homeBannerCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
