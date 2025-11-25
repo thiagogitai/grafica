@@ -1,5 +1,5 @@
 {
-  "title_override": null,
+  "title_override": "Impressão de Jornal de Bairro",
   "base_price": null,
   "redirect_to_upload": true,
   "options": [
@@ -13,37 +13,10 @@
     },
     {
       "name": "formato",
-      "label": "2- Formato do Miolo (P├íginas):",
+      "label": "2- Formato do Miolo (Páginas):",
       "type": "select",
       "choices": [
-        {
-          "value": "205x275mm",
-          "label": "205x275mm"
-        },
-        {
-          "value": "210x280mm",
-          "label": "210x280mm"
-        },
-        {
-          "value": "210x297mm (A4) ",
-          "label": "210x297mm (A4)"
-        },
-        {
-          "value": "265x300mm",
-          "label": "265x300mm"
-        },
-        {
-          "value": "265x350mm",
-          "label": "265x350mm"
-        },
-        {
-          "value": "265x410mm",
-          "label": "265x410mm"
-        },
-        {
-          "value": "235x270mm",
-          "label": "235x270mm"
-        }
+        { "value": "205x275mm", "label": "205x275mm" }
       ]
     },
     {
@@ -51,18 +24,7 @@
       "label": "3- Papel MIOLO:",
       "type": "select",
       "choices": [
-        {
-          "value": "Offset 75gr",
-          "label": "Offset 75gr"
-        },
-        {
-          "value": "Offset 90gr",
-          "label": "Offset 90gr"
-        },
-        {
-          "value": "Couche brilho 90gr",
-          "label": "Couche brilho 90gr"
-        }
+        { "value": "Offset 75gr", "label": "Offset 75gr" }
       ]
     },
     {
@@ -70,41 +32,31 @@
       "label": "4- Cores MIOLO:",
       "type": "select",
       "choices": [
-        {
-          "value": "4 cores frente e verso",
-          "label": "4 cores frente e verso"
-        },
-        {
-          "value": "1 cor frente e verso PRETO",
-          "label": "1 cor frente e verso PRETO"
-        }
+        { "value": "4 cores frente e verso", "label": "4 cores frente e verso" }
       ]
     },
     {
       "name": "paginas_miolo",
       "label": "5- Quantidade Paginas MIOLO:",
-      "type": "number",
-      "default": 50,
-      "min": 50,
-      "step": 1
+      "type": "select",
+      "choices": [
+        { "value": "Miolo 4 páginas", "label": "Miolo 4 páginas" },
+        { "value": "Miolo 8 páginas", "label": "Miolo 8 páginas" },
+        { "value": "Miolo 12 páginas", "label": "Miolo 12 páginas" },
+        { "value": "Miolo 16 páginas", "label": "Miolo 16 páginas" },
+        { "value": "Miolo 20 páginas", "label": "Miolo 20 páginas" },
+        { "value": "Miolo 24 páginas", "label": "Miolo 24 páginas" },
+        { "value": "Miolo 32 páginas", "label": "Miolo 32 páginas" },
+        { "value": "Miolo 40 páginas", "label": "Miolo 40 páginas" },
+        { "value": "Miolo 50 páginas", "label": "Miolo 50 páginas" }
+      ]
     },
     {
       "name": "acabamento_miolo",
       "label": "6- Acabamento MIOLO:",
       "type": "select",
       "choices": [
-        {
-          "value": "Dobrado",
-          "label": "Dobrado"
-        },
-        {
-          "value": "Grampeado - 2 grampos",
-          "label": "Grampeado - 2 grampos"
-        },
-        {
-          "value": "Sem Grampos",
-          "label": "Sem Grampos"
-        }
+        { "value": "Dobrado", "label": "Dobrado" }
       ]
     },
     {
@@ -112,14 +64,7 @@
       "label": "7- Acabamento Final:",
       "type": "select",
       "choices": [
-        {
-          "value": "Grampeado - 2 grampos",
-          "label": "Grampeado - 2 grampos"
-        },
-        {
-          "value": "Sem Grampos",
-          "label": "Sem Grampos"
-        }
+        { "value": "Grampeado - 2 grampos", "label": "Grampeado - 2 grampos" }
       ]
     },
     {
@@ -127,10 +72,7 @@
       "label": "8- Extras:",
       "type": "select",
       "choices": [
-        {
-          "value": "Nenhum",
-          "label": "Nenhum"
-        }
+        { "value": "Nenhum", "label": "Nenhum" }
       ]
     },
     {
@@ -138,29 +80,15 @@
       "label": "9- Frete:",
       "type": "select",
       "choices": [
-        {
-          "value": "Incluso",
-          "label": "Incluso"
-        },
-        {
-          "value": "Cliente Retira",
-          "label": "Cliente Retira"
-        }
+        { "value": "Incluso", "label": "Incluso" }
       ]
     },
     {
       "name": "verificacao_arquivo",
-      "label": "10- Verifica├º├úo do Arquivo:",
+      "label": "10- Verificação do Arquivo:",
       "type": "select",
       "choices": [
-        {
-          "value": "Sem Aprova├º├úo - Cliente Envia PDF Pronto Para Impress├úo - (Gr├ítis)",
-          "label": "Sem Aprova├º├úo - Cliente Envia PDF Pronto Para Impress├úo - (Gr├ítis)"
-        },
-        {
-          "value": "Digital On-Line - via Web-Approval ou PDF",
-          "label": "Digital On-Line - via Web-Approval ou PDF"
-        }
+        { "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)", "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)" }
       ]
     },
     {
@@ -168,10 +96,7 @@
       "label": "11- Prazo de Entrega:",
       "type": "select",
       "choices": [
-        {
-          "value": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*",
-          "label": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*"
-        }
+        { "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*", "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*" }
       ]
     }
   ]
