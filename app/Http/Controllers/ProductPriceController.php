@@ -21,6 +21,7 @@ class ProductPriceController extends Controller
         unset($input['force_validation'], $input['_force']);
 
         $productSlug = $input['product_slug'] ?? $request->input('product_slug');
+        $productSlug = $this->normalizeSlug($productSlug);
         if (!$productSlug) {
             return response()->json([
                 'success' => false,
@@ -165,5 +166,39 @@ class ProductPriceController extends Controller
             'dimensions' => $dimensions ?: null,
             'packages' => $packages ?: null,
         ];
+    }
+
+    /**
+     * Normaliza slugs vindos do front para os slugs oficiais com field-keys.
+     */
+    private function normalizeSlug(?string $slug): ?string
+    {
+        if (!$slug) {
+            return null;
+        }
+
+        $slug = trim(strtolower($slug));
+
+        $aliases = [
+            'livro' => 'impressao-de-livro',
+            'impressao-de-livro' => 'impressao-de-livro',
+            'apostila' => 'impressao-de-apostila',
+            'impressao-de-apostila' => 'impressao-de-apostila',
+            'revista' => 'impressao-de-revista',
+            'impressao-de-revista' => 'impressao-de-revista',
+            'jornal' => 'impressao-de-jornal-de-bairro',
+            'jornal-de-bairro' => 'impressao-de-jornal-de-bairro',
+            'impressao-de-jornal-de-bairro' => 'impressao-de-jornal-de-bairro',
+            'tabloide' => 'impressao-de-tabloide',
+            'impressao-de-tabloide' => 'impressao-de-tabloide',
+            'flyer' => 'impressao-de-flyer',
+            'panfleto' => 'impressao-de-flyer',
+            'impressao-de-flyer' => 'impressao-de-flyer',
+            'cartao' => 'impressao-cartao-de-visita',
+            'cartao-de-visita' => 'impressao-cartao-de-visita',
+            'impressao-cartao-de-visita' => 'impressao-cartao-de-visita',
+        ];
+
+        return $aliases[$slug] ?? $slug;
     }
 }
