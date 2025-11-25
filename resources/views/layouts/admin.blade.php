@@ -14,7 +14,7 @@
         background: linear-gradient(135deg, rgba(212, 160, 23, 0.95), rgba(244, 214, 135, 0.9));
         border-radius: 20px;
         color: #fff;
-        padding: 32px 32px 20px;
+        padding: 22px 24px 14px;
         box-shadow: 0 20px 45px rgba(141, 102, 11, 0.25);
     }
     .admin-shell__hero h1 {
@@ -113,8 +113,8 @@
 @endpush
 
 @section('content')
-    <div class="container py-4 admin-shell">
-        <div class="admin-shell__hero mb-4">
+    <div class="container py-3 admin-shell">
+        <div class="admin-shell__hero mb-3">
             <div class="d-lg-flex justify-content-between align-items-center gap-3">
                 <div>
                     <div class="admin-shell__breadcrumbs mb-2">
