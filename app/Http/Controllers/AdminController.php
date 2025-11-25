@@ -41,8 +41,6 @@ class AdminController extends Controller
     public function storeProduct(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'request_only' => 'nullable|boolean',
             'markup_percentage' => 'nullable|numeric|min:0|max:500',
@@ -54,8 +52,8 @@ class AdminController extends Controller
         }
 
         Product::create([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => 'Produto configurável',
+            'description' => 'Produto configurável via JSON',
             'price' => 0,
             'image' => $imagePath,
             'template' => Product::TEMPLATE_CONFIG_AUTO,
@@ -74,8 +72,6 @@ class AdminController extends Controller
     public function updateProduct(Request $request, Product $product)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'request_only' => 'nullable|boolean',
             'markup_percentage' => 'nullable|numeric|min:0|max:500',
@@ -91,8 +87,8 @@ class AdminController extends Controller
         }
 
         $product->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'name' => $product->name ?? 'Produto configurável',
+            'description' => $product->description ?? 'Produto configurável via JSON',
             'price' => 0,
             'image' => $imagePath,
             'template' => Product::TEMPLATE_CONFIG_AUTO,
