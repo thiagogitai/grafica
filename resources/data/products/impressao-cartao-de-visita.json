@@ -1,5 +1,5 @@
 {
-    "title_override": "Impressão de Cartão de Visita",
+    "title_override": "Impress├úo de Cart├úo de Visita",
     "base_price": 0,
     "redirect_to_upload": true,
     "options": [
@@ -20,9 +20,9 @@
             "name": "paper",
             "label": "Papel",
             "type": "select",
-            "default": "Cartão Triplex C2S 300gr ",
+            "default": "Cart├úo Triplex C2S 300gr ",
             "choices": [
-                { "value": "Cartão Triplex C2S 300gr ", "label": "Cartão Triplex C2S 300gr" }
+                { "value": "Cart├úo Triplex C2S 300gr ", "label": "Cart├úo Triplex C2S 300gr" }
             ]
         },
         {
@@ -66,27 +66,27 @@
             "name": "file_format",
             "label": "Formato do Arquivo",
             "type": "select",
-            "default": "Arquivo PDF (fechado para impressão) (Grátis)",
+            "default": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)",
             "choices": [
-                { "value": "Arquivo PDF (fechado para impressão) (Grátis)", "label": "Arquivo PDF (fechado para impressão) (Grátis)" }
+                { "value": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)", "label": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)" }
             ]
         },
         {
             "name": "file_check",
-            "label": "Verificação do Arquivo",
+            "label": "Verifica├º├úo do Arquivo",
             "type": "select",
-            "default": "Digital On-Line (Grátis)",
+            "default": "Digital On-Line (Gr├ítis)",
             "choices": [
-                { "value": "Digital On-Line (Grátis)", "label": "Digital On-Line (Grátis)" }
+                { "value": "Digital On-Line (Gr├ítis)", "label": "Digital On-Line (Gr├ítis)" }
             ]
         },
         {
             "name": "prazo_entrega",
             "label": "Prazo de Entrega",
             "type": "select",
-            "default": "Padrão: 6 dias úteis de Produção + tempo de FRETE*",
+            "default": "Padr├úo: 6 dias ├║teis de Produ├º├úo + tempo de FRETE*",
             "choices": [
-                { "value": "Padrão: 6 dias úteis de Produção + tempo de FRETE*", "label": "Padrão: 6 dias úteis de Produção + tempo de FRETE*" }
+                { "value": "Padr├úo: 6 dias ├║teis de Produ├º├úo + tempo de FRETE*", "label": "Padr├úo: 6 dias ├║teis de Produ├º├úo + tempo de FRETE*" }
             ]
         }
     ]

@@ -3,7 +3,7 @@
   "quantity_key": "Q1",
   "fields": {
     "formato_miolo_paginas": {
-      "label": "2- Formato do Miolo (Páginas)",
+      "label": "2- Formato do Miolo (P├íginas)",
       "index": 1,
       "key": "8507966BFD1CED08D52954CA1BFBAFAC"
     },
@@ -73,7 +73,7 @@
       "key": "9F0D19D9628523760A8B7FF3464C9E9E"
     },
     "verificacao_arquivo": {
-      "label": "16- Verificação do Arquivo",
+      "label": "16- Verifica├º├úo do Arquivo",
       "index": 15,
       "key": "A1EA4ABCE9F3330525CAD39BE77D01F7"
     },

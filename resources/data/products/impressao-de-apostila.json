@@ -40,16 +40,16 @@
       "type": "select",
       "choices": [
         {
-          "value": "Cartão Triplex 250gr ",
-          "label": "Cartão Triplex 250gr"
+          "value": "Cart├úo Triplex 250gr ",
+          "label": "Cart├úo Triplex 250gr"
         },
         {
-          "value": "Cartão Triplex 300gr ",
-          "label": "Cartão Triplex 300gr"
+          "value": "Cart├úo Triplex 300gr ",
+          "label": "Cart├úo Triplex 300gr"
         },
         {
-          "value": "PVC Transparente Sem Impressão",
-          "label": "PVC Transparente Sem Impressão"
+          "value": "PVC Transparente Sem Impress├úo",
+          "label": "PVC Transparente Sem Impress├úo"
         }
       ]
     },
@@ -86,12 +86,12 @@
           "label": "Nenhum"
         },
         {
-          "value": "Laminação FOSCA FRENTE",
-          "label": "Laminação FOSCA FRENTE"
+          "value": "Lamina├º├úo FOSCA FRENTE",
+          "label": "Lamina├º├úo FOSCA FRENTE"
         },
         {
-          "value": "Laminação BRILHO FRENTE",
-          "label": "Laminação BRILHO FRENTE"
+          "value": "Lamina├º├úo BRILHO FRENTE",
+          "label": "Lamina├º├úo BRILHO FRENTE"
         }
       ]
     },
@@ -105,12 +105,12 @@
           "label": "Igual a Capa"
         },
         {
-          "value": "PVC Transparente Sem Impressão",
-          "label": "PVC Transparente Sem Impressão"
+          "value": "PVC Transparente Sem Impress├úo",
+          "label": "PVC Transparente Sem Impress├úo"
         },
         {
-          "value": "PVC Preto Sem Impressão",
-          "label": "PVC Preto Sem Impressão"
+          "value": "PVC Preto Sem Impress├úo",
+          "label": "PVC Preto Sem Impress├úo"
         }
       ]
     },
@@ -182,7 +182,7 @@
     },
     {
       "name": "folhas_miolo_1",
-      "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 páginas)",
+      "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 p├íginas)",
       "type": "number",
       "default": 50,
       "min": 50,
@@ -261,8 +261,8 @@
           "label": "Offset 120gr"
         },
         {
-          "value": "Não tem Miolo 2",
-          "label": "Não tem Miolo 2"
+          "value": "N├úo tem Miolo 2",
+          "label": "N├úo tem Miolo 2"
         }
       ]
     },
@@ -333,8 +333,8 @@
       "type": "select",
       "choices": [
         {
-          "value": "Arquivo PDF (fechado para impressão) (Grátis)",
-          "label": "Arquivo PDF (fechado para impressão) (Grátis)"
+          "value": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)",
+          "label": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)"
         },
         {
           "value": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)",
@@ -344,12 +344,12 @@
     },
     {
       "name": "verificacao_arquivo",
-      "label": "17- Verificação do Arquivo",
+      "label": "17- Verifica├º├úo do Arquivo",
       "type": "select",
       "choices": [
         {
-          "value": "Digital On-Line (Grátis)",
-          "label": "Digital On-Line (Grátis)"
+          "value": "Digital On-Line (Gr├ítis)",
+          "label": "Digital On-Line (Gr├ítis)"
         },
         {
           "value": "Prova de Cor Impressa Capa",
@@ -367,8 +367,8 @@
       "type": "select",
       "choices": [
         {
-          "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
-          "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
+          "value": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*",
+          "label": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*"
         }
       ]
     }

@@ -22,33 +22,52 @@ class PricingService
 
         $payload = $this->buildPayload($slug, $options);
 
-        $response = Http::withHeaders($this->defaultHeaders($slug))->timeout(30)
-            ->post(self::BASE_URL . "/product/{$slug}/pricing", $payload);
+        $lastError = null;
+        for ($attempt = 1; $attempt <= 3; $attempt++) {
+            try {
+                $response = Http::withHeaders($this->defaultHeaders($slug))
+                    ->timeout(30)
+                    ->post(self::BASE_URL . "/product/{$slug}/pricing", $payload);
 
-        if (!$response->successful()) {
-            throw new \RuntimeException(sprintf(
-                'API pricing request failed for %s (%s): %s',
-                $slug,
-                $response->status(),
-                $response->body()
-            ));
+                if (!$response->successful()) {
+                    $lastError = new \RuntimeException(sprintf(
+                        'API pricing request failed for %s (%s): %s',
+                        $slug,
+                        $response->status(),
+                        $response->body()
+                    ));
+                    // Apenas tenta de novo em status >= 500
+                    if ($response->status() < 500 || $attempt === 3) {
+                        throw $lastError;
+                    }
+                } else {
+                    $data = $response->json();
+                    if (!is_array($data)) {
+                        throw new \RuntimeException('Unexpected pricing response format.');
+                    }
+
+                    $price = $this->extractPrice($data);
+                    if ($price === null) {
+                        throw new \RuntimeException('Pricing API did not return a numeric value.');
+                    }
+
+                    return [
+                        'price' => $price,
+                        'payload' => $payload,
+                        'response' => $data,
+                    ];
+                }
+            } catch (\Throwable $e) {
+                $lastError = $e;
+                if ($attempt === 3) {
+                    throw $lastError;
+                }
+            }
+
+            usleep(150000); // pequeno backoff antes do retry
         }
 
-        $data = $response->json();
-        if (!is_array($data)) {
-            throw new \RuntimeException('Unexpected pricing response format.');
-        }
-
-        $price = $this->extractPrice($data);
-        if ($price === null) {
-            throw new \RuntimeException('Pricing API did not return a numeric value.');
-        }
-
-        return [
-            'price' => $price,
-            'payload' => $payload,
-            'response' => $data,
-        ];
+        throw $lastError ?? new \RuntimeException('Unknown pricing error');
     }
 
     protected function buildPayload(string $slug, array $options): array

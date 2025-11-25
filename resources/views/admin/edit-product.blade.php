@@ -6,7 +6,7 @@
     <span><i class="fas fa-angle-right"></i> Editar</span>
 @endsection
 @section('admin-title', 'Editar produto')
-@section('admin-subtitle', 'Atualize informações, template e comportamento do produto selecionado.')
+@section('admin-subtitle', 'Atualize informações básicas e comportamento do produto selecionado.')
 
 @section('admin-actions')
     <a href="{{ route('admin.products') }}" class="btn btn-dark">
@@ -24,56 +24,18 @@
                 <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $product->name) }}" required>
                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
-            <div class="col-12 col-lg-6">
-                <label for="template" class="form-label">Template de exibição</label>
-                <select class="form-select @error('template') is-invalid @enderror" id="template" name="template" required>
-                    @foreach($templates as $value => $label)
-                        <option value="{{ $value }}" {{ old('template', $product->template) === $value ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @error('template')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                <small class="text-muted">Controle o layout e regras exibidas na vitrine.</small>
-            </div>
-            <div class="col-12 col-lg-6">
-                <label for="category_id" class="form-label">Categoria</label>
-                <select class="form-select @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
-                    <option value="">Sem categoria</option>
-                    @foreach($categories as $category)
-                        <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
-                            {{ $category->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('category_id')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                <small class="text-muted">Atualize a categoria principal deste item.</small>
-            </div>
             <div class="col-12">
                 <label for="description" class="form-label">Descrição</label>
                 <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="4" required>{{ old('description', $product->description) }}</textarea>
                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
-            @php
-                $selectedTemplate = old('template', $product->template);
-                $priceFieldHidden = ($disablePriceEditor ?? false)
-                    || \Illuminate\Support\Str::startsWith($selectedTemplate, \App\Models\Product::TEMPLATE_CONFIG_PREFIX)
-                    || $selectedTemplate === \App\Models\Product::TEMPLATE_FLYER;
-            @endphp
-            @if(!$priceFieldHidden)
-                <div class="col-12 col-md-4">
-                    <label for="price" class="form-label">Preço base</label>
-                    <input type="number" step="0.01" min="0" class="form-control @error('price') is-invalid @enderror" id="price" name="price" value="{{ old('price', $product->price) }}">
-                    @error('price')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    <small class="text-muted">Valor base utilizado quando não houver configuração automática.</small>
-                </div>
-            @else
-                <input type="hidden" name="price" value="{{ old('price', $product->price) }}">
-            @endif
-            <div class="col-12 col-md-4">
+            <input type="hidden" name="price" value="0">
+            <div class="col-12 col-md-6">
                 <label for="markup_percentage" class="form-label">Markup específico (%)</label>
                 <input type="number" step="0.01" min="0" class="form-control @error('markup_percentage') is-invalid @enderror" id="markup_percentage" name="markup_percentage" value="{{ old('markup_percentage', $product->markup_percentage) }}">
                 @error('markup_percentage')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-6">
                 <label for="image" class="form-label">Imagem do produto</label>
                 <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" accept="image/*">
                 @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror

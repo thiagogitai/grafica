@@ -48,7 +48,7 @@
                             </td>
                             <td>
                                 <span class="badge bg-light text-dark border">
-                                    {{ $templateLabels[$product->template] ?? $product->effectiveTemplateLabel() }}
+                                    {{ $product->effectiveTemplateLabel() }}
                                 </span>
                             </td>
                             <td>

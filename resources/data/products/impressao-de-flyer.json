@@ -1,5 +1,5 @@
 {
-    "title_override": "Impressão de Flyers",
+    "title_override": "Impress├úo de Flyers",
     "base_price": 0,
     "options": [
         {
@@ -40,16 +40,16 @@
             "type": "select",
             "default": "Couche Brilho 150gr ",
             "choices": [
-                {"value": "Couche Brilho 150gr ", "label": "Couché Brilho 150gr"},
-                {"value": "Couche Brilho 90gr", "label": "Couché Brilho 90gr"},
-                {"value": "Couche Brilho 115gr ", "label": "Couché Brilho 115gr"},
-                {"value": "Couche Brilho 210gr ", "label": "Couché Brilho 210gr"},
+                {"value": "Couche Brilho 150gr ", "label": "Couch├® Brilho 150gr"},
+                {"value": "Couche Brilho 90gr", "label": "Couch├® Brilho 90gr"},
+                {"value": "Couche Brilho 115gr ", "label": "Couch├® Brilho 115gr"},
+                {"value": "Couche Brilho 210gr ", "label": "Couch├® Brilho 210gr"},
                 {"value": "Offset 75gr ", "label": "Offset 75gr"},
                 {"value": "Offset 90gr ", "label": "Offset 90gr"},
                 {"value": "Offset 120gr ", "label": "Offset 120gr"},
                 {"value": "Offset 180gr ", "label": "Offset 180gr"},
-                {"value": "Couche Fosco 150gr ", "label": "Couché Fosco 150gr"},
-                {"value": "Cartão Triplex C2S 300gr ", "label": "Cartão Triplex C2S 300gr"}
+                {"value": "Couche Fosco 150gr ", "label": "Couch├® Fosco 150gr"},
+                {"value": "Cart├úo Triplex C2S 300gr ", "label": "Cart├úo Triplex C2S 300gr"}
             ]
         },
         {
@@ -71,8 +71,8 @@
             "default": "0",
             "choices": [
                 {"value": "0", "label": "Cantos Retos"},
-                {"value": "0", "label": "Cantos Retos + Laminação FOSCO Bopp F/V (acima de 200g)"},
-                {"value": "0", "label": "Cantos Retos + Laminação BRILHO Bopp F/V (Acima de 200g)"}
+                {"value": "0", "label": "Cantos Retos + Lamina├º├úo FOSCO Bopp F/V (acima de 200g)"},
+                {"value": "0", "label": "Cantos Retos + Lamina├º├úo BRILHO Bopp F/V (Acima de 200g)"}
             ]
         },
         {
@@ -81,18 +81,18 @@
             "type": "select",
             "default": "0",
             "choices": [
-                {"value": "0", "label": "Arquivo PDF (fechado para impressão) (Grátis)"},
+                {"value": "0", "label": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)"},
                 {"value": "80", "label": "Arquivo CDR / INDD / AI / JPG / PNG (aberto) (R$ 80,00)"}
             ]
         },
         {
             "name": "file_check",
-            "label": "Verificação do Arquivo",
+            "label": "Verifica├º├úo do Arquivo",
             "type": "select",
             "default": "0",
             "choices": [
-                {"value": "0", "label": "Digital On-Line (Grátis)"},
-                {"value": "150", "label": "Prova de Cor Impressa - SOMENTE para São Paulo (R$ 150,00)"}
+                {"value": "0", "label": "Digital On-Line (Gr├ítis)"},
+                {"value": "150", "label": "Prova de Cor Impressa - SOMENTE para S├úo Paulo (R$ 150,00)"}
             ]
         }
     ]

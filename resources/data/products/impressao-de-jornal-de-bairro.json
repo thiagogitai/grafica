@@ -13,7 +13,7 @@
     },
     {
       "name": "formato",
-      "label": "2- Formato do Miolo (Páginas):",
+      "label": "2- Formato do Miolo (P├íginas):",
       "type": "select",
       "choices": [
         {
@@ -150,12 +150,12 @@
     },
     {
       "name": "verificacao_arquivo",
-      "label": "10- Verificação do Arquivo:",
+      "label": "10- Verifica├º├úo do Arquivo:",
       "type": "select",
       "choices": [
         {
-          "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
-          "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+          "value": "Sem Aprova├º├úo - Cliente Envia PDF Pronto Para Impress├úo - (Gr├ítis)",
+          "label": "Sem Aprova├º├úo - Cliente Envia PDF Pronto Para Impress├úo - (Gr├ítis)"
         },
         {
           "value": "Digital On-Line - via Web-Approval ou PDF",
@@ -169,8 +169,8 @@
       "type": "select",
       "choices": [
         {
-          "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
-          "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
+          "value": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*",
+          "label": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*"
         }
       ]
     }
