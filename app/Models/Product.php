@@ -42,13 +42,13 @@ class Product extends Model
     public static function templateOptions(): array
     {
         return [
-            self::templateOptionKey('livro') => 'Template: Livro',
+            self::templateOptionKey('impressao-de-livro') => 'Template: Livro',
+            self::templateOptionKey('impressao-de-revista') => 'Template: Revista',
             self::templateOptionKey('impressao-de-apostila') => 'Template: Apostila',
             self::templateOptionKey('impressao-de-jornal-de-bairro') => 'Template: Jornal de Bairro',
-            self::templateOptionKey('impressao-online-de-livretos-personalizados') => 'Template: Livretos Personalizados',
-            self::templateOptionKey('impressao-de-revista') => 'Template: Revista',
             self::templateOptionKey('impressao-de-tabloide') => 'Template: Tabloide',
-            self::templateOptionKey('impressao-de-panfleto') => 'Template: Panfleto',
+            self::templateOptionKey('impressao-de-flyer') => 'Template: Panfleto/Flyer',
+            self::templateOptionKey('impressao-cartao-de-visita') => 'Template: Cartão de Visita',
         ];
     }
 
