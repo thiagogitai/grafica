@@ -10,23 +10,6 @@
     $requestOnlyGlobal = $requestOnlyGlobal ?? ($settings['request_only'] ?? false);
 @endphp
 
-<!-- Hero Section -->
-<section class="hero-section text-center bg-light d-flex align-items-center justify-content-center">
-    <div class="container">
-        @if(!empty($settings['hero_title']))
-            <h1 class="display-4 fw-bold">{{ $settings['hero_title'] }}</h1>
-        @endif
-        @if(!empty($settings['hero_subtitle']))
-            <p class="lead text-muted">{{ $settings['hero_subtitle'] }}</p>
-        @endif
-        @if(!empty($settings['whatsapp_number']))
-            <a class="btn btn-success mt-3" href="https://wa.me/{{ preg_replace('/\D/','',$settings['whatsapp_number']) }}" target="_blank">
-                <i class="fab fa-whatsapp me-2"></i> Fale no WhatsApp
-            </a>
-        @endif
-    </div>
-    </section>
-
 @if(isset($banners) && $banners->count() > 0)
 <!-- Banners Section -->
 <section class="py-5">
