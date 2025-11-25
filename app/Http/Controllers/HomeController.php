@@ -38,7 +38,7 @@ class HomeController extends Controller
             'hero_subtitle' => Setting::get('hero_subtitle', ''),
             'about_title' => Setting::get('about_title', 'Sobre nós'),
             'about_description' => Setting::get('about_description', ''),
-            'whatsapp_number' => Setting::get('whatsapp_number'),
+            'whatsapp_number' => '11981818180',
             'features' => json_decode(Setting::get('features', '[]'), true) ?: [],
             'testimonials' => json_decode(Setting::get('testimonials', '[]'), true) ?: [],
         ];

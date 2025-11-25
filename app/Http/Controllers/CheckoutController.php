@@ -177,7 +177,7 @@ class CheckoutController extends Controller
         session()->forget('cart');
 
         // Integração com WhatsApp
-        $whatsappNumber = Setting::get('whatsapp_number');
+        $whatsappNumber = '11981818180';
         $message = "Olá! Meu nome é " . $request->name . " e acabei de fazer um pedido (#" . $order->id . ") no valor total de R$" . number_format($total, 2, ',', '.') . ".\n\n";
         $message .= "Detalhes do pedido:\n";
         foreach ($orderItems as $item) {

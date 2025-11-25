@@ -100,11 +100,6 @@
                                 <h5 class="mb-0">Contato</h5>
                             </div>
                             <div class="card-body">
-                                <div class="mb-3">
-                                    <label for="whatsapp_number" class="form-label">WhatsApp (com DDD)</label>
-                                    <input type="text" class="form-control @error('whatsapp_number') is-invalid @enderror" id="whatsapp_number" name="whatsapp_number" value="{{ old('whatsapp_number', $settings['whatsapp_number'] ?? '') }}" required>
-                                    @error('whatsapp_number')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                </div>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" role="switch" id="request_only" name="request_only" value="1" {{ old('request_only', !empty($settings['request_only']) && $settings['request_only']) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="request_only">Exibir produtos apenas para orçamento (oculta preços)</label>

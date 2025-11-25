@@ -29,14 +29,13 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $requestOnly = false;
-        $whatsappNumber = null;
+        $whatsappNumber = '11981818180';
         $socialLinks = [];
         $footerText = '';
         $disablePriceEditor = false;
 
         if (Schema::hasTable('settings')) {
             $requestOnly = Setting::boolean('request_only', false);
-            $whatsappNumber = Setting::get('whatsapp_number');
             $socialLinks = json_decode(Setting::get('social_links', '[]'), true);
             if (!is_array($socialLinks)) {
                 $socialLinks = [];
