@@ -25,12 +25,16 @@ class AdminController extends Controller
     public function products()
     {
         $products = Product::paginate(10);
-        return view('admin.products', compact('products'));
+        $templateLabels = Product::templateOptions();
+        return view('admin.products', compact('products', 'templateLabels'));
     }
 
     public function createProduct()
     {
-        return view('admin.create-product');
+        $templates = Product::templateOptions();
+        $disablePriceEditor = \App\Models\Setting::boolean('disable_price_editor', false);
+        $categories = Category::orderBy('name')->get();
+        return view('admin.create-product', compact('templates', 'disablePriceEditor', 'categories'));
     }
 
     public function showProduct(Product $product)
@@ -40,12 +44,22 @@ class AdminController extends Controller
 
     public function storeProduct(Request $request)
     {
+        $templateKeys = implode(',', array_keys(Product::templateOptions()));
+        $disablePrice = \App\Models\Setting::boolean('disable_price_editor', false);
+        $templateValue = $request->input('template');
+        if ($templateValue && (str_starts_with($templateValue, Product::TEMPLATE_CONFIG_PREFIX) || $templateValue === Product::TEMPLATE_FLYER)) {
+            $disablePrice = true;
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'price' => ($disablePrice ? 'nullable|numeric|min:0' : 'required|numeric|min:0'),
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'template' => 'required|string|in:' . $templateKeys,
             'request_only' => 'nullable|boolean',
             'markup_percentage' => 'nullable|numeric|min:0|max:500',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $imagePath = null;
@@ -55,10 +69,11 @@ class AdminController extends Controller
 
         Product::create([
             'name' => $request->name,
+            'category_id' => $request->input('category_id'),
             'description' => $request->description,
-            'price' => 0,
+            'price' => $disablePrice ? ($request->input('price', 0) ?? 0) : $request->price,
             'image' => $imagePath,
-            'template' => Product::TEMPLATE_CONFIG_AUTO,
+            'template' => $request->template,
             'request_only' => $request->boolean('request_only'),
             'markup_percentage' => $request->input('markup_percentage', 0),
         ]);
@@ -68,17 +83,32 @@ class AdminController extends Controller
 
     public function editProduct(Product $product)
     {
-        return view('admin.edit-product', compact('product'));
+        $templates = Product::templateOptions();
+        $disablePriceEditor = \App\Models\Setting::boolean('disable_price_editor', false)
+            || $product->usesConfigTemplate()
+            || $product->template === Product::TEMPLATE_FLYER;
+        $categories = Category::orderBy('name')->get();
+        return view('admin.edit-product', compact('product', 'templates', 'disablePriceEditor', 'categories'));
     }
 
     public function updateProduct(Request $request, Product $product)
     {
+        $templateKeys = implode(',', array_keys(Product::templateOptions()));
+        $disablePrice = \App\Models\Setting::boolean('disable_price_editor', false);
+        $templateValue = $request->input('template', $product->template);
+        if ($templateValue && (str_starts_with($templateValue, Product::TEMPLATE_CONFIG_PREFIX) || $templateValue === Product::TEMPLATE_FLYER)) {
+            $disablePrice = true;
+        }
+
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'price' => ($disablePrice ? 'nullable|numeric|min:0' : 'required|numeric|min:0'),
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'template' => 'required|string|in:' . $templateKeys,
             'request_only' => 'nullable|boolean',
             'markup_percentage' => 'nullable|numeric|min:0|max:500',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $imagePath = $product->image;
@@ -92,10 +122,11 @@ class AdminController extends Controller
 
         $product->update([
             'name' => $request->name,
+            'category_id' => $request->input('category_id'),
             'description' => $request->description,
-            'price' => 0,
+            'price' => $disablePrice ? $product->price : $request->price,
             'image' => $imagePath,
-            'template' => Product::TEMPLATE_CONFIG_AUTO,
+            'template' => $request->template,
             'request_only' => $request->boolean('request_only'),
             'markup_percentage' => $request->input('markup_percentage', 0),
         ]);
