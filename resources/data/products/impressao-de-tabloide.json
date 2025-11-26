@@ -1,96 +1,129 @@
 {
-  "title_override": "Impressão de Tabloide",
-  "base_price": null,
-  "redirect_to_upload": true,
-  "options": [
-    {
-      "name": "quantity",
-      "label": "1- Quantidade",
-      "type": "number",
-      "default": 50,
-      "min": 50,
-      "step": 1
-    },
-    {
-      "name": "formato",
-      "label": "2- Formato do Miolo (Páginas):",
-      "type": "select",
-      "choices": [
-        { "value": "205x275mm", "label": "205x275mm" }
-      ]
-    },
-    {
-      "name": "papel_miolo",
-      "label": "3- Papel MIOLO:",
-      "type": "select",
-      "choices": [
-        { "value": "Offset 75gr", "label": "Offset 75gr" }
-      ]
-    },
-    {
-      "name": "cores_miolo",
-      "label": "4- Cores MIOLO:",
-      "type": "select",
-      "choices": [
-        { "value": "4 cores frente e verso", "label": "4 cores frente e verso" }
-      ]
-    },
-    {
-      "name": "paginas_miolo",
-      "label": "5- Quantidade Paginas MIOLO:",
-      "type": "select",
-      "choices": [
-        { "value": "Miolo 4 páginas", "label": "Miolo 4 páginas" },
-        { "value": "Miolo 8 páginas", "label": "Miolo 8 páginas" }
-      ]
-    },
-    {
-      "name": "acabamento_miolo",
-      "label": "6- Acabamento MIOLO:",
-      "type": "select",
-      "choices": [
-        { "value": "Dobrado", "label": "Dobrado" }
-      ]
-    },
-    {
-      "name": "acabamento_livro",
-      "label": "7- Acabamento Final:",
-      "type": "select",
-      "choices": [
-        { "value": "Grampeado - 2 grampos", "label": "Grampeado - 2 grampos" }
-      ]
-    },
-    {
-      "name": "extras",
-      "label": "8- Extras:",
-      "type": "select",
-      "choices": [
-        { "value": "Nenhum", "label": "Nenhum" }
-      ]
-    },
-    {
-      "name": "frete",
-      "label": "9- Frete:",
-      "type": "select",
-      "choices": [
-        { "value": "Incluso", "label": "Incluso" }
-      ]
-    },
-    {
-      "name": "verificacao_arquivo",
-      "label": "10- Verificação do Arquivo:",
-      "type": "select",
-      "choices": [
-        { "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)", "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)" }
-      ]
-    },
-    {
-      "name": "prazo_entrega",
-      "label": "11- Prazo de Entrega:",
-      "type": "select",
-      "choices": [
-        { "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*", "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*" }
-      ]
-    }
-  ]
+    "title_override": "Impressão de Tabloide",
+    "base_price": null,
+    "redirect_to_upload": true,
+    "options": [
+        {
+            "name": "quantity",
+            "label": "1- Quantidade",
+            "type": "number",
+            "default": 50,
+            "min": 50,
+            "step": 1
+        },
+        {
+            "name": "formato",
+            "label": "2- Formato do Miolo (Páginas):",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "205x275mm",
+                    "label": "205x275mm"
+                }
+            ]
+        },
+        {
+            "name": "papel_miolo",
+            "label": "3- Papel MIOLO:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Offset 75gr",
+                    "label": "Offset 75gr"
+                }
+            ]
+        },
+        {
+            "name": "cores_miolo",
+            "label": "4- Cores MIOLO:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "4 cores frente e verso",
+                    "label": "4 cores frente e verso"
+                }
+            ]
+        },
+        {
+            "name": "paginas_miolo",
+            "label": "5- Quantidade Paginas MIOLO:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Miolo 4 páginas",
+                    "label": "Miolo 4 páginas"
+                },
+                {
+                    "value": "Miolo 8 páginas",
+                    "label": "Miolo 8 páginas"
+                }
+            ]
+        },
+        {
+            "name": "acabamento_miolo",
+            "label": "6- Acabamento MIOLO:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Dobrado",
+                    "label": "Dobrado"
+                }
+            ]
+        },
+        {
+            "name": "acabamento_livro",
+            "label": "7- Acabamento Final:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Grampeado - 2 grampos",
+                    "label": "Grampeado - 2 grampos"
+                }
+            ]
+        },
+        {
+            "name": "extras",
+            "label": "8- Extras:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Nenhum",
+                    "label": "Nenhum"
+                }
+            ]
+        },
+        {
+            "name": "frete",
+            "label": "9- Frete:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Incluso",
+                    "label": "Incluso"
+                }
+            ]
+        },
+        {
+            "name": "verificacao_arquivo",
+            "label": "10- Verificação do Arquivo:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
+                    "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+                }
+            ]
+        },
+        {
+            "name": "prazo_entrega",
+            "label": "11- Prazo de Entrega:",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
+                    "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
+                }
+            ]
+        }
+    ]
 }

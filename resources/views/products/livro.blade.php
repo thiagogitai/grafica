@@ -455,7 +455,11 @@
                         if (!field.name) return;
                         const key = field.dataset.optionField;
                         if (!key) return;
-                        const value = field.type === 'number' ? field.value : field.value;
+                        let value = field.value;
+                        if (field.tagName === 'SELECT') {
+                            const selected = field.options[field.selectedIndex];
+                            value = selected ? selected.value : '';
+                        }
                         opts[key] = value;
                     });
                     return opts;
@@ -542,7 +546,6 @@
 
                 optionFields.forEach((field) => {
                     const handler = () => {
-                        if (inflight) return;
                         if (debounce) clearTimeout(debounce);
                         debounce = setTimeout(requestPrice, 450);
                     };

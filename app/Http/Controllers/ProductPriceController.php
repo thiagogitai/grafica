@@ -44,7 +44,7 @@ class ProductPriceController extends Controller
         Log::info('validatePrice payload', ['product_slug' => $productSlug, 'payload' => $input]);
 
         $apiResult = $this->tryQuoteWithOfficialApi($productSlug, $input);
-        if ($apiResult) {
+        if ($apiResult && ($apiResult['price'] ?? 0) > 0) {
             Log::info('validatePrice response', [
                 'product_slug' => $productSlug,
                 'price' => $apiResult['price'],
@@ -57,6 +57,12 @@ class ProductPriceController extends Controller
                 'quantity' => $quantity,
                 'source' => 'matrix_api',
                 'meta' => $this->buildMetaFromResponse($apiResult['response'] ?? []),
+                'payload' => $apiResult['payload'] ?? null,
+            ]);
+        }
+        if ($apiResult && ($apiResult['price'] ?? 0) == 0) {
+            Log::warning('validatePrice zero cost from matrix_api, attempting legacy', [
+                'product_slug' => $productSlug,
                 'payload' => $apiResult['payload'] ?? null,
             ]);
         }

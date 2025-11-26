@@ -1,56 +1,56 @@
 {
-  "slug": "impressao-de-tabloide",
-  "quantity_key": "Q1",
-  "fields": {
-    "formato": {
-      "label": "2- Formato do Miolo (P├íginas)",
-      "index": 1,
-      "key": "8507966BFD1CED08D52954CA1BFBAFAC"
-    },
-    "papel_miolo": {
-      "label": "3- Papel MIOLO",
-      "index": 2,
-      "key": "4EC36EB32195561D799B3122A8334BD1"
-    },
-    "cores_miolo": {
-      "label": "4- Cores MIOLO",
-      "index": 3,
-      "key": "3D6F7474951034A0DB0014A7A9CA4FC5"
-    },
-    "paginas_miolo": {
-      "label": "5- Quantidade Paginas MIOLO",
-      "index": 4,
-      "key": "6D7656ACEA9102E53D349343D489255A"
-    },
-    "acabamento_miolo": {
-      "label": "6- Acabamento MIOLO",
-      "index": 5,
-      "key": "6C8B5DFC01C24A192BAF43454985CD97"
-    },
-    "acabamento_livro": {
-      "label": "7- Acabamento Final",
-      "index": 6,
-      "key": "C86806C78FCA75757F1AA7D24CF30B82"
-    },
-    "extras": {
-      "label": "8- Extras",
-      "index": 7,
-      "key": "352854BABFA2E9322DFC88BCA9F416F3"
-    },
-    "frete": {
-      "label": "9- Frete",
-      "index": 8,
-      "key": "B6EEA0FE620423DBEBE8B7BE2FE6FC78"
-    },
-    "verificacao_arquivo": {
-      "label": "10- Verifica├º├úo do Arquivo",
-      "index": 9,
-      "key": "45A53715419327E3457F1EDB7CD9107A"
-    },
-    "prazo_entrega": {
-      "label": "11- Prazo de Entrega",
-      "index": 10,
-      "key": "729DBD02DD20E713D5E2A2C608E73E4E"
+    "slug": "impressao-de-tabloide",
+    "quantity_key": "Q1",
+    "fields": {
+        "formato": {
+            "label": "2- Formato do Miolo (Páginas)",
+            "index": 1,
+            "key": "8507966BFD1CED08D52954CA1BFBAFAC"
+        },
+        "papel_miolo": {
+            "label": "3- Papel MIOLO",
+            "index": 2,
+            "key": "4EC36EB32195561D799B3122A8334BD1"
+        },
+        "cores_miolo": {
+            "label": "4- Cores MIOLO",
+            "index": 3,
+            "key": "3D6F7474951034A0DB0014A7A9CA4FC5"
+        },
+        "paginas_miolo": {
+            "label": "5- Quantidade Paginas MIOLO",
+            "index": 4,
+            "key": "6D7656ACEA9102E53D349343D489255A"
+        },
+        "acabamento_miolo": {
+            "label": "6- Acabamento MIOLO",
+            "index": 5,
+            "key": "6C8B5DFC01C24A192BAF43454985CD97"
+        },
+        "acabamento_livro": {
+            "label": "7- Acabamento Final",
+            "index": 6,
+            "key": "C86806C78FCA75757F1AA7D24CF30B82"
+        },
+        "extras": {
+            "label": "8- Extras",
+            "index": 7,
+            "key": "352854BABFA2E9322DFC88BCA9F416F3"
+        },
+        "frete": {
+            "label": "9- Frete",
+            "index": 8,
+            "key": "B6EEA0FE620423DBEBE8B7BE2FE6FC78"
+        },
+        "verificacao_arquivo": {
+            "label": "10- Verificação do Arquivo",
+            "index": 9,
+            "key": "45A53715419327E3457F1EDB7CD9107A"
+        },
+        "prazo_entrega": {
+            "label": "11- Prazo de Entrega",
+            "index": 10,
+            "key": "729DBD02DD20E713D5E2A2C608E73E4E"
+        }
     }
-  }
 }

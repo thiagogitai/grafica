@@ -1,86 +1,86 @@
 {
-  "slug": "impressao-de-revista",
-  "quantity_key": "Q1",
-  "fields": {
-    "formato_miolo_paginas": {
-      "label": "2- Formato do Miolo (P├íginas)",
-      "index": 1,
-      "key": "8507966BFD1CED08D52954CA1BFBAFAC"
-    },
-    "papel_capa": {
-      "label": "3- Papel CAPA",
-      "index": 2,
-      "key": "9DD0C964AA872B2B8F882356423C922D"
-    },
-    "cores_capa": {
-      "label": "4- Cores CAPA",
-      "index": 3,
-      "key": "F54EB0969F0ACEBD67F0722A3FF633F3"
-    },
-    "orelha_capa": {
-      "label": "5 - Orelha da CAPA",
-      "index": 4,
-      "key": "FC83B57DD0039A0D73EC0FB9F63BDB59"
-    },
-    "acabamento_capa": {
-      "label": "6- Acabamento CAPA",
-      "index": 5,
-      "key": "9D50176D0602173B5575AC4A62173EA2"
-    },
-    "papel_miolo": {
-      "label": "7- Papel MIOLO",
-      "index": 6,
-      "key": "2913797D83A57041C2A87BED6F1FEDA9"
-    },
-    "cores_miolo": {
-      "label": "8- Cores MIOLO",
-      "index": 7,
-      "key": "E90F9B0C705E3F28CE0D3B51613AE230"
-    },
-    "miolo_sangrado": {
-      "label": "9- MIOLO Sangrado?",
-      "index": 8,
-      "key": "CFAB249F3402BE020FEFFD84CB991DAA"
-    },
-    "quantidade_paginas_miolo": {
-      "label": "10- Quantidade Paginas MIOLO",
-      "index": 9,
-      "key": "FCDF130D17B1F0C1FB2503C6F33559D7"
-    },
-    "acabamento_miolo": {
-      "label": "11- Acabamento MIOLO",
-      "index": 10,
-      "key": "AFF7AA292FE40E02A7B255713E731899"
-    },
-    "acabamento_livro": {
-      "label": "12- Acabamento LIVRO",
-      "index": 11,
-      "key": "3E9AFD1A94DA1802222717C0AAAC0093"
-    },
-    "guardas_livro": {
-      "label": "13- Guardas LIVRO",
-      "index": 12,
-      "key": "2211AA823438ACBE3BBCE2EF334AC4EA"
-    },
-    "extras": {
-      "label": "14- Extras",
-      "index": 13,
-      "key": "07316319702E082CF6DA43BF4A1C130A"
-    },
-    "frete": {
-      "label": "15- Frete",
-      "index": 14,
-      "key": "9F0D19D9628523760A8B7FF3464C9E9E"
-    },
-    "verificacao_arquivo": {
-      "label": "16- Verifica├º├úo do Arquivo",
-      "index": 15,
-      "key": "A1EA4ABCE9F3330525CAD39BE77D01F7"
-    },
-    "prazo_entrega": {
-      "label": "17- Prazo de Entrega",
-      "index": 16,
-      "key": "8C654A289F9D4F2A56C753120083C2ED"
+    "slug": "impressao-de-revista",
+    "quantity_key": "Q1",
+    "fields": {
+        "formato_miolo_paginas": {
+            "label": "2- Formato do Miolo (Páginas)",
+            "index": 1,
+            "key": "8507966BFD1CED08D52954CA1BFBAFAC"
+        },
+        "papel_capa": {
+            "label": "3- Papel CAPA",
+            "index": 2,
+            "key": "9DD0C964AA872B2B8F882356423C922D"
+        },
+        "cores_capa": {
+            "label": "4- Cores CAPA",
+            "index": 3,
+            "key": "F54EB0969F0ACEBD67F0722A3FF633F3"
+        },
+        "orelha_capa": {
+            "label": "5 - Orelha da CAPA",
+            "index": 4,
+            "key": "FC83B57DD0039A0D73EC0FB9F63BDB59"
+        },
+        "acabamento_capa": {
+            "label": "6- Acabamento CAPA",
+            "index": 5,
+            "key": "9D50176D0602173B5575AC4A62173EA2"
+        },
+        "papel_miolo": {
+            "label": "7- Papel MIOLO",
+            "index": 6,
+            "key": "2913797D83A57041C2A87BED6F1FEDA9"
+        },
+        "cores_miolo": {
+            "label": "8- Cores MIOLO",
+            "index": 7,
+            "key": "E90F9B0C705E3F28CE0D3B51613AE230"
+        },
+        "miolo_sangrado": {
+            "label": "9- MIOLO Sangrado?",
+            "index": 8,
+            "key": "CFAB249F3402BE020FEFFD84CB991DAA"
+        },
+        "quantidade_paginas_miolo": {
+            "label": "10- Quantidade Paginas MIOLO",
+            "index": 9,
+            "key": "FCDF130D17B1F0C1FB2503C6F33559D7"
+        },
+        "acabamento_miolo": {
+            "label": "11- Acabamento MIOLO",
+            "index": 10,
+            "key": "AFF7AA292FE40E02A7B255713E731899"
+        },
+        "acabamento_livro": {
+            "label": "12- Acabamento LIVRO",
+            "index": 11,
+            "key": "3E9AFD1A94DA1802222717C0AAAC0093"
+        },
+        "guardas_livro": {
+            "label": "13- Guardas LIVRO",
+            "index": 12,
+            "key": "2211AA823438ACBE3BBCE2EF334AC4EA"
+        },
+        "extras": {
+            "label": "14- Extras",
+            "index": 13,
+            "key": "07316319702E082CF6DA43BF4A1C130A"
+        },
+        "frete": {
+            "label": "15- Frete",
+            "index": 14,
+            "key": "9F0D19D9628523760A8B7FF3464C9E9E"
+        },
+        "verificacao_arquivo": {
+            "label": "16- Verificação do Arquivo",
+            "index": 15,
+            "key": "A1EA4ABCE9F3330525CAD39BE77D01F7"
+        },
+        "prazo_entrega": {
+            "label": "17- Prazo de Entrega",
+            "index": 16,
+            "key": "8C654A289F9D4F2A56C753120083C2ED"
+        }
     }
-  }
 }

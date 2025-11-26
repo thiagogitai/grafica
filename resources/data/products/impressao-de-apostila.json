@@ -1,376 +1,376 @@
 {
-  "title_override": null,
-  "base_price": null,
-  "redirect_to_upload": true,
-  "options": [
-    {
-      "name": "quantity",
-      "label": "1- Quantidade",
-      "type": "number",
-      "default": 50,
-      "min": 50,
-      "step": 1
-    },
-    {
-      "name": "formato",
-      "label": "2- Apostila: Formato Final Fechado",
-      "type": "select",
-      "choices": [
+    "title_override": null,
+    "base_price": null,
+    "redirect_to_upload": true,
+    "options": [
         {
-          "value": "210mmx297mm",
-          "label": "210mmx297mm"
+            "name": "quantity",
+            "label": "1- Quantidade",
+            "type": "number",
+            "default": 50,
+            "min": 50,
+            "step": 1
         },
         {
-          "value": "210mmx280mm",
-          "label": "210mmx280mm"
+            "name": "formato",
+            "label": "2- Apostila: Formato Final Fechado",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "210mmx297mm",
+                    "label": "210mmx297mm"
+                },
+                {
+                    "value": "210mmx280mm",
+                    "label": "210mmx280mm"
+                },
+                {
+                    "value": "205mmx275mm",
+                    "label": "205mmx275mm"
+                },
+                {
+                    "value": "148mmx210mm",
+                    "label": "148mmx210mm"
+                }
+            ]
         },
         {
-          "value": "205mmx275mm",
-          "label": "205mmx275mm"
+            "name": "papel_capa",
+            "label": "3- Papel CAPA",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Cartão Triplex 250gr ",
+                    "label": "Cartão Triplex 250gr"
+                },
+                {
+                    "value": "Cartão Triplex 300gr ",
+                    "label": "Cartão Triplex 300gr"
+                },
+                {
+                    "value": "PVC Transparente Sem Impressão",
+                    "label": "PVC Transparente Sem Impressão"
+                }
+            ]
         },
         {
-          "value": "148mmx210mm",
-          "label": "148mmx210mm"
+            "name": "cores_capa",
+            "label": "4- Cores CAPA",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "4 cores frente e verso",
+                    "label": "4 cores frente e verso"
+                },
+                {
+                    "value": "4 cores frente",
+                    "label": "4 cores frente"
+                },
+                {
+                    "value": "1 cor frente e verso preto",
+                    "label": "1 cor frente e verso preto"
+                },
+                {
+                    "value": "1 cor frente PRETO",
+                    "label": "1 cor frente PRETO"
+                }
+            ]
+        },
+        {
+            "name": "acabamento_capa",
+            "label": "5- Acabamento CAPA",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Nenhum",
+                    "label": "Nenhum"
+                },
+                {
+                    "value": "Laminação FOSCA FRENTE",
+                    "label": "Laminação FOSCA FRENTE"
+                },
+                {
+                    "value": "Laminação BRILHO FRENTE",
+                    "label": "Laminação BRILHO FRENTE"
+                }
+            ]
+        },
+        {
+            "name": "contra_capa",
+            "label": "6- Contra Capa",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Igual a Capa",
+                    "label": "Igual a Capa"
+                },
+                {
+                    "value": "PVC Transparente Sem Impressão",
+                    "label": "PVC Transparente Sem Impressão"
+                },
+                {
+                    "value": "PVC Preto Sem Impressão",
+                    "label": "PVC Preto Sem Impressão"
+                }
+            ]
+        },
+        {
+            "name": "papel_miolo_1",
+            "label": "7- Papel MIOLO 1",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Offset 75gr (recomendado)",
+                    "label": "Offset 75gr (recomendado)"
+                },
+                {
+                    "value": "Offset 90gr",
+                    "label": "Offset 90gr"
+                },
+                {
+                    "value": "Offset 120gr",
+                    "label": "Offset 120gr"
+                },
+                {
+                    "value": "Couche Brilho 90gr",
+                    "label": "Couche Brilho 90gr"
+                },
+                {
+                    "value": "Couche Brilho 115gr ",
+                    "label": "Couche Brilho 115gr"
+                },
+                {
+                    "value": "Couche Brilho 150gr ",
+                    "label": "Couche Brilho 150gr"
+                },
+                {
+                    "value": "Couche Fosco 115gr ",
+                    "label": "Couche Fosco 115gr"
+                },
+                {
+                    "value": "Couche Fosco 150gr ",
+                    "label": "Couche Fosco 150gr"
+                },
+                {
+                    "value": "Couche Fosco 210gr ",
+                    "label": "Couche Fosco 210gr"
+                }
+            ]
+        },
+        {
+            "name": "cores_miolo_1",
+            "label": "8- Cores MIOLO 1",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "4 cores frente e verso",
+                    "label": "4 cores frente e verso"
+                },
+                {
+                    "value": "4 cores frente",
+                    "label": "4 cores frente"
+                },
+                {
+                    "value": "1 cor frente e verso preto",
+                    "label": "1 cor frente e verso preto"
+                },
+                {
+                    "value": "1 cor frente PRETO",
+                    "label": "1 cor frente PRETO"
+                }
+            ]
+        },
+        {
+            "name": "folhas_miolo_1",
+            "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 páginas)",
+            "type": "number",
+            "default": 50,
+            "min": 50,
+            "step": 1
+        },
+        {
+            "name": "acabamento_miolo",
+            "label": "10- Acabamento MIOLO",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Intercalado",
+                    "label": "Intercalado"
+                }
+            ]
+        },
+        {
+            "name": "papel_miolo_2",
+            "label": "11- Papel MIOLO 2",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Couche Brilho 70gr",
+                    "label": "Couche Brilho 70gr"
+                },
+                {
+                    "value": "Couche Brilho 115gr ",
+                    "label": "Couche Brilho 115gr"
+                },
+                {
+                    "value": "Couche Brilho 80gr",
+                    "label": "Couche Brilho 80gr"
+                },
+                {
+                    "value": "Couche Brilho 90gr",
+                    "label": "Couche Brilho 90gr"
+                },
+                {
+                    "value": "Couche Brilho 150gr ",
+                    "label": "Couche Brilho 150gr"
+                },
+                {
+                    "value": "Couche Fosco 80gr",
+                    "label": "Couche Fosco 80gr"
+                },
+                {
+                    "value": "Couche Fosco 90gr",
+                    "label": "Couche Fosco 90gr"
+                },
+                {
+                    "value": "Couche Fosco 115gr ",
+                    "label": "Couche Fosco 115gr"
+                },
+                {
+                    "value": "Couche Fosco 150gr ",
+                    "label": "Couche Fosco 150gr"
+                },
+                {
+                    "value": "Couche Fosco 210gr ",
+                    "label": "Couche Fosco 210gr"
+                },
+                {
+                    "value": "Offset 70gr",
+                    "label": "Offset 70gr"
+                },
+                {
+                    "value": "Offset 75gr",
+                    "label": "Offset 75gr"
+                },
+                {
+                    "value": "Offset 90gr",
+                    "label": "Offset 90gr"
+                },
+                {
+                    "value": "Offset 120gr",
+                    "label": "Offset 120gr"
+                },
+                {
+                    "value": "Não tem Miolo 2",
+                    "label": "Não tem Miolo 2"
+                }
+            ]
+        },
+        {
+            "name": "cores_miolo_2",
+            "label": "12- Cores MIOLO 2",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "4 cores frente e verso",
+                    "label": "4 cores frente e verso"
+                },
+                {
+                    "value": "4 cores frente",
+                    "label": "4 cores frente"
+                },
+                {
+                    "value": "1 cor frente e verso preto",
+                    "label": "1 cor frente e verso preto"
+                },
+                {
+                    "value": "1 cor frente PRETO",
+                    "label": "1 cor frente PRETO"
+                }
+            ]
+        },
+        {
+            "name": "folhas_miolo_2",
+            "label": "13- Quantidade folhas MIOLO 2",
+            "type": "number",
+            "default": 50,
+            "min": 50,
+            "step": 1
+        },
+        {
+            "name": "option_12",
+            "label": "14- Acabamento da Apostila",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Espiral Plastico Transparente",
+                    "label": "Espiral Plastico Transparente"
+                },
+                {
+                    "value": "Espiral Plastico Preto",
+                    "label": "Espiral Plastico Preto"
+                }
+            ]
+        },
+        {
+            "name": "extras",
+            "label": "15- Extras",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Nenhum",
+                    "label": "Nenhum"
+                },
+                {
+                    "value": "Shrink Individual",
+                    "label": "Shrink Individual"
+                }
+            ]
+        },
+        {
+            "name": "formato_arquivo",
+            "label": "16- Formato do Arquivo",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Arquivo PDF (fechado para impressão) (Grátis)",
+                    "label": "Arquivo PDF (fechado para impressão) (Grátis)"
+                },
+                {
+                    "value": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)",
+                    "label": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)"
+                }
+            ]
+        },
+        {
+            "name": "verificacao_arquivo",
+            "label": "17- Verificação do Arquivo",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Digital On-Line (Grátis)",
+                    "label": "Digital On-Line (Grátis)"
+                },
+                {
+                    "value": "Prova de Cor Impressa Capa",
+                    "label": "Prova de Cor Impressa Capa"
+                },
+                {
+                    "value": "Prova de Cor Impressa Material Completo",
+                    "label": "Prova de Cor Impressa Material Completo"
+                }
+            ]
+        },
+        {
+            "name": "prazo_entrega",
+            "label": "18- Prazo de Entrega",
+            "type": "select",
+            "choices": [
+                {
+                    "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
+                    "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "papel_capa",
-      "label": "3- Papel CAPA",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Cart├úo Triplex 250gr ",
-          "label": "Cart├úo Triplex 250gr"
-        },
-        {
-          "value": "Cart├úo Triplex 300gr ",
-          "label": "Cart├úo Triplex 300gr"
-        },
-        {
-          "value": "PVC Transparente Sem Impress├úo",
-          "label": "PVC Transparente Sem Impress├úo"
-        }
-      ]
-    },
-    {
-      "name": "cores_capa",
-      "label": "4- Cores CAPA",
-      "type": "select",
-      "choices": [
-        {
-          "value": "4 cores frente e verso",
-          "label": "4 cores frente e verso"
-        },
-        {
-          "value": "4 cores frente",
-          "label": "4 cores frente"
-        },
-        {
-          "value": "1 cor frente e verso preto",
-          "label": "1 cor frente e verso preto"
-        },
-        {
-          "value": "1 cor frente PRETO",
-          "label": "1 cor frente PRETO"
-        }
-      ]
-    },
-    {
-      "name": "acabamento_capa",
-      "label": "5- Acabamento CAPA",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Nenhum",
-          "label": "Nenhum"
-        },
-        {
-          "value": "Lamina├º├úo FOSCA FRENTE",
-          "label": "Lamina├º├úo FOSCA FRENTE"
-        },
-        {
-          "value": "Lamina├º├úo BRILHO FRENTE",
-          "label": "Lamina├º├úo BRILHO FRENTE"
-        }
-      ]
-    },
-    {
-      "name": "contra_capa",
-      "label": "6- Contra Capa",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Igual a Capa",
-          "label": "Igual a Capa"
-        },
-        {
-          "value": "PVC Transparente Sem Impress├úo",
-          "label": "PVC Transparente Sem Impress├úo"
-        },
-        {
-          "value": "PVC Preto Sem Impress├úo",
-          "label": "PVC Preto Sem Impress├úo"
-        }
-      ]
-    },
-    {
-      "name": "papel_miolo_1",
-      "label": "7- Papel MIOLO 1",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Offset 75gr (recomendado)",
-          "label": "Offset 75gr (recomendado)"
-        },
-        {
-          "value": "Offset 90gr",
-          "label": "Offset 90gr"
-        },
-        {
-          "value": "Offset 120gr",
-          "label": "Offset 120gr"
-        },
-        {
-          "value": "Couche Brilho 90gr",
-          "label": "Couche Brilho 90gr"
-        },
-        {
-          "value": "Couche Brilho 115gr ",
-          "label": "Couche Brilho 115gr"
-        },
-        {
-          "value": "Couche Brilho 150gr ",
-          "label": "Couche Brilho 150gr"
-        },
-        {
-          "value": "Couche Fosco 115gr ",
-          "label": "Couche Fosco 115gr"
-        },
-        {
-          "value": "Couche Fosco 150gr ",
-          "label": "Couche Fosco 150gr"
-        },
-        {
-          "value": "Couche Fosco 210gr ",
-          "label": "Couche Fosco 210gr"
-        }
-      ]
-    },
-    {
-      "name": "cores_miolo_1",
-      "label": "8- Cores MIOLO 1",
-      "type": "select",
-      "choices": [
-        {
-          "value": "4 cores frente e verso",
-          "label": "4 cores frente e verso"
-        },
-        {
-          "value": "4 cores frente",
-          "label": "4 cores frente"
-        },
-        {
-          "value": "1 cor frente e verso preto",
-          "label": "1 cor frente e verso preto"
-        },
-        {
-          "value": "1 cor frente PRETO",
-          "label": "1 cor frente PRETO"
-        }
-      ]
-    },
-    {
-      "name": "folhas_miolo_1",
-      "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 p├íginas)",
-      "type": "number",
-      "default": 50,
-      "min": 50,
-      "step": 1
-    },
-    {
-      "name": "acabamento_miolo",
-      "label": "10- Acabamento MIOLO",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Intercalado",
-          "label": "Intercalado"
-        }
-      ]
-    },
-    {
-      "name": "papel_miolo_2",
-      "label": "11- Papel MIOLO 2",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Couche Brilho 70gr",
-          "label": "Couche Brilho 70gr"
-        },
-        {
-          "value": "Couche Brilho 115gr ",
-          "label": "Couche Brilho 115gr"
-        },
-        {
-          "value": "Couche Brilho 80gr",
-          "label": "Couche Brilho 80gr"
-        },
-        {
-          "value": "Couche Brilho 90gr",
-          "label": "Couche Brilho 90gr"
-        },
-        {
-          "value": "Couche Brilho 150gr ",
-          "label": "Couche Brilho 150gr"
-        },
-        {
-          "value": "Couche Fosco 80gr",
-          "label": "Couche Fosco 80gr"
-        },
-        {
-          "value": "Couche Fosco 90gr",
-          "label": "Couche Fosco 90gr"
-        },
-        {
-          "value": "Couche Fosco 115gr ",
-          "label": "Couche Fosco 115gr"
-        },
-        {
-          "value": "Couche Fosco 150gr ",
-          "label": "Couche Fosco 150gr"
-        },
-        {
-          "value": "Couche Fosco 210gr ",
-          "label": "Couche Fosco 210gr"
-        },
-        {
-          "value": "Offset 70gr",
-          "label": "Offset 70gr"
-        },
-        {
-          "value": "Offset 75gr",
-          "label": "Offset 75gr"
-        },
-        {
-          "value": "Offset 90gr",
-          "label": "Offset 90gr"
-        },
-        {
-          "value": "Offset 120gr",
-          "label": "Offset 120gr"
-        },
-        {
-          "value": "N├úo tem Miolo 2",
-          "label": "N├úo tem Miolo 2"
-        }
-      ]
-    },
-    {
-      "name": "cores_miolo_2",
-      "label": "12- Cores MIOLO 2",
-      "type": "select",
-      "choices": [
-        {
-          "value": "4 cores frente e verso",
-          "label": "4 cores frente e verso"
-        },
-        {
-          "value": "4 cores frente",
-          "label": "4 cores frente"
-        },
-        {
-          "value": "1 cor frente e verso preto",
-          "label": "1 cor frente e verso preto"
-        },
-        {
-          "value": "1 cor frente PRETO",
-          "label": "1 cor frente PRETO"
-        }
-      ]
-    },
-    {
-      "name": "folhas_miolo_2",
-      "label": "13- Quantidade folhas MIOLO 2",
-      "type": "number",
-      "default": 50,
-      "min": 50,
-      "step": 1
-    },
-    {
-      "name": "option_12",
-      "label": "14- Acabamento da Apostila",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Espiral Plastico Transparente",
-          "label": "Espiral Plastico Transparente"
-        },
-        {
-          "value": "Espiral Plastico Preto",
-          "label": "Espiral Plastico Preto"
-        }
-      ]
-    },
-    {
-      "name": "extras",
-      "label": "15- Extras",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Nenhum",
-          "label": "Nenhum"
-        },
-        {
-          "value": "Shrink Individual",
-          "label": "Shrink Individual"
-        }
-      ]
-    },
-    {
-      "name": "formato_arquivo",
-      "label": "16- Formato do Arquivo",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)",
-          "label": "Arquivo PDF (fechado para impress├úo) (Gr├ítis)"
-        },
-        {
-          "value": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)",
-          "label": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)"
-        }
-      ]
-    },
-    {
-      "name": "verificacao_arquivo",
-      "label": "17- Verifica├º├úo do Arquivo",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Digital On-Line (Gr├ítis)",
-          "label": "Digital On-Line (Gr├ítis)"
-        },
-        {
-          "value": "Prova de Cor Impressa Capa",
-          "label": "Prova de Cor Impressa Capa"
-        },
-        {
-          "value": "Prova de Cor Impressa Material Completo",
-          "label": "Prova de Cor Impressa Material Completo"
-        }
-      ]
-    },
-    {
-      "name": "prazo_entrega",
-      "label": "18- Prazo de Entrega",
-      "type": "select",
-      "choices": [
-        {
-          "value": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*",
-          "label": "Padr├úo: 8 dias ├║teis de Produ├º├úo + tempo de FRETE*"
-        }
-      ]
-    }
-  ]
+    ]
 }
