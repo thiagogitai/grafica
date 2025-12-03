@@ -20,7 +20,8 @@
                     "value": "205x275mm",
                     "label": "205x275mm"
                 }
-            ]
+            ],
+            "default": "205x275mm"
         },
         {
             "name": "papel_miolo",
@@ -31,7 +32,8 @@
                     "value": "Offset 75gr",
                     "label": "Offset 75gr"
                 }
-            ]
+            ],
+            "default": "Offset 75gr"
         },
         {
             "name": "cores_miolo",
@@ -42,7 +44,8 @@
                     "value": "4 cores frente e verso",
                     "label": "4 cores frente e verso"
                 }
-            ]
+            ],
+            "default": "4 cores frente e verso"
         },
         {
             "name": "paginas_miolo",
@@ -85,7 +88,8 @@
                     "value": "Miolo 50 páginas",
                     "label": "Miolo 50 páginas"
                 }
-            ]
+            ],
+            "default": "Miolo 32 páginas"
         },
         {
             "name": "acabamento_miolo",
@@ -96,7 +100,8 @@
                     "value": "Dobrado",
                     "label": "Dobrado"
                 }
-            ]
+            ],
+            "default": "Dobrado"
         },
         {
             "name": "acabamento_livro",
@@ -107,7 +112,8 @@
                     "value": "Grampeado - 2 grampos",
                     "label": "Grampeado - 2 grampos"
                 }
-            ]
+            ],
+            "default": "Grampeado - 2 grampos"
         },
         {
             "name": "extras",
@@ -118,7 +124,8 @@
                     "value": "Nenhum",
                     "label": "Nenhum"
                 }
-            ]
+            ],
+            "default": "Nenhum"
         },
         {
             "name": "frete",
@@ -129,7 +136,8 @@
                     "value": "Incluso",
                     "label": "Incluso"
                 }
-            ]
+            ],
+            "default": "Incluso"
         },
         {
             "name": "verificacao_arquivo",
@@ -140,7 +148,8 @@
                     "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
                     "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
                 }
-            ]
+            ],
+            "default": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
         },
         {
             "name": "prazo_entrega",
@@ -151,7 +160,8 @@
                     "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
                     "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
                 }
-            ]
+            ],
+            "default": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
         }
     ]
 }

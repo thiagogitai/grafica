@@ -32,6 +32,12 @@ class ProductPriceController extends Controller
         unset($input['product_slug']);
 
         $quantity = (int) ($input['quantity'] ?? $input['quantidade'] ?? 1);
+        
+        // Para apostila, quantidade mínima é 20
+        if ($productSlug === 'impressao-de-apostila') {
+            $quantity = max(20, $quantity);
+        }
+        
         if ($quantity <= 0) {
             return response()->json([
                 'success' => false,
@@ -39,6 +45,7 @@ class ProductPriceController extends Controller
                 'validated' => false,
             ], 400);
         }
+        
         $input['quantity'] = $quantity;
         ksort($input);
         Log::info('validatePrice payload', ['product_slug' => $productSlug, 'payload' => $input]);

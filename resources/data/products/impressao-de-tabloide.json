@@ -15,10 +15,35 @@
             "name": "formato",
             "label": "2- Formato do Miolo (Páginas):",
             "type": "select",
+            "default": "205x275mm",
             "choices": [
                 {
                     "value": "205x275mm",
                     "label": "205x275mm"
+                },
+                {
+                    "value": "210x280mm",
+                    "label": "210x280mm"
+                },
+                {
+                    "value": "210x297mm (A4)",
+                    "label": "210x297mm (A4)"
+                },
+                {
+                    "value": "235x270mm",
+                    "label": "235x270mm"
+                },
+                {
+                    "value": "265x300mm",
+                    "label": "265x300mm"
+                },
+                {
+                    "value": "265x350mm",
+                    "label": "265x350mm"
+                },
+                {
+                    "value": "265x410mm",
+                    "label": "265x410mm"
                 }
             ]
         },
@@ -26,10 +51,19 @@
             "name": "papel_miolo",
             "label": "3- Papel MIOLO:",
             "type": "select",
+            "default": "Offset 75gr",
             "choices": [
                 {
                     "value": "Offset 75gr",
                     "label": "Offset 75gr"
+                },
+                {
+                    "value": "Couche brilho 90gr",
+                    "label": "Couche brilho 90gr"
+                },
+                {
+                    "value": "Offset 90gr",
+                    "label": "Offset 90gr"
                 }
             ]
         },
@@ -37,10 +71,15 @@
             "name": "cores_miolo",
             "label": "4- Cores MIOLO:",
             "type": "select",
+            "default": "4 cores frente e verso",
             "choices": [
                 {
                     "value": "4 cores frente e verso",
                     "label": "4 cores frente e verso"
+                },
+                {
+                    "value": "1 cor frente e verso PRETO",
+                    "label": "1 cor frente e verso PRETO"
                 }
             ]
         },
@@ -48,6 +87,7 @@
             "name": "paginas_miolo",
             "label": "5- Quantidade Paginas MIOLO:",
             "type": "select",
+            "default": "Miolo 4 páginas",
             "choices": [
                 {
                     "value": "Miolo 4 páginas",
@@ -56,6 +96,94 @@
                 {
                     "value": "Miolo 8 páginas",
                     "label": "Miolo 8 páginas"
+                },
+                {
+                    "value": "Miolo 12 páginas",
+                    "label": "Miolo 12 páginas"
+                },
+                {
+                    "value": "Miolo 16 páginas",
+                    "label": "Miolo 16 páginas"
+                },
+                {
+                    "value": "Miolo 20 páginas",
+                    "label": "Miolo 20 páginas"
+                },
+                {
+                    "value": "Miolo 24 páginas",
+                    "label": "Miolo 24 páginas"
+                },
+                {
+                    "value": "Miolo 28 páginas",
+                    "label": "Miolo 28 páginas"
+                },
+                {
+                    "value": "Miolo 32 páginas",
+                    "label": "Miolo 32 páginas"
+                },
+                {
+                    "value": "Miolo 36 páginas",
+                    "label": "Miolo 36 páginas"
+                },
+                {
+                    "value": "Miolo 40 páginas",
+                    "label": "Miolo 40 páginas"
+                },
+                {
+                    "value": "Miolo 44 páginas",
+                    "label": "Miolo 44 páginas"
+                },
+                {
+                    "value": "Miolo 48 páginas",
+                    "label": "Miolo 48 páginas"
+                },
+                {
+                    "value": "Miolo 52 páginas",
+                    "label": "Miolo 52 páginas"
+                },
+                {
+                    "value": "Miolo 56 páginas",
+                    "label": "Miolo 56 páginas"
+                },
+                {
+                    "value": "Miolo 60 páginas",
+                    "label": "Miolo 60 páginas"
+                },
+                {
+                    "value": "Miolo 64 páginas",
+                    "label": "Miolo 64 páginas"
+                },
+                {
+                    "value": "Miolo 68 páginas",
+                    "label": "Miolo 68 páginas"
+                },
+                {
+                    "value": "Miolo 72 páginas",
+                    "label": "Miolo 72 páginas"
+                },
+                {
+                    "value": "Miolo 76 páginas",
+                    "label": "Miolo 76 páginas"
+                },
+                {
+                    "value": "Miolo 80 páginas",
+                    "label": "Miolo 80 páginas"
+                },
+                {
+                    "value": "Miolo 84 páginas",
+                    "label": "Miolo 84 páginas"
+                },
+                {
+                    "value": "Miolo 88 páginas",
+                    "label": "Miolo 88 páginas"
+                },
+                {
+                    "value": "Miolo 92 páginas",
+                    "label": "Miolo 92 páginas"
+                },
+                {
+                    "value": "Miolo 96 páginas",
+                    "label": "Miolo 96 páginas"
                 }
             ]
         },
@@ -63,6 +191,7 @@
             "name": "acabamento_miolo",
             "label": "6- Acabamento MIOLO:",
             "type": "select",
+            "default": "Dobrado",
             "choices": [
                 {
                     "value": "Dobrado",
@@ -74,10 +203,15 @@
             "name": "acabamento_livro",
             "label": "7- Acabamento Final:",
             "type": "select",
+            "default": "Grampeado - 2 grampos",
             "choices": [
                 {
                     "value": "Grampeado - 2 grampos",
                     "label": "Grampeado - 2 grampos"
+                },
+                {
+                    "value": "Sem Grampos",
+                    "label": "Sem Grampos"
                 }
             ]
         },
@@ -85,6 +219,7 @@
             "name": "extras",
             "label": "8- Extras:",
             "type": "select",
+            "default": "Nenhum",
             "choices": [
                 {
                     "value": "Nenhum",
@@ -96,10 +231,15 @@
             "name": "frete",
             "label": "9- Frete:",
             "type": "select",
+            "default": "Incluso",
             "choices": [
                 {
                     "value": "Incluso",
                     "label": "Incluso"
+                },
+                {
+                    "value": "Cliente Retira",
+                    "label": "Cliente Retira"
                 }
             ]
         },
@@ -107,10 +247,15 @@
             "name": "verificacao_arquivo",
             "label": "10- Verificação do Arquivo:",
             "type": "select",
+            "default": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
             "choices": [
                 {
                     "value": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)",
                     "label": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
+                },
+                {
+                    "value": "Digital On-Line - via Web-Approval ou PDF",
+                    "label": "Digital On-Line - via Web-Approval ou PDF"
                 }
             ]
         },
@@ -118,6 +263,7 @@
             "name": "prazo_entrega",
             "label": "11- Prazo de Entrega:",
             "type": "select",
+            "default": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
             "choices": [
                 {
                     "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",

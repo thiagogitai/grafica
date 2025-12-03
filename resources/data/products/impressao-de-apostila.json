@@ -7,8 +7,8 @@
             "name": "quantity",
             "label": "1- Quantidade",
             "type": "number",
-            "default": 50,
-            "min": 50,
+            "default": 30,
+            "min": 20,
             "step": 1
         },
         {
@@ -32,7 +32,8 @@
                     "value": "148mmx210mm",
                     "label": "148mmx210mm"
                 }
-            ]
+            ],
+            "default": "210mmx297mm"
         },
         {
             "name": "papel_capa",
@@ -51,7 +52,8 @@
                     "value": "PVC Transparente Sem Impressão",
                     "label": "PVC Transparente Sem Impressão"
                 }
-            ]
+            ],
+            "default": "Cartão Triplex 250gr "
         },
         {
             "name": "cores_capa",
@@ -74,7 +76,8 @@
                     "value": "1 cor frente PRETO",
                     "label": "1 cor frente PRETO"
                 }
-            ]
+            ],
+            "default": "4 cores frente e verso"
         },
         {
             "name": "acabamento_capa",
@@ -93,7 +96,8 @@
                     "value": "Laminação BRILHO FRENTE",
                     "label": "Laminação BRILHO FRENTE"
                 }
-            ]
+            ],
+            "default": "Nenhum"
         },
         {
             "name": "contra_capa",
@@ -112,7 +116,8 @@
                     "value": "PVC Preto Sem Impressão",
                     "label": "PVC Preto Sem Impressão"
                 }
-            ]
+            ],
+            "default": "Igual a Capa"
         },
         {
             "name": "papel_miolo_1",
@@ -155,7 +160,8 @@
                     "value": "Couche Fosco 210gr ",
                     "label": "Couche Fosco 210gr"
                 }
-            ]
+            ],
+            "default": "Offset 75gr (recomendado)"
         },
         {
             "name": "cores_miolo_1",
@@ -178,13 +184,14 @@
                     "value": "1 cor frente PRETO",
                     "label": "1 cor frente PRETO"
                 }
-            ]
+            ],
+            "default": "4 cores frente e verso"
         },
         {
             "name": "folhas_miolo_1",
             "label": "9- Quantidade folhas MIOLO 1 (1 folha = 2 páginas)",
             "type": "number",
-            "default": 50,
+            "default": 4,
             "min": 50,
             "step": 1
         },
@@ -197,7 +204,8 @@
                     "value": "Intercalado",
                     "label": "Intercalado"
                 }
-            ]
+            ],
+            "default": "Intercalado"
         },
         {
             "name": "papel_miolo_2",
@@ -264,7 +272,8 @@
                     "value": "Não tem Miolo 2",
                     "label": "Não tem Miolo 2"
                 }
-            ]
+            ],
+            "default": "Couche Brilho 70gr"
         },
         {
             "name": "cores_miolo_2",
@@ -287,13 +296,14 @@
                     "value": "1 cor frente PRETO",
                     "label": "1 cor frente PRETO"
                 }
-            ]
+            ],
+            "default": "4 cores frente"
         },
         {
             "name": "folhas_miolo_2",
             "label": "13- Quantidade folhas MIOLO 2",
             "type": "number",
-            "default": 50,
+            "default": 0,
             "min": 50,
             "step": 1
         },
@@ -310,7 +320,8 @@
                     "value": "Espiral Plastico Preto",
                     "label": "Espiral Plastico Preto"
                 }
-            ]
+            ],
+            "default": "Espiral Plastico Transparente"
         },
         {
             "name": "extras",
@@ -325,7 +336,8 @@
                     "value": "Shrink Individual",
                     "label": "Shrink Individual"
                 }
-            ]
+            ],
+            "default": "Nenhum"
         },
         {
             "name": "formato_arquivo",
@@ -340,7 +352,8 @@
                     "value": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)",
                     "label": "Arquvo CDR / INDD / AI / JPG / PNG (aberto)"
                 }
-            ]
+            ],
+            "default": "Arquivo PDF (fechado para impressão) (Grátis)"
         },
         {
             "name": "verificacao_arquivo",
@@ -359,7 +372,8 @@
                     "value": "Prova de Cor Impressa Material Completo",
                     "label": "Prova de Cor Impressa Material Completo"
                 }
-            ]
+            ],
+            "default": "Digital On-Line (Grátis)"
         },
         {
             "name": "prazo_entrega",
@@ -370,7 +384,8 @@
                     "value": "Padrão: 8 dias úteis de Produção + tempo de FRETE*",
                     "label": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
                 }
-            ]
+            ],
+            "default": "Padrão: 8 dias úteis de Produção + tempo de FRETE*"
         }
     ]
 }

@@ -20,7 +20,13 @@
         2250, 2500, 2750, 3000, 3250, 3500, 3750, 4000,
         4250, 4500, 4750, 5000
     ];
-    $defaultQuantity = (int) old('options.quantity', $quantityOption['default'] ?? 50);
+    // Para apostila, quantidade mínima é 20
+    $minQuantity = ($configSlug === 'impressao-de-apostila') ? 20 : ($quantityOption['min'] ?? 50);
+    $defaultQuantity = (int) old('options.quantity', $quantityOption['default'] ?? $minQuantity);
+    // Garantir que defaultQuantity seja pelo menos minQuantity
+    if ($defaultQuantity < $minQuantity) {
+        $defaultQuantity = $minQuantity;
+    }
     if (!in_array($defaultQuantity, $availableQuantities, true)) {
         $defaultQuantity = $availableQuantities[0];
     }
@@ -336,18 +342,32 @@
 
                         <div class="mb-4">
                             <label class="form-label">{{ $quantityOption['label'] ?? 'Quantidade' }}</label>
-                            <select
-                                class="form-select form-select-lg"
-                                id="quantity"
-                                name="options[quantity]"
-                                data-option-field="quantity"
-                            >
-                                @foreach($availableQuantities as $qtyOption)
-                                    <option value="{{ $qtyOption }}" @selected($qtyOption === $defaultQuantity)>
-                                        {{ $qtyOption }} unidades
-                                    </option>
-                                @endforeach
-                            </select>
+                            @if(($quantityOption['type'] ?? 'select') === 'number')
+                                <input
+                                    type="number"
+                                    class="form-control form-control-lg"
+                                    id="quantity"
+                                    name="options[quantity]"
+                                    data-option-field="quantity"
+                                    value="{{ $defaultQuantity }}"
+                                    min="{{ $minQuantity }}"
+                                    step="{{ $quantityOption['step'] ?? 1 }}"
+                                    required
+                                >
+                            @else
+                                <select
+                                    class="form-select form-select-lg"
+                                    id="quantity"
+                                    name="options[quantity]"
+                                    data-option-field="quantity"
+                                >
+                                    @foreach($availableQuantities as $qtyOption)
+                                        <option value="{{ $qtyOption }}" @selected($qtyOption === $defaultQuantity)>
+                                            {{ $qtyOption }} unidades
+                                        </option>
+                                    @endforeach
+                                </select>
+                            @endif
                             <div class="quantity-warning" id="quantity-warning">
                                 Ajustamos a tiragem mínima para 300 unidades por causa desta configuração de papel.
                             </div>
@@ -439,6 +459,10 @@
                 const optionFields = document.querySelectorAll('[data-option-field]');
                 const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
                 const markupFactor = parseFloat(@json($markupFactor ?? 1)) || 1;
+                let lastValidTotal = parseFloat(@json($initialPriceValue ?? 0)) || null;
+                if (lastValidTotal && submitBtn) {
+                    submitBtn.removeAttribute('disabled');
+                }
 
                 let debounce;
                 let inflight = false;
@@ -456,10 +480,24 @@
                         const key = field.dataset.optionField;
                         if (!key) return;
                         let value = field.value;
+                        
+                        // Para selects, pegar o valor selecionado
                         if (field.tagName === 'SELECT') {
                             const selected = field.options[field.selectedIndex];
                             value = selected ? selected.value : '';
                         }
+                        // Para inputs number, manter como número (será convertido no backend se necessário)
+                        else if (field.type === 'number') {
+                            value = field.value ? parseInt(field.value, 10) : field.value;
+                        }
+                        
+                        // Mapeamento especial para apostila - folhas_miolo
+                        if (slug === 'impressao-de-apostila') {
+                            // folhas_miolo_1: backend converterá para "Miolo X folhas"
+                            // folhas_miolo_2: backend converterá para "NÃO TEM MIOLO 2" se necessário
+                            // Não precisa fazer nada aqui, o backend faz a conversão
+                        }
+                        
                         opts[key] = value;
                     });
                     return opts;
@@ -483,8 +521,18 @@
 
                 function requestPrice() {
                     const options = gatherOptions();
-                    let quantity = Math.max(50, parseInt(options.quantity ?? '50', 10) || 50);
+                    // Para apostila, quantidade mínima é 20, para outros produtos é 50
+                    const minQuantity = slug === 'impressao-de-apostila' ? 20 : 50;
+                    let quantity = Math.max(minQuantity, parseInt(options.quantity ?? minQuantity.toString(), 10) || minQuantity);
                     options.quantity = quantity;
+                    
+                    // Atualizar o input HTML para refletir a quantidade mínima
+                    if (quantityInput && parseInt(quantityInput.value, 10) < minQuantity) {
+                        quantityInput.value = minQuantity;
+                        quantity = minQuantity;
+                        options.quantity = minQuantity;
+                    }
+                    
                     applyQuantityRules(options);
                     quantity = options.quantity;
 
@@ -530,6 +578,7 @@
                                     }
                                 }
 
+                                lastValidTotal = adjustedTotal;
                                 submitBtn?.removeAttribute('disabled');
                             } else {
                                 throw new Error(data.error || 'Não foi possível validar o preço.');
@@ -538,24 +587,42 @@
                         .catch((error) => {
                             inflight = false;
                             console.error('Erro ao buscar preço:', error);
-                            finalPriceInput.value = '';
-                            finalDetailsInput.value = '';
-                            submitBtn?.setAttribute('disabled', 'disabled');
+                            if (lastValidTotal) {
+                                // Mantém último valor válido e permite adicionar ao carrinho
+                                submitBtn?.removeAttribute('disabled');
+                            } else {
+                                finalPriceInput.value = '';
+                                finalDetailsInput.value = '';
+                                submitBtn?.setAttribute('disabled', 'disabled');
+                            }
                         });
                 }
 
                 optionFields.forEach((field) => {
                     const handler = () => {
+                        if (inflight) return;
                         if (debounce) clearTimeout(debounce);
                         debounce = setTimeout(requestPrice, 450);
                     };
 
-                    field.addEventListener('change', handler);
+                    // Para inputs, usar 'input' e 'change' para capturar digitação e seleção
                     if (field.tagName === 'INPUT') {
                         field.addEventListener('input', handler);
+                        field.addEventListener('change', handler);
+                        field.addEventListener('blur', handler); // Também capturar quando sair do campo
+                    } else {
+                        // Para selects, usar apenas 'change'
+                        field.addEventListener('change', handler);
                     }
                 });
 
+                // Para apostila, garantir que quantidade inicial seja 20
+                if (slug === 'impressao-de-apostila' && quantityInput) {
+                    const currentValue = parseInt(quantityInput.value, 10) || 20;
+                    if (currentValue < 20) {
+                        quantityInput.value = 20;
+                    }
+                }
                 requestPrice();
             });
         </script>

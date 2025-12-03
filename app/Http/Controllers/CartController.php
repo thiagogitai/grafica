@@ -76,8 +76,15 @@ class CartController extends Controller
             }
         }
 
-        // Garantir quantidade mínima de 50 para produtos que precisam validação
-        $quantity = max(50, (int) $quantity);
+        // Garantir quantidade mínima por produto (alguns aceitam 20 unidades)
+        $minQuantityBySlug = [
+            'impressao-de-apostila' => 20,
+            'impressao-de-tabloide' => 20,
+        ];
+        $minQuantity = $minQuantityBySlug[$pricingSlug ?? ''] ?? 50;
+        $quantity = max($minQuantity, (int) $quantity);
+        // Atualiza também no array de opções para manter consistência com o frontend
+        $options['quantity'] = $quantity;
 
         // Calcula preço: se houver config JSON do produto, usa as regras do JSON (preço final + extras)
         $slugAliases = [
@@ -132,6 +139,7 @@ class CartController extends Controller
 
         $unitPrice = 0;
         $lineTotal = 0;
+        $skipMarkup = false; // Se usarmos preço já com markup vindo do front, não aplicar markup novamente
 
         if ($requiresMatrixValidation) {
             // VALIDAÇÃO DUPLA: Validar preço antes de adicionar ao carrinho
@@ -150,20 +158,30 @@ class CartController extends Controller
             $validationResult = json_decode($validationResponse->getContent(), true);
             
             if (!($validationResult['success'] ?? false) || !($validationResult['validated'] ?? false)) {
-                if ($request->wantsJson()) {
-                    return response()->json([
-                        'success' => false,
-                        'message' => 'Erro ao validar preço no checkout. Por favor, tente novamente.',
-                        'error' => 'Validação de preço falhou no checkout'
-                    ], 400);
+                // Se o front já enviou um preço calculado previamente, usar como fallback para não travar o fluxo
+                $postedTotal = (float) ($request->input('price') ?? 0);
+                if ($postedTotal <= 0) {
+                    if ($request->wantsJson()) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Erro ao validar preço no checkout. Por favor, tente novamente.',
+                            'error' => 'Validação de preço falhou no checkout'
+                        ], 400);
+                    }
+                    return redirect()->back()->withErrors(['price' => 'Erro ao validar preço no checkout. Por favor, tente novamente.']);
                 }
-                return redirect()->back()->withErrors(['price' => 'Erro ao validar preço no checkout. Por favor, tente novamente.']);
+
+                // Considera preço já com markup (veio do front-end), então não aplicar markup novamente
+                $totalPrice = $postedTotal;
+                $skipMarkup = true;
+                $unitPrice = $totalPrice / max(1, $quantity);
+                $lineTotal = $totalPrice;
+            } else {
+                // Usar preço validado
+                $totalPrice = (float) ($validationResult['price'] ?? 0);
+                $unitPrice = $totalPrice / max(1, $quantity);
+                $lineTotal = $totalPrice;
             }
-            
-            // Usar preço validado
-            $totalPrice = (float) ($validationResult['price'] ?? 0);
-            $unitPrice = $totalPrice / max(1, $quantity);
-            $lineTotal = $totalPrice;
         } else if ($config) {
             // Preço unitário derivado da configuração (fallback: soma de increments)
             $unitPrice = ProductConfig::computePrice($config, array_merge($options, ['quantity' => $quantity]), $product->price) / max(1, $quantity);
@@ -222,13 +240,14 @@ class CartController extends Controller
             if ($postedTotal > 0) {
                 $lineTotal = $postedTotal;
                 $unitPrice = $postedTotal / max(1, $quantity);
+                $skipMarkup = true;
             }
         }
 
         $unitPrice = $unitPrice ?? 0;
         $lineTotal = $lineTotal ?? ($unitPrice * max(1, $quantity));
         $markupFactor = Pricing::multiplierFor($product, true);
-        if ($markupFactor !== 1.0) {
+        if ($markupFactor !== 1.0 && !$skipMarkup) {
             $unitPrice *= $markupFactor;
             $lineTotal *= $markupFactor;
         }

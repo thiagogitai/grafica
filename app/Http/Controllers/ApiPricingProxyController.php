@@ -113,8 +113,15 @@ class ApiPricingProxyController extends Controller
             
             // Mapear opções para Keys NA ORDEM CORRETA DOS SELECTS
             $options = [];
+            // Carregar field-keys para uso de chave por campo (resolve conflitos de textos iguais)
+            $fieldKeys = [];
+            $fieldKeysPath = base_path("resources/data/products/{$productSlug}-field-keys.json");
+            if (file_exists($fieldKeysPath)) {
+                $fieldData = json_decode(file_get_contents($fieldKeysPath), true);
+                $fieldKeys = $fieldData['fields'] ?? [];
+            }
             
-            // Para impressao-de-livro e impressao-de-revista, usar ordem específica dos selects
+            // Para impressao-de-livro, impressao-de-revista e impressao-de-apostila, usar ordem específica dos selects
             if ($productSlug === 'impressao-de-livro') {
                 $ordemSelects = [
                     0 => 'formato_miolo_paginas',
@@ -160,7 +167,17 @@ class ApiPricingProxyController extends Controller
                         continue;
                     }
                     
-                    $valorStr = (string) $opcoes[$campo];
+                    $valorRaw = $opcoes[$campo];
+                    // Se já vier um array com Key/Value, usar direto
+                    if (is_array($valorRaw) && isset($valorRaw['Key'])) {
+                        $options[] = [
+                            'Key' => $valorRaw['Key'],
+                            'Value' => $valorRaw['Value'] ?? ''
+                        ];
+                        continue;
+                    }
+
+                    $valorStr = (string) $valorRaw;
                     $valorStrTrimmed = trim($valorStr);
                     $valorComEspaco = $valorStrTrimmed . ' ';
                     
@@ -273,7 +290,16 @@ class ApiPricingProxyController extends Controller
                         continue;
                     }
                     
-                    $valorStr = (string) $opcoes[$campo];
+                    $valorRaw = $opcoes[$campo];
+                    if (is_array($valorRaw) && isset($valorRaw['Key'])) {
+                        $options[] = [
+                            'Key' => $valorRaw['Key'],
+                            'Value' => $valorRaw['Value'] ?? ''
+                        ];
+                        continue;
+                    }
+
+                    $valorStr = (string) $valorRaw;
                     $valorStrTrimmed = trim($valorStr);
                     
                     // Tentar match exato (com e sem trim)
@@ -334,6 +360,109 @@ class ApiPricingProxyController extends Controller
                         Log::warning("Key não encontrada para: {$campo} = {$valorStr} (melhor score: {$melhorScore})");
                     }
                 }
+            } elseif ($productSlug === 'impressao-de-apostila') {
+                // Ordem específica para impressao-de-apostila
+                $ordemSelects = [
+                    0 => 'formato',
+                    1 => 'papel_capa',
+                    2 => 'cores_capa',
+                    3 => 'acabamento_capa',
+                    4 => 'contra_capa',
+                    5 => 'papel_miolo_1',
+                    6 => 'cores_miolo_1',
+                    7 => 'folhas_miolo_1',
+                    8 => 'acabamento_miolo',
+                    9 => 'papel_miolo_2',
+                    10 => 'cores_miolo_2',
+                    11 => 'folhas_miolo_2',
+                    12 => 'option_12',
+                    13 => 'extras',
+                    14 => 'formato_arquivo',
+                    15 => 'verificacao_arquivo',
+                    16 => 'prazo_entrega',
+                ];
+
+                foreach ($ordemSelects as $campo) {
+                    if (!isset($opcoes[$campo]) || $campo === 'quantity') {
+                        continue;
+                    }
+
+                    $valorRaw = $opcoes[$campo];
+                    if (is_array($valorRaw) && isset($valorRaw['Key'])) {
+                        $options[] = [
+                            'Key' => $valorRaw['Key'],
+                            'Value' => $valorRaw['Value'] ?? ''
+                        ];
+                        continue;
+                    }
+
+                    // Converter números de folhas para texto esperado
+                    if (in_array($campo, ['folhas_miolo_1', 'folhas_miolo_2'], true) && is_numeric($valorRaw)) {
+                        $num = (int) $valorRaw;
+                        if ($campo === 'folhas_miolo_2' && $num <= 0) {
+                            $valorRaw = 'NÃO TEM MIOLO 2';
+                        } else {
+                            $valorRaw = "Miolo {$num} folhas";
+                        }
+                    }
+                    if ($campo === 'folhas_miolo_2' && is_string($valorRaw) && trim($valorRaw) === '') {
+                        $valorRaw = 'NÃO TEM MIOLO 2';
+                    }
+
+                    $valorStr = (string) $valorRaw;
+                    $valorStrTrimmed = trim($valorStr);
+                    $valorComEspaco = $valorStrTrimmed . ' ';
+
+                    // Se houver key definida no field-keys, usar prioritariamente
+                    $campoKey = $fieldKeys[$campo]['key'] ?? null;
+                    if ($campoKey) {
+                        $options[] = ['Key' => $campoKey, 'Value' => $valorStr];
+                        continue;
+                    }
+
+                    // Match exato (com e sem trim, com espaço)
+                    if (isset($keysMap[$valorComEspaco])) {
+                        $options[] = ['Key' => $keysMap[$valorComEspaco], 'Value' => $valorComEspaco];
+                        continue;
+                    }
+                    if (isset($keysMap[$valorStr])) {
+                        $options[] = ['Key' => $keysMap[$valorStr], 'Value' => $valorStr];
+                        continue;
+                    }
+                    if (isset($keysMap[$valorStrTrimmed])) {
+                        $options[] = ['Key' => $keysMap[$valorStrTrimmed], 'Value' => $valorStrTrimmed];
+                        continue;
+                    }
+
+                    // Match case-insensitive/parcial
+                    $melhorMatch = null;
+                    $melhorScore = 0;
+                    foreach ($keysMap as $texto => $key) {
+                        $textoTrim = trim($texto);
+                        $score = 0;
+                        if (strcasecmp($textoTrim, $valorStrTrimmed) === 0) {
+                            $score = ($texto === $valorStr) ? 100 : 90;
+                            if (substr($texto, -1) === ' ') {
+                                $score += 10;
+                            }
+                            if ($score > $melhorScore) {
+                                $melhorMatch = ['Key' => $key, 'Value' => $texto];
+                                $melhorScore = $score;
+                            }
+                        } elseif ($melhorScore < 80 && (stripos($textoTrim, $valorStrTrimmed) !== false || stripos($valorStrTrimmed, $textoTrim) !== false)) {
+                            $score = 50 - abs(strlen($textoTrim) - strlen($valorStrTrimmed));
+                            if ($score > $melhorScore) {
+                                $melhorMatch = ['Key' => $key, 'Value' => $texto];
+                                $melhorScore = $score;
+                            }
+                        }
+                    }
+                    if ($melhorMatch && $melhorScore >= 50) {
+                        $options[] = $melhorMatch;
+                    } else {
+                        Log::warning("Key não encontrada para: {$campo} = {$valorStr} (melhor score: {$melhorScore})");
+                    }
+                }
             } else {
                 // Para outros produtos, manter ordem original
                 foreach ($opcoes as $campo => $valor) {
@@ -377,6 +506,8 @@ class ApiPricingProxyController extends Controller
                 $minOptions = 15; // 15 opções obrigatórias (posições 0-14, pulando 9)
             } elseif ($productSlug === 'impressao-de-revista') {
                 $minOptions = 16; // 16 campos (0-15)
+            } elseif ($productSlug === 'impressao-de-apostila') {
+                $minOptions = 17; // 17 campos (0-16)
             }
             
             // Log detalhado para debug

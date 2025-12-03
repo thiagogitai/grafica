@@ -280,16 +280,16 @@
                     "label": "Offset 75gr"
                 },
                 {
-                    "value": "P├│len Natural 80g",
-                    "label": "P├│len Natural 80g"
+                    "value": "Pólen Natural 80g",
+                    "label": "Pólen Natural 80g"
                 },
                 {
-                    "value": "P├│len Bold 70g",
-                    "label": "P├│len Bold 70g"
+                    "value": "Pólen Bold 70g",
+                    "label": "Pólen Bold 70g"
                 },
                 {
-                    "value": "P├│len Bold 90g",
-                    "label": "P├│len Bold 90g"
+                    "value": "Pólen Bold 90g",
+                    "label": "Pólen Bold 90g"
                 },
                 {
                     "value": "Offset 90gr",
@@ -300,8 +300,8 @@
                     "label": "Impressão Offset - >500unidades"
                 },
                 {
-                    "value": "P├│len Natural 70g",
-                    "label": "P├│len Natural 70g"
+                    "value": "Pólen Natural 70g",
+                    "label": "Pólen Natural 70g"
                 },
                 {
                     "value": "Offset 70gr",
@@ -1266,8 +1266,8 @@
                     "label": "offset 180g - Com Impressão 4x4 Escala"
                 },
                 {
-                    "value": "Verg├¬ Madrep├®rola180g (Creme) - sem impress├úo",
-                    "label": "Verg├¬ Madrep├®rola180g (Creme) - sem impress├úo"
+                    "value": "Vergê Madrepérola 180g (Creme) - sem impressão",
+                    "label": "Vergê Madrepérola 180g (Creme) - sem impressão"
                 },
                 {
                     "value": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala",
@@ -1331,8 +1331,8 @@
                     "label": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen"
                 },
                 {
-                    "value": "Prova de Cor Impressa Xerox Igen + Prot├│tipo no Papel com Acabamentos (exceto UV)",
-                    "label": "Prova de Cor Impressa Xerox Igen + Prot├│tipo no Papel com Acabamentos (exceto UV)"
+                    "value": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)",
+                    "label": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)"
                 }
             ]
         },

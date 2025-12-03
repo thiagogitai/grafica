@@ -7,7 +7,7 @@
             "name": "quantity",
             "label": "1- Quantidade",
             "type": "number",
-            "default": 50,
+            "default": 100,
             "min": 50,
             "step": 1
         },
@@ -104,7 +104,8 @@
                     "value": "300x280mm",
                     "label": "300x280mm"
                 }
-            ]
+            ],
+            "default": "105x148mm (A6)"
         },
         {
             "name": "papel_capa",
@@ -151,7 +152,8 @@
                     "value": "Couche Brilho 250g Importado",
                     "label": "Couche Brilho 250g Importado"
                 }
-            ]
+            ],
+            "default": "Cartão Triplex 250gr "
         },
         {
             "name": "cores_capa",
@@ -190,7 +192,8 @@
                     "value": "5 cores Frente x 1 cor Pantone Verso",
                     "label": "5 cores Frente x 1 cor Pantone Verso"
                 }
-            ]
+            ],
+            "default": "4 cores Frente"
         },
         {
             "name": "orelha_capa",
@@ -241,7 +244,8 @@
                     "value": "COM Orelha de 14cm",
                     "label": "COM Orelha de 14cm"
                 }
-            ]
+            ],
+            "default": "SEM ORELHA"
         },
         {
             "name": "acabamento_capa",
@@ -268,7 +272,8 @@
                     "value": "Sem Acabamento",
                     "label": "Sem Acabamento"
                 }
-            ]
+            ],
+            "default": "Laminação FOSCA FRENTE (Acima de 240g)"
         },
         {
             "name": "papel_miolo",
@@ -323,7 +328,8 @@
                     "value": "Couche Fosco 170gr",
                     "label": "Couche Fosco 170gr"
                 }
-            ]
+            ],
+            "default": "Couche brilho 90gr"
         },
         {
             "name": "cores_miolo",
@@ -338,7 +344,8 @@
                     "value": "1 cor frente e verso PRETO",
                     "label": "1 cor frente e verso PRETO"
                 }
-            ]
+            ],
+            "default": "4 cores frente e verso"
         },
         {
             "name": "miolo_sangrado",
@@ -353,7 +360,8 @@
                     "value": "SIM",
                     "label": "SIM"
                 }
-            ]
+            ],
+            "default": "NÃO"
         },
         {
             "name": "quantidade_paginas_miolo",
@@ -1768,7 +1776,8 @@
                     "value": "Miolo 1412 páginas",
                     "label": "Miolo 1412 páginas"
                 }
-            ]
+            ],
+            "default": "Miolo 8 páginas"
         },
         {
             "name": "acabamento_miolo",
@@ -1779,7 +1788,8 @@
                     "value": "Dobrado",
                     "label": "Dobrado"
                 }
-            ]
+            ],
+            "default": "Dobrado"
         },
         {
             "name": "acabamento_livro",
@@ -1790,7 +1800,8 @@
                     "value": "Grampeado - 2 grampos",
                     "label": "Grampeado - 2 grampos"
                 }
-            ]
+            ],
+            "default": "Grampeado - 2 grampos"
         },
         {
             "name": "guardas_livro",
@@ -1810,18 +1821,19 @@
                     "label": "offset 180g - Com Impressão 4x4 Escala"
                 },
                 {
-                    "value": "Verg├¬ Madrep├®rola180g (Creme) - sem impress├úo",
-                    "label": "Verg├¬ Madrep├®rola180g (Creme) - sem impress├úo"
+                    "value": "Vergê Madrepérola 180g (Creme) - sem impressão",
+                    "label": "Vergê Madrepérola 180g (Creme) - sem impressão"
                 },
                 {
-                    "value": "Verg├¬ Madrep├®rola180g (Creme) - Com Impress├úo 4x4 Escala",
-                    "label": "Verg├¬ Madrep├®rola180g (Creme) - Com Impress├úo 4x4 Escala"
+                    "value": "Vergê Madrepérola 180g (Creme) - Com Impressão 4x4 Escala",
+                    "label": "Vergê Madrepérola 180g (Creme) - Com Impressão 4x4 Escala"
                 },
                 {
                     "value": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala",
                     "label": "Couche 170g + Laminação Fosca 1 lado - Com Impressão 4x4 Escala"
                 }
-            ]
+            ],
+            "default": "SEM GUARDAS"
         },
         {
             "name": "extras",
@@ -1856,7 +1868,8 @@
                     "value": "Shrink Coletivo c/ 50 peças",
                     "label": "Shrink Coletivo c/ 50 peças"
                 }
-            ]
+            ],
+            "default": "Nenhum"
         },
         {
             "name": "frete",
@@ -1871,7 +1884,8 @@
                     "value": "Cliente Retira",
                     "label": "Cliente Retira"
                 }
-            ]
+            ],
+            "default": "Incluso"
         },
         {
             "name": "verificacao_arquivo",
@@ -1899,10 +1913,11 @@
                     "label": "Capa+ Miolo: Prova de Cor Impressa no Papel - Xerox Igen"
                 },
                 {
-                    "value": "Prova de Cor Impressa Xerox Igen + Prot├│tipo no Papel com Acabamentos (exceto UV)",
-                    "label": "Prova de Cor Impressa Xerox Igen + Prot├│tipo no Papel com Acabamentos (exceto UV)"
+                    "value": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)",
+                    "label": "Prova de Cor Impressa Xerox Igen + Protótipo no Papel com Acabamentos (exceto UV)"
                 }
-            ]
+            ],
+            "default": "Sem Aprovação - Cliente Envia PDF Pronto Para Impressão - (Grátis)"
         },
         {
             "name": "prazo_entrega",
@@ -1913,7 +1928,8 @@
                     "value": "Padrão: 10 dias úteis de Produção + tempo de FRETE*",
                     "label": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
                 }
-            ]
+            ],
+            "default": "Padrão: 10 dias úteis de Produção + tempo de FRETE*"
         }
     ]
 }
