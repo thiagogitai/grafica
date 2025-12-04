@@ -43,6 +43,89 @@
 </section>
 @endif
 
+<!-- All Products -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Todos os produtos</h2>
+                <p class="text-muted mb-0">Conheça nosso catálogo completo</p>
+            </div>
+            <a href="{{ route('products.catalog') }}" class="btn btn-outline-primary">
+                Ver todos os produtos
+            </a>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @forelse($products->take(6) as $product)
+                <div class="col">
+                    <div class="card h-100 product-card">
+                        @php
+                            $productImage = '';
+                            if ($product->templateType() === \App\Models\Product::TEMPLATE_FLYER || preg_match('/impressÆo em papel a4/i', $product->name)) {
+                                $productImage = 'folder.png';
+                            } elseif (preg_match('/cartÆo/i', $product->name)) {
+                                $productImage = 'cartao.png';
+                            } elseif (preg_match('/livro/i', $product->name)) {
+                                $productImage = 'livro.png';
+                            } elseif (preg_match('/banner/i', $product->name)) {
+                                $productImage = 'banner.png';
+                            }
+                            $usesConfigTemplate = method_exists($product, 'usesConfigTemplate') ? $product->usesConfigTemplate() : false;
+                            $isFlyerTemplate = $product->templateType() === \App\Models\Product::TEMPLATE_FLYER;
+                            $shouldHidePrice = ($requestOnlyGlobal ?? false) || $product->request_only || $usesConfigTemplate || $isFlyerTemplate;
+                        @endphp
+                        @if($productImage)
+                            <img src="{{ asset($productImage) }}" class="card-img-top" alt="{{ $product->name }}">
+                        @elseif($product->image)
+                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                        @else
+                            <img src="https://source.unsplash.com/300x200/?{{ urlencode($product->name) }}" class="card-img-top" alt="{{ $product->name }}">
+                        @endif
+                        <div class="card-body d-flex flex-column">
+                            @if($product->templateType() === \App\Models\Product::TEMPLATE_FLYER || preg_match('/impressÆo em papel a4/i', $product->name))
+                                <h5 class="card-title fw-bold">impressÆo de flyer/panfleto</h5>
+                                <p class="card-text small text-muted">{{ Str::limit($product->description, 80) }}</p>
+                                <div class="mt-auto">
+                                    @if($shouldHidePrice)
+                                        <p class="text-muted small mb-2"> Solicite um or‡amento e receba os valores personalizados.</p>
+                                    @else
+                                        <span class="h5 text-primary fw-bold price-tag">A partir de...</span>
+                                    @endif
+                                    <div class="d-grid mt-2">
+                                        <a href="{{ route('product.show', $product) }}" class="btn btn-primary">
+                                            {{ $shouldHidePrice ? 'Ver detalhes' : 'Ver op‡äes' }}
+                                        </a>
+                                    </div>
+                                </div>
+                            @else
+                                <h5 class="card-title fw-bold">{{ $product->name }}</h5>
+                                <p class="card-text small text-muted">{{ Str::limit($product->description, 80) }}</p>
+                                <div class="mt-auto">
+                                    @if($shouldHidePrice)
+                                        <p class="text-muted small mb-2">Solicite um or‡amento personalizado com nossa equipe.</p>
+                                        <div class="d-grid">
+                                            <a href="{{ route('product.show', $product) }}" class="btn btn-outline-primary">Ver detalhes</a>
+                                        </div>
+                                    @else
+                                        <span class="h5 text-primary fw-bold price-tag">R$ {{ number_format($product->price, 2, ',', '.') }}</span>
+                                        <div class="d-grid mt-2">
+                                            <a href="{{ route('product.show', $product) }}" class="btn btn-primary">Ver produto</a>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12">
+                    <div class="alert alert-info text-center">Nenhum produto dispon¡vel no momento.</div>
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
+
 <!-- Featured Products -->
 <section id="produtos" class="py-5 bg-light">
     <div class="container">
