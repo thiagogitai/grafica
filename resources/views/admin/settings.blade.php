@@ -273,6 +273,53 @@
                                 <small class="text-muted">Credenciais fornecidas pela Loggi para cálculo e rastreio.</small>
                             </div>
                         </div>
+
+                        <hr class="my-4">
+                        <h6 class="text-uppercase text-muted small mb-3">Frete / Orçamento</h6>
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-md-6">
+                                <label for="shipping_provider" class="form-label">Modo de frete</label>
+                                <select class="form-select @error('shipping_provider') is-invalid @enderror" id="shipping_provider" name="shipping_provider">
+                                    <option value="orcamento" {{ old('shipping_provider', $settings['shipping_provider'] ?? 'orcamento') === 'orcamento' ? 'selected' : '' }}>Somente orçamento (calcular depois)</option>
+                                    <option value="correios" {{ old('shipping_provider', $settings['shipping_provider'] ?? 'orcamento') === 'correios' ? 'selected' : '' }}>Correios (contrato)</option>
+                                    <option value="loggi" {{ old('shipping_provider', $settings['shipping_provider'] ?? 'orcamento') === 'loggi' ? 'selected' : '' }}>Loggi</option>
+                                    <option value="melhorenvio" {{ old('shipping_provider', $settings['shipping_provider'] ?? 'orcamento') === 'melhorenvio' ? 'selected' : '' }}>Melhor Envio</option>
+                                </select>
+                                @error('shipping_provider')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                <small class="text-muted d-block">Escolha se o frete será calculado via API ou mantido como orçamento.</small>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-12 col-md-4">
+                                <label for="correios_user" class="form-label">Correios: Usuário</label>
+                                <input type="text" class="form-control @error('correios_user') is-invalid @enderror" id="correios_user" name="correios_user" value="{{ old('correios_user', $settings['correios_user'] ?? '') }}">
+                                @error('correios_user')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label for="correios_password" class="form-label">Correios: Senha</label>
+                                <input type="text" class="form-control @error('correios_password') is-invalid @enderror" id="correios_password" name="correios_password" value="{{ old('correios_password', $settings['correios_password'] ?? '') }}">
+                                @error('correios_password')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <label for="correios_contract" class="form-label">Correios: Cód./Contrato</label>
+                                <input type="text" class="form-control @error('correios_contract') is-invalid @enderror" id="correios_contract" name="correios_contract" value="{{ old('correios_contract', $settings['correios_contract'] ?? '') }}">
+                                @error('correios_contract')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="melhorenvio_token" class="form-label">Melhor Envio: Token</label>
+                                <input type="text" class="form-control @error('melhorenvio_token') is-invalid @enderror" id="melhorenvio_token" name="melhorenvio_token" value="{{ old('melhorenvio_token', $settings['melhorenvio_token'] ?? '') }}">
+                                @error('melhorenvio_token')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label for="melhorenvio_secret" class="form-label">Melhor Envio: Secret</label>
+                                <input type="text" class="form-control @error('melhorenvio_secret') is-invalid @enderror" id="melhorenvio_secret" name="melhorenvio_secret" value="{{ old('melhorenvio_secret', $settings['melhorenvio_secret'] ?? '') }}">
+                                @error('melhorenvio_secret')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

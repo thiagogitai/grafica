@@ -180,6 +180,12 @@ class AdminController extends Controller
             'loggi_api_token' => \App\Models\Setting::get('loggi_api_token'),
             'loggi_account_id' => \App\Models\Setting::get('loggi_account_id'),
             'footer_text' => \App\Models\Setting::get('footer_text', ''),
+            'shipping_provider' => \App\Models\Setting::get('shipping_provider', 'orcamento'),
+            'correios_user' => \App\Models\Setting::get('correios_user'),
+            'correios_password' => \App\Models\Setting::get('correios_password'),
+            'correios_contract' => \App\Models\Setting::get('correios_contract'),
+            'melhorenvio_token' => \App\Models\Setting::get('melhorenvio_token'),
+            'melhorenvio_secret' => \App\Models\Setting::get('melhorenvio_secret'),
             'social_links' => $socialLinks,
             'about_title' => \App\Models\Setting::get('about_title'),
             'about_description' => \App\Models\Setting::get('about_description'),
@@ -202,6 +208,12 @@ class AdminController extends Controller
             'loggi_api_token' => 'nullable|string|max:255',
             'loggi_account_id' => 'nullable|string|max:255',
             'footer_text' => 'nullable|string|max:500',
+            'shipping_provider' => 'required|string|in:orcamento,correios,loggi,melhorenvio',
+            'correios_user' => 'nullable|string|max:255',
+            'correios_password' => 'nullable|string|max:255',
+            'correios_contract' => 'nullable|string|max:255',
+            'melhorenvio_token' => 'nullable|string|max:255',
+            'melhorenvio_secret' => 'nullable|string|max:255',
             'social_links' => 'nullable|array',
             'social_links.*' => 'nullable|string|max:255',
             'about_title' => 'required|string|max:255',
@@ -240,6 +252,12 @@ class AdminController extends Controller
         if ($request->has('loggi_account_id')) {
             \App\Models\Setting::set('loggi_account_id', $request->loggi_account_id);
         }
+        \App\Models\Setting::set('shipping_provider', $request->shipping_provider);
+        \App\Models\Setting::set('correios_user', $request->correios_user);
+        \App\Models\Setting::set('correios_password', $request->correios_password);
+        \App\Models\Setting::set('correios_contract', $request->correios_contract);
+        \App\Models\Setting::set('melhorenvio_token', $request->melhorenvio_token);
+        \App\Models\Setting::set('melhorenvio_secret', $request->melhorenvio_secret);
         \App\Models\Setting::set('disable_price_editor', $request->boolean('disable_price_editor'));
         if ($request->has('footer_text')) {
             \App\Models\Setting::set('footer_text', $request->footer_text ?? '');
