@@ -116,8 +116,8 @@
             <div class="container">
                 @include('components.logo')
                 <div class="d-flex flex-grow-1 justify-content-center">
-                    <form class="d-flex w-75" method="GET" action="#">
-                        <input class="form-control me-2" type="search" name="search" placeholder="O que vocÃª procura?" aria-label="Search">
+                    <form class="d-flex w-75" method="GET" action="{{ route('products.catalog') }}">
+                        <input class="form-control me-2" type="search" name="q" placeholder="O que você procura?" aria-label="Buscar" value="{{ request('q') }}">
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search"></i>
                         </button>
