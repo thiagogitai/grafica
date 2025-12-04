@@ -42,6 +42,7 @@ class Product extends Model
     public static function templateOptions(): array
     {
         return [
+            self::TEMPLATE_CONFIG_AUTO => 'Template configurável (auto)',
             self::templateOptionKey('impressao-de-livro') => 'Template: Livro',
             self::templateOptionKey('impressao-de-revista') => 'Template: Revista',
             self::templateOptionKey('impressao-de-apostila') => 'Template: Apostila',
