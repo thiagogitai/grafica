@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/products', [HomeController::class, 'catalog'])->name('products.catalog');
 Route::get('/product/{product}', [HomeController::class, 'show'])->name('product.show');
 Route::post('/product/{product}/analyze-pdf', [ProductController::class, 'analyzePdf'])->name('product.analyze-pdf');
 

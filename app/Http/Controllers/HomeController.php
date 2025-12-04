@@ -22,6 +22,23 @@ class HomeController extends Controller
         // $this->middleware('auth');
     }
 
+    public function catalog(Request $request)
+    {
+        $query = Product::query();
+        if ($search = trim((string) $request->get('q', ''))) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                  ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+        $products = $query->orderBy('name')->get();
+
+        return view('products.catalog', [
+            'products' => $products,
+            'search' => $search,
+        ]);
+    }
+
     /**
      * Show the application dashboard.
      *
